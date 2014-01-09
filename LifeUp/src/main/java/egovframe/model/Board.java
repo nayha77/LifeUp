@@ -1,21 +1,25 @@
 package egovframe.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Map;
 
+import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.BeanUtils;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 
-public class Board {
+public class Board extends SqlSessionDaoSupport {
 
     String name;
     String description;
     Set<Post> posts = new TreeSet<Post>();
-    
     
     public Board(String name, String description) {
         this.name = name;
@@ -27,7 +31,16 @@ public class Board {
 
     public String getDescription() { return description; }
 
-    public Set<Post> getPosts() { return Collections.unmodifiableSet(posts); }
+  //public Set<Post> getPosts() { return Collections.unmodifiableSet(posts); }
+    public  List<HashMap<String, Object>>  getPosts(){
+    	Object rowMap = null;
+		 System.out.println("--------------------" + rowMap);
+		 List<HashMap<String, Object>> testTableList = new ArrayList<HashMap<String, Object>>();
+		 testTableList = getSqlSession().selectList("main.getList");
+		// System.out.println("--------------------" + testTableList);
+
+    	return  testTableList ; 	
+    	}
 
     
     public Post findPost(final Long postNo) {
@@ -51,7 +64,7 @@ public class Board {
     public Post editing(Post post) {
         Post origin = Iterables.find(posts, Predicates.equalTo(post), null);
         if(origin == null)
-            throw new IllegalArgumentException("수정할 글(no:" + post.getNo() + ")이 없습니다.");
+            throw new IllegalArgumentException("�섏젙��湲�no:" + post.getNo() + ")���놁뒿�덈떎.");
         
         BeanUtils.copyProperties(post, origin);
         
@@ -60,7 +73,7 @@ public class Board {
     
     public Board erase(Post post) {
         if(!posts.contains(post))
-            throw new IllegalArgumentException("삭제할 글(no:" + post.getNo() + ")이 없습니다.");
+            throw new IllegalArgumentException("��젣��湲�no:" + post.getNo() + ")���놁뒿�덈떎.");
         
         posts.remove(post);
         

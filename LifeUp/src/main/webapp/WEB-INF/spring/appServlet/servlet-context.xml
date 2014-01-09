@@ -43,5 +43,20 @@
         </property>
         <property name="order" value="99"/>
     </bean>
+    
+   	<context:annotation-config />
+	
+
+		
+	<bean id="boardService" class="board.service.BoardServiceImpl">
+	<!--  property name 은 set name과 맵핑 -->
+		<property name="boarddao1" ref="boarddao2"/>
+	</bean>
+
+	
+	
+	<bean id="boarddao2" class="board.dao.BoardDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 
 </beans>
