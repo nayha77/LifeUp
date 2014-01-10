@@ -1,4 +1,4 @@
-package egovframe.mvc.support;
+package salesman.mvc.support;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,8 +9,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import egovframe.model.User;
-import egovframe.mvc.UserController;
+import salesman.model.User;
+import salesman.mvc.UserController;
 
 public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

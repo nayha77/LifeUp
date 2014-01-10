@@ -1,4 +1,4 @@
-package egovframe.etc;
+package salesman.etc;
 
 import static java.lang.System.out;
 

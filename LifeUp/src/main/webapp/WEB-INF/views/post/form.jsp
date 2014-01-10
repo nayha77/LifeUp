@@ -17,7 +17,7 @@
         </c:if>
     </div>
     <spring:url value="/${board.name}/post" var="action"/>
-    <form:form id="form" cssClass="form-horizontal" action="/egovframe/notice/post" method="${method}" modelAttribute="post">
+    <form:form id="form" cssClass="form-horizontal" action="/springmvc/notice/post" method="${method}" modelAttribute="post">
     <form:hidden path="no"/>
     <fieldset>
         <div class="control-group">

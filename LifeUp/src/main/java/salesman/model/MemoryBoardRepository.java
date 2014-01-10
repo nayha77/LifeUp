@@ -1,4 +1,4 @@
-package egovframe.model;
+package salesman.model;
 
 import java.util.HashMap;
 import java.util.Map;

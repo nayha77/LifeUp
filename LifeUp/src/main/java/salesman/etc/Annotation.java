@@ -1,4 +1,4 @@
-package egovframe.etc;
+package salesman.etc;
 
 import org.springframework.core.Ordered;
 

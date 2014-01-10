@@ -1,4 +1,4 @@
-package egovframe.mvc;
+package salesman.mvc;
 
 import java.util.Map;
 

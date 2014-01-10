@@ -1,11 +1,11 @@
-package egovframe.etc;
+package salesman.etc;
 
 import static java.lang.System.out;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import egovframe.model.Board;
+import salesman.model.Board;
 
 public class ReflectionAPI {
 

@@ -7,7 +7,7 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>Spring @MVC 기본기 다지기</title>
+	<title>HG ONE</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
@@ -45,7 +45,7 @@
                     <span class='icon-bar'></span>
                     <span class='icon-bar'></span>
 				</a>
-                <a class='brand' href='<spring:url value="/notice/post"/>'>Spring @MVC Example</a>
+                <a class='brand' href='<spring:url value="/notice/post"/>'>HG ONE :: </a>
                 <div class="btn-group pull-right">
                     <c:if test="${empty sessionScope.SESSION_USER_KEY}">
                     <button class="btn" onclick="$('#loginModal').modal('show')"><i class="icon-user"></i> 로그인</button>

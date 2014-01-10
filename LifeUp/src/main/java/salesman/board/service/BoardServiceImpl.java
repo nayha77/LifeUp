@@ -1,9 +1,10 @@
-package board.service;
+package salesman.board.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import board.dao.iBoarddao;
+import salesman.board.dao.iBoarddao;
+import salesman.model.Post;
 
 public class BoardServiceImpl implements iBoardService {
 	private iBoarddao boarddao1;
@@ -16,6 +17,12 @@ public class BoardServiceImpl implements iBoardService {
 	public List<HashMap<String, Object>> selectTestTable() {
 		// TODO Auto-generated method stub
 		return boarddao1.selectTestTable();
+	}
+
+	@Override
+	public int writeProc(Post post) {
+		// TODO Auto-generated method stub
+		return boarddao1.writeProc(post);
 	}
 
 }

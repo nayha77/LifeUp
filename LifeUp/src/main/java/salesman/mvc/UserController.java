@@ -1,4 +1,4 @@
-package egovframe.mvc;
+package salesman.mvc;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import egovframe.model.User;
+import salesman.model.User;
 
 @Controller
 public class UserController {

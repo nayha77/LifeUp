@@ -1,4 +1,4 @@
-package egovframe.model;
+package salesman.model;
 
 public class User {
 

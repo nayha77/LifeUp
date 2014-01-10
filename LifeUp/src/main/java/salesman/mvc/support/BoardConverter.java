@@ -1,11 +1,11 @@
-package egovframe.mvc.support;
+package salesman.mvc.support;
 
 import javax.inject.Inject;
 
 import org.springframework.core.convert.converter.Converter;
 
-import egovframe.model.Board;
-import egovframe.model.BoardRepository;
+import salesman.model.Board;
+import salesman.model.BoardRepository;
 
 public class BoardConverter implements Converter<String, Board> {
     

@@ -1,4 +1,4 @@
-package egovframe.mvc.old;
+package salesman.mvc.old;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

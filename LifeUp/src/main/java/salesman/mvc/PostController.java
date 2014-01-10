@@ -1,4 +1,4 @@
-package egovframe.mvc;
+package salesman.mvc;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import board.service.iBoardService;
-import egovframe.model.Board;
-import egovframe.model.Post;
+import salesman.board.service.iBoardService;
+import salesman.model.Board;
+import salesman.model.Post;
 
 @Controller
 @RequestMapping("/{board}/post")
@@ -46,8 +46,10 @@ public class PostController {
     
     @RequestMapping(method=RequestMethod.POST)
     public String writing(@PathVariable Board board, Post post) {
-        board.writing(post);
-        
+        //board.writing(post);
+    	int wireResult = boardService.writeProc(post);
+		
+		System.out.println(wireResult +" 건 입력");
         return "redirect:/{board}/post";
     }
     

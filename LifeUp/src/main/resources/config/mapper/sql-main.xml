@@ -8,14 +8,14 @@
 	  select now() 
 	</select>
 	
-	<insert id="formInsert"  parameterType="java.util.Map">
+	<insert id="formInsert">
 	
-	insert into board(title,content) value (#{title},#{content})
+	insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{writer},sysdate())
 	
 	</insert>
 	
 	<select id="getList"   resultType="java.util.HashMap">
-	select id,title,content from board
+	select id,title,reg_id from board
 	</select>
 	
 </mapper>

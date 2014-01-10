@@ -20,10 +20,10 @@
     </thead>
     <tbody>
     <c:forEach items="${posts}" var="post">
-    <tr onclick="document.location.href='<spring:url value="/${board.name}/post/${post.title}"/>';" style="cursor: pointer;">
-        <td class="txt_c">${post.title}</td>
-        <td>${post.content}</td>
-        <td class="txt_c">${post.title}</td>
+    <tr onclick="document.location.href='<spring:url value="/${board.name}/post/${post.id}"/>';" style="cursor: pointer;">
+        <td class="txt_c">${post.id}</td>
+        <td>${post.title}</td>
+        <td class="txt_c">${post.reg_id}</td>
     </tr>
     </c:forEach>
     </tbody>

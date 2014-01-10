@@ -10,11 +10,11 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="egovframe"/>
+    <context:component-scan base-package="salesman"/>
     
     <mvc:annotation-driven conversion-service="conversionService">
         <mvc:argument-resolvers>
-            <bean class="egovframe.mvc.support.UserMethodArgumentResolver"/>
+            <bean class="salesman.mvc.support.UserMethodArgumentResolver"/>
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
     
@@ -27,13 +27,13 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <list>
-                <bean class="egovframe.mvc.support.BoardConverter"/>
+                <bean class="salesman.mvc.support.BoardConverter"/>
             </list>
         </property>
     </bean>          
 
     <mvc:view-controller path="/" view-name="redirect:/mvc/hello"/>
-	<bean id="mvcHelloController" class="egovframe.mvc.old.HelloController"/>
+	<bean id="mvcHelloController" class="salesman.mvc.old.HelloController"/>
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
@@ -48,14 +48,14 @@
 	
 
 		
-	<bean id="boardService" class="board.service.BoardServiceImpl">
+	<bean id="boardService" class="salesman.board.service.BoardServiceImpl">
 	<!--  property name 은 set name과 맵핑 -->
 		<property name="boarddao1" ref="boarddao2"/>
 	</bean>
 
 	
 	
-	<bean id="boarddao2" class="board.dao.BoardDaoImpl">
+	<bean id="boarddao2" class="salesman.board.dao.BoardDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
