@@ -18,4 +18,8 @@
 	select id,title,reg_id from board
 	</select>
 	
+	<select id="getView"  resultType="java.util.HashMap">
+	select id,title,reg_id from board where id =#{postNo}
+	</select>
+	
 </mapper>

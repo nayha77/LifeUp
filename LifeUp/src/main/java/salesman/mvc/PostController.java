@@ -32,9 +32,10 @@ public class PostController {
     }
     
     @RequestMapping(value="{postNo}", method=RequestMethod.GET)
-    public String view(@PathVariable Board board, @PathVariable Long postNo, Model model) {
-        model.addAttribute(board.findPost(postNo));
-        
+    public String view(@PathVariable Board board, @PathVariable Integer postNo, ModelMap model) {
+        //model.addAttribute(board.findPost(postNo));
+    	 model.put("post", boardService.getView(postNo));
+    	 System.out.println("-----  "+ boardService.getView(postNo));
         return "post/view";
     }
     

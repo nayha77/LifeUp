@@ -25,4 +25,16 @@ public class BoardServiceImpl implements iBoardService {
 		return boarddao1.writeProc(post);
 	}
 
+/*	@Override
+	public String getView(String postNo) {
+		// TODO Auto-generated method stub
+		return  boarddao1.getView(postNo);
+	}*/
+
+	@Override
+	public List<HashMap<String, Object>> getView(int num) {
+		// TODO Auto-generated method stub
+		return  boarddao1.getBoard(num);
+	}
+
 }

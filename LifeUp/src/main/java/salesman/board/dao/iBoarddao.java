@@ -11,5 +11,9 @@ public interface iBoarddao {
 	public List<HashMap<String,Object>> selectTestTable();
 	
 	public int writeProc(Post post);
+	
+	//public String getView(String postNo);
+	 public List<HashMap<String, Object>> getBoard(int num); //읽기
+	
 
 }
