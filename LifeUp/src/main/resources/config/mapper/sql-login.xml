@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="login">
+
+	<select id="chkUserCheck" resultType="java.lang.String">
+		SELECT customer_id
+		  FROM CUSTOMER
+		 WHERE customer_id = #{userId}		 
+	</select>
+	
+	<select id="chkSalesman" resultType="java.lang.String">
+		SELECT salesman_id
+		  FROM SALESMAN
+		 WHERE salesman_id = #{userId}		 
+	</select>
+	
+	<select id="getUser" resultType="salesman.vo.login.SessionVO">
+		SELECT customer_id userId, customer_nm userNm, email
+		  FROM CUSTOMER
+		 WHERE customer_id = #{userId}		 
+		   AND pwd         = #{password}
+	</select>
+	
+	<select id="getSalesman" resultType="salesman.vo.login.SessionVO">
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc
+		  FROM SALESMAN
+		 WHERE salesman_id = #{userId}	
+		   AND pwd         = #{password}	 
+	</select>	
+	
+	<update id="userModify">
+			
+	</update>	
+</mapper>

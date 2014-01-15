@@ -15,7 +15,7 @@ public class UserController {
     
     public static final String SESSION_USER_KEY = "SESSION_USER_KEY";
     
-    @RequestMapping("/login")
+    @RequestMapping("/login1")
     public String login(String username, HttpSession httpSession) {
         if(StringUtils.hasText(username)) {
             httpSession.setAttribute(SESSION_USER_KEY, new User(username));
@@ -26,7 +26,7 @@ public class UserController {
         return "redirect:/notice/post";
     }
     
-    @RequestMapping("/logout")
+    @RequestMapping("/logout1")
     public String logout(HttpSession httpSession) {
         httpSession.invalidate();
         
