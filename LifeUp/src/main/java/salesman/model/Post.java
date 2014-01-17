@@ -3,7 +3,23 @@ package salesman.model;
 public class Post implements Comparable<Post> {
 
     Long no = 0l;
-    String title;
+    int id =0;
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	String reg_id;
+	public String getReg_id() {
+		return reg_id;
+	}
+
+	public void setReg_id(String reg_id) {
+		this.reg_id = reg_id;
+	}
+	String title;
     String content;
     String writer;
 
