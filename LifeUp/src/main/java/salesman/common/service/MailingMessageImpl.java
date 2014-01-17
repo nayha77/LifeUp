@@ -2,17 +2,17 @@ package salesman.common.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import salesman.login.dao.AccountDao;
+import salesman.login.service.AccountService;
 import salesman.vo.login.LoginVO;
 import salesman.vo.login.SessionVO;
 
 public class MailingMessageImpl implements MailingMessage {
 	
 	@Autowired
-	public AccountDao accountDao;
+	public AccountService accountService;
 	
-    public void setAccountDao(AccountDao accountDao) {  
-        this.accountDao = accountDao;  
+    public void setAccountService(AccountService accountService) {  
+        this.accountService = accountService;  
     }
 	
 	private boolean useHtml = false;
@@ -44,24 +44,38 @@ public class MailingMessageImpl implements MailingMessage {
 		this.useHtml = true;	
 		
 		SessionVO userInfo = null;
-		String message = "";
+		StringBuilder message = new StringBuilder();
 		String newPasswd = "";
 		
-		userInfo = accountDao.getUserByEmail(user);
+		userInfo = accountService.getUserByEmail(user);
 		
 		if(type.equals("ID")) {
-			message = userInfo.getUserId() + "님의 ID는 " + userInfo.getUserId() + "입니다";
+			message.append("<span>");
+			message.append(userInfo.getUserId()).append("님의 ID는 ");
+			message.append("<b>").append(userInfo.getUserId()).append("</b>");
+			message.append(" 입니다");
+			message.append("</span>");
 		} else {
 			newPasswd = "12345";
 			userInfo.setPassword(newPasswd);
-			accountDao.modifyUserPasswd(userInfo);
+			accountService.modifyUserPasswd(userInfo);
 			
-			message = userInfo.getUserId() + "님의 새로 발급된 비밀번호는 " + newPasswd + " 입니다. 접속 후 변경해주세요";
-		}
+			message.append("<div>");
+			message.append(userInfo.getUserId()).append("님의 새로 발급된 비밀번호는 ");
+			message.append("<b>").append(newPasswd).append("</b>");
+			message.append(" 입니다");
+			message.append("</div>");
+			message.append("<div>");
+			message.append("<a href='http://localhost:8080/account/ModifyPwd?userId=" + userInfo.getUserId() + "&userType=" + userInfo.getUserType() + "'><b>비밀번호 변경</b></a>");
+			message.append("</div>");
+			message.append("<div>");
+			message.append("<a href='http://localhost:8080/login'><b>로그인</b></a>");
+			message.append("</div>");
+		}		
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<div>");
-		sb.append("<span><b>" + message + "</b></span>");
+		sb.append("<span><b>" + message.toString() + "</b></span>");
 		sb.append("</div>");
 		
 		this.content = sb.toString();

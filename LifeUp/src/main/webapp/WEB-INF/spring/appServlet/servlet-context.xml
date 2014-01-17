@@ -49,11 +49,11 @@
 	       </props>  
 	    </property>  
 	</bean>
+	
 	<bean id="mailingMessage" class="salesman.common.service.MailingMessageImpl">
-		<property name="accountDao" ref="accountDao"/>    
+		<property name="accountService" ref="accountService"/>    
 	</bean>
 	  
-
 	<!-- conversion prameters -->	          
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">

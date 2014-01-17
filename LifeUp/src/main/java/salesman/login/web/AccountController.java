@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import salesman.common.service.MailingMessage;
@@ -34,6 +36,33 @@ public class AccountController extends SqlSessionDaoSupport {
     @RequestMapping("/login")
     public void login() { }
     
+    /*
+     * 비밀번호 변경화면 호출
+     */
+    @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
+    public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
+    	model.addAttribute("user", paramMap);
+    }
+    
+    /*
+     * 비밀번호 변경처리
+     */
+    @RequestMapping("/account/tryModifyPwd")
+    public String tryModifyPwd(@RequestParam Map<String,Object> paramMap, HttpServletRequest request) {
+    	SessionVO user = new SessionVO();
+    	user.setUserId(paramMap.get("userId").toString());
+    	user.setPassword(paramMap.get("pwd").toString());
+    	user.setUserType(Integer.parseInt(paramMap.get("userType").toString()));    	
+    	
+    	if(accountService.modifyUserPasswd(user))
+    		return "redirect:/main";    	
+    	
+    	return "redirect:/account/ModifyPwd"; 
+    }
+    	
+    /*
+     * 로그인처리
+     */
     @RequestMapping("/actionLogin")
     public @ResponseBody Map<String, Object> actionLogin(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {     
     	
@@ -73,6 +102,9 @@ public class AccountController extends SqlSessionDaoSupport {
     	return result;
     }   
 
+    /*
+     * 사용자 찾기
+     */
     @RequestMapping("/findUser")
     public @ResponseBody Map<String, Object> findUser(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
     	LoginVO user = new LoginVO();    	    	
@@ -93,6 +125,9 @@ public class AccountController extends SqlSessionDaoSupport {
     	return result;
     }
     
+    /*
+     * 사용자비밀번호 찾기
+     */
     @RequestMapping("/findPwd")
     public @ResponseBody Map<String, Object> findPwd(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
     	LoginVO user = new LoginVO();    	    	
@@ -111,8 +146,8 @@ public class AccountController extends SqlSessionDaoSupport {
     	}
     	
     	return result;
-    }
-    
+    }   
+        
     @RequestMapping("/fnMyInfo")
     public @ResponseBody Map<String, Object> fnMyInfo(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
     	String message = "success";    	
