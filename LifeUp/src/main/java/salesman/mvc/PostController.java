@@ -55,8 +55,9 @@ public class PostController {
     }
     
     @RequestMapping(value="edit/{postNo}", method=RequestMethod.GET)
-    public String editForm(@PathVariable Board board, @PathVariable Long postNo, Model model) {
-        model.addAttribute(board.findPost(postNo));
+    public String editForm(@PathVariable Board board, @PathVariable Integer postNo, ModelMap model) {
+        //model.addAttribute(board.findPost(postNo));
+   	 	model.put("post", boardService.getView(postNo));
         
         return "post/form";
     }
