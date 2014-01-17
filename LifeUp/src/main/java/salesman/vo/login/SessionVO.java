@@ -3,6 +3,8 @@ package salesman.vo.login;
 import java.io.Serializable;
 
 public class SessionVO implements Serializable{
+		
+	private static final long serialVersionUID = 1L;
 	
 	/** 사용자 타입 (일본사용자/영업사원) */
 	private int userType;
@@ -16,6 +18,9 @@ public class SessionVO implements Serializable{
 	private String vendorId;
 	/** 소속 지점 */
 	private String vendorLoc;
+	
+	/** 비밀번호 (수정시 사용 ) */
+	private String password;
 	
 	public int getUserType() {
 		return userType;
@@ -53,4 +58,10 @@ public class SessionVO implements Serializable{
 	public void setVendorLoc(String vendorLoc) {
 		this.vendorLoc = vendorLoc;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}		
 }

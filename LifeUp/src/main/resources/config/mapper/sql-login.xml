@@ -16,45 +16,48 @@
 	</select>
 	
 	<select id="getUser" resultType="salesman.vo.login.SessionVO">
-		SELECT customer_id userId, customer_nm userNm, email
+		SELECT customer_id userId, customer_nm userNm, email, '1' userType
 		  FROM CUSTOMER
 		 WHERE customer_id = #{userId}		 
 		   AND pwd         = #{password}
 	</select>
 	
 	<select id="getSalesman" resultType="salesman.vo.login.SessionVO">
-		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc, '2' userType
 		  FROM SALESMAN
 		 WHERE salesman_id = #{userId}	
 		   AND pwd         = #{password}	 
 	</select>	
-	
-
-
-
-
 
 	<select id="getUserByEmail" resultType="salesman.vo.login.SessionVO">
-		SELECT customer_id userId, customer_nm userNm, email
+		SELECT customer_id userId, customer_nm userNm, email, '1' userType
 		  FROM CUSTOMER
 		 WHERE email = #{email}
 	</select>
 
 	<select id="getUserById" resultType="salesman.vo.login.SessionVO">
-		SELECT customer_id userId, customer_nm userNm, email
+		SELECT customer_id userId, customer_nm userNm, email, '1' userType
 		  FROM CUSTOMER
 		 WHERE customer_id = #{userId}		 
 	</select>
 		
 	<select id="getSalesmanByEmail" resultType="salesman.vo.login.SessionVO">
-		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc, '2' userType
 		  FROM SALESMAN
 		 WHERE email = #{email}	 
 	</select>
 	
 	<select id="getSalesmanById" resultType="salesman.vo.login.SessionVO">
-		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc, '2' userType
 		  FROM SALESMAN
 		 WHERE salesman_id = #{userId}	 
-	</select>			
+	</select>
+	
+	<select id="modifySalesmanPasswd">
+		UPDATE SALESMAN SET pwd = #{password} WHERE salesman_id = #{userId}  
+	</select>
+	
+	<select id="modifyCustomerPasswd">
+		UPDATE CUSTOMER SET pwd = #{password} WHERE customer_id = #{userId}  
+	</select>							
 </mapper>

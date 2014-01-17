@@ -45,13 +45,19 @@ public class MailingMessageImpl implements MailingMessage {
 		
 		SessionVO userInfo = null;
 		String message = "";
-				
+		String newPasswd = "";
+		
 		userInfo = accountDao.getUserByEmail(user);
 		
-		if(type.equals("ID"))
+		if(type.equals("ID")) {
 			message = userInfo.getUserId() + "님의 ID는 " + userInfo.getUserId() + "입니다";
-		else
-			message = userInfo.getUserId() + "님의 새로 발급된 비밀번호는 **** 입니다. 접속 후 변경해주세요";
+		} else {
+			newPasswd = "12345";
+			userInfo.setPassword(newPasswd);
+			accountDao.modifyUserPasswd(userInfo);
+			
+			message = userInfo.getUserId() + "님의 새로 발급된 비밀번호는 " + newPasswd + " 입니다. 접속 후 변경해주세요";
+		}
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("<div>");

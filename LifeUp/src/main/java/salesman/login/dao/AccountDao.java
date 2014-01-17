@@ -6,7 +6,9 @@ import salesman.vo.login.SessionVO;
 public interface AccountDao {
 	boolean chkExistUser(LoginVO login);
 	SessionVO tryLogin(LoginVO login);
+	
 	boolean modifyUserInfo(SessionVO user);
+	boolean modifyUserPasswd(SessionVO user);
 	
 	SessionVO getUserById(LoginVO login);
 	SessionVO getUserByEmail(LoginVO login);

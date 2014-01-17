@@ -96,14 +96,15 @@ public class AccountController extends SqlSessionDaoSupport {
     @RequestMapping("/findPwd")
     public @ResponseBody Map<String, Object> findPwd(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
     	LoginVO user = new LoginVO();    	    	
-    	Map<String, Object> result = new HashMap<String, Object>();
+    	Map<String, Object> result = new HashMap<String, Object>();    	
     	
     	try {    		    		
     		user.setEmail(loginVO.get("email"));
+    		user.setUserType(Integer.parseInt(loginVO.get("userType")));
     		
     		mailingMessage.setHtmlContent("PWD", user);
     		mailingService.sendMail("hk@retailtech.co.kr", loginVO.get("email"), "[HK] 계정정보 안내메일", mailingMessage);
-    		
+    		    		
     		result.put("message", "success");
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
