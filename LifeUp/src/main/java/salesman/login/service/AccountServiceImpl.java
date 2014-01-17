@@ -26,4 +26,14 @@ public class AccountServiceImpl implements AccountService {
 	public boolean modifyUserInfo(SessionVO userInfo) {
 		return this.accountDao.modifyUserInfo(userInfo);
 	}
+	
+	@Override
+	public SessionVO getUserByEmail(LoginVO login) {
+		return this.accountDao.getUserByEmail(login);
+	}
+	
+	@Override
+	public SessionVO getUserById(LoginVO login) {
+		return this.accountDao.getUserById(login);
+	}
 }

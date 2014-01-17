@@ -29,7 +29,32 @@
 		   AND pwd         = #{password}	 
 	</select>	
 	
-	<update id="userModify">
-			
-	</update>	
+
+
+
+
+
+	<select id="getUserByEmail" resultType="salesman.vo.login.SessionVO">
+		SELECT customer_id userId, customer_nm userNm, email
+		  FROM CUSTOMER
+		 WHERE email = #{email}
+	</select>
+
+	<select id="getUserById" resultType="salesman.vo.login.SessionVO">
+		SELECT customer_id userId, customer_nm userNm, email
+		  FROM CUSTOMER
+		 WHERE customer_id = #{userId}		 
+	</select>
+		
+	<select id="getSalesmanByEmail" resultType="salesman.vo.login.SessionVO">
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc
+		  FROM SALESMAN
+		 WHERE email = #{email}	 
+	</select>
+	
+	<select id="getSalesmanById" resultType="salesman.vo.login.SessionVO">
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc
+		  FROM SALESMAN
+		 WHERE salesman_id = #{userId}	 
+	</select>			
 </mapper>

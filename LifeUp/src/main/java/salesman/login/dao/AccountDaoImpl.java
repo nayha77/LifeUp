@@ -11,9 +11,9 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 	public boolean chkExistUser(LoginVO login) {
 		String userId = "";
 		if(login.getUserType() == 1)
-			userId = (String) getSqlSession().selectOne("login.chkUserCheck", login.getUserId());
+			userId = (String) getSqlSession().selectOne("login.chkUserCheck", login);
 		else
-			userId = (String) getSqlSession().selectOne("login.chkSalesman", login.getUserId());
+			userId = (String) getSqlSession().selectOne("login.chkSalesman", login);
 		
 		return userId == null ? false : true;
 	}
@@ -37,5 +37,27 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 		int result = getSqlSession().insert("login.userModify", user);
 		
 		return result == 0 ? false : true;
+	}
+	
+	@Override
+	public SessionVO getUserByEmail(LoginVO login) {
+		SessionVO user = null;		
+		if(login.getUserType() == 1)
+			user = (SessionVO) getSqlSession().selectOne("login.getUserByEmail", login);		
+		else
+			user = (SessionVO) getSqlSession().selectOne("login.getSalesmanByEmail", login);
+		
+		return user;
+	}
+	
+	@Override
+	public SessionVO getUserById(LoginVO login) {
+		SessionVO user = null;		
+		if(login.getUserType() == 1)
+			user = (SessionVO) getSqlSession().selectOne("login.getUserById", login);		
+		else
+			user = (SessionVO) getSqlSession().selectOne("login.getSalesmanById", login);
+		
+		return user;
 	}
 }

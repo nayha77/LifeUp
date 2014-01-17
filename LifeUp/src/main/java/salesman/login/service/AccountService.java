@@ -4,7 +4,10 @@ import salesman.vo.login.LoginVO;
 import salesman.vo.login.SessionVO;
 
 public interface AccountService {
-	public boolean chkExistUser(LoginVO login);
-	public SessionVO tryLogin(LoginVO login);
-	public boolean modifyUserInfo(SessionVO userInfo);
+	boolean chkExistUser(LoginVO login);
+	SessionVO tryLogin(LoginVO login);
+	boolean modifyUserInfo(SessionVO userInfo);
+	
+	SessionVO getUserByEmail(LoginVO login);
+	SessionVO getUserById(LoginVO login);
 }
