@@ -18,7 +18,7 @@
     </div>
     <spring:url value="/${board.name}/post" var="action"/>
     <form:form id="form" cssClass="form-horizontal" action="/springmvc/notice/post" method="${method}" modelAttribute="post">
-    <form:hidden path="no"/>
+    <form:hidden path="id"/>
     <fieldset>
         <div class="control-group">
             <form:label path="title" cssClass="control-label">제목</form:label>
