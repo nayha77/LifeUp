@@ -1,10 +1,10 @@
-package salesman.login.service;
+package salesman.account.service;
 
-import salesman.vo.login.LoginVO;
-import salesman.vo.login.SessionVO;
+import salesman.vo.account.LoginVO;
+import salesman.vo.account.SessionVO;
 
 public interface AccountService {
-	boolean chkExistUser(LoginVO login);
+	SessionVO getUserInfo(LoginVO login);
 	SessionVO tryLogin(LoginVO login);
 	
 	boolean modifyUserInfo(SessionVO user);

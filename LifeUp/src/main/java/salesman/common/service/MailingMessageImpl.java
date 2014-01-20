@@ -2,9 +2,9 @@ package salesman.common.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import salesman.login.service.AccountService;
-import salesman.vo.login.LoginVO;
-import salesman.vo.login.SessionVO;
+import salesman.account.service.AccountService;
+import salesman.vo.account.LoginVO;
+import salesman.vo.account.SessionVO;
 
 public class MailingMessageImpl implements MailingMessage {
 	
@@ -58,6 +58,7 @@ public class MailingMessageImpl implements MailingMessage {
 		} else {
 			newPasswd = "12345";
 			userInfo.setPassword(newPasswd);
+			userInfo.setInitPwd(user.getInitPwd());
 			accountService.modifyUserPasswd(userInfo);
 			
 			message.append("<div>");

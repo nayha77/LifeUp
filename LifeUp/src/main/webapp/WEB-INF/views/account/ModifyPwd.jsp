@@ -20,20 +20,25 @@
 </script>	
 </head>
 <body>
-	<form name="frm" action="/account/tryModifyPwd" method="post">
-		<div style="margin-left: 50px;">		
-			<label>사용자ID</label>        	
-			<input type="text" id="txtUserId" name="userId" value="${user.userId}" readOnly="readonly" />
-			<label>EMAIL</label>		
-			<input type="text" id="txtEmail" name="email" />
-			<span>비밀번호</span>			
-			<input type="password" id="txtPwd" name="pwd" />				    
-			<input type="hidden" id="hdnUserType" name="userType" value="${user.userType}" />
-		</div>
-		<div>
-			<input type="button" id="btnUpdate" value="변경" onClick="fnModifyPwd();" />
-			<input type="button" id="btnLogin" value="로그인" onClick="document.location.href='/login';" />
-		</div>
-	</form>
+	<c:if test="${empty message}">
+		<form name="frm" action="/account/tryModifyPwd" method="post">
+			<div style="margin-left: 50px;">		
+				<label>사용자ID</label>        	
+				<input type="text" id="txtUserId" name="userId" value="${user.userId}" readOnly="readonly" />
+				<label>EMAIL</label>		
+				<input type="text" id="txtEmail" name="email" />
+				<span>비밀번호</span>			
+				<input type="password" id="txtPwd" name="pwd" />				    
+				<input type="hidden" id="hdnUserType" name="userType" value="${user.userType}" />
+			</div>
+			<div>
+				<input type="button" id="btnUpdate" value="변경" onClick="fnModifyPwd();" />
+				<input type="button" id="btnLogin" value="로그인" onClick="document.location.href='/login';" />
+			</div>
+		</form>	
+	</c:if>
+	<c:if test="${not empty message}">
+		<span>${message}</span>
+	</c:if>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package salesman.common.service;
 
-import salesman.vo.login.LoginVO;
+import salesman.vo.account.LoginVO;
 
 public interface MailingMessage {
 	boolean useHtml();

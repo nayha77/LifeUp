@@ -1,4 +1,4 @@
-package salesman.vo.login;
+package salesman.vo.account;
 
 import java.io.Serializable;
 
@@ -18,6 +18,8 @@ public class SessionVO implements Serializable{
 	private String vendorId;
 	/** 소속 지점 */
 	private String vendorLoc;
+	/** 비밀번호 초기화 유무*/
+	private String initPwd;
 	
 	/** 비밀번호 (수정시 사용 ) */
 	private String password;
@@ -64,4 +66,10 @@ public class SessionVO implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}		
+	public String getInitPwd() {
+		return initPwd;
+	}
+	public void setInitPwd(String initPwd) {
+		this.initPwd = initPwd;
+	}
 }

@@ -1,8 +1,8 @@
-package salesman.login.service;
+package salesman.account.service;
 
-import salesman.login.dao.AccountDao;
-import salesman.vo.login.LoginVO;
-import salesman.vo.login.SessionVO;
+import salesman.account.dao.AccountDao;
+import salesman.vo.account.LoginVO;
+import salesman.vo.account.SessionVO;
 
 public class AccountServiceImpl implements AccountService {
 	private AccountDao accountDao;
@@ -12,8 +12,9 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public boolean chkExistUser(LoginVO login) {		
-		return this.accountDao.chkExistUser(login);
+	public SessionVO getUserInfo(LoginVO login) {		
+		SessionVO loginInfo = this.accountDao.getUserInfo(login);
+		return loginInfo;
 	}
 	
 	@Override

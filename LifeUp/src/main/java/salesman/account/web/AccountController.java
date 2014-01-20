@@ -1,4 +1,4 @@
-package salesman.login.web;
+package salesman.account.web;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import salesman.account.service.AccountService;
 import salesman.common.service.MailingMessage;
 import salesman.common.service.MailingService;
-import salesman.login.service.AccountService;
-import salesman.vo.login.LoginVO;
-import salesman.vo.login.SessionVO;
+import salesman.vo.account.LoginVO;
+import salesman.vo.account.SessionVO;
 
 @Controller
 public class AccountController extends SqlSessionDaoSupport {
@@ -41,7 +41,21 @@ public class AccountController extends SqlSessionDaoSupport {
      */
     @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
     public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
+    	LoginVO loginVO = new LoginVO(); 
+    	loginVO.setUserType(Integer.parseInt(paramMap.get("userType").toString()));
+    	loginVO.setUserId(paramMap.get("userId").toString());
+    	SessionVO userInfo = accountService.getUserInfo(loginVO);
+    	
+    	String message = "잘못된 사용자 요청입니다";
+    	if(userInfo != null) {
+    		if(userInfo.getInitPwd() != null && userInfo.getInitPwd().equals("Y"))
+    			message = "";
+    		else
+    			message = "만료된 페이지 입니다. 다시 요청하세요";
+    	} 
+    	
     	model.addAttribute("user", paramMap);
+    	model.addAttribute("message", message);
     }
     
     /*
@@ -78,7 +92,7 @@ public class AccountController extends SqlSessionDaoSupport {
 		    	user.setUserId(loginVO.get("userId"));
 		    	user.setPassword(loginVO.get("password"));
 	    		
-		    	if(accountService.chkExistUser(user)) {	    	
+		    	if(accountService.getUserInfo(user) != null) {	    	
 			    	sessionInfo = accountService.tryLogin(user);	    	
 			    	if (sessionInfo == null) {
 			    		message = "로그인에 실패했습니다. 입력정보를 확인하세요";
@@ -136,6 +150,7 @@ public class AccountController extends SqlSessionDaoSupport {
     	try {    		    		
     		user.setEmail(loginVO.get("email"));
     		user.setUserType(Integer.parseInt(loginVO.get("userType")));
+    		user.setInitPwd("Y");
     		
     		mailingMessage.setHtmlContent("PWD", user);
     		mailingService.sendMail("hk@retailtech.co.kr", loginVO.get("email"), "[HK] 계정정보 안내메일", mailingMessage);
