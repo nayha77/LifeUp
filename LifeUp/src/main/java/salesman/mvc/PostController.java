@@ -55,7 +55,7 @@ public class PostController {
     }
     
     @RequestMapping(value="edit/{postNo}", method=RequestMethod.GET)
-    public String editForm(@PathVariable Post post, @PathVariable Integer postNo, ModelMap model) {
+    public String editForm(@PathVariable Integer postNo, ModelMap model) {
         //model.addAttribute(board.findPost(postNo));
     	model.put("post", boardService.getView(postNo));
     	//request.setAttribute("post",boardService.getView(postNo));
@@ -64,15 +64,19 @@ public class PostController {
     
     @RequestMapping(method=RequestMethod.PUT)
     public String editing(@PathVariable Board board, Post post, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("postNo", board.editing(post).getId());
-        
+        //redirectAttributes.addAttribute("postNo", board.editing(post).getId());
+    	//redirectAttributes.addAttribute("postNo", boardService.editing(post).getId());
+    	boardService.editing(post);
+    	redirectAttributes.addAttribute("postNo",post.getId());
         return "redirect:/{board}/post/{postNo}";
+    	
     }
     
     @RequestMapping(method=RequestMethod.DELETE)
     public String erase(@PathVariable Board board, @RequestParam Integer postNo) {
-        board.erase(postNo);
-        
+        //board.erase(postNo);
+    	boardService.erase(postNo);
+    	System.out.println("postNo==="+ postNo);
         return "redirect:/{board}/post";
     }
 

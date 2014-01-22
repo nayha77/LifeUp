@@ -37,4 +37,16 @@ public class BoardServiceImpl implements iBoardService {
 		return  boarddao1.getBoard(num);
 	}
 
+	@Override
+	public Post editing(Post post) {
+		// TODO Auto-generated method stub
+		return boarddao1.editing(post);
+	}
+
+	@Override
+	public int erase(Integer postNo) {
+		return boarddao1.erase(postNo);
+		
+	}
+
 }

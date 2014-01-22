@@ -10,7 +10,7 @@
 	
 	<insert id="formInsert">
 	
-	insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{writer},sysdate())
+	insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{reg_id},sysdate())
 	
 	</insert>
 	
@@ -29,5 +29,15 @@
 	FROM board
 	WHERE id =#{postNo}
 	</select>
+	
+	<update id="editPost" parameterType="salesman.model.Post">
+	update board
+	set title = #{title},content =#{content}
+	where id =#{id}
+	</update>
+	
+	<delete id="erasePost"  parameterType="Integer" >
+	delete from board where id =#{postNo}
+	</delete>
 	
 </mapper>

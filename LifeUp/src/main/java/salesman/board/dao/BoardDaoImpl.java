@@ -40,6 +40,18 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements iBoarddao{
 		//System.out.println(dto.toString());
 		return getSqlSession().selectOne("main.getView",num);
 	}
+
+	@Override
+	public Post editing(Post post) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectOne("main.editPost",post);
+	}
+
+	@Override
+	public int erase(Integer postNo) {
+		// TODO Auto-generated method stub
+		return getSqlSession().delete("main.erasePost",postNo);
+	}
 	
 	
 

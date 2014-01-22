@@ -17,7 +17,8 @@
         </c:if>
     </div>
     <spring:url value="/${board.name}/post" var="action"/>
-    <form:form id="form"  comcssClass="form-horizontal" action="/notice/post" method="${method}" modelAttribute="post">
+    <form:form id="form"  comcssClass="form-horizontal" action="/notice/post" 
+    method="${method}" modelAttribute="post">
 
    <form:hidden path="id" />
     <fieldset>
@@ -45,7 +46,7 @@
         </div>
 
         <div class="form-actions">
-            <button class='btn btn-primary'>저장하기</button>
+            <button class='btn btn-primary'>저장하기 </button>
             <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
         </div>
     </fieldset>
