@@ -43,21 +43,24 @@ public class Board extends SqlSessionDaoSupport {
     	}
 
     
-    public Post findPost(final Long postNo) {
+    public Post findPost(final Integer postNo) {
         return Iterables.find(posts, new Predicate<Post>() {
             @Override
             public boolean apply(Post source) {
-                return source.getId().equals(postNo);
+            	if(source.getId() == postNo)
+            		return true;
+            	
+            	return false;
             }
         });
     }
     
     public Post writing(Post post) {
-        if(Iterables.isEmpty(posts))
-            posts.add(post.setNo(1l));
-        else
-            posts.add(post.setNo(Collections.max(posts).getId() + 1));
-        
+        //if(Iterables.isEmpty(posts))
+           // posts.add(post.setId(1));
+       // else
+           // posts.add(post.setId(Collections.max(posts).getId() + 1));
+        post.setId(1);
         return post;
     }
     
@@ -80,7 +83,7 @@ public class Board extends SqlSessionDaoSupport {
         return this;
     }
     
-    public Board erase(Long postNo) {
+    public Board erase(Integer postNo) {
         return erase(findPost(postNo));
     }
     
