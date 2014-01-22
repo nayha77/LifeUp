@@ -34,9 +34,13 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 
 	@Override
 	public boolean modifyUserInfo(SessionVO user) {
-		int result = getSqlSession().insert("account.userModify", user);
-		
-		return result == 0 ? false : true;
+		int rtnValue = 0;
+		if(user.getUserType() == 1)
+			rtnValue = getSqlSession().update("account.modifyCustomerInfo", user);		
+		else
+			rtnValue = getSqlSession().update("account.modifySalesmanInfo", user);
+			
+		return rtnValue > 0 ? true : false;
 	}
 	
 	@Override

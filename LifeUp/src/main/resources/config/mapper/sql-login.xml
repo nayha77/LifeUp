@@ -4,16 +4,34 @@
 <mapper namespace="account">
 
 	<select id="getUserInfo" resultType="salesman.vo.account.SessionVO">
-		SELECT customer_id userId, customer_nm userNm, email, '1' userType, init_pwd
+		SELECT customer_id userId, customer_nm userNm, email, '1' userType, init_pwd, mobile
 		  FROM CUSTOMER
 		 WHERE customer_id = #{userId}		 
 	</select>
 	
 	<select id="getSalesmanInfo" resultType="salesman.vo.account.SessionVO">
-		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc, '2' userType, init_pwd
+		SELECT salesman_id userId, salesman_nm userNm, email, vendor_id vendorId, location vendorLoc, '2' userType, init_pwd, mobile
 		  FROM SALESMAN
 		 WHERE salesman_id = #{userId}		 
 	</select>
+	
+	<update id="modifyCustomerInfo">
+		UPDATE CUSTOMER
+		   SET EMAIL    = #{email}
+		     , PWD      = #{password}
+		     , MOBILE   = #{mobile}
+		     , INIT_PWD = 'N'
+		 WHERE CUSTOMER_ID = #{userId}
+	</update>
+	
+	<update id="modifySalesmanInfo">
+		UPDATE 
+		   SET EMAIL    = #{email}
+		     , PWD      = #{password}
+		     , MOBILE   = #{mobile}
+		     , INIT_PWD = 'N'
+		 WHERE SALESMAN_ID = #{userId}	
+	</update>
 	
 	<select id="getUser" resultType="salesman.vo.account.SessionVO">
 		SELECT customer_id userId, customer_nm userNm, email, '1' userType
@@ -53,7 +71,7 @@
 		 WHERE salesman_id = #{userId}	 
 	</select>
 	
-	<select id="modifySalesmanPasswd">
+	<update id="modifySalesmanPasswd">
 		UPDATE SALESMAN 
 		   SET PWD = CASE WHEN #{password} = '' THEN PWD
 			              ELSE #{password}
@@ -62,9 +80,9 @@
 			              ELSE 'N'
 			  	 	  END
 		 WHERE salesman_id = #{userId}  
-	</select>
+	</update>
 	
-	<select id="modifyCustomerPasswd">
+	<update id="modifyCustomerPasswd">
 		UPDATE CUSTOMER 
 		   SET PWD = CASE WHEN #{password} = '' THEN PWD
 			              ELSE #{password}
@@ -73,5 +91,5 @@
 			              ELSE 'N'
 			  	 	  END
 		 WHERE customer_id = #{userId}  
-	</select>							
+	</update>							
 </mapper>

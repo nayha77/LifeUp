@@ -164,17 +164,41 @@ public class AccountController extends SqlSessionDaoSupport {
     }          
     
     @RequestMapping("/fnMyInfo")
-    public @ResponseBody Map<String, Object> fnMyInfo(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
+    public @ResponseBody Map<String, Object> fnMyInfo(HttpServletRequest request) {
     	Map<String, Object> result = new HashMap<String, Object>();    	
     	SessionVO userInfo = new SessionVO();    	    	
     	LoginVO user = new LoginVO(); 
     	
     	try {
-        	user.setUserType(Integer.parseInt(loginVO.get("userType").toString()));
-        	user.setUserId(loginVO.get("userId").toString());
+        	user.setUserType(1);
+        	user.setUserId("tester");
 
     		userInfo = accountService.getUserInfo(user);
     		result.put("message", "success");
+    		result.put("userInfo", userInfo);
+    	} catch(Exception ex) {
+    		result.put("message", "서버오류가 발생했습니다");
+    	} 
+    	
+    	return result;
+    }
+    
+    @RequestMapping("/fnMyInfoUpdate")
+    public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
+    	Map<String, Object> result = new HashMap<String, Object>();    	
+    	SessionVO userInfo = new SessionVO();    	    	
+   	
+    	try {
+        	userInfo.setUserType(1);
+        	userInfo.setUserId("tester");
+        	userInfo.setEmail(loginVO.get("email").toString());
+        	userInfo.setMobile(loginVO.get("mobile").toString());
+        	userInfo.setPassword(loginVO.get("password").toString());
+
+    		if(accountService.modifyUserInfo(userInfo))
+    			result.put("message", "success");
+    		else
+    			result.put("message", "failed");
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	} 
