@@ -70,7 +70,7 @@ public class PostController {
     }
     
     @RequestMapping(method=RequestMethod.DELETE)
-    public String erase(@PathVariable Board board, @RequestParam Long postNo) {
+    public String erase(@PathVariable Board board, @RequestParam Integer postNo) {
         board.erase(postNo);
         
         return "redirect:/{board}/post";
