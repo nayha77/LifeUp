@@ -33,12 +33,12 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements iBoarddao{
 	}*/
 
 	@Override
-	public  List<HashMap<String, Object>> getBoard(int num) {
+	public  Post getBoard(int num) {
 		// TODO Auto-generated method stub
 		
 		//Post dto = (Post) getSqlSession().selectOne("main.getView",num);
 		//System.out.println(dto.toString());
-		return getSqlSession().selectList("main.getView",num);
+		return getSqlSession().selectOne("main.getView",num);
 	}
 	
 	

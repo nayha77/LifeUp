@@ -13,7 +13,7 @@ public interface iBoarddao {
 	public int writeProc(Post post);
 	
 	//public String getView(String postNo);
-	 public List<HashMap<String, Object>> getBoard(int num); //읽기
+	 public Post getBoard(int num); //읽기
 	
 
 }

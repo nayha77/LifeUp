@@ -17,11 +17,15 @@
         </c:if>
     </div>
     <spring:url value="/${board.name}/post" var="action"/>
-    <form:form id="form" cssClass="form-horizontal" action="/springmvc/notice/post" method="${method}" modelAttribute="post">
-    <form:hidden path="id"/>
+    <form:form id="form"  comcssClass="form-horizontal" action="/notice/post" method="${method}" 
+    modelAttribute="post">
+    <c:out value="${post}"></c:out>
+
+   <form:hidden path="id" />
     <fieldset>
         <div class="control-group">
             <form:label path="title" cssClass="control-label">제목</form:label>
+            
             <div class="controls">
                 <form:input path="title" cssClass="input-xlarge"/>
                 <form:errors path="title"><p class="help-block"></p></form:errors>
@@ -35,16 +39,18 @@
             </div>
         </div>
         <div class="control-group">
-            <form:label path="writer" cssClass="control-label">작성자</form:label>
+            <form:label path="reg_id" cssClass="control-label">작성자</form:label>
             <div class="controls">
-                <form:input path="writer" cssClass="input-xlarge"/>
-                <form:errors path="writer"><p class="help-block"></p></form:errors>
+                <form:input path="reg_id" cssClass="input-xlarge"/>
+                <form:errors path="reg_id"><p class="help-block"></p></form:errors>
             </div>
         </div>
+
         <div class="form-actions">
             <button class='btn btn-primary'>저장하기</button>
             <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
         </div>
     </fieldset>
     </form:form>
+
 </mvc:layout>

@@ -4,6 +4,10 @@ public class Post implements Comparable<Post> {
 
     Long no = 0l;
     int id =0;
+	String title;
+    String content;
+	String reg_id;
+    
     public int getId() {
 		return id;
 	}
@@ -11,7 +15,7 @@ public class Post implements Comparable<Post> {
 	public void setId(int id) {
 		this.id = id;
 	}
-	String reg_id;
+
 	public String getReg_id() {
 		return reg_id;
 	}
@@ -19,17 +23,12 @@ public class Post implements Comparable<Post> {
 	public void setReg_id(String reg_id) {
 		this.reg_id = reg_id;
 	}
-	String title;
-    String content;
-    String writer;
 
-    
     public Post() { }
     
     public Post(String title, String content, String writer) {
         this.title = title;
         this.content = content;
-        this.writer = writer;
     }
     
     
@@ -41,10 +40,6 @@ public class Post implements Comparable<Post> {
     
     public String getContent() { return content; }
     public Post setContent(String content) { this.content = content; return this; };
-    
-    public String getWriter() { return writer; }
-    public Post setWriter(String writer) { this.writer = writer; return this; };
- 
     
     @Override
     public int compareTo(Post target) {
@@ -76,7 +71,7 @@ public class Post implements Comparable<Post> {
     @Override
     public String toString() {
         return "Post [no=" + no + ", title=" + title + ", content=" + content
-                + ", writer=" + writer + "]";
+               + "]";
     }
 
 }

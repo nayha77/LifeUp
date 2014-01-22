@@ -32,7 +32,7 @@ public class BoardServiceImpl implements iBoardService {
 	}*/
 
 	@Override
-	public List<HashMap<String, Object>> getView(int num) {
+	public Post getView(int num) {
 		// TODO Auto-generated method stub
 		return  boarddao1.getBoard(num);
 	}

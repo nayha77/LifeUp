@@ -8,8 +8,6 @@
 
 
 
-    <c:forEach items="${post}" var="post">
-
     <div class="page-header">
         <h1>${post.ID} - ${post.TITLE}</h1>
     </div>
@@ -25,6 +23,5 @@
         <div class="span8">${post.REG_ID}</div>
         <div class="span2">&nbsp;</div>
     </div>
-    </c:forEach>	
 	
 </mvc:layout>

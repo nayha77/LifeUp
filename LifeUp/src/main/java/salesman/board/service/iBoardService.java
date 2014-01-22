@@ -9,5 +9,5 @@ public interface iBoardService {
 	
 	public List<HashMap<String, Object>> selectTestTable();
 	public int writeProc(Post post);
-	public List<HashMap<String, Object>> getView(int num);
+	public Post getView(int num);
 }
