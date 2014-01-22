@@ -3,6 +3,9 @@ package salesman.common.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import salesman.account.service.AccountService;
+import salesman.common.util.FileScrty;
+import salesman.common.util.NumberUtil;
+import salesman.common.util.StringUtil;
 import salesman.vo.account.LoginVO;
 import salesman.vo.account.SessionVO;
 
@@ -47,38 +50,51 @@ public class MailingMessageImpl implements MailingMessage {
 		StringBuilder message = new StringBuilder();
 		String newPasswd = "";
 		
-		userInfo = accountService.getUserByEmail(user);
-		
-		if(type.equals("ID")) {
-			message.append("<span>");
-			message.append(userInfo.getUserId()).append("님의 ID는 ");
-			message.append("<b>").append(userInfo.getUserId()).append("</b>");
-			message.append(" 입니다");
-			message.append("</span>");
-		} else {
-			newPasswd = "12345";
-			userInfo.setPassword(newPasswd);
-			userInfo.setInitPwd(user.getInitPwd());
-			accountService.modifyUserPasswd(userInfo);
+		try {
+			userInfo = accountService.getUserByEmail(user);
 			
-			message.append("<div>");
-			message.append(userInfo.getUserId()).append("님의 새로 발급된 비밀번호는 ");
-			message.append("<b>").append(newPasswd).append("</b>");
-			message.append(" 입니다");
-			message.append("</div>");
-			message.append("<div>");
-			message.append("<a href='http://localhost:8080/account/ModifyPwd?userId=" + userInfo.getUserId() + "&userType=" + userInfo.getUserType() + "'><b>비밀번호 변경</b></a>");
-			message.append("</div>");
-			message.append("<div>");
-			message.append("<a href='http://localhost:8080/login'><b>로그인</b></a>");
-			message.append("</div>");
-		}		
-		
-		StringBuilder sb = new StringBuilder();
-		sb.append("<div>");
-		sb.append("<span><b>" + message.toString() + "</b></span>");
-		sb.append("</div>");
-		
-		this.content = sb.toString();
+			if(type.equals("ID")) {
+				message.append("<span>");
+				message.append(userInfo.getUserId()).append("님의 ID는 ");
+				message.append("<b>").append(userInfo.getUserId()).append("</b>");
+				message.append(" 입니다");
+				message.append("</span>");
+			} else {			
+		    	for (int i = 1; i <= 6; i++) {
+		    		// 영자
+		    		if (i % 3 != 0) {
+		    			newPasswd += StringUtil.getRandomStr('a', 'z');
+		    		// 숫자
+		    		} else {
+		    			newPasswd += NumberUtil.getRandomNum(0, 9);
+		    		}
+		    	}
+		    	
+				userInfo.setPassword(FileScrty.encryptPassword(newPasswd));	
+				userInfo.setInit_pwd(user.getInitPwd());
+				accountService.modifyUserPasswd(userInfo);
+				
+				message.append("<div>");
+				message.append(userInfo.getUserId()).append("님의 새로 발급된 비밀번호는 ");
+				message.append("<b>").append(newPasswd).append("</b>");
+				message.append(" 입니다");
+				message.append("</div>");
+				message.append("<div>");
+				message.append("<a href='http://localhost:8080/account/ModifyPwd?userId=" + userInfo.getUserId() + "&userType=" + userInfo.getUserType() + "'><b>비밀번호 변경</b></a>");
+				message.append("</div>");
+				message.append("<div>");
+				message.append("<a href='http://localhost:8080/login'><b>로그인</b></a>");
+				message.append("</div>");
+			}		
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("<div>");
+			sb.append("<span><b>" + message.toString() + "</b></span>");
+			sb.append("</div>");
+			
+			this.content = sb.toString();
+		} catch (Exception e) {
+			this.content = "";
+		}
 	}
 }

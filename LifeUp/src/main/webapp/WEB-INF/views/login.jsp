@@ -19,10 +19,12 @@
 			"actionLogin.do",
 			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
 			function (data) {                
-				if(data.message != 'success')
-					alert(data.message);
-				else
+				if(data.message == 'success')
 					location.href='main.do';
+				else if(data.message == 'duplicated')
+					location.href='main.do';
+				else
+					alert(data.message);
 			} 
 		);
 	}

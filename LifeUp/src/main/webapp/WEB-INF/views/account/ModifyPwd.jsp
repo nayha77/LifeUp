@@ -28,7 +28,7 @@
 				<label>EMAIL</label>		
 				<input type="text" id="txtEmail" name="email" />
 				<span>비밀번호</span>			
-				<input type="password" id="txtPwd" name="pwd" />				    
+				<input type="password" id="txtPwd" name="password" />				    
 				<input type="hidden" id="hdnUserType" name="userType" value="${user.userType}" />
 			</div>
 			<div>

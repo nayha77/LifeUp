@@ -76,7 +76,7 @@
 		   SET PWD = CASE WHEN #{password} = '' THEN PWD
 			              ELSE #{password}
 			  	 	  END
-		     , init_pwd = CASE WHEN #{initPwd} = 'Y' THEN 'Y'
+		     , init_pwd = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
 			              ELSE 'N'
 			  	 	  END
 		 WHERE salesman_id = #{userId}  
@@ -87,7 +87,7 @@
 		   SET PWD = CASE WHEN #{password} = '' THEN PWD
 			              ELSE #{password}
 			  	 	  END
-		     , init_pwd = CASE WHEN #{initPwd} = 'Y' THEN 'Y'
+		     , init_pwd = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
 			              ELSE 'N'
 			  	 	  END
 		 WHERE customer_id = #{userId}  

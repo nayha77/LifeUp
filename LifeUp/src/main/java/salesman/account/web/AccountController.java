@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,16 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import salesman.account.service.AccountService;
 import salesman.common.service.MailingMessage;
 import salesman.common.service.MailingService;
+import salesman.common.service.StorageService;
 import salesman.vo.account.LoginVO;
 import salesman.vo.account.SessionVO;
 
 @Controller
-public class AccountController extends SqlSessionDaoSupport {
-    
+public class AccountController {
+    @Autowired
+    private StorageService storageService;
+	
 	@Autowired
 	private AccountService accountService;
 	
@@ -34,10 +37,58 @@ public class AccountController extends SqlSessionDaoSupport {
 	private MailingMessage mailingMessage;
 	
     @RequestMapping("/login")
-    public void login() { }
+    public void login() 
+    {
+    	storageService.SessionOut();    	
+    }     
+    
+    @RequestMapping("/logout")
+    public String logout() 
+    {
+    	storageService.SessionOut();
+    	return "redirect:/login.do";    	
+    }
     
     /*
-     * 비밀번호 변경화면 호출
+     * 로그인처리
+     */
+    @RequestMapping("/actionLogin")
+    public @ResponseBody Map<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {     
+    	
+    	String message = "success";    	
+    	SessionVO userInfo = null;    	  	
+    	
+    	Map<String, Object> result = new HashMap<String, Object>();    	
+    	
+    	try {    		
+        	if(loginVO == null || loginVO.getUserId() == null || loginVO.getPassword() == null) {
+        		message = "아이디와 비밀번호를 입력하세요";
+        	} else {  
+        		if(storageService.getAuthenticatedUser() != null) {
+        			message = "duplicated";
+        		} else if(accountService.getUserInfo(loginVO) != null) {	    	
+        			userInfo = accountService.tryLogin(loginVO);	    	
+			    	if (userInfo == null) {
+			    		message = "로그인에 실패했습니다. 입력정보를 확인하세요";
+		    		} else {
+		    			message = "success";		    			
+		    			storageService.setSessionAttribute("userInfo", userInfo);
+			    	}
+		    	} else {
+		    		message = "회원가입 후 로그인 해주세요";
+		    	}	    			    		    
+        	}	    		        	
+    		
+    		result.put("message", message);
+    	} catch (Exception ex) {
+    		result.put("message", "서버오류가 발생했습니다");
+    	}
+    	
+    	return result;
+    }   
+
+    /*
+     * 비밀번호 변경화면 호출 (e-mail을 통한 연결)
      */
     @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
     public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
@@ -48,7 +99,7 @@ public class AccountController extends SqlSessionDaoSupport {
     	
     	String message = "잘못된 사용자 요청입니다";
     	if(userInfo != null) {
-    		if(userInfo.getInitPwd() != null && userInfo.getInitPwd().equals("Y"))
+    		if(userInfo.getInit_pwd() != null && userInfo.getInit_pwd().equals("Y"))
     			message = "";
     		else
     			message = "만료된 페이지 입니다. 다시 요청하세요";
@@ -57,79 +108,34 @@ public class AccountController extends SqlSessionDaoSupport {
     	model.addAttribute("user", paramMap);
     	model.addAttribute("message", message);
     }
-    
+        
     /*
-     * 비밀번호 변경처리
+     * 비밀번호 변경처리 (e-mail을 통한 변경)
      */
     @RequestMapping("/account/tryModifyPwd")
     public String tryModifyPwd(@RequestParam Map<String,Object> paramMap, HttpServletRequest request) {
     	SessionVO user = new SessionVO();
     	user.setUserId(paramMap.get("userId").toString());
-    	user.setPassword(paramMap.get("pwd").toString());
+    	user.setPassword(paramMap.get("password").toString());
     	user.setUserType(Integer.parseInt(paramMap.get("userType").toString()));    	
     	
     	if(accountService.modifyUserPasswd(user))
     		return "redirect:/main";    	
     	
     	return "redirect:/account/ModifyPwd"; 
-    }    	
+    }    
     
-    /*
-     * 로그인처리
-     */
-    @RequestMapping("/actionLogin")
-    public @ResponseBody Map<String, Object> actionLogin(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {     
-    	
-    	String message = "success";    	
-    	SessionVO sessionInfo = null;    	
-    	LoginVO user = new LoginVO();    	
-    	
-    	Map<String, Object> result = new HashMap<String, Object>();
-    	
-    	try {
-	    	if(loginVO != null && loginVO.get("userId") != null && loginVO.get("password") != null) {    	
-	    		user.setUserType(Integer.parseInt(loginVO.get("userType")));
-		    	user.setUserId(loginVO.get("userId"));
-		    	user.setPassword(loginVO.get("password"));
-	    		
-		    	if(accountService.getUserInfo(user) != null) {	    	
-			    	sessionInfo = accountService.tryLogin(user);	    	
-			    	if (sessionInfo == null) {
-			    		message = "로그인에 실패했습니다. 입력정보를 확인하세요";
-		    		} else {
-		    			message = "success";
-			    		request.getSession().setAttribute("userInfo", sessionInfo);
-			    	}
-		    	} else {
-		    		message = "회원가입 후 로그인 해주세요";
-		    	}	    			    		    
-	    	} else {
-	    		message = "아이디와 비밀번호를 입력하세요";
-	    	}
-	    	
-	    	result.put("message", message);
-	    	
-    	} catch (Exception ex) {
-    		result.put("message", "서버오류가 발생했습니다");
-    	}
-    	
-    	return result;
-    }   
-
     /*
      * 사용자 찾기
      */
     @RequestMapping("/findUser")
-    public @ResponseBody Map<String, Object> findUser(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
-    	LoginVO user = new LoginVO();    	    	
+    public @ResponseBody Map<String, Object> findUser(@RequestBody LoginVO loginVO, HttpServletRequest request) {
+    	
     	Map<String, Object> result = new HashMap<String, Object>();
     	
-    	try {    		    		
-    		user.setEmail(loginVO.get("email"));
-    		user.setUserType(Integer.parseInt(loginVO.get("userType")));
-    		
-    		mailingMessage.setHtmlContent("ID", user);
-    		mailingService.sendMail("hk@retailtech.co.kr", loginVO.get("email"), "[HK] 계정정보 안내메일", mailingMessage);
+    	try {    		    		    		
+    		mailingMessage.setHtmlContent("ID", loginVO);
+    		mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);
     		
     		result.put("message", "success");
     	} catch(Exception ex) {
@@ -143,17 +149,15 @@ public class AccountController extends SqlSessionDaoSupport {
      * 사용자비밀번호 찾기
      */
     @RequestMapping("/findPwd")
-    public @ResponseBody Map<String, Object> findPwd(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
-    	LoginVO user = new LoginVO();    	    	
+    public @ResponseBody Map<String, Object> findPwd(@RequestBody LoginVO loginVO, HttpServletRequest request) {
+
     	Map<String, Object> result = new HashMap<String, Object>();    	
     	
-    	try {    		    		
-    		user.setEmail(loginVO.get("email"));
-    		user.setUserType(Integer.parseInt(loginVO.get("userType")));
-    		user.setInitPwd("Y");
+    	try {    		    		    		
+    		loginVO.setInitPwd("Y");
     		
-    		mailingMessage.setHtmlContent("PWD", user);
-    		mailingService.sendMail("hk@retailtech.co.kr", loginVO.get("email"), "[HK] 계정정보 안내메일", mailingMessage);
+    		mailingMessage.setHtmlContent("PWD", loginVO);
+    		mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);
     		    		
     		result.put("message", "success");
     	} catch(Exception ex) {
@@ -165,17 +169,25 @@ public class AccountController extends SqlSessionDaoSupport {
     
     @RequestMapping("/fnMyInfo")
     public @ResponseBody Map<String, Object> fnMyInfo(HttpServletRequest request) {
-    	Map<String, Object> result = new HashMap<String, Object>();    	
-    	SessionVO userInfo = new SessionVO();    	    	
-    	LoginVO user = new LoginVO(); 
+    	
+    	SessionVO userInfo = null;
+    	LoginVO user = new LoginVO();
+    	Map<String, Object> result = new HashMap<String, Object>();
     	
     	try {
-        	user.setUserType(1);
-        	user.setUserId("tester");
-
-    		userInfo = accountService.getUserInfo(user);
-    		result.put("message", "success");
-    		result.put("userInfo", userInfo);
+    		userInfo = storageService.getAuthenticatedUser();
+    		
+    		if(userInfo == null) {
+	    		result.put("message", "로그인한 사용자가 아닙니다");    			
+    		} else {
+	        	user.setUserType(userInfo.getUserType());
+	        	user.setUserId(userInfo.getUserId());
+	        	
+	    		userInfo = accountService.getUserInfo(user);
+	    		
+	    		result.put("message", "success");
+	    		result.put("userInfo", userInfo);
+    		}
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	} 
@@ -184,21 +196,25 @@ public class AccountController extends SqlSessionDaoSupport {
     }
     
     @RequestMapping("/fnMyInfoUpdate")
-    public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
-    	Map<String, Object> result = new HashMap<String, Object>();    	
-    	SessionVO userInfo = new SessionVO();    	    	
-   	
-    	try {
-        	userInfo.setUserType(1);
-        	userInfo.setUserId("tester");
-        	userInfo.setEmail(loginVO.get("email").toString());
-        	userInfo.setMobile(loginVO.get("mobile").toString());
-        	userInfo.setPassword(loginVO.get("password").toString());
+    public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
 
-    		if(accountService.modifyUserInfo(userInfo))
-    			result.put("message", "success");
-    		else
-    			result.put("message", "failed");
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	SessionVO userInfo = null;
+    	
+    	try {    		
+    		userInfo = storageService.getAuthenticatedUser();
+    		
+    		if(userInfo == null) {
+	    		result.put("message", "로그인한 사용자가 아닙니다");    			
+    		} else {
+	    		param.setUserId(userInfo.getUserId());
+	    		param.setUserType(userInfo.getUserType());    		
+	
+	        	if(accountService.modifyUserInfo(param))
+	    			result.put("message", "success");
+	    		else
+	    			result.put("message", "사용자 정보 수정 중 오류가 발생했습니다");
+    		}
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	} 
@@ -208,11 +224,16 @@ public class AccountController extends SqlSessionDaoSupport {
     
     @RequestMapping(value="/Logout")
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
+    	storageService.SessionOut();
+    	
     	return "redirect:/login.do";
     }
     
     @RequestMapping("/main")
-	public void main(ModelMap model) throws Exception {
-    	
+	public void main() {
+//    	if(storageService.getAuthenticatedUser() == null)
+//    		return "redirect:/login.do";
+//    	
+//    	return "forward:/main.do";
     }   
 }

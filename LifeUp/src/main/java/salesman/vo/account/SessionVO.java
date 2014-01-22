@@ -19,10 +19,12 @@ public class SessionVO implements Serializable{
 	/** 소속 지점 */
 	private String vendorLoc;
 	/** 비밀번호 초기화 유무*/
-	private String initPwd;
+	private String init_pwd;
 	/** 핸드폰번호 */
 	private String mobile;
 	
+	/** 이전 등록 비번 **/
+	private String prevPassword;
 	/** 비밀번호 (수정시 사용 ) */
 	private String password;
 	
@@ -62,6 +64,12 @@ public class SessionVO implements Serializable{
 	public void setVendorLoc(String vendorLoc) {
 		this.vendorLoc = vendorLoc;
 	}
+	public String getPrevPassword() {
+		return prevPassword;
+	}
+	public void setPrevPassword(String prevPassword) {
+		this.prevPassword = prevPassword;
+	}	
 	public String getPassword() {
 		return password;
 	}
@@ -74,10 +82,10 @@ public class SessionVO implements Serializable{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}	
-	public String getInitPwd() {
-		return initPwd;
+	public String getInit_pwd() {
+		return init_pwd;
 	}
-	public void setInitPwd(String initPwd) {
-		this.initPwd = initPwd;
+	public void setInit_pwd(String init_pwd) {
+		this.init_pwd = init_pwd;
 	}	
 }
