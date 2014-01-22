@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-actions">
-            <button class='btn btn-primary'>저장하기</button>
+            <button class='btn btn-primary'>저장하기 </button>
             <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
         </div>
     </fieldset>
