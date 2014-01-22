@@ -72,8 +72,8 @@ public class AccountController extends SqlSessionDaoSupport {
     		return "redirect:/main";    	
     	
     	return "redirect:/account/ModifyPwd"; 
-    }
-    	
+    }    	
+    
     /*
      * 로그인처리
      */
@@ -161,20 +161,23 @@ public class AccountController extends SqlSessionDaoSupport {
     	}
     	
     	return result;
-    }   
-        
+    }          
+    
     @RequestMapping("/fnMyInfo")
     public @ResponseBody Map<String, Object> fnMyInfo(@RequestBody Map<String, String> loginVO, HttpServletRequest request) {
-    	String message = "success";    	
-    	LoginVO user = new LoginVO();    	
-    	
-    	Map<String, Object> result = new HashMap<String, Object>();
+    	Map<String, Object> result = new HashMap<String, Object>();    	
+    	SessionVO userInfo = new SessionVO();    	    	
+    	LoginVO user = new LoginVO(); 
     	
     	try {
-    		
+        	user.setUserType(Integer.parseInt(loginVO.get("userType").toString()));
+        	user.setUserId(loginVO.get("userId").toString());
+
+    		userInfo = accountService.getUserInfo(user);
+    		result.put("message", "success");
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
-    	}
+    	} 
     	
     	return result;
     }

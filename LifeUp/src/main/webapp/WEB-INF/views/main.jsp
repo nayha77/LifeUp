@@ -47,8 +47,8 @@
 		
 	function fnMyInfo() {
   	    _Async.post (
-			"myUserInfo.do",
-			JSON.stringify({ userId: $('#txtIUserId').val(), email: $('#txtIEmail').val(), password: $('#txtIPasswd').val(), mobile: $('#txtMobile').val() }),
+			"fnMyInfo.do",
+			'',
 			function (data) {                
 				if(data.message == 'success')
 					alert(data.message);
