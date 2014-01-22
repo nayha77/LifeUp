@@ -45,15 +45,32 @@
 		);							
 	}
 		
-	function fnMyInfo() {
+	function fnMyInfo() {						
   	    _Async.post (
 			"fnMyInfo.do",
 			'',
 			function (data) {                
-				if(data.message == 'success')
-					alert(data.message);
+				if(data.message == 'success') {
+					$('#myInfoModal').modal('show'); 
+					$("#txtIUserId").val(data.userInfo.userId);
+					$("#txtIEmail").val(data.userInfo.email);
+					$("#txtIMobile").val(data.userInfo.mobile);
+					$('#txtIPasswd').focus();
+				}
 			} 
 		);				
+	}
+	
+	function fnMyInfoUpdate() {
+  	    _Async.post (
+			"fnMyInfoUpdate.do",
+			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val() }),
+			function (data) {                
+				if(data.message == 'success') {
+					$('#myInfoModal').modal('hide');
+				}
+			} 
+		);		
 	}
 </script>	
 </head>
@@ -61,7 +78,7 @@
 	<h2>메인화면</h2>
 	<button class="btn" onclick="$('#findUserModal').modal('show'); $('#txtUserId').focus();$('#spTitle').html('사용자찾기');"><i class="icon-user"></i> 사용자찾기</button>
 	<button class="btn" onclick="$('#findUserModal').modal('show'); $('#txtUserId').focus();$('#spTitle').html('비밀번호찾기');"><i class="icon-user"></i> 비밀번호찾기</button>
-	<button class="btn" onclick="$('#myInfoModal').modal('show'); $('#txtIUserId').focus();"><i class="icon-user"></i> 내정보</button>
+	<button class="btn" onclick="fnMyInfo();"><i class="icon-user"></i> 내정보</button>
 </body>
 <div id="findUserModal" class="modal hide">	
     <div class="modal-header">
@@ -98,15 +115,15 @@
 		    <div class="controls"><input type="text" id="txtIUserId" name="userId"/></div>                
 		    <label class="control-label">Email</label>
 		    <div class="controls"><input type="text" id="txtIEmail" name="email"/></div>                
-		    <label class="control-label">비밀번호</label>
-		    <div class="controls"><input type="text" id="txtIPasswd" name="password"/></div>                
 		    <label class="control-label">이동전화</label>
 		    <div class="controls"><input type="text" id="txtIMobile" name="mobile"/></div>
+		    <label class="control-label">비밀번호</label>
+		    <div class="controls"><input type="text" id="txtIPasswd" name="password"/></div>                		    
 		</div>
     </div>
     <div class="modal-footer">
         <a href="#" class="btn" data-dismiss="modal">취소</a>
-        <button class="btn btn-primary" onclick="fnMyInfo">수정</button>
+        <button class="btn btn-primary" onclick="fnMyInfoUpdate();">수정</button>
     </div>
 </div>     
 </html>
