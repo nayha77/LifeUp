@@ -55,17 +55,16 @@ public class PostController {
     }
     
     @RequestMapping(value="edit/{postNo}", method=RequestMethod.GET)
-    public String editForm(@PathVariable Board board, @PathVariable Integer postNo, ModelMap model,HttpServletRequest request) {
+    public String editForm(@PathVariable Post post, @PathVariable Integer postNo, ModelMap model) {
         //model.addAttribute(board.findPost(postNo));
     	model.put("post", boardService.getView(postNo));
-    	
     	//request.setAttribute("post",boardService.getView(postNo));
         return "post/form";
     }
     
     @RequestMapping(method=RequestMethod.PUT)
     public String editing(@PathVariable Board board, Post post, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("postNo", board.editing(post).getNo());
+        redirectAttributes.addAttribute("postNo", board.editing(post).getId());
         
         return "redirect:/{board}/post/{postNo}";
     }

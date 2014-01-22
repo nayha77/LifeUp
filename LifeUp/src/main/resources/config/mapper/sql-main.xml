@@ -20,15 +20,14 @@
 	
 	<select id="getView"  resultType="salesman.model.Post">
 	SELECT 
-	ID,
-    CATE,
-    REG_ID,
-    TITLE,
-    CONTENT,
-    CREATE_DATE,
-    UPDATE_DATE
+	id,
+    reg_id,
+    title,
+    content,
+    create_date,
+    update_date
 	FROM board
-	WHERE ID =#{postNo}
+	WHERE id =#{postNo}
 	</select>
 	
 </mapper>

@@ -47,7 +47,7 @@ public class Board extends SqlSessionDaoSupport {
         return Iterables.find(posts, new Predicate<Post>() {
             @Override
             public boolean apply(Post source) {
-                return source.getNo().equals(postNo);
+                return source.getId().equals(postNo);
             }
         });
     }
@@ -56,7 +56,7 @@ public class Board extends SqlSessionDaoSupport {
         if(Iterables.isEmpty(posts))
             posts.add(post.setNo(1l));
         else
-            posts.add(post.setNo(Collections.max(posts).getNo() + 1));
+            posts.add(post.setNo(Collections.max(posts).getId() + 1));
         
         return post;
     }
@@ -64,7 +64,7 @@ public class Board extends SqlSessionDaoSupport {
     public Post editing(Post post) {
         Post origin = Iterables.find(posts, Predicates.equalTo(post), null);
         if(origin == null)
-            throw new IllegalArgumentException("�섏젙��湲�no:" + post.getNo() + ")���놁뒿�덈떎.");
+            throw new IllegalArgumentException("�섏젙��湲�no:" + post.getId() + ")���놁뒿�덈떎.");
         
         BeanUtils.copyProperties(post, origin);
         
@@ -73,7 +73,7 @@ public class Board extends SqlSessionDaoSupport {
     
     public Board erase(Post post) {
         if(!posts.contains(post))
-            throw new IllegalArgumentException("��젣��湲�no:" + post.getNo() + ")���놁뒿�덈떎.");
+            throw new IllegalArgumentException("��젣��湲�no:" + post.getId() + ")���놁뒿�덈떎.");
         
         posts.remove(post);
         
