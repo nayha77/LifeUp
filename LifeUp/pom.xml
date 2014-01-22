@@ -156,7 +156,7 @@
 			<version>1.6</version>
 		</dependency>
             		 
-		<!-- Jackson for JSON -->
+		<!-- jackson for JSON -->
 		<dependency>		
 			<groupId>org.codehaus.jackson</groupId>		
 			<artifactId>jackson-core-asl</artifactId>		
@@ -166,8 +166,20 @@
 			<groupId>org.codehaus.jackson</groupId>		
 			<artifactId>jackson-mapper-asl</artifactId>		
 			<version>1.9.13</version>	
-		</dependency>        
+		</dependency>
 		
+		<!-- email --> 		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>		
+		<dependency>
+	        <groupId>geronimo-spec</groupId>
+	        <artifactId>geronimo-spec-j2ee</artifactId>
+	        <version>1.4-rc3</version>
+      	</dependency>      	
+
     </dependencies>
     <build>
         <plugins>
