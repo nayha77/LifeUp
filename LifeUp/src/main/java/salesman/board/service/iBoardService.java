@@ -10,4 +10,6 @@ public interface iBoardService {
 	public List<HashMap<String, Object>> selectTestTable();
 	public int writeProc(Post post);
 	public Post getView(int num);
+	public Post editing(Post post);
+	public int erase(Integer postNo);
 }

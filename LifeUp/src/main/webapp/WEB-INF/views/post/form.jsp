@@ -17,7 +17,8 @@
         </c:if>
     </div>
     <spring:url value="/${board.name}/post" var="action"/>
-    <form:form id="form"  comcssClass="form-horizontal" action="/notice/post" method="${method}" modelAttribute="post">
+    <form:form id="form"  comcssClass="form-horizontal" action="/notice/post" 
+    method="${method}" modelAttribute="post">
 
    <form:hidden path="id" />
     <fieldset>

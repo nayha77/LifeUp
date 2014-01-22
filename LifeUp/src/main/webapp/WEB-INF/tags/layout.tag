@@ -71,7 +71,7 @@
 
 		<hr>
 		<footer style="text-align: center;">
-			<p>표준프레임워크 오픈커뮤니티 23차 기술세미나</p>
+			<p>헛헛헛 삽삽삽</p>
 		</footer>
 	
     </div>
@@ -144,7 +144,7 @@
                 },
                 delete: function(url, params) {
                     createForm('delete', url, params).submit();
-                }
+                }       
             };
         }();
         

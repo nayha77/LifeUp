@@ -14,6 +14,10 @@ public interface iBoarddao {
 	
 	//public String getView(String postNo);
 	 public Post getBoard(int num); //읽기
+
+	public Post editing(Post post);
+
+	public int erase(Integer postNo);
 	
 
 }
