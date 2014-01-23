@@ -70,7 +70,7 @@ public class MailingMessageImpl implements MailingMessage {
 		    		}
 		    	}
 		    	
-				userInfo.setPassword(FileScrty.encryptPassword(newPasswd));	
+				userInfo.setPassword(newPasswd);	
 				userInfo.setInit_pwd(user.getInitPwd());
 				accountService.modifyUserPasswd(userInfo);
 				
@@ -80,10 +80,10 @@ public class MailingMessageImpl implements MailingMessage {
 				message.append(" 입니다");
 				message.append("</div>");
 				message.append("<div>");
-				message.append("<a href='http://localhost:8080/account/ModifyPwd?userId=" + userInfo.getUserId() + "&userType=" + userInfo.getUserType() + "'><b>비밀번호 변경</b></a>");
+				message.append("<a href='http://localhost:8080/account/ModifyPwd.do?userId=" + userInfo.getUserId() + "&userType=" + userInfo.getUserType() + "'><b>비밀번호 변경</b></a>");
 				message.append("</div>");
 				message.append("<div>");
-				message.append("<a href='http://localhost:8080/login'><b>로그인</b></a>");
+				message.append("<a href='http://localhost:8080/main.do'><b>이동하기</b></a>");
 				message.append("</div>");
 			}		
 			

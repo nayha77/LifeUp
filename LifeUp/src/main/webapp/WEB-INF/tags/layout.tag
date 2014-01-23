@@ -1,5 +1,4 @@
 <%@ tag language="java" pageEncoding="UTF-8" %>
-
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -7,7 +6,7 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>HG ONE</title>
+	<title>SSAGEZYO</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
@@ -28,15 +27,12 @@
         }
 	</style>
 	<link href='<spring:url value="/resources/css/bootstrap-responsive.css"/>' rel='stylesheet'>
-
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
       <script src='<spring:url value="/resources/js/html5.js"/>'></script>
     <![endif]-->
 </head>
-
 <body>
-
 	<div class='navbar navbar-fixed-top'>
 		<div class='navbar-inner'>
 			<div class='container'>
@@ -45,61 +41,108 @@
                     <span class='icon-bar'></span>
                     <span class='icon-bar'></span>
 				</a>
-                <a class='brand' href='<spring:url value="/notice/post"/>'>HG ONE :: </a>
+                <a class='brand' href='<spring:url value="/main"/>'>SSAGEZYO</a>
                 <div class="btn-group pull-right">
-                    <c:if test="${empty sessionScope.SESSION_USER_KEY}">
-                    <button class="btn" onclick="$('#loginModal').modal('show')"><i class="icon-user"></i> 로그인</button>
+                    <c:if test="${empty sessionScope.userInfo}">
+	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
+                    	<button class="btn" onclick="$('#membershipModal').modal('show'); $('#txtMUserID').focus();"><i class="icon-user"></i> 회원가입</button>	                    
                     </c:if>
-                    <c:if test="${not empty sessionScope.SESSION_USER_KEY}">
-                    <a class="btn" href='/egovframe/logout'><i class="icon-user"></i> ${sessionScope.SESSION_USER_KEY.username} - 로그아웃</a>
+                    <c:if test="${not empty sessionScope.userInfo}">
+                    	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
                     </c:if>
                 </div>
 				<div class='nav-collapse'>
 					<ul class='nav'>
-						<li class='active'><a href='<spring:url value="/user-info"/>'>사용자 정보</a></li>
-						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
+						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>	
+						<c:if test="${not empty sessionScope.userInfo}">
+							<li class='active'><a href='#' onclick="fnMyInfo();">내정보</a></li>							
+						</c:if>						
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
-
 	<div class='container'>
-
 		<jsp:doBody/>	
-
 		<hr>
 		<footer style="text-align: center;">
-			<p>헛헛헛 삽삽삽</p>
-		</footer>
-	
+		<p></p>
+		</footer>	
     </div>
-	<!-- /container -->
-    
+	<!-- /container -->  		   
     <div id="loginModal" class="modal hide">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
             <h3>로그인</h3>
         </div>
         <div class="modal-body">
-            <form id="loginForm" action="/egovframe/login" method="post" class="form-horizontal">
-            <fieldset>
-                <div class="control-group">
-                    <label class="control-label">사용자 이름</label>
-                    <div class="controls">
-                        <input type="text" name="username"/>
-                    </div>
-                </div>
-            </fieldset>
-            </form>
+			<div style="margin-left: 50px;">
+			    <label class="control-label">사용자</label>
+			    <div class="controls">
+					<input type='radio' id='rdoUserType' name='userType' value='1' checked="checked" />일반사용자 
+					<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
+				</div>			               
+			    <label class="control-label">아이디</label>
+			    <div class="controls"><input type='text' id='txtUserID' /></div>                
+			    <label class="control-label">비밀번호</label>
+			    <div class="controls"><input type='password' id='txtUserPwd' /></div>
+			</div>			                   
+        </div>
+        <div class="modal-footer">
+        	<div style="float: left">
+	            <button class="btn" onclick="fnOpenFindUser('U');"><i class="icon-user"></i> 사용자찾기</button>
+	            <button class="btn" onclick="fnOpenFindUser('P');"><i class="icon-refresh"></i> 비밀번호찾기</button>
+        	</div>
+            <a href="#" class="btn" data-dismiss="modal">취소</a>
+            <button class="btn btn-primary" onclick="fnLogin();">로그인</button>            
+        </div>
+    </div> 
+    <div id="findUserModal" class="modal hide">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3><span id="spTitle"></span></h3>
+        </div>
+        <div class="modal-body">
+			<div style="margin-left: 50px;">
+			    <label class="control-label">사용자</label>
+			    <div class="controls">
+					<input type='radio' id='rdoFUserType' name='fUserType' value='1' checked="checked" />일반사용자 
+					<input type='radio' id='rdoFUserType' name='fUserType' value='2' />영업사원
+				</div>                
+			    <label class="control-label">이메일</label>
+			    <div class="controls"><input type='text' id='txtFEmail' /></div>                
+			</div>			                   
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">취소</a>
-            <button class="btn btn-primary" onclick="$('#loginForm').submit();">로그인</a>
+            <button class="btn btn-primary" onclick="fnFindUser();">찾기</button>            
         </div>
-    </div>    
-
+    </div>       	
+	<div id="myInfoModal" class="modal hide">
+	    <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">×</button>
+	        <h3>내정보</h3>
+	    </div>
+	    <div class="modal-body">
+			<div style="margin-left: 50px;">
+			    <label class="control-label">사용자 ID</label>
+			    <div class="controls"><input type="text" id="txtIUserId" /></div>                
+			    <label class="control-label">Email</label>
+			    <div class="controls"><input type="text" id="txtIEmail" /></div>                
+			    <label class="control-label">이동전화</label>
+			    <div class="controls"><input type="text" id="txtIMobile" /></div>
+				<label class="control-label">이전 비밀번호</label>
+			    <div class="controls"><input type="password" id="txtIPrevPasswd" /></div>			    
+			    <label class="control-label">신규 비밀번호</label>
+			    <div class="controls"><input type="password" id="txtIPasswd" /></div>                		    
+			</div>
+	    </div>
+	    <div class="modal-footer">
+	        <a href="#" class="btn" data-dismiss="modal">취소</a>
+	        <button class="btn btn-primary" onclick="fnMyInfoUpdate();">수정</button>
+	    </div>
+	</div>     
 	<!-- Le javascript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
@@ -116,7 +159,12 @@
 	<script src='<spring:url value="/resources/js/bootstrap-collapse.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-carousel.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-typeahead.js"/>'></script>
+	
+	<script src='<spring:url value="/resources/js/webService.js"/>'></script>		
     <script type="text/javascript">
+		var _Commn = new webService.Web.ComnService();
+		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
+    
         $.form = function() {
             var createForm = function(method, url, params) {
                 var form = $('<form name="jquery.form"/>')
@@ -158,6 +206,83 @@
 			    $('#loginModal').modal('show');
 			}
 		});
+        
+        // 로그인
+    	function fnLogin() {    		    	
+      	    _Async.post (
+    			"/actionLogin.do",
+    			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
+    			function (data) {                
+    				if(data.message == 'success' || data.message == 'duplicated')
+    					document.location.href='<spring:url value="/main.do"/>';
+    				else
+    					alert(data.message);
+    			} 
+    		);
+    	}
+        
+        // 사용자찾기
+    	function fnFindUser() {
+    		var url = "/findUser.do";
+    		
+    		if($("#spTitle").html() == "비밀번호찾기")
+    			url = "/findPwd.do";
+    			
+    		_Async.post (
+    			url,
+    			JSON.stringify({ email: $('#txtFEmail').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
+    			function (data) {                
+    				if(data.message =='success') {
+    					alert('등록된 메일로 전송되었습니다');
+    					
+    					$('#txtFEmail').val("");
+    					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
+    				}    					    				    		
+    			} 
+    		);							
+    	}        
+    	
+        // 내정보 
+    	function fnMyInfo() {			
+      	    _Async.post (
+    			"/fnMyInfo.do",
+    			'',
+    			function (data) {                
+    				if(data.message == 'success') {
+    					$('#myInfoModal').modal('show'); 
+    					$("#txtIUserId").val(data.userInfo.userId);
+    					$("#txtIEmail").val(data.userInfo.email);
+    					$("#txtIMobile").val(data.userInfo.mobile);
+    					$('#txtIPrevPasswd').focus();
+    				}
+    			} 
+    		);				
+    	}  
+        
+        // 내정보 수정
+    	function fnMyInfoUpdate() {
+      	    _Async.post (
+    			"fnMyInfoUpdate.do",
+    			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
+    			function (data) {                
+    				if(data.message == 'success') {
+    					$('#myInfoModal').modal('hide');
+    				}
+    			} 
+    		);		
+    	}   
+        
+        function fnOpenFindUser(title) {
+        	if(title == 'U')
+        		title = '사용자찾기';
+        	else
+        		title = '비밀번호찾기';
+        	        	
+        	$('#loginModal').modal('hide');        	
+        	$('#findUserModal').modal('show'); 
+        	$('#spTitle').html(title); 
+        	$('#txtFEmail').focus();
+        }
     </script>
 </body>
 </html>

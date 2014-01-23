@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import salesman.account.service.AccountService;
 import salesman.common.service.MailingMessage;
@@ -35,18 +34,12 @@ public class AccountController {
 	
 	@Autowired
 	private MailingMessage mailingMessage;
-	
-    @RequestMapping("/login")
-    public void login() 
-    {
-    	storageService.SessionOut();    	
-    }     
-    
+	       
     @RequestMapping("/logout")
     public String logout() 
     {
     	storageService.SessionOut();
-    	return "redirect:/login.do";    	
+    	return "redirect:/main.do";    	
     }
     
     /*
@@ -72,7 +65,6 @@ public class AccountController {
 			    		message = "로그인에 실패했습니다. 입력정보를 확인하세요";
 		    		} else {
 		    			message = "success";		    			
-		    			storageService.setSessionAttribute("userInfo", userInfo);
 			    	}
 		    	} else {
 		    		message = "회원가입 후 로그인 해주세요";
@@ -114,15 +106,17 @@ public class AccountController {
      */
     @RequestMapping("/account/tryModifyPwd")
     public String tryModifyPwd(@RequestParam Map<String,Object> paramMap, HttpServletRequest request) {
-    	SessionVO user = new SessionVO();
+    	
+    	LoginVO login = new LoginVO();
+    	SessionVO user = new SessionVO();    	
     	user.setUserId(paramMap.get("userId").toString());
     	user.setPassword(paramMap.get("password").toString());
     	user.setUserType(Integer.parseInt(paramMap.get("userType").toString()));    	
     	
-    	if(accountService.modifyUserPasswd(user))
-    		return "redirect:/main";    	
+    	if(accountService.modifyUserPasswd(user))    		
+    		return "redirect:/main.do";    	
     	
-    	return "redirect:/account/ModifyPwd"; 
+    	return "redirect:/account/ModifyPwd.do"; 
     }    
     
     /*
