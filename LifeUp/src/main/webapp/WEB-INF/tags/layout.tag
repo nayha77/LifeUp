@@ -45,7 +45,7 @@
                 <div class="btn-group pull-right">
                     <c:if test="${empty sessionScope.userInfo}">
 	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
-                    	<button class="btn" onclick="$('#membershipModal').modal('show'); $('#txtMUserID').focus();"><i class="icon-user"></i> 회원가입</button>	                    
+                    	<button class="btn" onclick="document.location.href='<spring:url value="/account/Membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
                     </c:if>
                     <c:if test="${not empty sessionScope.userInfo}">
                     	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
@@ -210,7 +210,7 @@
         // 로그인
     	function fnLogin() {    		    	
       	    _Async.post (
-    			"/actionLogin.do",
+    			"/account/actionLogin.do",
     			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
     			function (data) {                
     				if(data.message == 'success' || data.message == 'duplicated')
@@ -223,10 +223,10 @@
         
         // 사용자찾기
     	function fnFindUser() {
-    		var url = "/findUser.do";
+    		var url = "/account/findUser.do";
     		
     		if($("#spTitle").html() == "비밀번호찾기")
-    			url = "/findPwd.do";
+    			url = "/account/findPwd.do";
     			
     		_Async.post (
     			url,
@@ -245,7 +245,7 @@
         // 내정보 
     	function fnMyInfo() {			
       	    _Async.post (
-    			"/fnMyInfo.do",
+    			"/account/fnMyInfo.do",
     			'',
     			function (data) {                
     				if(data.message == 'success') {
@@ -262,7 +262,7 @@
         // 내정보 수정
     	function fnMyInfoUpdate() {
       	    _Async.post (
-    			"fnMyInfoUpdate.do",
+    			"/account/fnMyInfoUpdate.do",
     			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
     			function (data) {                
     				if(data.message == 'success') {
@@ -277,6 +277,7 @@
     		);		
     	}   
         
+        // 사용자/비밀번호 찾기 Div Open
         function fnOpenFindUser(title) {
         	if(title == 'U')
         		title = '사용자찾기';

@@ -45,7 +45,7 @@ public class AccountController {
     /*
      * 로그인처리
      */
-    @RequestMapping("/actionLogin")
+    @RequestMapping("/account/actionLogin")
     public @ResponseBody Map<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {     
     	
     	String message = "success";    	
@@ -122,7 +122,7 @@ public class AccountController {
     /*
      * 사용자 찾기
      */
-    @RequestMapping("/findUser")
+    @RequestMapping("/account/findUser")
     public @ResponseBody Map<String, Object> findUser(@RequestBody LoginVO loginVO, HttpServletRequest request) {
     	
     	Map<String, Object> result = new HashMap<String, Object>();
@@ -142,7 +142,7 @@ public class AccountController {
     /*
      * 사용자비밀번호 찾기
      */
-    @RequestMapping("/findPwd")
+    @RequestMapping("/account/findPwd")
     public @ResponseBody Map<String, Object> findPwd(@RequestBody LoginVO loginVO, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();    	
@@ -161,7 +161,7 @@ public class AccountController {
     	return result;
     }          
     
-    @RequestMapping("/fnMyInfo")
+    @RequestMapping("/account/fnMyInfo")
     public @ResponseBody Map<String, Object> fnMyInfo(HttpServletRequest request) {
     	
     	SessionVO userInfo = null;
@@ -189,7 +189,7 @@ public class AccountController {
     	return result;
     }
     
-    @RequestMapping("/fnMyInfoUpdate")
+    @RequestMapping("/account/fnMyInfoUpdate")
     public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();
@@ -214,14 +214,7 @@ public class AccountController {
     	} 
     	
     	return result;
-    }
-    
-    @RequestMapping(value="/Logout")
-	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {
-    	storageService.SessionOut();
-    	
-    	return "redirect:/login.do";
-    }
+    }    
     
     @RequestMapping("/main")
 	public void main() {
@@ -230,4 +223,9 @@ public class AccountController {
 //    	
 //    	return "forward:/main.do";
     }   
+    
+    @RequestMapping("/account/Membership")
+	public void Membership() {
+    	
+    }    
 }
