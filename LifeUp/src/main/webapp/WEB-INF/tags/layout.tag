@@ -267,6 +267,11 @@
     			function (data) {                
     				if(data.message == 'success') {
     					$('#myInfoModal').modal('hide');
+    					
+    					$('#txtIPasswd').val("");
+    					$('#txtIPrevPasswd').val("");
+    				} else {
+    					alert(data.message);
     				}
     			} 
     		);		

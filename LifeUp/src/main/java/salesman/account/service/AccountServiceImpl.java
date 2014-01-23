@@ -49,17 +49,20 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean modifyUserInfo(SessionVO userInfo) {
-		String password = "";
 		
+		String prevPassword = "";
+		String password = "";
 		try {			
 			if(userInfo.getPassword() != null) {
 				password = FileScrty.encryptPassword(userInfo.getPassword());
+				prevPassword = FileScrty.encryptPassword(userInfo.getPrevPassword());
+				
 				userInfo.setPassword(password);
+				userInfo.setPrevPassword(prevPassword);
 			}
 			
-			this.accountDao.modifyUserInfo(userInfo);
+			return this.accountDao.modifyUserInfo(userInfo);
 			
-			return true;
 		} catch (Exception e) {
 			return false;
 		}		
@@ -67,12 +70,17 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	public boolean modifyUserPasswd(SessionVO userInfo) {
+		
+		String prevPassword = "";
 		String password = "";
 		
 		try {			
 			if(userInfo.getPassword() != null) {
 				password = FileScrty.encryptPassword(userInfo.getPassword());
+				prevPassword = FileScrty.encryptPassword(userInfo.getPrevPassword());
+				
 				userInfo.setPassword(password);
+				userInfo.setPrevPassword(prevPassword);
 			}
 			
 			return this.accountDao.modifyUserPasswd(userInfo);

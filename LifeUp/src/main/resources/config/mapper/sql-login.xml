@@ -22,15 +22,17 @@
 		     , MOBILE   = #{mobile}
 		     , INIT_PWD = 'N'
 		 WHERE CUSTOMER_ID = #{userId}
+		   AND PWD         = #{prevPassword}
 	</update>
 	
 	<update id="modifySalesmanInfo">
-		UPDATE 
+		UPDATE SALESMAN
 		   SET EMAIL    = #{email}
 		     , PWD      = #{password}
 		     , MOBILE   = #{mobile}
 		     , INIT_PWD = 'N'
 		 WHERE SALESMAN_ID = #{userId}	
+		   AND PWD         = #{prevPassword}
 	</update>
 	
 	<select id="getUser" resultType="salesman.vo.account.SessionVO">
@@ -73,23 +75,21 @@
 	
 	<update id="modifySalesmanPasswd">
 		UPDATE SALESMAN 
-		   SET PWD = CASE WHEN #{password} = '' THEN PWD
-			              ELSE #{password}
-			  	 	  END
-		     , init_pwd = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
-			              ELSE 'N'
-			  	 	  END
-		 WHERE salesman_id = #{userId}  
+		   SET PWD      = #{password}
+		     , INIT_PWD = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
+			                   ELSE 'N'
+			  	 	       END
+		 WHERE SALESMAN_ID = #{userId} 
+		   AND PWD         = #{prevPassword} 
 	</update>
 	
 	<update id="modifyCustomerPasswd">
 		UPDATE CUSTOMER 
-		   SET PWD = CASE WHEN #{password} = '' THEN PWD
-			              ELSE #{password}
-			  	 	  END
-		     , init_pwd = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
-			              ELSE 'N'
-			  	 	  END
-		 WHERE customer_id = #{userId}  
+		   SET PWD      = #{password}
+		     , INIT_PWD = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
+			                   ELSE 'N'
+			  	 	       END
+		 WHERE CUSTOMER_ID = #{userId}  
+		   AND PWD         = #{prevPassword}		 
 	</update>							
 </mapper>

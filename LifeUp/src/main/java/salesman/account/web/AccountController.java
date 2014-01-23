@@ -207,7 +207,7 @@ public class AccountController {
 	        	if(accountService.modifyUserInfo(param))
 	    			result.put("message", "success");
 	    		else
-	    			result.put("message", "사용자 정보 수정 중 오류가 발생했습니다");
+	    			result.put("message", "정보수정에 실패했습니다");
     		}
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
