@@ -10,13 +10,7 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="salesman"/>
-    
-    <mvc:annotation-driven conversion-service="conversionService">
-        <mvc:argument-resolvers>
-            <bean class="salesman.mvc.support.UserMethodArgumentResolver"/>
-        </mvc:argument-resolvers>
-    </mvc:annotation-driven>
+    <context:component-scan base-package="salesman"/>   
     
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     
@@ -54,6 +48,12 @@
 		<property name="accountService" ref="accountService"/>    
 	</bean>
 	  
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:argument-resolvers>
+            <bean class="salesman.mvc.support.UserMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    	  
 	<!-- conversion prameters -->	          
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
