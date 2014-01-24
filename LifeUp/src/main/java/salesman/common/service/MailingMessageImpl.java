@@ -53,6 +53,11 @@ public class MailingMessageImpl implements MailingMessage {
 		try {
 			userInfo = accountService.getUserByEmail(user);
 			
+			if(userInfo == null) {
+				this.content = "";
+				return;
+			}
+			
 			if(type.equals("ID")) {
 				message.append("<span>");
 				message.append(userInfo.getUserId()).append("님의 ID는 ");

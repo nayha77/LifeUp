@@ -1,4 +1,4 @@
-package salesman.mvc.support;
+package salesman.common.support;
 
 import javax.inject.Inject;
 
@@ -15,5 +15,4 @@ public class BoardConverter implements Converter<String, Board> {
     public Board convert(String source) {
         return boardRepository.findOne(source);
     }
-
 }

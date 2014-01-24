@@ -10,84 +10,16 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="salesman"/>
-    
-    <mvc:annotation-driven conversion-service="conversionService">
-        <mvc:argument-resolvers>
-            <bean class="salesman.mvc.support.UserMethodArgumentResolver"/>
-        </mvc:argument-resolvers>
-    </mvc:annotation-driven>
+    <context:component-scan base-package="salesman"/>   
     
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/views/"
-          p:suffix=".jsp"/>
-    
-    <!-- json -->      
-	<bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	  <property name="messageConverters">
-	    <list>
-	      <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-	    </list>
-	  </property>
-	</bean>
+          p:suffix=".jsp"/>    	        
 
-	<!-- mailing -->
-	<bean id="mailService" class="salesman.common.service.MailingServiceImpl">  
-	    <property name="mailSender" ref="mailSender" />  
-	</bean>  
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	  	<property name="host" value="smtp.gmail.com" />
-	  	<property name="port" value="587" />
-	    <property name="username" value="jskoo1981@gmail.com" />  
-	    <property name="password" value="kujs8523" />  
-	    <property name="javaMailProperties">  
-	       <props>  
-	       		<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-	       </props>  
-	    </property>  
-	</bean>
-	
-	<bean id="mailingMessage" class="salesman.common.service.MailingMessageImpl">
-		<property name="accountService" ref="accountService"/>    
-	</bean>
-	  
-	<!-- conversion prameters -->	          
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <list>
-                <bean class="salesman.mvc.support.BoardConverter"/>
-            </list>
-        </property>
-    </bean>          
-
-    <mvc:view-controller path="/" view-name="redirect:/mvc/hello"/>
-	<bean id="mvcHelloController" class="salesman.mvc.old.HelloController"/>
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <value>
-                /mvc/hello=mvcHelloController
-            </value>
-        </property>
-        <property name="order" value="99"/>
-    </bean>
+    <mvc:view-controller path="/" view-name="redirect:/main"/>  
     
    	<context:annotation-config />
-	
-
-		
-	<bean id="boardService" class="salesman.board.service.BoardServiceImpl">
-	<!--  property name 은 set name과 맵핑 -->
-		<property name="boarddao1" ref="boarddao2"/>
-	</bean>
-
-	
-	
-	<bean id="boarddao2" class="salesman.board.dao.BoardDaoImpl">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
 
 </beans>

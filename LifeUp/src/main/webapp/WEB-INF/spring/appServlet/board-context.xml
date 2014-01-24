@@ -10,13 +10,28 @@
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	
-	<bean id="accountService" class="salesman.account.service.AccountServiceImpl"> 
-		<property name="storageService" ref="storageService"/>
-		<property name="accountDao" ref="accountDao"/>		
+	<bean id="boardService" class="salesman.board.service.BoardServiceImpl">
+	<!--  property name 은 set name과 맵핑 -->
+		<property name="boarddao1" ref="boarddao2"/>
 	</bean>
-	
-	<bean id="accountDao" class="salesman.account.dao.AccountDaoImpl">
+
+	<bean id="boarddao2" class="salesman.board.dao.BoardDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:argument-resolvers>
+            <bean class="salesman.common.support.UserMethodArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+    	  
+	<!-- conversion prameters -->	          
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="salesman.common.support.BoardConverter"/>
+            </list>
+        </property>
+    </bean>   	
 
 </beans>
