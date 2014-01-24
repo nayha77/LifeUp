@@ -1,0 +1,8 @@
+
+
+tomcat 
+
+restart 
+
+root@hgburn:/var/lib/tomcat7/conf# service tomcat7 restart
+
