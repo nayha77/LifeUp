@@ -136,6 +136,8 @@
 			    <div class="controls"><input type="password" id="txtIPrevPasswd" /></div>			    
 			    <label class="control-label">신규 비밀번호</label>
 			    <div class="controls"><input type="password" id="txtIPasswd" /></div>                		    
+			    <label class="control-label">신규 비밀번호 확인</label>
+			    <div class="controls"><input type="password" id="txtIPasswdConfirm" /></div>			    
 			</div>
 	    </div>
 	    <div class="modal-footer">
@@ -237,6 +239,8 @@
     					
     					$('#txtFEmail').val("");
     					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
+    				} else {
+    					alert(data.message);
     				}    					    				    		
     			} 
     		);							
@@ -261,6 +265,15 @@
         
         // 내정보 수정
     	function fnMyInfoUpdate() {
+
+        	if( $('#txtIPasswd').val() == $('#txtIPrevPasswd').val() ) {
+        		alert('신규 비밀번호와 이전 비밀번호가 일치합니다');
+        		return;
+        	} else if( $('#txtIPasswdConfirm').val() != $('#txtIPasswd').val() ) {
+        		alert('신규 비밀번호를 확인하세요');
+        		return;
+        	}
+        	
       	    _Async.post (
     			"/account/fnMyInfoUpdate.do",
     			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
@@ -270,6 +283,7 @@
     					
     					$('#txtIPasswd').val("");
     					$('#txtIPrevPasswd').val("");
+    					$('#txtIPasswdConfirm').val("");
     				} else {
     					alert(data.message);
     				}

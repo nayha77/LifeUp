@@ -76,11 +76,8 @@ public class AccountServiceImpl implements AccountService {
 		
 		try {			
 			if(userInfo.getPassword() != null) {
-				password = FileScrty.encryptPassword(userInfo.getPassword());
-				prevPassword = FileScrty.encryptPassword(userInfo.getPrevPassword());
-				
+				password = FileScrty.encryptPassword(userInfo.getPassword());				
 				userInfo.setPassword(password);
-				userInfo.setPrevPassword(prevPassword);
 			}
 			
 			return this.accountDao.modifyUserPasswd(userInfo);

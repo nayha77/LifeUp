@@ -79,8 +79,7 @@
 		     , INIT_PWD = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
 			                   ELSE 'N'
 			  	 	       END
-		 WHERE SALESMAN_ID = #{userId} 
-		   AND PWD         = #{prevPassword} 
+		 WHERE SALESMAN_ID = #{userId}  
 	</update>
 	
 	<update id="modifyCustomerPasswd">
@@ -89,7 +88,6 @@
 		     , INIT_PWD = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
 			                   ELSE 'N'
 			  	 	       END
-		 WHERE CUSTOMER_ID = #{userId}  
-		   AND PWD         = #{prevPassword}		 
+		 WHERE CUSTOMER_ID = #{userId}  		 
 	</update>							
 </mapper>
