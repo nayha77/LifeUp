@@ -1,4 +1,4 @@
-package salesman.mvc.support;
+package salesman.common.support;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,11 +9,11 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import salesman.common.define.Membership;
 import salesman.model.User;
-import salesman.mvc.UserController;
 
 public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver {
-
+	
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return User.class.isAssignableFrom(parameter.getParameterType());
@@ -26,9 +26,7 @@ public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver
                                 , WebDataBinderFactory binderFactory) throws Exception {
 
         HttpSession session =  webRequest.getNativeRequest(HttpServletRequest.class).getSession();
-        Object user = session.getAttribute(UserController.SESSION_USER_KEY);
-
+        Object user = session.getAttribute(Membership._SESSION_USER_);
         return user != null ? user : User.anonymous();
     }
-
 }

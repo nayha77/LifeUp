@@ -22,18 +22,4 @@
     
    	<context:annotation-config />
 
-
-
-   	
-	<bean id="mvcHelloController" class="salesman.mvc.old.HelloController"/>
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <value>
-                /mvc/hello=mvcHelloController
-            </value>
-        </property>
-        <property name="order" value="99"/>
-    </bean>   	
-
 </beans>
