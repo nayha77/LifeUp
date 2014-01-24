@@ -189,6 +189,7 @@
 
     </dependencies>
     <build>
+    	<finalName>HG</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
