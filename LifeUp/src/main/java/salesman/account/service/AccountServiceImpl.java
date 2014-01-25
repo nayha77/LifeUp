@@ -1,7 +1,7 @@
 package salesman.account.service;
 
 import salesman.account.dao.AccountDao;
-import salesman.common.define.Membership;
+import salesman.common.define.Values;
 import salesman.common.service.StorageService;
 import salesman.common.util.FileScrty;
 import salesman.vo.account.LoginVO;
@@ -39,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
 			loginInfo = this.accountDao.tryLogin(login);
 			
 			if(loginInfo != null)
-				storageService.setSessionAttribute(Membership._SESSION_USER_, loginInfo);
+				storageService.setSessionAttribute(Values._SESSION_USER_, loginInfo);
 			
 		} catch (Exception e) {
 			return null;

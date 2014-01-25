@@ -84,9 +84,12 @@ public class AccountController {
      */
     @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
     public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
-    	LoginVO loginVO = new LoginVO(); 
+    	
+    	LoginVO loginVO = new LoginVO();  
+    	
     	loginVO.setUserType(Integer.parseInt(paramMap.get("userType").toString()));
     	loginVO.setUserId(paramMap.get("userId").toString());
+    	
     	SessionVO userInfo = accountService.getUserInfo(loginVO);
     	
     	String message = "잘못된 사용자 요청입니다";
@@ -107,8 +110,8 @@ public class AccountController {
     @RequestMapping("/account/tryModifyPwd")
     public String tryModifyPwd(@RequestParam Map<String,Object> paramMap, HttpServletRequest request) {
     	
-    	LoginVO login = new LoginVO();
     	SessionVO user = new SessionVO();    	
+    	
     	user.setUserId(paramMap.get("userId").toString());
     	user.setPassword(paramMap.get("password").toString());
     	user.setUserType(Integer.parseInt(paramMap.get("userType").toString()));    	
@@ -222,14 +225,6 @@ public class AccountController {
     	
     	return result;
     }    
-    
-    @RequestMapping("/main")
-	public void main() {
-//    	if(storageService.getAuthenticatedUser() == null)
-//    		return "redirect:/login.do";
-//    	
-//    	return "forward:/main.do";
-    }   
     
     @RequestMapping("/account/Membership")
 	public void Membership() {

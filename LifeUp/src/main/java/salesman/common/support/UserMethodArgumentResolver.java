@@ -9,7 +9,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import salesman.common.define.Membership;
+import salesman.common.define.Values;
 import salesman.model.User;
 
 public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver {
@@ -26,7 +26,7 @@ public class UserMethodArgumentResolver implements HandlerMethodArgumentResolver
                                 , WebDataBinderFactory binderFactory) throws Exception {
 
         HttpSession session =  webRequest.getNativeRequest(HttpServletRequest.class).getSession();
-        Object user = session.getAttribute(Membership._SESSION_USER_);
+        Object user = session.getAttribute(Values._SESSION_USER_);
         return user != null ? user : User.anonymous();
     }
 }

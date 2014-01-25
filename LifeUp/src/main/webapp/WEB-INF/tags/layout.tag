@@ -43,18 +43,18 @@
 				</a>
                 <a class='brand' href='<spring:url value="/main"/>'>SSAGEZYO</a>
                 <div class="btn-group pull-right">
-                    <c:if test="${empty sessionScope.userInfo}">
+                    <c:if test="${empty sessionScope._USER_INFO_}">
 	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
                     	<button class="btn" onclick="document.location.href='<spring:url value="/account/Membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
                     </c:if>
-                    <c:if test="${not empty sessionScope.userInfo}">
+                    <c:if test="${not empty sessionScope._USER_INFO_}">
                     	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
                     </c:if>
                 </div>
 				<div class='nav-collapse'>
 					<ul class='nav'>
 						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>	
-						<c:if test="${not empty sessionScope.userInfo}">
+						<c:if test="${not empty sessionScope._USER_INFO_}">
 							<li class='active'><a href='#' onclick="fnMyInfo();">내정보</a></li>							
 						</c:if>						
 					</ul>
@@ -214,7 +214,7 @@
       	    _Async.post (
     			"/account/actionLogin.do",
     			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
-    			function (data) {                
+    			function (data) {    
     				if(data.message == 'success' || data.message == 'duplicated')
     					document.location.href='<spring:url value="/main.do"/>';
     				else
