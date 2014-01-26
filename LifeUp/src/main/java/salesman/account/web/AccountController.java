@@ -69,9 +69,11 @@ public class AccountController {
 		    	} else {
 		    		message = "회원가입 후 로그인 해주세요";
 		    	}	    			    		    
-        	}	    		        	
-    		
+        	}	    		        	    		        
+        	
     		result.put("message", message);
+    		
+    		throw new Exception("");
     	} catch (Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	}

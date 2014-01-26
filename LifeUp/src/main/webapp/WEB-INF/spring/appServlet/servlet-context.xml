@@ -16,12 +16,11 @@
     
     <!-- 서블릿컨네이너상의 exception에 대한 오류 페이지를 연결하는 mvc 설정 -->
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <property name="defaultErrorView" value="cmm/error/egovError"/>
+        <property name="defaultErrorView" value="cmm/error/defaultError"/>
         <property name="exceptionMappings">
             <props>
                 <prop key="org.springframework.dao.DataAccessException">cmm/error/dataAccessFailure</prop>
                 <prop key="org.springframework.transaction.TransactionException">cmm/error/transactionFailure</prop>
-                <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmm/error/egovError</prop>
                 <prop key="org.springframework.security.AccessDeniedException">cmm/error/accessDenied</prop>
             </props>
         </property>
