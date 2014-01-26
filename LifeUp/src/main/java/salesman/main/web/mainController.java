@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import salesman.common.service.StorageService;
+import salesman.common.support.CustomException;
 
 @Controller
 public class mainController {
@@ -12,5 +13,7 @@ public class mainController {
     private StorageService storageService;
 		           
     @RequestMapping("/main")
-	public void main() { }         
+	public void main() { 
+		//throw new CustomException("Biz error test message");
+    }         
 }

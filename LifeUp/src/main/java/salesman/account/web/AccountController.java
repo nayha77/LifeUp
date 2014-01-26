@@ -71,9 +71,8 @@ public class AccountController {
 		    	}	    			    		    
         	}	    		        	    		        
         	
-    		result.put("message", message);
+    		result.put("message", message);    		
     		
-    		throw new Exception("");
     	} catch (Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	}

@@ -19,9 +19,10 @@
         <property name="defaultErrorView" value="cmm/error/defaultError"/>
         <property name="exceptionMappings">
             <props>
-                <prop key="org.springframework.dao.DataAccessException">cmm/error/dataAccessFailure</prop>
-                <prop key="org.springframework.transaction.TransactionException">cmm/error/transactionFailure</prop>
-                <prop key="org.springframework.security.AccessDeniedException">cmm/error/accessDenied</prop>
+            	<prop key="salesman.common.support.CustomException">error/bizError</prop>
+                <prop key="org.springframework.dao.DataAccessException">error/dataAccessFailure</prop>
+                <prop key="org.springframework.transaction.TransactionException">error/transactionFailure</prop>
+                <prop key="org.springframework.security.AccessDeniedException">error/accessDenied</prop>                
             </props>
         </property>
     </bean>    
