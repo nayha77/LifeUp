@@ -189,7 +189,7 @@
 
     </dependencies>
     <build>
-    	<finalName>HG</finalName>
+    	<finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
