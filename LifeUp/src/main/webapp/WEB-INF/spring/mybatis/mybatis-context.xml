@@ -8,12 +8,20 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
        
+<!-- 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://211.218.126.142:3388/salesman" />
 		<property name="username" value="nayha" />
 		<property name="password" value="1122" />
-	</bean>
+	</bean> 
+	-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://hgburn.vps.phps.kr:3306/salesman" />
+		<property name="username" value="root" />
+		<property name="password" value="hg1122" />
+	</bean>	
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 			<property name="dataSource" ref="dataSource" />
