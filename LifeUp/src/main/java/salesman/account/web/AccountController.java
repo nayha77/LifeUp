@@ -69,9 +69,10 @@ public class AccountController {
 		    	} else {
 		    		message = "회원가입 후 로그인 해주세요";
 		    	}	    			    		    
-        	}	    		        	
+        	}	    		        	    		        
+        	
+    		result.put("message", message);    		
     		
-    		result.put("message", message);
     	} catch (Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	}
@@ -84,9 +85,12 @@ public class AccountController {
      */
     @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
     public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
-    	LoginVO loginVO = new LoginVO(); 
+    	
+    	LoginVO loginVO = new LoginVO();  
+    	
     	loginVO.setUserType(Integer.parseInt(paramMap.get("userType").toString()));
     	loginVO.setUserId(paramMap.get("userId").toString());
+    	
     	SessionVO userInfo = accountService.getUserInfo(loginVO);
     	
     	String message = "잘못된 사용자 요청입니다";
@@ -107,8 +111,8 @@ public class AccountController {
     @RequestMapping("/account/tryModifyPwd")
     public String tryModifyPwd(@RequestParam Map<String,Object> paramMap, HttpServletRequest request) {
     	
-    	LoginVO login = new LoginVO();
     	SessionVO user = new SessionVO();    	
+    	
     	user.setUserId(paramMap.get("userId").toString());
     	user.setPassword(paramMap.get("password").toString());
     	user.setUserType(Integer.parseInt(paramMap.get("userType").toString()));    	
@@ -127,11 +131,15 @@ public class AccountController {
     	
     	Map<String, Object> result = new HashMap<String, Object>();
     	
-    	try {    		    		    		
+    	try {    		    		     		
     		mailingMessage.setHtmlContent("ID", loginVO);
-    		mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);
     		
-    		result.put("message", "success");
+    		if(mailingMessage.getHtmlContent().equals("")) {
+    			result.put("message", "등록되지 않은 사용자입니다. 입력정보를 확인하세요");
+    		} else {
+    			mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);    		
+    			result.put("message", "success");
+    		}
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	}
@@ -148,12 +156,15 @@ public class AccountController {
     	Map<String, Object> result = new HashMap<String, Object>();    	
     	
     	try {    		    		    		
-    		loginVO.setInitPwd("Y");
-    		
+    		loginVO.setInitPwd("Y");    		
     		mailingMessage.setHtmlContent("PWD", loginVO);
-    		mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);
-    		    		
-    		result.put("message", "success");
+    		
+    		if(mailingMessage.getHtmlContent().equals("")) {
+    			result.put("message", "등록되지 않은 사용자입니다. 입력정보를 확인하세요");
+    		} else {
+    			mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);
+    			result.put("message", "success");
+    		}    		    		
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
     	}
@@ -207,7 +218,7 @@ public class AccountController {
 	        	if(accountService.modifyUserInfo(param))
 	    			result.put("message", "success");
 	    		else
-	    			result.put("message", "정보수정에 실패했습니다");
+	    			result.put("message", "정보수정에 실패했습니다. 입력정보를 확인하세요");
     		}
     	} catch(Exception ex) {
     		result.put("message", "서버오류가 발생했습니다");
@@ -215,14 +226,6 @@ public class AccountController {
     	
     	return result;
     }    
-    
-    @RequestMapping("/main")
-	public void main() {
-//    	if(storageService.getAuthenticatedUser() == null)
-//    		return "redirect:/login.do";
-//    	
-//    	return "forward:/main.do";
-    }   
     
     @RequestMapping("/account/Membership")
 	public void Membership() {

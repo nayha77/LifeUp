@@ -43,18 +43,18 @@
 				</a>
                 <a class='brand' href='<spring:url value="/main"/>'>SSAGEZYO</a>
                 <div class="btn-group pull-right">
-                    <c:if test="${empty sessionScope.userInfo}">
+                    <c:if test="${empty sessionScope._USER_INFO_}">
 	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
                     	<button class="btn" onclick="document.location.href='<spring:url value="/account/Membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
                     </c:if>
-                    <c:if test="${not empty sessionScope.userInfo}">
+                    <c:if test="${not empty sessionScope._USER_INFO_}">
                     	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
                     </c:if>
                 </div>
 				<div class='nav-collapse'>
 					<ul class='nav'>
 						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>	
-						<c:if test="${not empty sessionScope.userInfo}">
+						<c:if test="${not empty sessionScope._USER_INFO_}">
 							<li class='active'><a href='#' onclick="fnMyInfo();">내정보</a></li>							
 						</c:if>						
 					</ul>
@@ -136,6 +136,8 @@
 			    <div class="controls"><input type="password" id="txtIPrevPasswd" /></div>			    
 			    <label class="control-label">신규 비밀번호</label>
 			    <div class="controls"><input type="password" id="txtIPasswd" /></div>                		    
+			    <label class="control-label">신규 비밀번호 확인</label>
+			    <div class="controls"><input type="password" id="txtIPasswdConfirm" /></div>			    
 			</div>
 	    </div>
 	    <div class="modal-footer">
@@ -212,7 +214,7 @@
       	    _Async.post (
     			"/account/actionLogin.do",
     			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
-    			function (data) {                
+    			function (data) {    
     				if(data.message == 'success' || data.message == 'duplicated')
     					document.location.href='<spring:url value="/main.do"/>';
     				else
@@ -237,6 +239,8 @@
     					
     					$('#txtFEmail').val("");
     					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
+    				} else {
+    					alert(data.message);
     				}    					    				    		
     			} 
     		);							
@@ -261,6 +265,15 @@
         
         // 내정보 수정
     	function fnMyInfoUpdate() {
+
+        	if( $('#txtIPasswd').val() == $('#txtIPrevPasswd').val() ) {
+        		alert('신규 비밀번호와 이전 비밀번호가 일치합니다');
+        		return;
+        	} else if( $('#txtIPasswdConfirm').val() != $('#txtIPasswd').val() ) {
+        		alert('신규 비밀번호를 확인하세요');
+        		return;
+        	}
+        	
       	    _Async.post (
     			"/account/fnMyInfoUpdate.do",
     			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
@@ -270,6 +283,7 @@
     					
     					$('#txtIPasswd').val("");
     					$('#txtIPrevPasswd').val("");
+    					$('#txtIPasswdConfirm').val("");
     				} else {
     					alert(data.message);
     				}

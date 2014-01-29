@@ -189,6 +189,7 @@
 
     </dependencies>
     <build>
+    	<finalName>HG</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
@@ -224,6 +225,15 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+		<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+				  		<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>            
         </plugins>
     </build>
 </project>

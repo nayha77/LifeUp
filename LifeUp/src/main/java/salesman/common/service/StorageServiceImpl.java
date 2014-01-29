@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import salesman.common.define.Values;
 import salesman.vo.account.SessionVO;
 
 public class StorageServiceImpl implements StorageService {
@@ -18,7 +19,7 @@ public class StorageServiceImpl implements StorageService {
 
 	@Override
 	public SessionVO getAuthenticatedUser() {
-		return (SessionVO) getSessionAttribute("userInfo");
+		return (SessionVO) getSessionAttribute(Values._SESSION_USER_);
 	}
 		
 	@Override

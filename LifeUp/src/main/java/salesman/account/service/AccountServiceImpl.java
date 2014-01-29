@@ -1,6 +1,7 @@
 package salesman.account.service;
 
 import salesman.account.dao.AccountDao;
+import salesman.common.define.Values;
 import salesman.common.service.StorageService;
 import salesman.common.util.FileScrty;
 import salesman.vo.account.LoginVO;
@@ -38,7 +39,7 @@ public class AccountServiceImpl implements AccountService {
 			loginInfo = this.accountDao.tryLogin(login);
 			
 			if(loginInfo != null)
-				storageService.setSessionAttribute("userInfo", loginInfo);
+				storageService.setSessionAttribute(Values._SESSION_USER_, loginInfo);
 			
 		} catch (Exception e) {
 			return null;
@@ -76,11 +77,8 @@ public class AccountServiceImpl implements AccountService {
 		
 		try {			
 			if(userInfo.getPassword() != null) {
-				password = FileScrty.encryptPassword(userInfo.getPassword());
-				prevPassword = FileScrty.encryptPassword(userInfo.getPrevPassword());
-				
+				password = FileScrty.encryptPassword(userInfo.getPassword());				
 				userInfo.setPassword(password);
-				userInfo.setPrevPassword(prevPassword);
 			}
 			
 			return this.accountDao.modifyUserPasswd(userInfo);
