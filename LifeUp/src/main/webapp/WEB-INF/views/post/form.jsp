@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<mvc:layout>
+<mvc:main>
     <div class="page-header">
         <c:if test="${empty postNo}">
         <h1 style="padding-left: 20px;">새로운 글 작성하기</h1>
@@ -52,4 +52,4 @@
     </fieldset>
     </form:form>
 
-</mvc:layout>
+</mvc:main>

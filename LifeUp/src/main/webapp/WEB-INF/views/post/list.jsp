@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<mvc:layout>
+<mvc:main>
     <table class="table table-striped">
     <colgroup>
         <col style="width: 60px;">
@@ -31,4 +31,4 @@
     
     <a href='<spring:url value="/${board.name}/post/new"/>' class='btn'>글쓰기</a>    
 
-</mvc:layout>
+</mvc:main>
