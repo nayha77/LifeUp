@@ -3,6 +3,7 @@
 
 <mvc:main>
 <script type="text/javascript">
-
+	function fnLoad() {
+	}
 </script>
 </mvc:main>
