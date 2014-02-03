@@ -85,8 +85,8 @@ public class AccountController {
     /*
      * 비밀번호 변경화면 호출 (e-mail을 통한 연결)
      */
-    @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
-    public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
+    @RequestMapping(value="/account/modifyPwd", method=RequestMethod.GET)
+    public void modifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
     	
     	LoginVO loginVO = new LoginVO();  
     	
@@ -122,7 +122,7 @@ public class AccountController {
     	if(accountService.modifyUserPasswd(user))    		
     		return "redirect:/main.do";    	
     	
-    	return "redirect:/account/ModifyPwd.do"; 
+    	return "redirect:/account/modifyPwd.do"; 
     }        
     
     /*
@@ -174,8 +174,8 @@ public class AccountController {
     	return result;
     }          
     
-    @RequestMapping(value="/account/fnMyInfo", produces={"application/xml", "application/json"} )
-    public @ResponseBody Map<String, Object> fnMyInfo(HttpServletRequest request) {
+    @RequestMapping(value="/account/myInfo", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> myInfo(HttpServletRequest request) {
     	
     	SessionVO userInfo = null;
     	LoginVO user = new LoginVO();
@@ -202,8 +202,8 @@ public class AccountController {
     	return result;
     }
     
-    @RequestMapping(value="/account/fnMyInfoUpdate", produces={"application/xml", "application/json"} )
-    public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
+    @RequestMapping(value="/account/myInfoUpdate", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> myInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();
     	SessionVO userInfo = null;
@@ -229,8 +229,8 @@ public class AccountController {
     	return result;
     }    
        
-    @RequestMapping("/account/Membership")
-	public void Membership() {
+    @RequestMapping("/account/membership")
+	public void membership() {
     	
     }
     
