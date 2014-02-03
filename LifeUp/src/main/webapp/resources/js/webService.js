@@ -119,6 +119,14 @@
                 var RE = /^-{0,1}\d*\.{0,1}\d+$/;
                 return (RE.test(input));
             };
+            
+            this.IsPassword = function (input) {
+            	var pattern = /[^(a-zA-Z0-9)]/;
+            	if(!pattern.test( input )) 
+            		return true;
+            	else 
+            		return false;
+            };
 
             this.SetInitFCKeditor = function(objID, height) {
                 var editor = new FCKeditor(objID);

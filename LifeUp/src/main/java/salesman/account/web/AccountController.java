@@ -1,9 +1,11 @@
 package salesman.account.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +47,7 @@ public class AccountController {
     /*
      * 로그인처리
      */
-    @RequestMapping("/account/actionLogin")
+    @RequestMapping(value="/account/actionLogin", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {     
     	
     	String message = "success";    	
@@ -121,12 +123,12 @@ public class AccountController {
     		return "redirect:/main.do";    	
     	
     	return "redirect:/account/ModifyPwd.do"; 
-    }    
+    }        
     
     /*
      * 사용자 찾기
      */
-    @RequestMapping("/account/findUser")
+    @RequestMapping(value="/account/findUser", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> findUser(@RequestBody LoginVO loginVO, HttpServletRequest request) {
     	
     	Map<String, Object> result = new HashMap<String, Object>();
@@ -150,7 +152,7 @@ public class AccountController {
     /*
      * 사용자비밀번호 찾기
      */
-    @RequestMapping("/account/findPwd")
+    @RequestMapping(value="/account/findPwd", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> findPwd(@RequestBody LoginVO loginVO, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();    	
@@ -172,7 +174,7 @@ public class AccountController {
     	return result;
     }          
     
-    @RequestMapping("/account/fnMyInfo")
+    @RequestMapping(value="/account/fnMyInfo", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> fnMyInfo(HttpServletRequest request) {
     	
     	SessionVO userInfo = null;
@@ -200,7 +202,7 @@ public class AccountController {
     	return result;
     }
     
-    @RequestMapping("/account/fnMyInfoUpdate")
+    @RequestMapping(value="/account/fnMyInfoUpdate", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();
@@ -226,9 +228,31 @@ public class AccountController {
     	
     	return result;
     }    
-    
+       
     @RequestMapping("/account/Membership")
 	public void Membership() {
     	
-    }    
+    }
+    
+    /*
+     * 회원가입시 ID 중복검색
+     */
+    @RequestMapping(value="/account/chkExistUserId" )
+    public void chkExistUserId(@RequestParam int userType, @RequestParam String tbxUserId, HttpServletResponse response) throws IOException {
+    	
+    	LoginVO loginVO = new LoginVO();
+    	loginVO.setUserType(userType);
+    	loginVO.setUserId(tbxUserId);
+    	
+    	try {    		    		     		        	
+        	SessionVO userInfo = accountService.getUserInfo(loginVO);
+        	
+        	if(userInfo != null)
+        		response.getWriter().print("false");        	
+        	else
+        		response.getWriter().print("true");
+    	} catch(Exception ex) {
+    		response.getWriter().print("true");
+    	}    	
+    }      
 }

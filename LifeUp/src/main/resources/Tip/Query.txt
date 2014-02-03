@@ -1,4 +1,11 @@
-1. 견적등록내용
+-- like 참조
+<select id="autoText" parameterType="String" resultType="AutoCompletionText">
+  select autotext from autocomtext
+   where autotext like concat(#{searchText},'%')
+ </select>
+ 
+
+-- 견적등록내용
 SELECT A.REQUEST_ID
 	 , A.CUSTOMER_ID
 	 , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = A.CUSTOMER_ID) CUSTOMER_NM
