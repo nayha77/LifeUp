@@ -28,12 +28,13 @@
 	    <property name="mailSender" ref="mailSender" />  
 	</bean>  
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	  	<property name="host" value="localhost" />
+	  	<property name="host" value="smtp.hgburn.vps.phps.kr" />
 	  	<property name="port" value="25" />
-	    <property name="username" value="admin" />  
+	    <property name="username" value="admin@hgburn.vps.phps.kr" />  
 	    <property name="password" value="hg1122" />  
 	    <property name="javaMailProperties">  
-	       <props>  
+	       <props>
+   				<prop key="mail.transport.protocol">smtp</prop>
 	       		<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
 	       </props>  
