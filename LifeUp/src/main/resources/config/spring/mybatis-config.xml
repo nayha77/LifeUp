@@ -11,6 +11,7 @@
 	<mappers>
 		<mapper resource="config/mapper/sql-main.xml" />
 		<mapper resource="config/mapper/sql-login.xml" />
+		<mapper resource="config/mapper/sql-common.xml" />
 	</mappers>
 	
 </configuration>

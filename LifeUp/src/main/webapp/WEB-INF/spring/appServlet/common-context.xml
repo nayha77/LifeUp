@@ -13,6 +13,15 @@
 	<!-- session -->  
 	<bean id="storageService" class="salesman.common.service.StorageServiceImpl">
 	</bean>
+	
+	<!--  selectSido -->
+	<bean id="regionService" class="salesman.common.service.RegionSelectServiceImpl">
+		<property name="regionServiceBean" ref="regindao" />
+	</bean>
+	<!--  selectSido dao -->
+	<bean id="regindao" class="salesman.common.dao.RegionDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 		
     <!-- json -->      
 	<bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
