@@ -12,15 +12,14 @@
 <script src='<spring:url value="/resources/js/bootstrap-select.js"/>'></script>
 
 
-    <script type="text/javascript">
-        $(window).on('load', function () {
-            $('.selectpicker').selectpicker({
-                //'selectedText': 'cat'
-            });
 
-            // $('.selectpicker').selectpicker('hide');
-        });
-    </script>
+    <c:forEach items="${DBSido}" var="post">
+    <tr>
+        <td class="txt_c">${post.sido}</td>
+    </tr>
+    </c:forEach>
+
+
     
 <div class="bs-docs-example">
   
