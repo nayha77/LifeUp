@@ -15,5 +15,11 @@ public class mainController {
     @RequestMapping("/main")
 	public void main() { 
 		//throw new CustomException("Biz error test message");
-    }         
+    }
+    
+    @RequestMapping("/selectBoxTest")
+	public String selectBoxTest() { 
+		//throw new CustomException("Biz error test message");
+    	return "common/selectBox";
+    }             
 }

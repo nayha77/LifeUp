@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<mvc:layout>
+<mvc:main>
 
 
 
@@ -28,4 +28,4 @@
         <a href='<spring:url value="/${board.name}/post/edit/${postNo}"/>' class='btn btn-info'>수정하기</a>                        
         <a href='javascript:$.form.delete("<spring:url value="/${board.name}/post"/>", {postNo:${postNo}})' class='btn btn-danger'>삭제하기</a>
     	
-</mvc:layout>
+</mvc:main>
