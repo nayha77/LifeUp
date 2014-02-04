@@ -3,11 +3,17 @@
 
 <mapper namespace="common">
 
-	<!-- 지역 시/도 를  가지고 온다  -->
+	<!-- 지역 시 를  가지고 온다  -->
 	<select id="getSido" resultType="salesman.common.define.RegionVo">
 	   select SIDO from region
  	   group by sido
 	   order by REGION_CD asc
+	</select>
+	
+	<!-- 구 를  가지고 온다  -->	
+	<select id="getGu" parameterType="salesman.common.define.RegionVo"  resultType="salesman.common.define.RegionVo">
+		select gugun from region
+		where sido = #{sido};
 	</select>
 
 </mapper>

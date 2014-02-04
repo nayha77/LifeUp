@@ -13,7 +13,7 @@
 
 	<!-- Le styles -->
 	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
-
+	<link href='<spring:url value="/resources/css/bootstrap-select.css"/>' rel='stylesheet'>
 	<style type='text/css'>
 		body {
 			padding-top: 60px;
@@ -164,9 +164,8 @@
 	<script src='<spring:url value="/resources/js/bootstrap-collapse.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-carousel.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-typeahead.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-select.js"/>'></script>
-	
 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>		
+	<script src='<spring:url value="/resources/js/bootstrap-select.js"/>'></script>
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);

@@ -1,17 +1,22 @@
 package salesman.main.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import salesman.common.define.RegionVo;
-import salesman.common.service.RegionSelectServiceImpl;
+import salesman.common.service.RegionSelectImpl;
 import salesman.common.service.StorageService;
 
 @Controller
@@ -20,7 +25,7 @@ public class mainController {
     private StorageService storageService;
     
     @Autowired
-    private RegionSelectServiceImpl regionService;
+    private RegionSelectImpl regionService;
 		           
     @RequestMapping("/main")
 	public void main() { 
@@ -29,14 +34,23 @@ public class mainController {
     
     @RequestMapping("/selectBoxTest")
 	public  String list(ModelMap model) {
-    		model.put("sidoone", "test");
-          model.put("Sido", regionService.selectRegionSidoTable());
+         model.put("Sido", regionService.selectRegionSidoTable());
     	return "common/selectBox";
     }
     
+    @ResponseBody
     @RequestMapping("/selectBoxTestJson")
-	public  @ResponseBody Map<?,?> listJson(ModelMap model){
-          model.put("Sido", regionService.selectRegionSidoTable());
+	public ModelMap listJson(HttpServletRequest req,ModelMap model){
+    	// vo 객체를 넘겨서 받아볼려고 했는데 자꾸 애러가 남;;;
+    	// @ModelAttribute ( http://linuxism.tistory.com/651 )
+
+ 		String sido = req.getParameter("sido");
+    	if( sido == null || sido.equals("") ){
+    		model.put("SidoJson", regionService.selectRegionSidoTable());
+    	}else{
+    		model.put("Sido2", regionService.selectRegionGuTable(sido));    		
+    	}
+    	System.out.println("----" + model.toString());
     	return model;
     }                 
 }

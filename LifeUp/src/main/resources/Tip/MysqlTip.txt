@@ -75,3 +75,20 @@ mysql> show variables like 'character%';
 
 ** 대소문자 구분 해결 링크
 http://oranke.tistory.com/224
+
+
+** mysql 외부 접속 가능하게...참고 url **
+
+INSERT INTO mysql.user (host,user,password) VALUES ('%','root',password('hg1122'));
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+FLUSH PRIVILEGES;
+
+
+grant all privileges on *.* to 'root'@'%' identified by 'hg1122';
+
+
+http://kldp.org/node/26673
+
+http://powerhan.tistory.com/31
+
+

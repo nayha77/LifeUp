@@ -7,8 +7,10 @@ import java.util.Map;
 import salesman.common.define.RegionVo;
 import salesman.model.Post;
 
-public interface iRegiondao {
+public interface Regiondao {
 	
 	public List<RegionVo> selectSidoTable();
+	
+	public List<RegionVo> selectGuTable(String sido);
 
 }

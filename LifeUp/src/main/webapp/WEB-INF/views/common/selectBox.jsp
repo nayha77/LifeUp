@@ -6,42 +6,62 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <mvc:test>
-	<link href='<spring:url value="/resources/css/bootstrap-select.css"/>' rel='stylesheet'>
+<link href='<spring:url value="/resources/css/bootstrap-select.css"/>' rel='stylesheet'>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>    
 <script src='<spring:url value="/resources/js/bootstrap-select.js"/>'></script>
 
 <script type="text/javascript">
 	
 	function fnLoad() {
-        $('.selectpicker').selectpicker({
-            //'selectedText': '구로'
-        });		
 		viewAjaxList();
+
 	}
 	
 	function viewAjaxList(){
+	    var nation = $('#nationcode option:selected');
+	    $('#state').html($('<option></option>').val('').html('----------------------'));
 		$.ajax({
 			 type 	: 	"POST"
 			,url	:	"/ROOT/selectBoxTestJson"
 			,dataType	: "json"
 			,data	: ""
 			,success	: function(result){
+				if( result.length > 0 ){
+		            $('#state').html('');
+		            $('#state').append($('<option></option>').val('').html('-- Choose from list --'));					
+				}
 				$.each(result,function(key){
-					var list = result[key];
-					
-					var content =" <select class='selectpicker' data-live-search='true'>";
-					
+/* 					var list = result[key];
+					var content =" <select class='selectpicker' data-live-search='true' id='nationcode'>";
+					content += "<option>----select----- </option>"
 					for (i=0 ; i <list.length; i++){
 						content +="<option>" +list[i].sido + "</option>";
 					}
 					content +="</select>";
-					$(".bs-docs-example").html(content);
+					$(".bs-docs-example").html(content); */
+		            if($('#province').val() == this.name){
+		                $('#state').append($('<option></option>').val(this.name).html(this.name).attr('selected', true));
+		            }else{
+		                $('#state').append($('<option></option>').val(this.name).html(this.name));
+		            }					
 				});
-			}
+				}, 
+				error : function(XHR, textStatus, errorThrown) { 
+
+					alert("Error: " + textStatus); 
+					alert("Error: " + errorThrown); 
+
+					} 
 		});
 	}
-	viewAjaxList();
+/*     $('.selectpicker').selectpicker({
+        'selectedText': '대전'
+    }); */		
+
 </script>
+
+    <div class="bs-docs-example" ></div>
+    <div class="bs-docs-example" id="state" ></div>
 
 <%--   <c:forEach items="${Sido}" var="post">
     <tr>
@@ -56,7 +76,7 @@
 </form:form> 
     --%>
     
-    <div class="bs-docs-example" ></div>
+
     
 <!-- <div class="bs-docs-example">
   
