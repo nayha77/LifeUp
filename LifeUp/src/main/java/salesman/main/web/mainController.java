@@ -1,14 +1,18 @@
 package salesman.main.web;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import salesman.common.define.RegionVo;
 import salesman.common.service.RegionSelectServiceImpl;
 import salesman.common.service.StorageService;
-import salesman.common.service.iRegionSelectService;
-import salesman.common.support.CustomException;
 
 @Controller
 public class mainController {
@@ -25,10 +29,14 @@ public class mainController {
     
     @RequestMapping("/selectBoxTest")
 	public  String list(ModelMap model) {
-    	//System.out.println("============= " + regionService.selectRegionSidoTable());
-        model.put("DBSido", regionService.selectRegionSidoTable());
-        System.out.println("===========    ===================="+  model.toString());
-        System.out.println("```````````````"+ model.size());
+    		model.put("sidoone", "test");
+          model.put("Sido", regionService.selectRegionSidoTable());
     	return "common/selectBox";
-    }             
+    }
+    
+    @RequestMapping("/selectBoxTestJson")
+	public  @ResponseBody Map<?,?> listJson(ModelMap model){
+          model.put("Sido", regionService.selectRegionSidoTable());
+    	return model;
+    }                 
 }

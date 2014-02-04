@@ -7,11 +7,13 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import salesman.common.define.RegionVo;
+
 public class RegionDaoImpl extends SqlSessionDaoSupport implements iRegiondao{
 
 	@Override
-	public List<HashMap<String, Object>> selectSidoTable() {
-		List<HashMap<String, Object>> sidoTableList = new ArrayList<HashMap<String,Object>>();
+	public List<RegionVo> selectSidoTable() {
+		List<RegionVo> sidoTableList = new ArrayList<RegionVo>();
 		sidoTableList = getSqlSession().selectList("common.getSido");
 		return sidoTableList;
 	}

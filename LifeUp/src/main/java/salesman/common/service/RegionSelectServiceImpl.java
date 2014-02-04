@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 
 
+
 import salesman.common.dao.iRegiondao;
+import salesman.common.define.RegionVo;
 
 public class RegionSelectServiceImpl implements iRegionSelectService {
 	
@@ -15,7 +17,7 @@ public class RegionSelectServiceImpl implements iRegionSelectService {
 	}
 
 	@Override
-	public List< HashMap<String, Object> > selectRegionSidoTable() {
+	public List<RegionVo> selectRegionSidoTable() {
 		return iRegiondao.selectSidoTable();
 	}
 

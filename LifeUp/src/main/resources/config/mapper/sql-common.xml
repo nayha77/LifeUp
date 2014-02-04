@@ -4,8 +4,8 @@
 <mapper namespace="common">
 
 	<!-- 지역 시/도 를  가지고 온다  -->
-	<select id="getSido" resultType="java.util.HashMap">
-	   select sido from region
+	<select id="getSido" resultType="salesman.common.define.RegionVo">
+	   select SIDO from region
  	   group by sido
 	   order by REGION_CD asc
 	</select>

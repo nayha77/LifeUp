@@ -13,7 +13,7 @@
 
 	<!-- Le styles -->
 	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
-	<link href='<spring:url value="/resources/css/bootstrap-select.css"/>' rel='stylesheet'>
+
 	<style type='text/css'>
 		body {
 			padding-top: 60px;
@@ -211,6 +211,10 @@
 			if('${loginRequest}' === 'true') {
 			    $('#loginModal').modal('show');
 			}
+
+			
+				fnLoad();
+			
 		});
         
         // 로그인
@@ -307,14 +311,6 @@
         	$('#spTitle').html(title); 
         	$('#txtFEmail').focus();
         }
-        
-        $(window).on('load', function () {
-            $('.selectpicker').selectpicker({
-                'selectedText': '구로'
-            });
-
-            // $('.selectpicker').selectpicker('hide');
-        });        
     </script>
 </body>
 </html>
