@@ -1,9 +1,11 @@
 package salesman.account.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +47,7 @@ public class AccountController {
     /*
      * 로그인처리
      */
-    @RequestMapping("/account/actionLogin")
+    @RequestMapping(value="/account/actionLogin", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {     
     	
     	String message = "success";    	
@@ -83,8 +85,8 @@ public class AccountController {
     /*
      * 비밀번호 변경화면 호출 (e-mail을 통한 연결)
      */
-    @RequestMapping(value="/account/ModifyPwd", method=RequestMethod.GET)
-    public void ModifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
+    @RequestMapping(value="/account/modifyPwd", method=RequestMethod.GET)
+    public void modifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
     	
     	LoginVO loginVO = new LoginVO();  
     	
@@ -120,13 +122,13 @@ public class AccountController {
     	if(accountService.modifyUserPasswd(user))    		
     		return "redirect:/main.do";    	
     	
-    	return "redirect:/account/ModifyPwd.do"; 
-    }    
+    	return "redirect:/account/modifyPwd.do"; 
+    }        
     
     /*
      * 사용자 찾기
      */
-    @RequestMapping("/account/findUser")
+    @RequestMapping(value="/account/findUser", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> findUser(@RequestBody LoginVO loginVO, HttpServletRequest request) {
     	
     	Map<String, Object> result = new HashMap<String, Object>();
@@ -150,7 +152,7 @@ public class AccountController {
     /*
      * 사용자비밀번호 찾기
      */
-    @RequestMapping("/account/findPwd")
+    @RequestMapping(value="/account/findPwd", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> findPwd(@RequestBody LoginVO loginVO, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();    	
@@ -172,8 +174,8 @@ public class AccountController {
     	return result;
     }          
     
-    @RequestMapping("/account/fnMyInfo")
-    public @ResponseBody Map<String, Object> fnMyInfo(HttpServletRequest request) {
+    @RequestMapping(value="/account/myInfo", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> myInfo(HttpServletRequest request) {
     	
     	SessionVO userInfo = null;
     	LoginVO user = new LoginVO();
@@ -200,8 +202,8 @@ public class AccountController {
     	return result;
     }
     
-    @RequestMapping("/account/fnMyInfoUpdate")
-    public @ResponseBody Map<String, Object> fnMyInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
+    @RequestMapping(value="/account/myInfoUpdate", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> myInfoUpdate(@RequestBody SessionVO param, HttpServletRequest request) {
 
     	Map<String, Object> result = new HashMap<String, Object>();
     	SessionVO userInfo = null;
@@ -226,9 +228,31 @@ public class AccountController {
     	
     	return result;
     }    
-    
-    @RequestMapping("/account/Membership")
-	public void Membership() {
+       
+    @RequestMapping("/account/membership")
+	public void membership() {
     	
-    }    
+    }
+    
+    /*
+     * 회원가입시 ID 중복검색
+     */
+    @RequestMapping(value="/account/chkExistUserId" )
+    public void chkExistUserId(@RequestParam int userType, @RequestParam String tbxUserId, HttpServletResponse response) throws IOException {
+    	
+    	LoginVO loginVO = new LoginVO();
+    	loginVO.setUserType(userType);
+    	loginVO.setUserId(tbxUserId);
+    	
+    	try {    		    		     		        	
+        	SessionVO userInfo = accountService.getUserInfo(loginVO);
+        	
+        	if(userInfo != null)
+        		response.getWriter().print("false");        	
+        	else
+        		response.getWriter().print("true");
+    	} catch(Exception ex) {
+    		response.getWriter().print("true");
+    	}    	
+    }      
 }

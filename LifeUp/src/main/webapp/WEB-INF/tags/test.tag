@@ -46,7 +46,7 @@
                 <div class="btn-group pull-right">
                     <c:if test="${empty sessionScope._USER_INFO_}">
 	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
-                    	<button class="btn" onclick="document.location.href='<spring:url value="/account/Membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
+                    	<button class="btn" onclick="document.location.href='<spring:url value="/account/membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
                     </c:if>
                     <c:if test="${not empty sessionScope._USER_INFO_}">
                     	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
@@ -257,7 +257,7 @@
         // 내정보 
     	function fnMyInfo() {			
       	    _Async.post (
-    			"/account/fnMyInfo.do",
+    			"/account/myInfo.do",
     			'',
     			function (data) {                
     				if(data.message == 'success') {
@@ -283,7 +283,7 @@
         	}
         	
       	    _Async.post (
-    			"/account/fnMyInfoUpdate.do",
+    			"/account/myInfoUpdate.do",
     			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
     			function (data) {                
     				if(data.message == 'success') {

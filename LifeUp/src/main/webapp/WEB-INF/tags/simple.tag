@@ -13,6 +13,7 @@
 
 	<!-- Le styles -->
 	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
+	<link href='<spring:url value="/resources/css/bootstrap-select.css"/>' rel='stylesheet'>	
 	<style type='text/css'>
 		body {
 			padding-top: 60px;
@@ -32,6 +33,7 @@
     <![endif]-->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src='<spring:url value="/resources/js/jquery.js"/>'></script>
+	<script src='<spring:url value="/resources/js/jquery-validate-min.js"/>'></script>	
 	<script src='<spring:url value="/resources/js/bootstrap-transition.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-alert.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-modal.js"/>'></script>
@@ -44,13 +46,36 @@
 	<script src='<spring:url value="/resources/js/bootstrap-collapse.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-carousel.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-typeahead.js"/>'></script>
-	
+	<script src='<spring:url value="/resources/js/bootstrap-select.js"/>'></script>	
 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>		
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
+
+		function fnJQueryValidatorAdd() {
+			//영문숫자만
+	    	jQuery.validator.addMethod("alphanumeric", function (value, element) {
+	    	    return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+	    	});
+
+	    	//영문만
+	    	jQuery.validator.addMethod("alpha", function (value, element) {
+	    	    return this.optional(element) || /^[a-zA-Z]+$/.test(value);
+	    	});
+
+	    	//숫자만
+	    	jQuery.validator.addMethod("numeric", function (value, element) {
+	    	    return this.optional(element) || /^[0-9]+$/.test(value);
+	    	});
+
+	    	//한글만
+	    	$.validator.addMethod("hangle", function (value, element) {
+	    	    return this.optional(element) || /^[\uAC00-\uD7A3]+$/.test(value);
+	    	}, "");			
+		}
 		
 	    $(document).ready(function() {
+	    	fnJQueryValidatorAdd();
 			fnLoad();
 		});
     </script>    
