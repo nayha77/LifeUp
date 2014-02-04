@@ -89,5 +89,21 @@
 			                   ELSE 'N'
 			  	 	       END
 		 WHERE CUSTOMER_ID = #{userId}  		 
-	</update>							
+	</update>		
+	
+	<insert id="registerCustomer">
+		INSERT INTO customer (
+			CUSTOMER_ID, CUSTOMER_NM, EMAIL, PWD, MOBILE, REGION, CREATE_DATE, UPDATE_DATE, INIT_PWD
+		) VALUES (
+			#{userId}, #{userNm}, #{email}, #{password},#{mobile},#{region},sysdate(), sysdate(), 'N'
+		)			
+	</insert>
+
+	<insert id="registerSalesman">
+		INSERT INTO salesman (
+			SALESMAN_ID, SALESMAN_NM, EMAIL, PWD, MOBILE, OFFICE_NO, VENDOR_ID, LOCATION, INTRO_MSG, PHOTO, STAR_POINT, COMP_POINT, CREATE_DATE, UPDATE_DATE, INIT_PWD
+		) VALUES (
+			#{userId}, #{userNm}, #{email}, #{password},#{mobile},#{officeNo},#{vendorId},#{location},#{introMsg}, null, 0, 0, sysdate(), sysdate(), 'N'
+		)			
+	</insert>						
 </mapper>

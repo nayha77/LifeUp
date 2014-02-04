@@ -12,4 +12,6 @@ public interface AccountService {
 	
 	SessionVO getUserByEmail(LoginVO login);
 	SessionVO getUserById(LoginVO login);
+	
+	boolean registerAccount(LoginVO userInfo);
 }
