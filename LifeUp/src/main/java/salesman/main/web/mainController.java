@@ -1,5 +1,6 @@
 package salesman.main.web;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,15 +41,17 @@ public class mainController {
     
     @ResponseBody
     @RequestMapping("/selectBoxTestJson")
-	public ModelMap listJson(HttpServletRequest req,ModelMap model){
+	public ModelMap listJson(HttpServletRequest req,ModelMap model) throws UnsupportedEncodingException{
     	// vo 객체를 넘겨서 받아볼려고 했는데 자꾸 애러가 남;;;
     	// @ModelAttribute ( http://linuxism.tistory.com/651 )
-
+    	//req.setCharacterEncoding("UTF-8");
  		String sido = req.getParameter("sido");
+    	System.out.println("---sido---" + sido );
     	if( sido == null || sido.equals("") ){
-    		model.put("SidoJson", regionService.selectRegionSidoTable());
+    		model.put("Sido", regionService.selectRegionSidoTable());
     	}else{
-    		model.put("Sido2", regionService.selectRegionGuTable(sido));    		
+    		model.put("Sido2", regionService.selectRegionGuTable(sido));
+        	System.out.println("---else---" + model.toString());
     	}
     	System.out.println("----" + model.toString());
     	return model;

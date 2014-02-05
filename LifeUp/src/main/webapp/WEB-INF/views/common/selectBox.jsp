@@ -14,37 +14,44 @@
 	
 	function fnLoad() {
 		viewAjaxList();
-
 	}
 	
 	function viewAjaxList(){
-	    var nation = $('#nationcode option:selected');
-	    $('#state').html($('<option></option>').val('').html('----------------------'));
+	     var select = document.createElement("select");    //selectbox 생성
+	     select.name = "bigname";                           //name지정
+	     select.setAttribute("onchange", "LowList(this)");	// onchage 옵션 추가
+	     select.setAttribute("data-live-search", "true");
+	     select.setAttribute("class", "selectpicker");
+	     //현재 분류 selectbox가 있는지 여부를 확인한다. 있다면 기존 selectbox remove
+	     if(document.getElementById("first_test").innerHTML != ""){
+	    	 $("#first_test").empty();
+	     }
 		$.ajax({
 			 type 	: 	"POST"
 			,url	:	"/ROOT/selectBoxTestJson"
 			,dataType	: "json"
 			,data	: ""
 			,success	: function(result){
-				if( result.length > 0 ){
-		            $('#state').html('');
-		            $('#state').append($('<option></option>').val('').html('-- Choose from list --'));					
-				}
-				$.each(result,function(key){
-/* 					var list = result[key];
-					var content =" <select class='selectpicker' data-live-search='true' id='nationcode'>";
+				var resultData = result.Sido;  // vo 객체로 넘어와서 한번 감싸줘야함 				
+			   $.each(resultData, function(index, entry){
+			         // alert(index);	        	 
+		               var objOpt = document.createElement("option");     //option Element생성
+		               objOpt.value = entry["sido"];               	 //entry는 호출된 data를 가지고 있다. 
+		               objOpt.innerText = entry["sido"];
+		               select.appendChild(objOpt);                        //생성된 select Element에 Option을 추가
+		          });
+			   /*
+			   $.each(result, function(key){
+ 					var list = result[key];
+					var content =" <select class='selectpicker' data-live-search='true' onChange='LowList(this);'>";
 					content += "<option>----select----- </option>"
 					for (i=0 ; i <list.length; i++){
 						content +="<option>" +list[i].sido + "</option>";
 					}
 					content +="</select>";
-					$(".bs-docs-example").html(content); */
-		            if($('#province').val() == this.name){
-		                $('#state').append($('<option></option>').val(this.name).html(this.name).attr('selected', true));
-		            }else{
-		                $('#state').append($('<option></option>').val(this.name).html(this.name));
-		            }					
+					$(".bs-docs-example").html(content);  
 				});
+			   */
 				}, 
 				error : function(XHR, textStatus, errorThrown) { 
 
@@ -53,15 +60,44 @@
 
 					} 
 		});
+	    $("#first_test").append(select);     //생성된 select Element를 first_test Div태그에 추가
 	}
-/*     $('.selectpicker').selectpicker({
-        'selectedText': '대전'
-    }); */		
+	
+	function LowList(obj){
+		
+	     var select = document.createElement("select");    //selectbox 생성
+	     select.name = "soname";                           //name지정
+	     //현재 소분류 selectbox가 있는지 여부를 확인한다. 있다면 기존 selectbox remove
+	     if(document.getElementById("second_test").innerHTML != ""){
+	          //document.getElementById("second_test").removeChild(document.getElementById("soname"));
+	    	 $("#second_test").empty();
+	     }
+	     //대분류에 대한 소분류 json데이터를 얻기 위하여 getJSON으로 호출
+	     //$.getJSON("/ROOT/selectBoxTestJson?sido="+obj.value, function(data){
+		$.ajax({
+			 type 	: 	"POST"
+			,url	:	"/ROOT/selectBoxTestJson"
+			,dataType	: "json"
+			,data	: "sido="+obj.value
+			,success	: function(data){
+				//alert(data);
+			var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
+	          $.each(resultData, function(index, entry){
+		          //alert(index);	        	  
+	               var objOpt = document.createElement("option");     //option Element생성
+	               objOpt.value = entry["gugun"];               	 //entry는 호출된 data를 가지고 있다. 
+	               objOpt.innerText = entry["gugun"];
+	               select.appendChild(objOpt);                        //생성된 select Element에 Option을 추가
+	          });
+          }
+	     });
+	     document.getElementById("second_test").appendChild(select);     //생성된 select Element를 test Div태그에 추가
+	}	     
+	
 
 </script>
 
-    <div class="bs-docs-example" ></div>
-    <div class="bs-docs-example" id="state" ></div>
+    <div class="bs-docs-example" id="first_test" ></div><div  id="second_test" ></div>
 
 <%--   <c:forEach items="${Sido}" var="post">
     <tr>
@@ -75,9 +111,6 @@
      </form:select>
 </form:form> 
     --%>
-    
-
-    
 <!-- <div class="bs-docs-example">
   
   <select class="selectpicker" data-live-search="true">
@@ -88,6 +121,5 @@
   </select>
 
 </div> -->
-  
   
 </mvc:test>
