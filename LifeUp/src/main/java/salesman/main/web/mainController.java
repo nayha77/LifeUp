@@ -2,6 +2,7 @@ package salesman.main.web;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,21 +41,17 @@ public class mainController {
     	return "common/selectBox";
     }
     
-    @ResponseBody
     @RequestMapping("/selectBoxTestJson")
-	public ModelMap listJson(HttpServletRequest req,ModelMap model) throws UnsupportedEncodingException{
-    	// vo 객체를 넘겨서 받아볼려고 했는데 자꾸 애러가 남;;;
-    	// @ModelAttribute ( http://linuxism.tistory.com/651 )
-    	//req.setCharacterEncoding("UTF-8");
- 		String sido = req.getParameter("sido");
-    	System.out.println("---sido---" + sido );
+	public @ResponseBody Map<String, Object> listJson(@RequestBody String sido, HttpServletRequest request) throws UnsupportedEncodingException{
+    	
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	
     	if( sido == null || sido.equals("") ){
-    		model.put("Sido", regionService.selectRegionSidoTable());
+    		result.put("Sido", regionService.selectRegionSidoTable());
     	}else{
-    		model.put("Sido2", regionService.selectRegionGuTable(sido));
-        	System.out.println("---else---" + model.toString());
+    		result.put("Sido2", regionService.selectRegionGuTable(sido));
     	}
-    	System.out.println("----" + model.toString());
-    	return model;
+
+    	return result;
     }                 
 }

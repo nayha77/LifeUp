@@ -28,40 +28,34 @@
 	     if(document.getElementById("first_test").innerHTML != ""){
 	    	 $("#first_test").empty();
 	     }
-		$.ajax({
-			 type 	: 	"POST"
-			,url	:	"/ROOT/selectBoxTestJson"
-			,dataType	: "json"
-			,data	: ""
-			,success	: function(result){
-				var resultData = result.Sido;  // vo 객체로 넘어와서 한번 감싸줘야함 				
-			   $.each(resultData, function(index, entry){
-			         // alert(index);
-		               var objOpt = document.createElement("option");     //option Element생성
-		               objOpt.value = entry["sido"];               	 //entry는 호출된 data를 가지고 있다. 
-		               objOpt.innerText = entry["sido"];
-		               select.appendChild(objOpt);                        //생성된 select Element에 Option을 추가
-		          });
-			   /*
-			   $.each(result, function(key){
- 					var list = result[key];
-					var content =" <select class='selectpicker' data-live-search='true' onChange='LowList(this);'>";
-					content += "<option>----select----- </option>"
-					for (i=0 ; i <list.length; i++){
-						content +="<option>" +list[i].sido + "</option>";
-					}
-					content +="</select>";
-					$(".bs-docs-example").html(content);  
-				});
-			   */
-				}, 
-				error : function(XHR, textStatus, errorThrown) { 
-
-					alert("Error: " + textStatus); 
-					alert("Error: " + errorThrown); 
-
-					} 
-		});
+	     
+   	    _Async.post (
+    			"/selectBoxTestJson.do",
+    			'',
+    			function (data) {    
+    				var resultData = data.Sido;  // vo 객체로 넘어와서 한번 감싸줘야함 				
+    				   $.each(resultData, function(index, entry){
+    				         // alert(index);
+    			               var objOpt = document.createElement("option");     //option Element생성
+    			               objOpt.value = entry["sido"];               	 //entry는 호출된 data를 가지고 있다. 
+    			               objOpt.innerText = entry["sido"];
+    			               select.appendChild(objOpt);                        //생성된 select Element에 Option을 추가
+    			          });
+    				   /*
+    				   $.each(result, function(key){
+    	 					var list = result[key];
+    						var content =" <select class='selectpicker' data-live-search='true' onChange='LowList(this);'>";
+    						content += "<option>----select----- </option>"
+    						for (i=0 ; i <list.length; i++){
+    							content +="<option>" +list[i].sido + "</option>";
+    						}
+    						content +="</select>";
+    						$(".bs-docs-example").html(content);  
+    					});
+    				   */
+    			} 
+    		);
+   	       	   
 	    $("#first_test").append(select);     //생성된 select Element를 first_test Div태그에 추가
 	    //$("#bigname > option:eq(0)").attr("selected", "selected");
 	    //$("#bigname").val("서울").attr("selected", "selected");
@@ -83,23 +77,22 @@
 	     }
 	     //대분류에 대한 소분류 json데이터를 얻기 위하여 getJSON으로 호출
 	     //$.getJSON("/ROOT/selectBoxTestJson?sido="+obj.value, function(data){
-		$.ajax({
-			 type 	: 	"POST"
-			,url	:	"/ROOT/selectBoxTestJson"
-			,dataType	: "json"
-			,data	: "sido="+obj.value
-			,success	: function(data){
-				//alert(data);
-			var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
-	          $.each(resultData, function(index, entry){
-		          //alert(index);	        	  
-	               var objOpt = document.createElement("option");     //option Element생성
-	               objOpt.value = entry["gugun"];               	 //entry는 호출된 data를 가지고 있다. 
-	               objOpt.innerText = entry["gugun"];
-	               select.appendChild(objOpt);                        //생성된 select Element에 Option을 추가
-	          });
-          }
-	     });
+
+   	    _Async.post (
+    			"/selectBoxTestJson.do",
+    			sido = obj.value,
+    			function (data) {    
+    				var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
+    		          $.each(resultData, function(index, entry){
+    			          //alert(index);	        	  
+    		               var objOpt = document.createElement("option");     //option Element생성
+    		               objOpt.value = entry["gugun"];               	 //entry는 호출된 data를 가지고 있다. 
+    		               objOpt.innerText = entry["gugun"];
+    		               select.appendChild(objOpt);                        //생성된 select Element에 Option을 추가
+    		          });
+    			} 
+    		);
+   	    
 	     //document.getElementById("second_test").appendChild(select);     //생성된 select Element를 test Div태그에 추가
 		$("#second_test").append(select);     
 	}	     
