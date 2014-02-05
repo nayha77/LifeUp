@@ -20,8 +20,10 @@
 	     var select = document.createElement("select");    //selectbox 생성
 	     select.name = "bigname";                           //name지정
 	     select.setAttribute("onchange", "LowList(this)");	// onchage 옵션 추가
-	     select.setAttribute("data-live-search", "true");
-	     select.setAttribute("class", "selectpicker");
+	     select.setAttribute("id", "bigname");
+	     //select.setAttribute("data-live-search", "true");
+	     //select.setAttribute("class", "selectpicker");
+
 	     //현재 분류 selectbox가 있는지 여부를 확인한다. 있다면 기존 selectbox remove
 	     if(document.getElementById("first_test").innerHTML != ""){
 	    	 $("#first_test").empty();
@@ -34,7 +36,7 @@
 			,success	: function(result){
 				var resultData = result.Sido;  // vo 객체로 넘어와서 한번 감싸줘야함 				
 			   $.each(resultData, function(index, entry){
-			         // alert(index);	        	 
+			         // alert(index);
 		               var objOpt = document.createElement("option");     //option Element생성
 		               objOpt.value = entry["sido"];               	 //entry는 호출된 data를 가지고 있다. 
 		               objOpt.innerText = entry["sido"];
@@ -61,16 +63,23 @@
 					} 
 		});
 	    $("#first_test").append(select);     //생성된 select Element를 first_test Div태그에 추가
+	    //$("#bigname > option:eq(0)").attr("selected", "selected");
+	    //$("#bigname").val("서울").attr("selected", "selected");
+	    $("#bigname").prepend("<option value='0'>지역 선택</option>");
 	}
 	
 	function LowList(obj){
-		
+		//console.log(obj);	
+		  $("#first_test").append('<div id="second_test"></div>'); // div 생성
 	     var select = document.createElement("select");    //selectbox 생성
 	     select.name = "soname";                           //name지정
+	     select.setAttribute("id", "soname");
 	     //현재 소분류 selectbox가 있는지 여부를 확인한다. 있다면 기존 selectbox remove
 	     if(document.getElementById("second_test").innerHTML != ""){
-	          //document.getElementById("second_test").removeChild(document.getElementById("soname"));
-	    	 $("#second_test").empty();
+	    	 //document.getElementById("second_test").removeChild(document.getElementById("soname"));
+	    	 //$("#second_test").empty();
+	    	 $("#second_test").remove();
+	    	 //$("#soname").remove();
 	     }
 	     //대분류에 대한 소분류 json데이터를 얻기 위하여 getJSON으로 호출
 	     //$.getJSON("/ROOT/selectBoxTestJson?sido="+obj.value, function(data){
@@ -91,13 +100,19 @@
 	          });
           }
 	     });
-	     document.getElementById("second_test").appendChild(select);     //생성된 select Element를 test Div태그에 추가
+	     //document.getElementById("second_test").appendChild(select);     //생성된 select Element를 test Div태그에 추가
+		$("#second_test").append(select);     
 	}	     
 	
 
 </script>
 
-    <div class="bs-docs-example" id="first_test" ></div><div  id="second_test" ></div>
+    <div class="bs-docs-example" id="first_test" ></div>
+
+<!--  세션에 해당 회원 지역 정보 불러오기 -->
+<!--  해당 회원 지역 정보 있다면 매칭 -->
+
+
 
 <%--   <c:forEach items="${Sido}" var="post">
     <tr>
