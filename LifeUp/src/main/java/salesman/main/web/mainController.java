@@ -46,14 +46,12 @@ public class mainController {
     	// @ModelAttribute ( http://linuxism.tistory.com/651 )
     	//req.setCharacterEncoding("UTF-8");
  		String sido = req.getParameter("sido");
-    	System.out.println("---sido---" + sido );
     	if( sido == null || sido.equals("") ){
     		model.put("Sido", regionService.selectRegionSidoTable());
     	}else{
     		model.put("Sido2", regionService.selectRegionGuTable(sido));
         	System.out.println("---else---" + model.toString());
     	}
-    	System.out.println("----" + model.toString());
     	return model;
     }                 
 }
