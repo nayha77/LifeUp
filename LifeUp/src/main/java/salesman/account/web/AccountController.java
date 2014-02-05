@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import salesman.account.service.AccountService;
 import salesman.common.service.MailingMessage;
 import salesman.common.service.MailingService;
 import salesman.common.service.StorageService;
+import salesman.common.support.CustomException;
 import salesman.vo.account.LoginVO;
 import salesman.vo.account.SessionVO;
 
@@ -254,5 +256,17 @@ public class AccountController {
     	} catch(Exception ex) {
     		response.getWriter().print("true");
     	}    	
-    }      
+    } 
+    
+    /*
+     * 회원가입 등록
+     */
+    @RequestMapping("/account/register")
+    public String register(@ModelAttribute LoginVO userInfo, HttpServletRequest request) {
+//    public String register(HttpServletRequest request) {
+    	if(accountService.registerAccount(userInfo))    	
+    		return "redirect:/main.do";
+    	else
+    		throw new CustomException("회원가입 중 오류가 발생했습니다");          
+    }
 }

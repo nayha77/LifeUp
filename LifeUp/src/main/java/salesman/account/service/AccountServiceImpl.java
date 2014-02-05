@@ -96,4 +96,21 @@ public class AccountServiceImpl implements AccountService {
 	public SessionVO getUserById(LoginVO login) {
 		return this.accountDao.getUserById(login);
 	}
+	
+	@Override
+	public boolean registerAccount(LoginVO userInfo) {
+		String password = "";
+		boolean rtnValue = false;
+		
+		try {
+			password = FileScrty.encryptPassword(userInfo.getPassword());
+			userInfo.setPassword(password);
+			
+			rtnValue = this.accountDao.registerAccount(userInfo);
+		} catch (Exception e) {
+			return false;
+		}				
+				
+		return rtnValue;
+	}
 }
