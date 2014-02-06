@@ -1,0 +1,92 @@
+@CHARSET "UTF-8";
+/*** The Essential Code ***/
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+#wrap {
+	margin: 0 auto;
+	padding: 0;
+	width: 1000px;
+}
+
+#header {
+	width: 1000px;
+	height: 48px;
+}
+
+#main-menu {
+	width: 1000px;
+	height: 35px;	
+}
+
+#container {
+	width: 100%;
+}
+
+#content {
+	
+}
+
+#sidebar {
+	width: 175px;
+}
+
+#extra {
+	width: 205px; 
+}
+
+#footer {
+	width: 1000px;
+	height: 70px;
+}
+
+/*** Just for Looks ***/
+#header, #footer {
+	font-size: large;
+	text-align: center;
+	background: #999;
+}
+
+#main-menu {
+	font-size: large;
+	text-align: center;
+	background: #DAEAAA;
+}
+#content {
+	font-size: large;
+	text-align: center;
+	background: #DDD;
+	height: 100px;
+}
+
+#sidebar {
+	font-size: large;
+	text-align: center;
+	background: #66F;
+	height: 100px;
+}
+
+#extra {
+	font-size: large;
+	text-align: center;
+	background: #F66;
+	height: 100px;
+}
+/*** 글쓰기 화면 디자인 ***/
+#content h2 {
+	margin: 9px 0 0 0;
+	padding: 0;
+	font-size: 13px;
+	border-bottom: 1px solid #ebebeb;
+}
+
+#write-form td {
+	border: none;
+}
+
+#write-form textarea {
+	width: 99%;
+}
+/*** 글쓰기 화면 디자인 ***/

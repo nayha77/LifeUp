@@ -260,7 +260,7 @@ public class AccountController {
         	else
         		response.getWriter().print("true");
     	} catch(Exception ex) {
-    		response.getWriter().print("true");
+    		response.getWriter().print("false");
     	}    	
     } 
     

@@ -33,7 +33,7 @@
     <![endif]-->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src='<spring:url value="/resources/js/jquery.js"/>'></script>
-	<script src='<spring:url value="/resources/js/jquery-validate-min.js"/>'></script>	
+	<script src='<spring:url value="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"/>'></script>	
 	<script src='<spring:url value="/resources/js/bootstrap-transition.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-alert.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-modal.js"/>'></script>
