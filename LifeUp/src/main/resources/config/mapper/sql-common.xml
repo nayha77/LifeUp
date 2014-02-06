@@ -12,7 +12,7 @@
 	
 	<!-- 구 를  가지고 온다  -->	
 	<select id="getGu" parameterType="salesman.common.define.RegionVo"  resultType="salesman.common.define.RegionVo">
-		select gugun from region
+		select gugun,region_cd from region
 		where sido = #{sido};
 	</select>
 	
