@@ -8,12 +8,13 @@
 <script type="text/javascript">
 	
 	function fnLoad() {
-		fnFrmInitialize();
+		fnFrmInitialize(1);
 		fnValidation();
 	}			
 	
-	function fnFrmInitialize() {
-		$('#divChoiceMember').show();
+	function fnFrmInitialize(type) {			
+		$('#divNotice').hide();
+		$('#divChoiceMember').hide();
 		$('#divNormalCase').hide();
 		$('#divSalesCase').hide();
 		$('.divSubmit').hide();		
@@ -28,24 +29,46 @@
         
         $("input[type=password]").each(function() {
         	$(this).val("");
-        });         
+        });
+
+		if(type == 1) {
+			$('#divChoiceMember').show();					
+		} else {
+			$('#divNotice').show();
+		}
 	}
 	
-	function fnValidation() {	
+	function fnChoiceMemberType() {
+		var type = $('#hdnChoiceUserType').val();
+		
+		$('#divChoiceMember').hide();	
+		$('#divNotice').hide();
+		
+		if(type == 'N') {
+			$('#divSalesCase').hide();
+			$('#divNormalCase').show();
+			$('#divNSubmit').show();
+		} else {
+			$('#divNormalCase').hide();
+			$('#divSalesCase').show();
+			$('#divSSubmit').show();
+		}			
+	}	
+	
+	function fnValidation() {		
 		$('#frmNormal').validate({
             rules: {
-            	userId: {required: true, minlength: 4, maxlength:20, "remote": {
+            	userId: { required: true, minlength: 4, maxlength:20, "remote": {
             		url: '/account/chkExistUserId.do?userType=1',
             		type: "post",
                     data:
                     {
                     	tbxUserId: function()
                         {
-                    		
-                            return $("#tbxUserId").val();
+                            return $('#tbxUserId').val();
                         }
                     }
-          		}}, 
+          		} }, 
             	email: { required: true, email: true },            	
             	password: { required: true },
             	passwordConfirm: { equalTo: "#tbxNPwd" },                
@@ -57,7 +80,7 @@
                     required: "아이디를 입력하세요.",
                     minlength: jQuery.format("아이디는 {0}자 이상으로 입력하세요"),
                     maxlength: jQuery.format("아이디는 {0}자 이하로 입력하세요"),
-                    remote : jQuery.format("{0}는 이미 있는 아이디입니다.")
+                    remote : jQuery.format("사용할 수 없는 아이디입니다")
                 },
                 password: { required: "비밀번호를 입력하세요." },
                 passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
@@ -68,7 +91,6 @@
                 mobile: { numeric: "숫자만 입력하세요." },                          
             },
             submitHandler: function (frm) {
-
             	frm.submit();
             },
             success: function (e) { }
@@ -101,7 +123,7 @@
                     required: "아이디를 입력하세요.",
                     minlength: jQuery.format("아이디는 {0}자 이상으로 입력하세요"),
                     maxlength: jQuery.format("아이디는 {0}자 이하로 입력하세요"),
-					remote : jQuery.format("{0}는 이미 있는 아이디입니다.")
+					remote : jQuery.format("사용할 수 없는 아이디입니다.")
                 },
                 password: { required: "비밀번호를 입력하세요." },
                 passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
@@ -127,38 +149,27 @@
 		} else {
 			document.frmSales.submit();
 		}	
-	}
-	
-	function fnMoveStep() {
-		fnFrmInitialize();
-	}
-	
-	function fnChoiceMemberType(type) {
-		$('#divChoiceMember').hide();		
-		
-		if(type == 'N') {
-			$('#divSalesCase').hide();
-			$('#divNormalCase').show();
-			$('#divNSubmit').show();
-		} else {
-			$('#divNormalCase').hide();
-			$('#divSalesCase').show();
-			$('#divSSubmit').show();
-		}	
 	}	
-	
-	function fnDupChkUserId() {
-		
-	}
 </script>
 
-<div class="control-group" id='divChoiceMember' style='text-align: center;'>
+<div class="control-group" id='divNotice' style='text-align: center;'>
 	<div>
-		<button class="btn btn-large btn-primary" onclick="fnChoiceMemberType('N');">일반회원</button>
+	회원가입 안내멘트
+	</div>
+	<div style='text-align: center;' id='divISubmit'>
+		<input type='submit' class="btn btn-primary" value='동의합니다' onClick="fnChoiceMemberType();" />	
+		<a href="#" class="btn" data-dismiss="modal" onClick="location.href='/main';">동의하지 않습니다</a>
+	</div>	
+</div>
+
+<div class="control-group" id='divChoiceMember' style='text-align: center;'>
+	<div>		
+		<input type='hidden' id='hdnChoiceUserType' name='hdnChoiceUserType' />
+		<button class="btn btn-large btn-primary" onclick="fnFrmInitialize(2); $('#hdnChoiceUserType').val('N');">일반회원</button>
 	<div>
 	<div style='height: 10px;'></div>
 	</div>
-		<button class="btn btn-large btn-primary" onclick="fnChoiceMemberType('S');">영업사원</button>
+		<button class="btn btn-large btn-primary" onclick="fnFrmInitialize(2); $('#hdnChoiceUserType').val('S');">영업사원</button>
 	</div>
 </div>
 
@@ -198,7 +209,7 @@
 					</div>
 					<div id='divNSubmit' class='divSubmit'>
 						<input type='submit' class="btn btn-primary" value='회원가입' />	
-						<a href="#" class="btn" data-dismiss="modal" onClick="fnMoveStep();">이전으로</a>
+						<a href="/main" class="btn" data-dismiss="modal">취소</a>
 					</div>
 				</form>
 			</div>
@@ -240,7 +251,7 @@
 					</div>
 					<div style='text-align: center;' id='divSSubmit' class='divSubmit'>
 						<input type='submit' class="btn btn-primary" value='회원가입' />	
-						<a href="#" class="btn" data-dismiss="modal" onClick="fnMoveStep();">이전으로</a>
+						<a href="/main" class="btn" data-dismiss="modal">취소</a>
 					</div>
 				</form>
 			</div>		
