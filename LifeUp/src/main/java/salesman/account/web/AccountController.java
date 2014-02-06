@@ -22,6 +22,7 @@ import salesman.account.service.AccountService;
 import salesman.common.service.CodesService;
 import salesman.common.service.MailingMessage;
 import salesman.common.service.MailingService;
+import salesman.common.service.RegionSelectImpl;
 import salesman.common.service.StorageService;
 import salesman.common.support.CustomException;
 import salesman.vo.account.LoginVO;
@@ -43,6 +44,9 @@ public class AccountController {
 	
 	@Autowired
 	private CodesService codesService;	
+	
+    @Autowired
+    private RegionSelectImpl regionService;	
 	       
     @RequestMapping("/logout")
     public String logout() 
@@ -238,8 +242,8 @@ public class AccountController {
        
     @RequestMapping("/account/membership")
 	public void membership(ModelMap model) {
-    	List<HashMap<String, Object>> vendorCodes = codesService.getVendorCodes();
-    	model.put("vendorCodes", vendorCodes);
+    	model.put("vendorCodes", codesService.getVendorCodes());
+    	model.put("regions", regionService.selectRegionSidoTableMap());    	
     }
     
     /*
