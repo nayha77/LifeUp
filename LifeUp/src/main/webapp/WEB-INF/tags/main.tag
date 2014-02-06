@@ -244,7 +244,7 @@
 					<input type='radio' id='rdoUserType' name='userType' value='1' checked="checked" />일반사용자 
 					<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
 				</div>			               
-			    <label class="control-label">아아이디(이메일)</label>
+			    <label class="control-label">아이디(이메일)</label>
 			    <div class="controls"><input type='text' id='txtUserID' /></div>                
 			    <label class="control-label">비밀번호</label>
 			    <div class="controls"><input type='password' id='txtUserPwd' /></div>
