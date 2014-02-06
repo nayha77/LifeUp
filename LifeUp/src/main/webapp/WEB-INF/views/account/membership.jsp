@@ -31,20 +31,21 @@
         });         
 	}
 	
-	function fnValidation() {		
+	function fnValidation() {	
 		$('#frmNormal').validate({
             rules: {
-            	userId: { required: true, minlength: 4, maxlength:20, "remote": {
+            	userId: {required: true, minlength: 4, maxlength:20, "remote": {
             		url: '/account/chkExistUserId.do?userType=1',
             		type: "post",
                     data:
                     {
                     	tbxUserId: function()
                         {
-                            return $('#tbxUserId').val();
+                    		
+                            return $("#tbxUserId").val();
                         }
                     }
-          		} }, 
+          		}}, 
             	email: { required: true, email: true },            	
             	password: { required: true },
             	passwordConfirm: { equalTo: "#tbxNPwd" },                
@@ -67,6 +68,7 @@
                 mobile: { numeric: "숫자만 입력하세요." },                          
             },
             submitHandler: function (frm) {
+
             	frm.submit();
             },
             success: function (e) { }
