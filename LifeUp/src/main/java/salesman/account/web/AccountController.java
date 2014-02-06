@@ -2,6 +2,7 @@ package salesman.account.web;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import salesman.account.service.AccountService;
+import salesman.common.service.CodesService;
 import salesman.common.service.MailingMessage;
 import salesman.common.service.MailingService;
 import salesman.common.service.StorageService;
@@ -38,6 +40,9 @@ public class AccountController {
 	
 	@Autowired
 	private MailingMessage mailingMessage;
+	
+	@Autowired
+	private CodesService codesService;	
 	       
     @RequestMapping("/logout")
     public String logout() 
@@ -232,19 +237,20 @@ public class AccountController {
     }    
        
     @RequestMapping("/account/membership")
-	public void membership() {
-    	
+	public void membership(ModelMap model) {
+    	List<HashMap<String, Object>> vendorCodes = codesService.getVendorCodes();
+    	model.put("vendorCodes", vendorCodes);
     }
     
     /*
      * 회원가입시 ID 중복검색
      */
     @RequestMapping(value="/account/chkExistUserId" )
-    public void chkExistUserId(@RequestParam int userType, @RequestParam String tbxUserId, HttpServletResponse response) throws IOException {
+    public void chkExistUserId(@RequestParam int userType, @RequestParam String userId, HttpServletResponse response) throws IOException {
     	
     	LoginVO loginVO = new LoginVO();
     	loginVO.setUserType(userType);
-    	loginVO.setUserId(tbxUserId);
+    	loginVO.setUserId(userId);
     	
     	try {    		    		     		        	
         	SessionVO userInfo = accountService.getUserInfo(loginVO);
@@ -262,8 +268,7 @@ public class AccountController {
      * 회원가입 등록
      */
     @RequestMapping("/account/register")
-    public String register(@ModelAttribute LoginVO userInfo, HttpServletRequest request) {
-//    public String register(HttpServletRequest request) {
+    public String register(@ModelAttribute LoginVO userInfo) {    	    	
     	if(accountService.registerAccount(userInfo))    	
     		return "redirect:/main.do";
     	else

@@ -9,7 +9,16 @@
 	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	
+
+    <!-- json -->      
+	<bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	  <property name="messageConverters">
+	    <list>
+	      <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	    </list>
+	  </property>
+	</bean>
+		
 	<!-- session -->  
 	<bean id="storageService" class="salesman.common.service.StorageServiceImpl">
 	</bean>
@@ -21,16 +30,7 @@
 	<!--  selectSido dao -->
 	<bean id="regindao" class="salesman.common.dao.RegionDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-		
-    <!-- json -->      
-	<bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-	  <property name="messageConverters">
-	    <list>
-	      <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
-	    </list>
-	  </property>
-	</bean>
+	</bean>	
 
 	<!-- mailing -->
 	<bean id="mailService" class="salesman.common.service.MailingServiceImpl">  
@@ -52,4 +52,11 @@
 		<property name="accountService" ref="accountService"/>    
 	</bean>
 			
+	<!-- codesService -->
+	<bean id="codesService" class="salesman.common.service.CodesServiceImpl">
+		<property name="codesDao" ref="codesDao" />
+	</bean>
+	<bean id="codesDao" class="salesman.common.dao.CodesDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>				
 </beans>

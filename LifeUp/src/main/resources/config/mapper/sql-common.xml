@@ -15,5 +15,10 @@
 		select gugun from region
 		where sido = #{sido};
 	</select>
+	
+	<select id="getVendorCodes" resultType="java.util.HashMap">
+		SELECT VENDOR_ID code, VENDOR_NM value 
+		  FROM vendor;
+	</select>	
 
 </mapper>

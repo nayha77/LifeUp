@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
 <%@ taglib prefix="mvc" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -42,7 +41,7 @@
                     {
                     	tbxUserId: function()
                         {
-                            return $('#frmNormal :input[name="userId"]').val();
+                            return $('#tbxUserId').val();
                         }
                     }
           		} }, 
@@ -80,9 +79,9 @@
             		type: "post",
                     data:
                     {
-                    	tbxUserId: function()
+                    	tbxSalesId: function()
                         {
-                            return $('#frmSales :input[name="userId"]').val();
+                            return $('#tbxSalesId').val();
                         }
                     }
           		} },            	
@@ -110,8 +109,8 @@
                        },  
 				officeNo: { numeric: "숫자만 입력하세요." },
               	mobile: { numeric: "숫자만 입력하세요." },    
-              	introMsg: { required: "인사말을 입력하세요." },
-              	vendorId: { required: "제조업체를 입력하세요." },
+              	vendorId: { required: "소속회사를 선택하세요." },
+              	introMsg: { required: "인사말을 입력하세요." },              	
             },
             submitHandler: function (frm) {
             	frm.submit();
@@ -207,7 +206,7 @@
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>아이디</div>
 						<div class="controls">
 							<input type='hidden' id='hdnUserType' name='userType' value='2' />
-							<input type='text' id='tbxUserId' name='userId' />
+							<input type='text' id='tbxSalesId' name='userId' />
 						</div>
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>비밀번호</div>
 						<div class="controls"><input type='password' id='tbxSPwd' name='password' /></div>
@@ -217,18 +216,24 @@
 						<div class="controls"><input type='text' id='tbxUserNm' name='userNm' /></div>
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>이메일</div>
 						<div class="controls"><input type='text' id='tbxEmail' name='email' /></div>
-						<div class="control-label" style='text-align: left;'>핸드폰번호</div>
+						<div class="control-label" style='text-align: left;'>핸드폰 번호</div>
 						<div class="controls"><input type='text' id='tbxMobile' name='mobile' /></div>
-						<div class="control-label" style='text-align: left;'>사무실전화번호</div>
+						<div class="control-label" style='text-align: left;'>사무실 전화번호</div>
 						<div class="controls"><input type='text' id='tbxOffice' name='officeNo' /></div>	
-						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>제조업체</div>
-						<div class="controls"><input type='text' id='tbxVendor' name='vendorId' /></div>
+						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>소속회사</div>
+						<div class="controls">
+							<select id='ddlVendor' name='vendorId'>
+								<option value=''>::::선택::::</option>
+								<c:forEach items="${vendorCodes}" var="vendor" >	
+									<option value='${vendor.code}'>${vendor.value}</option>
+								</c:forEach>
+							</select>
+						</div>						
 						<div class="control-label" style='text-align: left;'>근무지점</div>
 						<div class="controls"><input type='text' id='tbxLocation' name='location' /></div>		
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>인사말</div>
 						<div class="controls">
-							<textarea id='tbxIntro' name='introMsg' rows="15">
-							</textarea>
+							<textarea id='tbxIntro' name='introMsg' rows="3"></textarea>
 						</div>	
 					</div>
 					<div style='text-align: center;' id='divSSubmit' class='divSubmit'>
