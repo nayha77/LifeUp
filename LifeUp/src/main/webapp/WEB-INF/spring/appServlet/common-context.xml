@@ -9,20 +9,7 @@
 	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	
-	<!-- session -->  
-	<bean id="storageService" class="salesman.common.service.StorageServiceImpl">
-	</bean>
-	
-	<!--  selectSido -->
-	<bean id="regionService" class="salesman.common.service.RegionSelectServiceImpl">
-		<property name="regionServiceBean" ref="regindao" />
-	</bean>
-	<!--  selectSido dao -->
-	<bean id="regindao" class="salesman.common.dao.RegionDaoImpl">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-		
+
     <!-- json -->      
 	<bean id="messageAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 	  <property name="messageConverters">
@@ -31,19 +18,31 @@
 	    </list>
 	  </property>
 	</bean>
+		
+	<!-- session -->  
+	<bean id="storageService" class="salesman.common.service.StorageServiceImpl">
+	</bean>
+	
+	<!--  selectSido -->
+	<bean id="regionService" class="salesman.common.service.RegionSelectImpl">
+		<property name="regionServiceBean" ref="regindao" />
+	</bean>
+	<!--  selectSido dao -->
+	<bean id="regindao" class="salesman.common.dao.RegionDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>	
 
 	<!-- mailing -->
 	<bean id="mailService" class="salesman.common.service.MailingServiceImpl">  
 	    <property name="mailSender" ref="mailSender" />  
 	</bean>  
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	  	<property name="host" value="smtp.hgburn.vps.phps.kr" />
+	  	<property name="host" value="localhost" />
 	  	<property name="port" value="25" />
-	    <property name="username" value="admin@hgburn.vps.phps.kr" />  
+	    <property name="username" value="admin" />  
 	    <property name="password" value="hg1122" />  
 	    <property name="javaMailProperties">  
-	       <props>
-   				<prop key="mail.transport.protocol">smtp</prop>
+	       <props>  
 	       		<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.starttls.enable">true</prop>
 	       </props>  
@@ -53,4 +52,11 @@
 		<property name="accountService" ref="accountService"/>    
 	</bean>
 			
+	<!-- codesService -->
+	<bean id="codesService" class="salesman.common.service.CodesServiceImpl">
+		<property name="codesDao" ref="codesDao" />
+	</bean>
+	<bean id="codesDao" class="salesman.common.dao.CodesDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>				
 </beans>
