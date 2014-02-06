@@ -10,7 +10,6 @@ public interface AccountService {
 	boolean modifyUserInfo(SessionVO user);
 	boolean modifyUserPasswd(SessionVO user);
 	
-	SessionVO getUserByEmail(LoginVO login);
 	SessionVO getUserById(LoginVO login);
 	
 	boolean registerAccount(LoginVO userInfo);

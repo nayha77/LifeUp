@@ -12,8 +12,6 @@ public class SessionVO implements Serializable{
 	private String userId;
 	/** 이름 */
 	private String userNm;
-	/** 이메일주소 */
-	private String email;
 	/** 업체 */
 	private String vendorId;
 	/** 소속 지점 */
@@ -45,12 +43,6 @@ public class SessionVO implements Serializable{
 	}
 	public void setUserNm(String name) {
 		this.userNm = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getVendorId() {
 		return vendorId;

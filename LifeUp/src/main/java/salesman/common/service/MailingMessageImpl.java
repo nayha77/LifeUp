@@ -51,7 +51,7 @@ public class MailingMessageImpl implements MailingMessage {
 		String newPasswd = "";
 		
 		try {
-			userInfo = accountService.getUserByEmail(user);
+			userInfo = accountService.getUserById(user);
 			
 			if(userInfo == null) {
 				this.content = "";

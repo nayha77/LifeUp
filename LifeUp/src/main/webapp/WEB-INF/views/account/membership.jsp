@@ -80,7 +80,7 @@
 	function fnValidation() {		
 		$('#frmNormal').validate({
             rules: {
-            	userId: { required: true, minlength: 4, maxlength:20, "remote": {
+            	userId: { required: true, email: true, "remote": {
             		url: '/account/chkExistUserId.do?userType=1',
             		type: "post",
                     data:
@@ -90,25 +90,18 @@
                             return $('#tbxUserId').val();
                         }
                     }
-          		} }, 
-            	email: { required: true, email: true },            	
+          		} },             	
             	password: { required: true },
-            	passwordConfirm: { equalTo: "#tbxNPwd" },                
-                email: { required: true, email: true },
+            	passwordConfirm: { equalTo: "#tbxNPwd" },
                 mobile: { required: false, numeric: true }
             },
             messages: {
-            	userId: {
-                    required: "아이디를 입력하세요.",
-                    minlength: jQuery.format("아이디는 {0}자 이상으로 입력하세요"),
-                    maxlength: jQuery.format("아이디는 {0}자 이하로 입력하세요"),
-                    remote : jQuery.format("사용할 수 없는 아이디입니다")
-                },
                 password: { required: "비밀번호를 입력하세요." },
                 passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
-                email: {
-                			required: "이메일주소를 입력하세요.",
-                            email: "올바른 이메일주소를 입력하세요." 
+                userId: {
+                			required: "아이디(이메일주소)를 입력하세요.",
+                            email: "올바른 이메일주소를 입력하세요.",
+                            remote : jQuery.format("사용할 수 없는 아이디입니다")
                        }, 
                 mobile: { numeric: "숫자만 입력하세요." },                          
             },
@@ -120,38 +113,31 @@
 		
 		$('#frmSales').validate({
             rules: {
-            	userId: { required: true, minlength: 4, maxlength:20, "remote": {
+            	userId: { required: true, email: true, "remote": {
             		url: '/account/chkExistUserId.do?userType=2',
             		type: "post",
                     data:
                     {
-                    	tbxSalesId: function()
+                    	tbxSalesmanId: function()
                         {
-                            return $('#tbxSalesId').val();
+                            return $('#tbxSalesmanId').val();
                         }
                     }
           		} },            	
-            	email: { required: true, email: true },
             	password: { required: true },
-            	passwordConfirm: { equalTo: "#tbxSPwd" },             	
-                email: { required: true, email: true },                
+            	passwordConfirm: { equalTo: "#tbxSPwd" },             	                
                 officeNo: { required: false, numeric: true },
                 mobile: { required: true, numeric: true },
                 introMsg: { required: true },
                 vendorId: { required: true }
             },
             messages: {
-               	userId: {
-                    required: "아이디를 입력하세요.",
-                    minlength: jQuery.format("아이디는 {0}자 이상으로 입력하세요"),
-                    maxlength: jQuery.format("아이디는 {0}자 이하로 입력하세요"),
-					remote : jQuery.format("사용할 수 없는 아이디입니다.")
-                },
                 password: { required: "비밀번호를 입력하세요." },
                 passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
-                email: {
+                userId: {
                 			required: "이메일주소를 입력하세요.",
-                            email: "올바른 이메일주소를 입력하세요." 
+                            email: "올바른 이메일주소를 입력하세요.",
+                            remote : jQuery.format("사용할 수 없는 아이디입니다.")
                        },  
 				officeNo: { numeric: "숫자만 입력하세요." },
               	mobile: { numeric: "숫자만 입력하세요." },    
@@ -326,7 +312,7 @@
 			<div id='divNormal' style='text-align: center; width: 220px;'>
 				<form id='frmNormal' name='frmNormal' method='post' action='/account/register'>
 					<div class="control-group" id='divNormalCase'>
-						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>아이디</div>
+						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>아이디(이메일)</div>
 						<div class="controls">
 							<input type='hidden' id='hdnUserType' name='userType' value='1' />
 							<input type='text' id='tbxUserId' name='userId' />
@@ -337,8 +323,6 @@
 						<div class="controls"><input type='password' id='tbxPwdConfirm' name='passwordConfirm' /></div>		
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>성명</div>
 						<div class="controls"><input type='text' id='tbxUserNm' name='userNm' /></div>
-						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>이메일</div>
-						<div class="controls"><input type='text' id='tbxEmail' name='email' /></div>
 						<div class="control-label" style='text-align: left;'>전화번호</div>
 						<div class="controls"><input type='text' id='tbxMobile' name='mobile' /></div>
 						<div class="control-label" style='text-align: left;'>거주지역</div>
@@ -362,10 +346,10 @@
 			<div id='divSales' style='text-align: center; width:220px;'>
 				<form id='frmSales' name='frmSales' method='post' action='/account/register'>	
 					<div class="control-group" id='divSalesCase'>
-						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>아이디</div>
+						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>아이디(이메일)</div>
 						<div class="controls">
 							<input type='hidden' id='hdnUserType' name='userType' value='2' />
-							<input type='text' id='tbxSalesId' name='userId' />
+							<input type='text' id='tbxSalesmanId' name='userId' />
 						</div>
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>비밀번호</div>
 						<div class="controls"><input type='password' id='tbxSPwd' name='password' /></div>
@@ -373,8 +357,6 @@
 						<div class="controls"><input type='password' id='tbxPwdConfirm' name='passwordConfirm' /></div>		
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>성명</div>
 						<div class="controls"><input type='text' id='tbxUserNm' name='userNm' /></div>
-						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>이메일</div>
-						<div class="controls"><input type='text' id='tbxEmail' name='email' /></div>
 						<div class="control-label" style='text-align: left;'>핸드폰 번호</div>
 						<div class="controls"><input type='text' id='tbxMobile' name='mobile' /></div>
 						<div class="control-label" style='text-align: left;'>사무실 전화번호</div>

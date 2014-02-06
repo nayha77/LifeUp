@@ -146,7 +146,7 @@ public class AccountController {
     		if(mailingMessage.getHtmlContent().equals("")) {
     			result.put("message", "등록되지 않은 사용자입니다. 입력정보를 확인하세요");
     		} else {
-    			mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);    		
+    			mailingService.sendMail("hk@retailtech.co.kr", loginVO.getUserId(), "[HK] 계정정보 안내메일", mailingMessage);    		
     			result.put("message", "success");
     		}
     	} catch(Exception ex) {
@@ -171,7 +171,7 @@ public class AccountController {
     		if(mailingMessage.getHtmlContent().equals("")) {
     			result.put("message", "등록되지 않은 사용자입니다. 입력정보를 확인하세요");
     		} else {
-    			mailingService.sendMail("hk@retailtech.co.kr", loginVO.getEmail(), "[HK] 계정정보 안내메일", mailingMessage);
+    			mailingService.sendMail("hk@retailtech.co.kr", loginVO.getUserId(), "[HK] 계정정보 안내메일", mailingMessage);
     			result.put("message", "success");
     		}    		    		
     	} catch(Exception ex) {

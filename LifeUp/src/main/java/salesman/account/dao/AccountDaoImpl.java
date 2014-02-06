@@ -52,18 +52,7 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 			rtnValue = getSqlSession().update("account.modifySalesmanPasswd", user);
 			
 		return rtnValue > 0 ? true : false;
-	}
-	
-	@Override
-	public SessionVO getUserByEmail(LoginVO login) {
-		SessionVO user = null;		
-		if(login.getUserType() == 1)
-			user = (SessionVO) getSqlSession().selectOne("account.getUserByEmail", login);		
-		else
-			user = (SessionVO) getSqlSession().selectOne("account.getSalesmanByEmail", login);
-		
-		return user;
-	}
+	}	
 	
 	@Override
 	public SessionVO getUserById(LoginVO login) {

@@ -118,12 +118,12 @@
     			
     		_Async.post (
     			url,
-    			JSON.stringify({ email: $('#txtFEmail').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
+    			JSON.stringify({ userId: $('#txtFUserId').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
     			function (data) {                
     				if(data.message =='success') {
     					alert('등록된 메일로 전송되었습니다');
     					
-    					$('#txtFEmail').val("");
+    					$('#txtFUserId').val("");
     					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
     				} else {
     					alert(data.message);
@@ -141,7 +141,7 @@
     				if(data.message == 'success') {
     					$('#myInfoModal').modal('show'); 
     					$("#txtIUserId").val(data.userInfo.userId);
-    					$("#txtIEmail").val(data.userInfo.email);
+    					$("#txtIUserNm").val(data.userInfo.userNm);    					
     					$("#txtIMobile").val(data.userInfo.mobile);
     					$('#txtIPrevPasswd').focus();
     				}
@@ -162,7 +162,7 @@
         	
       	    _Async.post (
     			"/account/myInfoUpdate.do",
-    			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
+    			JSON.stringify({ userId: $('#txtIUserId').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
     			function (data) {                
     				if(data.message == 'success') {
     					$('#myInfoModal').modal('hide');
@@ -187,7 +187,7 @@
         	$('#loginModal').modal('hide');        	
         	$('#findUserModal').modal('show'); 
         	$('#spTitle').html(title); 
-        	$('#txtFEmail').focus();
+        	$('#txtFUserId').focus();
         }
     </script>    
 </head>
@@ -244,7 +244,7 @@
 					<input type='radio' id='rdoUserType' name='userType' value='1' checked="checked" />일반사용자 
 					<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
 				</div>			               
-			    <label class="control-label">아이디</label>
+			    <label class="control-label">아아이디(이메일)</label>
 			    <div class="controls"><input type='text' id='txtUserID' /></div>                
 			    <label class="control-label">비밀번호</label>
 			    <div class="controls"><input type='password' id='txtUserPwd' /></div>
@@ -271,8 +271,8 @@
 					<input type='radio' id='rdoFUserType' name='fUserType' value='1' checked="checked" />일반사용자 
 					<input type='radio' id='rdoFUserType' name='fUserType' value='2' />영업사원
 				</div>                
-			    <label class="control-label">이메일</label>
-			    <div class="controls"><input type='text' id='txtFEmail' /></div>                
+			    <label class="control-label">아이디(이메일)</label>
+			    <div class="controls"><input type='text' id='txtFUserId' /></div>                
 			</div>			                   
         </div>
         <div class="modal-footer">
@@ -287,10 +287,10 @@
 	    </div>
 	    <div class="modal-body">
 			<div style="margin-left: 50px;">
-			    <label class="control-label">사용자 ID</label>
-			    <div class="controls"><input type="text" id="txtIUserId" /></div>                
-			    <label class="control-label">Email</label>
-			    <div class="controls"><input type="text" id="txtIEmail" /></div>                
+			    <label class="control-label">사용자 ID(Email)</label>
+			    <div class="controls"><input type="text" id="txtIUserId" readonly="readonly" /></div>
+			    <label class="control-label">성명</label>
+			    <div class="controls"><input type="text" id="txtIUserNm" readonly="readonly" /></div>
 			    <label class="control-label">이동전화</label>
 			    <div class="controls"><input type="text" id="txtIMobile" /></div>
 				<label class="control-label">이전 비밀번호</label>

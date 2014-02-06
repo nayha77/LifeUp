@@ -11,7 +11,6 @@ public interface AccountDao {
 	boolean modifyUserPasswd(SessionVO user);
 	
 	SessionVO getUserById(LoginVO login);
-	SessionVO getUserByEmail(LoginVO login);
 	
 	boolean registerAccount(LoginVO user);
 }
