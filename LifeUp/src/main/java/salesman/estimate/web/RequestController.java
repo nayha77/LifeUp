@@ -1,13 +1,23 @@
 package salesman.estimate.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+
+import salesman.common.service.RegionSelectImpl;
+import salesman.model.EstimateRequestVo;
 
 @Controller
 @RequestMapping("/request/*")
 public class RequestController {
+	
+    @Autowired
+    private RegionSelectImpl regionService;	
 	    
     @RequestMapping("/list")
     public String list() 
@@ -15,18 +25,10 @@ public class RequestController {
     	return "estimate/request/requestList";
     }    
     
-    @RequestMapping(value="/write", method=RequestMethod.GET)
-    public String write(
-            Integer articleNo, 
-            String boardCd, 
-            Integer curPage, 
-            String searchWord, 
-            Model model) throws Exception {
-         
-        //게시판 이름
-        String boardNm = boardService.getBoardNm(boardCd);
-        model.addAttribute("boardNm", boardNm);
-         
-        return "bbs/writeform";
-    }    
+    @RequestMapping("/writeform")
+    public String addForm(ModelMap model) {
+    	model.put("sido", regionService.selectRegionSidoTableMap());
+        return "estimate/request/writeform";
+    }
+
 }

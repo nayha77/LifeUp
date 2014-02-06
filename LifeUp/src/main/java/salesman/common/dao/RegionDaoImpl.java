@@ -24,5 +24,12 @@ public class RegionDaoImpl extends SqlSessionDaoSupport implements Regiondao{
 		guTableList = getSqlSession().selectList("common.getGu",sido);
 		return guTableList;
 	}
+	
+	@Override
+	public List<RegionVo> selectSidoTableMap() {
+		List<RegionVo> sidoTableList = new ArrayList<RegionVo>();
+		sidoTableList = getSqlSession().selectList("common.getSido"); 
+		return sidoTableList; 
+	}
 
 }
