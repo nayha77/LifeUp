@@ -31,6 +31,165 @@
 	<!--[if lt IE 9]>
       <script src='<spring:url value="/resources/js/html5.js"/>'></script>
     <![endif]-->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src='<spring:url value="/resources/js/jquery.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-transition.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-alert.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-modal.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-dropdown.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-scrollspy.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-tab.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-tooltip.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-popover.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-button.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-collapse.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-carousel.js"/>'></script>
+	<script src='<spring:url value="/resources/js/bootstrap-typeahead.js"/>'></script>	
+	<script src='<spring:url value="/resources/js/webService.js"/>'></script>		
+	
+    <script type="text/javascript">
+		var _Commn = new webService.Web.ComnService();
+		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
+    
+        $.form = function() {
+            var createForm = function(method, url, params) {
+                var form = $('<form name="jquery.form"/>')
+                			.attr('method', method === 'get' ? 'get' : 'post')
+                			.attr('action', url);
+                form.append('<input type="hidden" name="_method" value="' + method + '" />');
+                form.appendTo('body');
+                
+                if(params) {
+                    for(var key in params)
+                        form.append('<input type="hidden" name="' + key + '" value="' + params[key] + '" />');
+                }
+                
+                return form;
+            };
+            return {
+                get: function(url, params) {
+                    createForm('get', url, params).submit();
+                },
+                post: function(url, params) {
+                    createForm('post', url, params).submit();
+                },
+                put: function(url, params) {
+                    createForm('put', url, params).submit();
+                },
+                delete: function(url, params) {
+                    createForm('delete', url, params).submit();
+                }       
+            };
+        }();
+        
+        $('#loginModal').modal({ show: false });
+        $('#loginModal').on('shown', function() {
+			$('input[name=username]').focus();
+        });
+        
+        $(document).ready(function() {
+			if('${loginRequest}' === 'true') {
+			    $('#loginModal').modal('show');
+			}
+			
+			fnLoad();
+		});
+        
+        // 로그인
+    	function fnLogin() {    		    	
+      	    _Async.post (
+    			"/account/actionLogin.do",
+    			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
+    			function (data) {    
+    				if(data.message == 'success' || data.message == 'duplicated')
+    					document.location.href='<spring:url value="/main.do"/>';
+    				else
+    					alert(data.message);
+    			} 
+    		);
+    	}
+        
+        // 사용자찾기
+    	function fnFindUser() {
+    		var url = "/account/findUser.do";
+    		
+    		if($("#spTitle").html() == "비밀번호찾기")
+    			url = "/account/findPwd.do";
+    			
+    		_Async.post (
+    			url,
+    			JSON.stringify({ email: $('#txtFEmail').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
+    			function (data) {                
+    				if(data.message =='success') {
+    					alert('등록된 메일로 전송되었습니다');
+    					
+    					$('#txtFEmail').val("");
+    					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
+    				} else {
+    					alert(data.message);
+    				}    					    				    		
+    			} 
+    		);							
+    	}        
+    	
+        // 내정보 
+    	function fnMyInfo() {			
+      	    _Async.post (
+    			"/account/myInfo.do",
+    			'',
+    			function (data) {                
+    				if(data.message == 'success') {
+    					$('#myInfoModal').modal('show'); 
+    					$("#txtIUserId").val(data.userInfo.userId);
+    					$("#txtIEmail").val(data.userInfo.email);
+    					$("#txtIMobile").val(data.userInfo.mobile);
+    					$('#txtIPrevPasswd').focus();
+    				}
+    			} 
+    		);				
+    	}  
+        
+        // 내정보 수정
+    	function fnMyInfoUpdate() {
+
+        	if( $('#txtIPasswd').val() == $('#txtIPrevPasswd').val() ) {
+        		alert('신규 비밀번호와 이전 비밀번호가 일치합니다');
+        		return;
+        	} else if( $('#txtIPasswdConfirm').val() != $('#txtIPasswd').val() ) {
+        		alert('신규 비밀번호를 확인하세요');
+        		return;
+        	}
+        	
+      	    _Async.post (
+    			"/account/myInfoUpdate.do",
+    			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
+    			function (data) {                
+    				if(data.message == 'success') {
+    					$('#myInfoModal').modal('hide');
+    					
+    					$('#txtIPasswd').val("");
+    					$('#txtIPrevPasswd').val("");
+    					$('#txtIPasswdConfirm').val("");
+    				} else {
+    					alert(data.message);
+    				}
+    			} 
+    		);		
+    	}   
+        
+        // 사용자/비밀번호 찾기 Div Open
+        function fnOpenFindUser(title) {
+        	if(title == 'U')
+        		title = '사용자찾기';
+        	else
+        		title = '비밀번호찾기';
+        	        	
+        	$('#loginModal').modal('hide');        	
+        	$('#findUserModal').modal('show'); 
+        	$('#spTitle').html(title); 
+        	$('#txtFEmail').focus();
+        }
+    </script>    
 </head>
 <body>
 	<div class='navbar navbar-fixed-top'>
@@ -45,7 +204,7 @@
                 <div class="btn-group pull-right">
                     <c:if test="${empty sessionScope._USER_INFO_}">
 	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
-                    	<button class="btn" onclick="document.location.href='<spring:url value="/account/Membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
+                    	<button class="btn" onclick="document.location.href='<spring:url value="/account/membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
                     </c:if>
                     <c:if test="${not empty sessionScope._USER_INFO_}">
                     	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
@@ -147,164 +306,5 @@
 	        <button class="btn btn-primary" onclick="fnMyInfoUpdate();">수정</button>
 	    </div>
 	</div>     
-	<!-- Le javascript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src='<spring:url value="/resources/js/jquery.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-transition.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-alert.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-modal.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-dropdown.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-scrollspy.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-tab.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-tooltip.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-popover.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-button.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-collapse.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-carousel.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-typeahead.js"/>'></script>
-	
-	<script src='<spring:url value="/resources/js/webService.js"/>'></script>		
-    <script type="text/javascript">
-		var _Commn = new webService.Web.ComnService();
-		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
-    
-        $.form = function() {
-            var createForm = function(method, url, params) {
-                var form = $('<form name="jquery.form"/>')
-                			.attr('method', method === 'get' ? 'get' : 'post')
-                			.attr('action', url);
-                form.append('<input type="hidden" name="_method" value="' + method + '" />');
-                form.appendTo('body');
-                
-                if(params) {
-                    for(var key in params)
-                        form.append('<input type="hidden" name="' + key + '" value="' + params[key] + '" />');
-                }
-                
-                return form;
-            };
-            return {
-                get: function(url, params) {
-                    createForm('get', url, params).submit();
-                },
-                post: function(url, params) {
-                    createForm('post', url, params).submit();
-                },
-                put: function(url, params) {
-                    createForm('put', url, params).submit();
-                },
-                delete: function(url, params) {
-                    createForm('delete', url, params).submit();
-                }       
-            };
-        }();
-        
-        $('#loginModal').modal({ show: false });
-        $('#loginModal').on('shown', function() {
-			$('input[name=username]').focus();
-        });
-        
-        $(document).ready(function() {
-			if('${loginRequest}' === 'true') {
-			    $('#loginModal').modal('show');
-			}
-		});
-        
-        // 로그인
-    	function fnLogin() {    		    	
-      	    _Async.post (
-    			"/account/actionLogin.do",
-    			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
-    			function (data) {    
-    				if(data.message == 'success' || data.message == 'duplicated')
-    					document.location.href='<spring:url value="/main.do"/>';
-    				else
-    					alert(data.message);
-    			} 
-    		);
-    	}
-        
-        // 사용자찾기
-    	function fnFindUser() {
-    		var url = "/account/findUser.do";
-    		
-    		if($("#spTitle").html() == "비밀번호찾기")
-    			url = "/account/findPwd.do";
-    			
-    		_Async.post (
-    			url,
-    			JSON.stringify({ email: $('#txtFEmail').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
-    			function (data) {                
-    				if(data.message =='success') {
-    					alert('등록된 메일로 전송되었습니다');
-    					
-    					$('#txtFEmail').val("");
-    					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
-    				} else {
-    					alert(data.message);
-    				}    					    				    		
-    			} 
-    		);							
-    	}        
-    	
-        // 내정보 
-    	function fnMyInfo() {			
-      	    _Async.post (
-    			"/account/fnMyInfo.do",
-    			'',
-    			function (data) {                
-    				if(data.message == 'success') {
-    					$('#myInfoModal').modal('show'); 
-    					$("#txtIUserId").val(data.userInfo.userId);
-    					$("#txtIEmail").val(data.userInfo.email);
-    					$("#txtIMobile").val(data.userInfo.mobile);
-    					$('#txtIPrevPasswd').focus();
-    				}
-    			} 
-    		);				
-    	}  
-        
-        // 내정보 수정
-    	function fnMyInfoUpdate() {
-
-        	if( $('#txtIPasswd').val() == $('#txtIPrevPasswd').val() ) {
-        		alert('신규 비밀번호와 이전 비밀번호가 일치합니다');
-        		return;
-        	} else if( $('#txtIPasswdConfirm').val() != $('#txtIPasswd').val() ) {
-        		alert('신규 비밀번호를 확인하세요');
-        		return;
-        	}
-        	
-      	    _Async.post (
-    			"/account/fnMyInfoUpdate.do",
-    			JSON.stringify({ email: $('#txtIEmail').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
-    			function (data) {                
-    				if(data.message == 'success') {
-    					$('#myInfoModal').modal('hide');
-    					
-    					$('#txtIPasswd').val("");
-    					$('#txtIPrevPasswd').val("");
-    					$('#txtIPasswdConfirm').val("");
-    				} else {
-    					alert(data.message);
-    				}
-    			} 
-    		);		
-    	}   
-        
-        // 사용자/비밀번호 찾기 Div Open
-        function fnOpenFindUser(title) {
-        	if(title == 'U')
-        		title = '사용자찾기';
-        	else
-        		title = '비밀번호찾기';
-        	        	
-        	$('#loginModal').modal('hide');        	
-        	$('#findUserModal').modal('show'); 
-        	$('#spTitle').html(title); 
-        	$('#txtFEmail').focus();
-        }
-    </script>
 </body>
 </html>

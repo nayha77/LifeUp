@@ -75,4 +75,15 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 		
 		return user;
 	}
+	
+	@Override
+	public boolean registerAccount(LoginVO userInfo) {
+		int rtnValue = 0;
+		if(userInfo.getUserType() == 1)
+			rtnValue = getSqlSession().update("account.registerCustomer", userInfo);		
+		else
+			rtnValue = getSqlSession().update("account.registerSalesman", userInfo);
+			
+		return rtnValue > 0 ? true : false;
+	}
 }

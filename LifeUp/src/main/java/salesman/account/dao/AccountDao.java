@@ -12,4 +12,6 @@ public interface AccountDao {
 	
 	SessionVO getUserById(LoginVO login);
 	SessionVO getUserByEmail(LoginVO login);
+	
+	boolean registerAccount(LoginVO user);
 }
