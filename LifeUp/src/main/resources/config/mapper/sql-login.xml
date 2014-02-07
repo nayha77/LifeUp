@@ -4,13 +4,13 @@
 <mapper namespace="account">
 
 	<select id="getUserInfo" resultType="salesman.vo.account.SessionVO">
-		SELECT customer_id userId, customer_nm userNm, '1' userType, init_pwd, mobile
+		SELECT customer_id userId, customer_nm userNm, '1' userType, mobile
 		  FROM CUSTOMER
 		 WHERE customer_id = #{userId}		 
 	</select>
 	
 	<select id="getSalesmanInfo" resultType="salesman.vo.account.SessionVO">
-		SELECT salesman_id userId, salesman_nm userNm, vendor_id vendorId, location vendorLoc, '2' userType, init_pwd, mobile
+		SELECT salesman_id userId, salesman_nm userNm, vendor_id vendorId, location vendorLoc, '2' userType, mobile
 		  FROM SALESMAN
 		 WHERE salesman_id = #{userId}		 
 	</select>
@@ -19,7 +19,6 @@
 		UPDATE CUSTOMER
 		   SET PWD      = #{password}
 		     , MOBILE   = #{mobile}
-		     , INIT_PWD = 'N'
 		 WHERE CUSTOMER_ID  = #{userId}
 		   AND PWD          = #{prevPassword}
 	</update>
@@ -28,7 +27,6 @@
 		UPDATE SALESMAN
 		   SET PWD      = #{password}
 		     , MOBILE   = #{mobile}
-		     , INIT_PWD = 'N'
 		 WHERE SALESMAN_ID = #{userId}	
 		   AND PWD         = #{prevPassword}
 	</update>
@@ -62,34 +60,28 @@
 	<update id="modifySalesmanPasswd">
 		UPDATE SALESMAN 
 		   SET PWD      = #{password}
-		     , INIT_PWD = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
-			                   ELSE 'N'
-			  	 	       END
 		 WHERE SALESMAN_ID = #{userId}  
 	</update>
 	
 	<update id="modifyCustomerPasswd">
 		UPDATE CUSTOMER 
-		   SET PWD      = #{password}
-		     , INIT_PWD = CASE WHEN #{init_pwd} = 'Y' THEN 'Y'
-			                   ELSE 'N'
-			  	 	       END
+		   SET PWD = #{password}
 		 WHERE CUSTOMER_ID = #{userId}  		 
 	</update>		
 	
 	<insert id="registerCustomer">
 		INSERT INTO customer (
-			CUSTOMER_ID, CUSTOMER_NM, PWD, MOBILE, REGION, CREATE_DATE, UPDATE_DATE, INIT_PWD
+			CUSTOMER_ID, CUSTOMER_NM, PWD, MOBILE, REGION, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{userId}, #{userNm}, #{password}, #{mobile}, #{region}, sysdate(), sysdate(), 'N'
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{region}, sysdate(), sysdate()
 		)			
 	</insert>
 
 	<insert id="registerSalesman">
 		INSERT INTO salesman (
-			SALESMAN_ID, SALESMAN_NM, PWD, MOBILE, OFFICE_NO, VENDOR_ID, LOCATION, INTRO_MSG, PHOTO, STAR_POINT, COMP_POINT, CREATE_DATE, UPDATE_DATE, INIT_PWD
+			SALESMAN_ID, SALESMAN_NM, PWD, MOBILE, OFFICE_NO, VENDOR_ID, LOCATION, INTRO_MSG, PHOTO, STAR_POINT, COMP_POINT, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, null, 0, 0, sysdate(), sysdate(), 'N'
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, null, 0, 0, sysdate(), sysdate()
 		)			
 	</insert>						
 </mapper>

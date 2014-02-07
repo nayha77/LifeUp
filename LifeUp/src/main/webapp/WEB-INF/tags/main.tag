@@ -94,18 +94,41 @@
 			
 			fnLoad();
 		});
+
+        function fnShowLogin() {        	
+        	$('#loginModal').modal('show');
+        	
+        	var userId = '${cookie.userId.value}';
+        	$('#txtUserID').val(userId); 
+        	
+        	if(userId != "") {
+        		$('#chkAutoLogin').attr('checked', true);
+        		$('#txtUserPwd').focus();
+        	} else {        	
+        		$('#txtUserID').focus();
+        	}
+        }
+        
+        function fnEnterKey() {
+        	if(event.keyCode == 13) fnLogin();
+        }
         
         // 로그인
     	function fnLogin() {    		    	
+        	var autoLogin = 'N';
+        	
+        	if($('#chkAutoLogin').is(":checked"))
+        		autoLogin = "Y";        	
+        	
       	    _Async.post (
     			"/account/actionLogin.do",
     			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
     			function (data) {    
     				if(data.message == 'success' || data.message == 'duplicated')
-    					document.location.href='<spring:url value="/main.do"/>';
+    					document.location.href='/main?saveYn=' + autoLogin;
     				else
     					alert(data.message);
-    			} 
+    			}
     		);
     	}
         
@@ -203,7 +226,7 @@
                 <a class='brand' href='<spring:url value="/main"/>'>SSAGEZYO</a>
                 <div class="btn-group pull-right">
                     <c:if test="${empty sessionScope._USER_INFO_}">
-	                    <button class="btn" onclick="$('#loginModal').modal('show'); $('#txtUserID').focus();"><i class="icon-user"></i> 로그인</button>
+	                    <button class="btn" onclick="fnShowLogin();"><i class="icon-user"></i> 로그인</button>
                     	<button class="btn" onclick="document.location.href='<spring:url value="/account/membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
                     </c:if>
                     <c:if test="${not empty sessionScope._USER_INFO_}">
@@ -247,7 +270,8 @@
 			    <label class="control-label">아이디(이메일)</label>
 			    <div class="controls"><input type='text' id='txtUserID' /></div>                
 			    <label class="control-label">비밀번호</label>
-			    <div class="controls"><input type='password' id='txtUserPwd' /></div>
+			    <div class="controls"><input type='password' id='txtUserPwd' onKeypress='fnEnterKey();' /></div>
+			    <div class="controls"><input type="checkbox" name="chkAutoLogin" id="chkAutoLogin">ID저장</div>			    
 			</div>			                   
         </div>
         <div class="modal-footer">

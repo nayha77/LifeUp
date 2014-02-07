@@ -16,8 +16,6 @@ public class SessionVO implements Serializable{
 	private String vendorId;
 	/** 소속 지점 */
 	private String vendorLoc;
-	/** 비밀번호 초기화 유무*/
-	private String init_pwd;
 	/** 핸드폰번호 */
 	private String mobile;
 	
@@ -73,11 +71,5 @@ public class SessionVO implements Serializable{
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
-	}	
-	public String getInit_pwd() {
-		return init_pwd;
-	}
-	public void setInit_pwd(String init_pwd) {
-		this.init_pwd = init_pwd;
 	}	
 }
