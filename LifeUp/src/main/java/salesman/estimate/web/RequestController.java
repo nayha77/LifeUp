@@ -23,6 +23,7 @@ public class RequestController {
     @RequestMapping("/writeform")
     public String addForm(ModelMap model) {
     	model.put("sidos", codeService.selectRegionSidoTable());
+    	model.put("venders", codeService.getVendorCodes());
         return "estimate/request/writeform";
     }
 

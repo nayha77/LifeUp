@@ -59,7 +59,7 @@ public class mainController {
     	return "common/selectBox";
     }
     
-    @RequestMapping("/selectBoxTestJson")
+    @RequestMapping("/regionSecondJson")
 	public @ResponseBody Map<String, Object> listJson(@RequestBody String sido, HttpServletRequest request) {
     	Map<String, Object> result = new HashMap<String, Object>();
     	
@@ -70,5 +70,12 @@ public class mainController {
     	}
 
     	return result;
-    }                         
+    }    
+    @RequestMapping("/selectCarJson")
+	public @ResponseBody Map<String, Object> carlistJson(@RequestBody String venderId) {
+    	
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	result.put("carCodeList", codeService.getCarCodeList(venderId));
+    	return result;
+    }  
 }

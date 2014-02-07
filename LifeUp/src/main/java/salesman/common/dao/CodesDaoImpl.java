@@ -16,6 +16,13 @@ public class CodesDaoImpl extends SqlSessionDaoSupport implements CodesDao{
 		codes = getSqlSession().selectList("common.getVendorCodes");
 		return codes;		
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getCarCodes(String carId) {
+		List<HashMap<String ,Object>> carCodeList = new ArrayList<HashMap<String,Object>>();
+		carCodeList = getSqlSession().selectList("common.getCarCode",carId);
+		return carCodeList;
+	}
 
 	@Override
 	public List<RegionVo> selectSidoTable() {
@@ -30,4 +37,6 @@ public class CodesDaoImpl extends SqlSessionDaoSupport implements CodesDao{
 		guTableList = getSqlSession().selectList("common.getGu",sido);
 		return guTableList;
 	}
+
+
 }

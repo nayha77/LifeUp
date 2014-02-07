@@ -18,6 +18,11 @@ public class CodesServiceImpl implements CodesService  {
 	public List<HashMap<String, Object>> getVendorCodes() {
 		return codesDao.getVendorCodes();
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getCarCodeList(String carId) {
+		return codesDao.getCarCodes(carId);
+	}
 
 	@Override
 	public List<RegionVo> selectRegionSidoTable() {
@@ -28,4 +33,5 @@ public class CodesServiceImpl implements CodesService  {
 	public List<RegionVo> selectRegionGuTable(String sido) {
 		return codesDao.selectGuTable(sido);
 	}
+
 }
