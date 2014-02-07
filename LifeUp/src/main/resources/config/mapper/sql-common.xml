@@ -13,12 +13,18 @@
 	<!-- 구 를  가지고 온다  -->	
 	<select id="getGu" parameterType="salesman.common.define.RegionVo"  resultType="salesman.common.define.RegionVo">
 		select gugun,region_cd from region
-		where sido = #{sido};
+		where sido = #{sido}
 	</select>
 	
 	<select id="getVendorCodes" resultType="java.util.HashMap">
 		SELECT VENDOR_ID code, VENDOR_NM value 
 		  FROM vendor;
+	</select>	
+	
+	<!--  vendor id 로 자동차 종류/ ID 를 가져온다 -->
+	<select id="getCarCode" resultType="java.util.HashMap">
+			SELECT car_id,car_nm FROM CAR_MASTER
+			WHERE VENDOR_ID= #{vende_id}
 	</select>	
 
 </mapper>

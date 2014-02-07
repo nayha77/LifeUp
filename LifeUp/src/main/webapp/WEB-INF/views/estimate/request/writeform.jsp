@@ -13,16 +13,16 @@
 	
 	function LowList(obj){
 		//console.log(obj);	
-		  $("#first_test").append('<div id="second_test"></div>'); // div 생성
+		  $("#region").append('<div id="region_second"></div>'); // div 생성
 	     var select = document.createElement("select");    //selectbox 생성
-	     select.name = "soname";                           //name지정
-	     select.setAttribute("id", "soname");
+	     select.name = "region_soname";                           //name지정
+	     select.setAttribute("id", "region_soname");
 	     //현재 소분류 selectbox가 있는지 여부를 확인한다. 있다면 기존 selectbox remove
-	     if(document.getElementById("second_test").innerHTML != ""){
-	    	 $("#second_test").remove();
+	     if(document.getElementById("region_second").innerHTML != ""){
+	    	 $("#region_second").remove();
 	     }
    	    _Async.post (
-    			"/selectBoxTestJson.do",
+    			"/regionSecondJson",
     			sido = obj.value,
     			function (data) {    
     				var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
@@ -36,20 +36,59 @@
     			} 
     		);
    	    
-		$("#second_test").append(select);     
-	}		
+		$("#region_second").append(select);     
+	}	
+	
+	// 차량 종류 셀렉박스
+	function venderLowList(obj){
+		  $("#vender").append('<div id="vender_second"></div>'); 
+	     var select = document.createElement("select");    
+	     select.name = "vender_soname";                     
+	     select.setAttribute("id", "vender_soname");
+	     if(document.getElementById("vender_second").innerHTML != ""){
+	    	 $("#vender_second").remove();
+	     }
+   	    _Async.post (
+    			"/selectCarJson",
+    			sido = obj.value,
+    			function (data) {    
+    				var resultData = data.carCodeList;  
+    		          $.each(resultData, function(index, entry){
+    		               var objOpt = document.createElement("option");   
+    		               objOpt.value = entry["car_id"];               	
+    		               objOpt.innerText = entry["car_nm"];
+    		               select.appendChild(objOpt);
+    		          });
+    			} 
+    		);
+   	    
+		$("#vender_second").append(select);     
+	}	
 </script>
-<div>
-		<div id="first_test">
+<form id='estimateReq' name='estimateReq' method='post' action='/estimate/reg'>
 
+		<div id="region">
 		   <select name="bigname"  id="bigname"  onchange="LowList(this);" >
-		   
+		    <option value="0">==지역선택==</option>
 		   <c:forEach items="${sidos}" var="sido">
 		   	<option value="${sido.sido}">${sido.sido}</option>
 		   </c:forEach>
-		   
 		   </select>
 		</div>
-	
-	</div>
+		
+		<div id="vender">
+		   <select name="venderBigname"  id="venderBigname"  onchange="venderLowList(this);" >
+		    <option value="0">==제조선택==</option>
+		   <c:forEach items="${venders}" var="vender">
+		   	<option value="${vender.code}">${vender.value}</option>
+		   </c:forEach>
+		   </select>
+		</div>
+		<div>
+		<textarea name="customer_req" rows="2" ></textarea>
+		</div>
+		<div>
+		<input type='text' id='customer_id' name='customer_id' />
+		</div>
+</form>
 </mvc:simple>
