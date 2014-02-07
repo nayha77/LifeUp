@@ -101,7 +101,7 @@
                 userId: {
                 			required: "아이디(이메일주소)를 입력하세요.",
                             email: "올바른 이메일주소를 입력하세요.",
-                            remote : jQuery.format("사용할 수 없는 아이디입니다")
+                            remote : jQuery.format("중복 아이디 입니다")
                        }, 
                 mobile: { numeric: "숫자만 입력하세요." },                          
             },
