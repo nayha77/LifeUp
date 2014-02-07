@@ -161,19 +161,17 @@
 	
 	function fnChangeRegion(obj) {	
    	    _Async.post (
-   			"/selectBoxTestJson.do",
+   			"/regionSecondJson.do",
    			sido = obj.value,
    			function (data) {    
-				var resultData = data.Sido2;
+				var resultData = data.Sido2;				
+				$('#ddlGugun').find("option").remove().end().append("<option value=\"\">:::선택 :::</option>");
 				
-				$('#ddlGugun').find('option').remove();				
 				$.each(resultData, function(index, entry){
-					$('#ddlGugun').prepend("<option value="+ entry["region_cd"] +">" + entry["gugun"]  + "</option>"); 				        
-				});
+					$("#ddlGugun").append("<option value='"+ entry["region_cd"] +"'>" + entry["gugun"]  + "</option>"); 				        
+				});				
    			} 
-   		);
-   	    
-		$("#second_test").append(select);     
+   		);   	         
 	}	
 </script>
 
@@ -345,12 +343,12 @@
 						<div class="control-label" style='text-align: left;'>거주지역</div>
 						<div class="controls">
 							<div class="bs-docs-example">		  
-								<select name="ddlSido"  id="ddlSido"  onchange="fnChangeRegion(this);" >		   
+								<select name="ddlSido"  id="ddlSido" onchange="fnChangeRegion(this);" >		   
 								   	<c:forEach items="${regions}" var="region">
 								   		<option value="${region.sido}">${region.sido}</option>
 								   	</c:forEach>
 							   	</select>
-								<select name="ddlGuGun"  id="ddlGuGun"></select>							   	
+								<select id="ddlguGun"></select>							   	
 								<select class="selectpicker" data-live-search="true" id='ddlRegion' name='region'>
 							  		<option value='0001'>서울시 용산구</option>
 									<option value='0002'>서울시 구로구</option>
