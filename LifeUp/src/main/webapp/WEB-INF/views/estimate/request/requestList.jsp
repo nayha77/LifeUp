@@ -3,6 +3,6 @@
 
 <mvc:main>
 <script type="text/javascript">
-alert('List tt');
+alert('List tt gg');
 </script>
 </mvc:main>
