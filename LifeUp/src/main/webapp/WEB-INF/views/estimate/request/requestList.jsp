@@ -3,6 +3,6 @@
 
 <mvc:main>
 <script type="text/javascript">
-
+alert('List');
 </script>
 </mvc:main>
