@@ -3,13 +3,14 @@ package salesman.board.service;
 import java.util.HashMap;
 import java.util.List;
 
-import salesman.board.dao.iBoarddao;
+import salesman.board.dao.Boarddao;
+import salesman.model.EstimateReqVO;
 import salesman.model.Post;
 
-public class BoardServiceImpl implements iBoardService {
-	private iBoarddao boarddao1;
+public class BoardServiceImpl implements BoardService {
+	private Boarddao boarddao1;
 	
-	public void setBoarddao1(iBoarddao boarddao1){
+	public void setBoarddao1(Boarddao boarddao1){
 		this.boarddao1 = boarddao1;
 	}
 
@@ -47,6 +48,11 @@ public class BoardServiceImpl implements iBoardService {
 	public int erase(Integer postNo) {
 		return boarddao1.erase(postNo);
 		
+	}
+
+	@Override
+	public int EstimateReg(EstimateReqVO estimateReqVO) {
+		return boarddao1.EstimateReg(estimateReqVO);
 	}
 
 }

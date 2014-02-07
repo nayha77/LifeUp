@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import salesman.board.service.iBoardService;
+import salesman.board.service.BoardService;
 import salesman.model.Board;
 import salesman.model.Post;
 
@@ -21,7 +21,7 @@ import salesman.model.Post;
 public class PostController {
 	
 	@Autowired
-	private iBoardService boardService;
+	private BoardService boardService;
     
     @RequestMapping(method=RequestMethod.GET)
     public String list(@PathVariable Board board, ModelMap model) {

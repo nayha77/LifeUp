@@ -15,7 +15,7 @@
 		//console.log(obj);	
 		  $("#region").append('<div id="region_second"></div>'); // div 생성
 	     var select = document.createElement("select");    //selectbox 생성
-	     select.name = "region_soname";                           //name지정
+	     select.name = "region_cd";                           //name지정
 	     select.setAttribute("id", "region_soname");
 	     //현재 소분류 selectbox가 있는지 여부를 확인한다. 있다면 기존 selectbox remove
 	     if(document.getElementById("region_second").innerHTML != ""){
@@ -43,7 +43,7 @@
 	function venderLowList(obj){
 		  $("#vender").append('<div id="vender_second"></div>'); 
 	     var select = document.createElement("select");    
-	     select.name = "vender_soname";                     
+	     select.name = "car_id";                     
 	     select.setAttribute("id", "vender_soname");
 	     if(document.getElementById("vender_second").innerHTML != ""){
 	    	 $("#vender_second").remove();
@@ -65,7 +65,7 @@
 		$("#vender_second").append(select);     
 	}	
 </script>
-<form id='estimateReq' name='estimateReq' method='post' action='/estimate/reg'>
+<form id='estimateReq' name='estimateReq' method='post' action='/request/regform'>
 
 		<div id="region">
 		   <select name="bigname"  id="bigname"  onchange="LowList(this);" >
@@ -90,5 +90,10 @@
 		<div>
 		<input type='text' id='customer_id' name='customer_id' />
 		</div>
+		
+		<div class="form-actions">
+            <button class='btn btn-primary'>저장하기 </button>
+            <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
+        </div>
 </form>
 </mvc:simple>
