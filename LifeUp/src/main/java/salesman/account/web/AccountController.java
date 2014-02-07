@@ -55,7 +55,7 @@ public class AccountController {
      * 로그인처리
      */
     @RequestMapping(value="/account/actionLogin", produces={"application/xml", "application/json"} )
-    public @ResponseBody Map<String, Object> actionLogin(@RequestBody LoginVO loginVO, HttpServletRequest request) {     
+    public @ResponseBody Map<String, Object> actionLogin(@RequestBody LoginVO loginVO) {     
     	
     	String message = "success";    	
     	SessionVO userInfo = null;    	  	
@@ -88,49 +88,6 @@ public class AccountController {
     	
     	return result;
     }   
-
-    /*
-     * 비밀번호 변경화면 호출 (e-mail을 통한 연결)
-     */
-    @RequestMapping(value="/account/modifyPwd", method=RequestMethod.GET)
-    public void modifyPwd(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request) {
-    	
-    	LoginVO loginVO = new LoginVO();  
-    	
-    	loginVO.setUserType(Integer.parseInt(paramMap.get("userType").toString()));
-    	loginVO.setUserId(paramMap.get("userId").toString());
-    	
-    	SessionVO userInfo = accountService.getUserInfo(loginVO);
-    	
-    	String message = "잘못된 사용자 요청입니다";
-    	if(userInfo != null) {
-    		if(userInfo.getInit_pwd() != null && userInfo.getInit_pwd().equals("Y"))
-    			message = "";
-    		else
-    			message = "만료된 페이지 입니다. 다시 요청하세요";
-    	} 
-    	
-    	model.addAttribute("user", paramMap);
-    	model.addAttribute("message", message);
-    }
-        
-    /*
-     * 비밀번호 변경처리 (e-mail을 통한 변경)
-     */
-    @RequestMapping("/account/tryModifyPwd")
-    public String tryModifyPwd(@RequestParam Map<String,Object> paramMap, HttpServletRequest request) {
-    	
-    	SessionVO user = new SessionVO();    	
-    	
-    	user.setUserId(paramMap.get("userId").toString());
-    	user.setPassword(paramMap.get("password").toString());
-    	user.setUserType(Integer.parseInt(paramMap.get("userType").toString()));    	
-    	
-    	if(accountService.modifyUserPasswd(user))    		
-    		return "redirect:/main.do";    	
-    	
-    	return "redirect:/account/modifyPwd.do"; 
-    }        
     
     /*
      * 사용자 찾기

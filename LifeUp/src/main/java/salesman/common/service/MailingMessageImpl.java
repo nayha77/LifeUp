@@ -3,7 +3,6 @@ package salesman.common.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import salesman.account.service.AccountService;
-import salesman.common.util.FileScrty;
 import salesman.common.util.NumberUtil;
 import salesman.common.util.StringUtil;
 import salesman.vo.account.LoginVO;
@@ -60,7 +59,7 @@ public class MailingMessageImpl implements MailingMessage {
 			
 			if(type.equals("ID")) {
 				message.append("<span>");
-				message.append(userInfo.getUserId()).append("님의 ID는 ");
+				message.append(userInfo.getUserNm()).append("님의 ID는 ");
 				message.append("<b>").append(userInfo.getUserId()).append("</b>");
 				message.append(" 입니다");
 				message.append("</span>");
@@ -76,28 +75,16 @@ public class MailingMessageImpl implements MailingMessage {
 		    	}
 		    	
 				userInfo.setPassword(newPasswd);	
-				userInfo.setInit_pwd(user.getInitPwd());
 				accountService.modifyUserPasswd(userInfo);
 				
-				message.append("<div>");
-				message.append(userInfo.getUserId()).append("님의 새로 발급된 비밀번호는 ");
+				message.append("<span>");
+				message.append(userInfo.getUserNm()).append("님의 새로 발급된 비밀번호는 ");
 				message.append("<b>").append(newPasswd).append("</b>");
 				message.append(" 입니다");
-				message.append("</div>");
-				message.append("<div>");
-				message.append("<a href='http://localhost:8080/account/modifyPwd.do?userId=" + userInfo.getUserId() + "&userType=" + userInfo.getUserType() + "'><b>비밀번호 변경</b></a>");
-				message.append("</div>");
-				message.append("<div>");
-				message.append("<a href='http://localhost:8080/main.do'><b>이동하기</b></a>");
-				message.append("</div>");
-			}		
+				message.append("</span>");
+			}				
 			
-			StringBuilder sb = new StringBuilder();
-			sb.append("<div>");
-			sb.append("<span><b>" + message.toString() + "</b></span>");
-			sb.append("</div>");
-			
-			this.content = sb.toString();
+			this.content = message.toString();
 		} catch (Exception e) {
 			this.content = "";
 		}
