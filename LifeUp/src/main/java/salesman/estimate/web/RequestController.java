@@ -2,11 +2,14 @@ package salesman.estimate.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.ModelMap;
 
 import salesman.board.service.BoardService;
 import salesman.common.service.CodesService;
+import salesman.model.Board;
 import salesman.model.EstimateReqVO;
 
 
@@ -21,8 +24,9 @@ public class RequestController {
     private  CodesService codeService;	
 	    
     @RequestMapping("/list")
-    public String list() 
+    public String list( ModelMap model)
     {
+        model.put("estimateRegList", boardService.EstimateRegList());
     	return "estimate/request/requestList";
     }    
     
@@ -40,5 +44,6 @@ public class RequestController {
     	int wireResult = boardService.EstimateReg(estimateReqVO);
         return "estimate/request/requestList";
     }
+    
 
 }

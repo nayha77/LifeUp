@@ -16,4 +16,5 @@ public interface BoardService {
 	
 	
 	public int EstimateReg(EstimateReqVO estimateReqVO);
+	public List<HashMap<String, Object>> EstimateRegList();
 }

@@ -59,6 +59,13 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements Boarddao{
 
 		return getSqlSession().insert("request.EstimateReg",estimateReqVO);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> EstimateRegList() {
+		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
+		estimateReglist = getSqlSession().selectList("request.estimateReglist");
+		return estimateReglist;
+	}
 	
 	
 

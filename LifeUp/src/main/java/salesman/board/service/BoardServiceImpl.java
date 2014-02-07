@@ -55,4 +55,10 @@ public class BoardServiceImpl implements BoardService {
 		return boarddao1.EstimateReg(estimateReqVO);
 	}
 
+	@Override
+	public List<HashMap<String, Object>> EstimateRegList() {
+		// TODO Auto-generated method stub
+		return boarddao1.EstimateRegList();
+	}
+
 }

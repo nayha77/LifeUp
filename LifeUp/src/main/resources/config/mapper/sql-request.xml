@@ -13,5 +13,10 @@
 			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option},#{customer_req},'0001', sysdate()
 		)			
 	</insert>
+	
+	<select id="estimateReglist"   resultType="java.util.HashMap">
+	select * from estimate_request
+	</select>
+	
 
 </mapper>
