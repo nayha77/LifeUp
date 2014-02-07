@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import salesman.common.dao.CodesDao;
+import salesman.common.define.RegionVo;
 
 public class CodesServiceImpl implements CodesService  {
 
@@ -16,5 +17,15 @@ public class CodesServiceImpl implements CodesService  {
 	@Override
 	public List<HashMap<String, Object>> getVendorCodes() {
 		return codesDao.getVendorCodes();
+	}
+
+	@Override
+	public List<RegionVo> selectRegionSidoTable() {
+		return codesDao.selectSidoTable();
+	}
+
+	@Override
+	public List<RegionVo> selectRegionGuTable(String sido) {
+		return codesDao.selectGuTable(sido);
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
+import salesman.common.define.RegionVo;
+
 public class CodesDaoImpl extends SqlSessionDaoSupport implements CodesDao{
 
 	@Override
@@ -13,5 +15,19 @@ public class CodesDaoImpl extends SqlSessionDaoSupport implements CodesDao{
 		List<HashMap<String, Object>> codes = new ArrayList<HashMap<String, Object>>();
 		codes = getSqlSession().selectList("common.getVendorCodes");
 		return codes;		
+	}
+
+	@Override
+	public List<RegionVo> selectSidoTable() {
+		List<RegionVo> sidoTableList = new ArrayList<RegionVo>();
+		sidoTableList = getSqlSession().selectList("common.getSido");
+		return sidoTableList;
+	}
+
+	@Override
+	public List<RegionVo> selectGuTable(String sido) {
+		List<RegionVo> guTableList = new ArrayList<RegionVo>();
+		guTableList = getSqlSession().selectList("common.getGu",sido);
+		return guTableList;
 	}
 }

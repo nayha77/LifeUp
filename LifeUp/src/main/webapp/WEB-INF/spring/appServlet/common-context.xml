@@ -23,15 +23,6 @@
 	<bean id="storageService" class="salesman.common.service.StorageServiceImpl">
 	</bean>
 	
-	<!--  selectSido -->
-	<bean id="regionService" class="salesman.common.service.RegionSelectImpl">
-		<property name="regionServiceBean" ref="regindao" />
-	</bean>
-	<!--  selectSido dao -->
-	<bean id="regindao" class="salesman.common.dao.RegionDaoImpl">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>	
-
 	<!-- mailing -->
 	<bean id="mailService" class="salesman.common.service.MailingServiceImpl">  
 	    <property name="mailSender" ref="mailSender" />  

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import salesman.common.service.RegionSelectImpl;
+import salesman.common.service.CodesService;
 import salesman.common.service.StorageService;
 
 @Controller
@@ -21,7 +21,7 @@ public class mainController {
     private StorageService storageService;
     
     @Autowired
-    private RegionSelectImpl regionService;
+    private CodesService codeService;
 		           
     @RequestMapping("/main")
 	public void main() { 
@@ -30,7 +30,7 @@ public class mainController {
     
     @RequestMapping("/selectBoxTest")
 	public  String list(ModelMap model) {
-         model.put("Sido", regionService.selectRegionSidoTable());
+         model.put("Sido", codeService.selectRegionSidoTable());
     	return "common/selectBox";
     }
     
@@ -39,9 +39,9 @@ public class mainController {
     	Map<String, Object> result = new HashMap<String, Object>();
     	
     	if( sido == null || sido.equals("") ){
-    		result.put("Sido", regionService.selectRegionSidoTable());
+    		result.put("Sido", codeService.selectRegionSidoTable());
     	}else{
-    		result.put("Sido2", regionService.selectRegionGuTable(sido));
+    		result.put("Sido2", codeService.selectRegionGuTable(sido));
     	}
 
     	return result;
