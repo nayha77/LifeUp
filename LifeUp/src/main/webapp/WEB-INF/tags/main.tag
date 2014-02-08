@@ -144,15 +144,15 @@
     			JSON.stringify({ userId: $('#txtFUserId').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
     			function (data) {                
     				if(data.message =='success') {
-    					alert('등록된 메일로 전송되었습니다');
-    					
     					$('#txtFUserId').val("");
     					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
     				} else {
     					alert(data.message);
     				}    					    				    		
     			} 
-    		);							
+    		);	
+    		
+			alert('등록된 메일로 전송되었습니다');		    	
     	}        
     	
         // 내정보 
