@@ -26,6 +26,11 @@ public class mainController {
     
     @Autowired
     private CodesService codeService;
+    
+    @RequestMapping("/test")
+    public String test() { 
+    	return "account/test";
+    }    		
 		               
     @RequestMapping("/main")    
 	public String main(HttpServletRequest request, HttpServletResponse response, @RequestParam(required=false) String saveYn){

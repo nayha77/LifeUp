@@ -25,7 +25,7 @@
 	
 	function fnLoad() {
 		fnFrmInitialize(1);
-		fnValidation();
+		fnValidation();			
 	}			
 	
 	function fnFrmInitialize(type) {			
@@ -51,7 +51,7 @@
 			$('#divChoiceMember').show();					
 		} else {
 			$('#divNotice').show();
-		}
+		}		
 	}
 	
 	function fnChoiceMemberType() {
@@ -69,7 +69,7 @@
 		if(type == 'N') {
 			$('#divSalesCase').hide();
 			$('#divNormalCase').show();
-			$('#divNSubmit').show();
+			$('#divNSubmit').show();					
 		} else {
 			$('#divNormalCase').hide();
 			$('#divSalesCase').show();
@@ -159,16 +159,16 @@
 		}	
 	}	
 	
-	function fnChangeRegion(obj) {	
-   	    _Async.post (
+	function fnChangeRegion(obj) {				
+		_Async.post (
    			"/regionSecondJson.do",
    			sido = obj.value,
    			function (data) {    
-				var resultData = data.Sido2;				
-				$('#ddlGugun').find("option").remove().end().append("<option value=\"\">:::선택 :::</option>");
+				var result = data.Sido2;				
 				
-				$.each(resultData, function(index, entry){
-					$("#ddlGugun").append("<option value='"+ entry["region_cd"] +"'>" + entry["gugun"]  + "</option>"); 				        
+				$("select[name=ddlGugun]").find("option").remove().end().append("<option value=\"\">::::선택::::</option>");
+				$.each(result, function(index, row){
+					$("select[name=ddlGugun]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>"); 				        
 				});				
    			} 
    		);   	         
@@ -342,19 +342,16 @@
 						<div class="controls"><input type='text' id='tbxMobile' name='mobile' /></div>
 						<div class="control-label" style='text-align: left;'>거주지역</div>
 						<div class="controls">
-							<div class="bs-docs-example">		  
-								<select name="ddlSido"  id="ddlSido" onchange="fnChangeRegion(this);" >		   
+							<div class="bs-docs-example">										 
+								<select name="ddlSido" id="ddlSido" class='bs-docs-example' onchange="fnChangeRegion(this);" >
+									<option value=''>::::선택::::</option>		   
 								   	<c:forEach items="${regions}" var="region">
 								   		<option value="${region.sido}">${region.sido}</option>
 								   	</c:forEach>
 							   	</select>
-								<select id="ddlguGun"></select>							   	
-								<select class="selectpicker" data-live-search="true" id='ddlRegion' name='region'>
-							  		<option value='0001'>서울시 용산구</option>
-									<option value='0002'>서울시 구로구</option>
-									<option value='0003'>경기도 군포시 산본동</option>
-									<option value='0004'>경기도 안양시 산본동</option>
-							  	</select>		
+								<select name="ddlGugun" id="ddlGugun" class='bs-docs-example'>
+									<option value=''>::::선택::::</option>
+								</select>		
 							</div>		
 						</div>		
 					</div>
