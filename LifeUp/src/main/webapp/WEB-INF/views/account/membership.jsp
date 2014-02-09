@@ -34,18 +34,6 @@
 		$('#divNormalCase').hide();
 		$('#divSalesCase').hide();
 		$('.divSubmit').hide();		
-		
-        $('.selectpicker').selectpicker({
-            'selectedText': ''
-        });
-        
-        $("input[type=text]").each(function() {
-        	$(this).val("");
-        });   
-        
-        $("input[type=password]").each(function() {
-        	$(this).val("");
-        });
 
 		if(type == 1) {
 			$('#divChoiceMember').show();					
@@ -166,9 +154,9 @@
    			function (data) {    
 				var result = data.Sido2;				
 				
-				$("select[name=ddlGugun]").find("option").remove().end().append("<option value=\"\">::::선택::::</option>");
+				$("select[name=region]").find("option").remove().end().append("<option value=\"\">::::선택::::</option>");
 				$.each(result, function(index, row){
-					$("select[name=ddlGugun]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>"); 				        
+					$("select[name=region]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>"); 				        
 				});				
    			} 
    		);   	         
@@ -343,13 +331,13 @@
 						<div class="control-label" style='text-align: left;'>거주지역</div>
 						<div class="controls">
 							<div class="bs-docs-example">										 
-								<select name="ddlSido" id="ddlSido" class='bs-docs-example' onchange="fnChangeRegion(this);" >
+								<select name="ddlSido" id="ddlSido" class='bs-docs-example' style='width: 108px;' onchange="fnChangeRegion(this);" >
 									<option value=''>::::선택::::</option>		   
 								   	<c:forEach items="${regions}" var="region">
 								   		<option value="${region.sido}">${region.sido}</option>
 								   	</c:forEach>
 							   	</select>
-								<select name="ddlGugun" id="ddlGugun" class='bs-docs-example'>
+								<select name="region" id="ddlGugun" class='bs-docs-example' style='width: 108px;'>
 									<option value=''>::::선택::::</option>
 								</select>		
 							</div>		
