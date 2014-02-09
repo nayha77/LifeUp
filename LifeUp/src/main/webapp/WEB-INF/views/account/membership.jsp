@@ -78,12 +78,14 @@
                             return $('#tbxUserId').val();
                         }
                     }
-          		} },             	
+          		} },   
+          		userNm : { required: true }, 
             	password: { required: true },
             	passwordConfirm: { equalTo: "#tbxNPwd" },
                 mobile: { required: false, numeric: true }
             },
             messages: {
+            	userNm: { required: "성명을 입력하세요." },  
                 password: { required: "비밀번호를 입력하세요." },
                 passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
                 userId: {
@@ -111,7 +113,8 @@
                             return $('#tbxSalesmanId').val();
                         }
                     }
-          		} },            	
+          		} },    
+          		userNm: { required: true },
             	password: { required: true },
             	passwordConfirm: { equalTo: "#tbxSPwd" },             	                
                 officeNo: { required: false, numeric: true },
@@ -120,6 +123,7 @@
                 vendorId: { required: true }
             },
             messages: {
+            	userNm: { required: "성명을 입력하세요." },
                 password: { required: "비밀번호를 입력하세요." },
                 passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
                 userId: {
@@ -341,7 +345,7 @@
 									<option value=''>::::선택::::</option>
 								</select>		
 							</div>		
-						</div>		
+						</div>						
 					</div>
 					<div id='divNSubmit' class='divSubmit'>
 						<input type='submit' class="btn btn-primary" value='회원가입' />	
@@ -350,7 +354,7 @@
 				</form>
 			</div>
 			<div id='divSales' style='text-align: center; width:220px;'>
-				<form id='frmSales' name='frmSales' method='post' action='/account/register'>	
+				<form id='frmSales' name='frmSales' method='post' action='/account/register' enctype="multipart/form-data">	
 					<div class="control-group" id='divSalesCase'>
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>아이디(이메일)</div>
 						<div class="controls">
@@ -363,6 +367,8 @@
 						<div class="controls"><input type='password' id='tbxPwdConfirm' name='passwordConfirm' /></div>		
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>성명</div>
 						<div class="controls"><input type='text' id='tbxUserNm' name='userNm' /></div>
+						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>사진</div>
+						<div class="controls"><input type='file' id='imgFile' name='imgFile' /></div>						
 						<div class="control-label" style='text-align: left;'>핸드폰 번호</div>
 						<div class="controls"><input type='text' id='tbxMobile' name='mobile' /></div>
 						<div class="control-label" style='text-align: left;'>사무실 전화번호</div>

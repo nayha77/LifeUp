@@ -35,6 +35,11 @@
 
     <mvc:view-controller path="/" view-name="redirect:/main"/>  
     
+    <!-- file upload (bean id는 반드시 multipartResolver로 사용하라고 한다  -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="10240"/> <!-- 10 kbyte -->
+    </bean>
+    
    	<context:annotation-config />
 
 </beans>

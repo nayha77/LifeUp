@@ -1,5 +1,7 @@
 package salesman.account.web;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import salesman.account.service.AccountService;
 import salesman.common.define.RegionVo;
@@ -228,10 +231,12 @@ public class AccountController {
      * 회원가입 등록
      */
     @RequestMapping("/account/register")
-    public String register(@ModelAttribute LoginVO userInfo) {    	    	
+//    public String register(@ModelAttribute LoginVO userInfo, @RequestParam("imgFile") MultipartFile imgFile) {
+    public String register(@ModelAttribute LoginVO userInfo){
+    	
     	if(accountService.registerAccount(userInfo))    	
     		return "redirect:/main.do";
     	else
-    		throw new CustomException("회원가입 중 오류가 발생했습니다");          
+    		throw new CustomException("회원가입 중 오류가 발생했습니다");
     }
 }
