@@ -14,8 +14,28 @@
 		)			
 	</insert>
 	
-	<select id="estimateReglist"   resultType="java.util.HashMap">
-	select * from estimate_request
+	<select id="estimateReglist" resultType="java.util.HashMap" parameterType="Integer">
+		SELECT @RNUM:=@RNUM+1 AS ROWNUM
+			 , b.*
+		  FROM (
+				  SELECT @RNUM:=0
+					   , a.CUSTOMER_ID
+					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
+					   , a.REGION_CD
+					   , (SELECT CONCAT(SIDO, ' ', GUGUN) FROM REGION WHERE REGION_CD = a.REGION_CD) REGION_NM
+					   , a.CAR_ID
+					   , (SELECT CAR_NM FROM CAR_MASTER WHERE CAR_ID = a.CAR_ID) CAR_NM
+					   , a.CAR_MODEL
+					   , a.CAR_OPTION
+					   , a.CUSTOMER_REQ
+					   , a.STATUS
+					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+					   , a.CREATE_DATE
+					   , a.UPDATE_DATE
+					   , a.PURCHASE_PERIOD_CD
+				    from ESTIMATE_REQUEST a
+			   ) b 
+		  limit #{currentSeq}, 2;
 	</select>
 	
 

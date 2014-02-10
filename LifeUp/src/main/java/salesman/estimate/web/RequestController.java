@@ -1,10 +1,13 @@
 package salesman.estimate.web;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,16 +30,21 @@ public class RequestController {
     @RequestMapping("/list")
     public String list( ModelMap model)
     {
-        model.put("estimateRegList", boardService.EstimateRegList());
+    	int currentSeq = 0;
+        model.put("estimateRegList", boardService.EstimateRegList(currentSeq));
     	return "estimate/request/requestList";
     } 
     
-    @RequestMapping("/listJson")
-    public @ResponseBody Map<String,Object> listJson(@RequestParam Map<String,Object> paramMap, ModelMap model)
+    @RequestMapping(value="/listJson", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> listJson(@RequestBody int currentSeq)
     {
-    	// 
-        model.put("estimateRegListJson", boardService.EstimateRegList());
-    	return model;
+    	Map<String, Object> result = new HashMap<String, Object>();    	
+    	List<HashMap<String, Object>> list = boardService.EstimateRegList(currentSeq);    	
+    	    
+    	result.put("list", list);    	
+    	result.put("currentSeq", currentSeq + 2);
+    	
+    	return result;
     }     
     
     @RequestMapping("/writeform")

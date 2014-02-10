@@ -21,35 +21,38 @@
 	{
 		//$('div#lastPostsLoader').html('<img src="bigLoader.gif">');
 		//$('div#lastPostsLoader').html('<img src="bigLoader.gif">');
-		//console.log(  $('.items li:last').html() );
-   	    _Async.post (
+		//console.log(  $('.items li:last').html() );	
+		_Async.post (
     		"/request/listJson",
-    		'',
-    			function (data) {
-			if (data != "") {
-				console.log(data);
-			console.log('add data..');
-			$(".items").append(data);
+    		currentSeq = $('#hdnCurrentSeq').val(),
+    		function (data) {
+				if (data.list != "") {
+					$.each(data.list, function(idx, row) {
+						$(".items").append("<li>" + row.CUSTOMER_REQ + "</li>");
+					});
+		
+					$('#hdnCurrentSeq').val(data.currentSeq);
+				}				
 			}
-//			$('div#lastPostsLoader').empty();
-		}); 
-	};
+    	); 
+	}
 
 	//lastAddedLiveFunc();
+
 	$(window).scroll(function(){
 
 		var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
 		var scrolltrigger = 0.95;
 	
 		if((wintop/(docheight-winheight)) > scrolltrigger) {
-			lastAddedLiveFunc();
-			
-		}
-	
+			lastAddedLiveFunc();			
+		}	
 	});	
 
 </script>
-
+<form id='frm' name='frm'>
+<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
+<input type='button' value="테스트" onclick="lastAddedLiveFunc();" />
 	<%--
      <c:forEach items="${estimateRegList}" var="estimateReg">
     	<tr onclick="document.location.href='<spring:url value="/${board.name}/post/${post.id}"/>';" style="cursor: pointer;">
@@ -58,14 +61,13 @@
         <td class="txt_c">${estimateReg.CREATE_DATE}</td>
     </tr>
     </c:forEach> --%>
-    
-
-<ul class="items">
- 	<c:forEach items="${estimateRegList}" var="estimateReg">
- 	<li>${estimateReg.CUSTOMER_REQ}</li>
-	</c:forEach>
-</ul>
+    	
+	<ul class="items">	
+	 	<c:forEach items="${estimateRegList}" var="estimateReg">
+	 	<li>${estimateReg.CUSTOMER_REQ}</li>
+		</c:forEach>
+	</ul>
 
 	<div id="lastPostsLoader" style="display:none"></div>
-
+</form>
 </mvc:simple>

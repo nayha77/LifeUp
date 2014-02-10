@@ -22,7 +22,7 @@ public interface Boarddao {
 	
 	public int EstimateReg(EstimateReqVO estimateReqVO);
 	
-	public List<HashMap<String,Object>> EstimateRegList();
+	public List<HashMap<String,Object>> EstimateRegList(int currentSeq);
 	
 
 }
