@@ -14,11 +14,11 @@
 
 	<!-- Le styles -->
 	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
-	<link href='<spring:url value="/resources/css/bootstrap-select.css"/>' rel='stylesheet'>	
 	<style type='text/css'>
 		body {
 			padding-top: 60px;
 			padding-bottom: 40px;
+			
 		}        
         table.table thead th {
             text-align: center;
@@ -94,7 +94,7 @@
 			</div>
 		</div>
 	</div>
-	<div class='container'>
+	<div class='container' >
 		<jsp:doBody/>	
 		<hr>
 		<footer style="text-align: center;">

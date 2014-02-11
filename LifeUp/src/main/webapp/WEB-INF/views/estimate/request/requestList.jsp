@@ -6,7 +6,6 @@
 
   
 <mvc:simple>
-<script src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"></script>
 <style type="text/css">
 
 </style>
@@ -20,7 +19,7 @@
 	function lastAddedLiveFunc()
 	{
 		//$('div#lastPostsLoader').html('<img src="bigLoader.gif">');
-		//$('div#lastPostsLoader').html('<img src="bigLoader.gif">');
+		$('div#lastPostsLoader').html('Loading111');
 		//console.log(  $('.items li:last').html() );	
 		_Async.post (
     		"/request/listJson",
@@ -32,12 +31,11 @@
 					});
 		
 					$('#hdnCurrentSeq').val(data.currentSeq);
+					$('div#lastPostsLoader').empty();
 				}				
 			}
     	); 
 	}
-
-	//lastAddedLiveFunc();
 
 	$(window).scroll(function(){
 
@@ -50,24 +48,18 @@
 	});	
 
 </script>
-<form id='frm' name='frm'>
-<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
-<input type='button' value="테스트" onclick="lastAddedLiveFunc();" />
-	<%--
-     <c:forEach items="${estimateRegList}" var="estimateReg">
-    	<tr onclick="document.location.href='<spring:url value="/${board.name}/post/${post.id}"/>';" style="cursor: pointer;">
-        <td class="txt_c">${estimateReg.CUSTOMER_ID}</td>
-        <td>${estimateReg.CUSTOMER_REQ}</td>
-        <td class="txt_c">${estimateReg.CREATE_DATE}</td>
-    </tr>
-    </c:forEach> --%>
-    	
-	<ul class="items">	
-	 	<c:forEach items="${estimateRegList}" var="estimateReg">
-	 	<li>${estimateReg.CUSTOMER_REQ}</li>
-		</c:forEach>
-	</ul>
-
-	<div id="lastPostsLoader" style="display:none"></div>
-</form>
+	<!-- <div style="overflow-y:scroll; width:300px; height:150px;padding:10px;">  -->
+	<div>
+		<form id='frm' name='frm'>
+		<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
+		<input type='button' value="테스트" onclick="lastAddedLiveFunc();" />
+	    	
+		<ul class="items">	
+		 	<c:forEach items="${estimateRegList}" var="estimateReg">
+		 	<li>${estimateReg.CUSTOMER_REQ}</li>
+			</c:forEach>
+		</ul>
+		<div id="lastPostsLoader" ></div>
+		</form>
+	</div>
 </mvc:simple>
