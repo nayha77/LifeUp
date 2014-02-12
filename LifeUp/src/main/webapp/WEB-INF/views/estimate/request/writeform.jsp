@@ -65,35 +65,46 @@
 		$("#vender_second").append(select);     
 	}	
 </script>
-<form id='estimateReq' name='estimateReq' method='post' action='/request/regform'>
+<div class="row">
+	<form id='estimateReq' name='estimateReq' method='post' action='/request/regform'>
+	
+		<div class="span6" >
+			<div id="region">
+			   <select name="bigname"  id="bigname"  onchange="LowList(this);" >
+			    <option value="0">==지역선택==</option>
+			   <c:forEach items="${sidos}" var="sido">
+			   	<option value="${sido.sido}">${sido.sido}</option>
+			   </c:forEach>
+			   </select>
+			</div>
+		</div>
+		
+		<div class="span6">
+			<div id="vender">
+			   <select name="venderBigname"  id="venderBigname"  onchange="venderLowList(this);" >
+			    <option value="0">==제조선택==</option>
+			   <c:forEach items="${venders}" var="vender">
+			   	<option value="${vender.code}">${vender.value}</option>
+			   </c:forEach>
+			   </select>
+			</div>
+		</div>
+					
+		<div class="span12">
+				<textarea name="customer_req" rows="2" ></textarea>
+		</div>
+						
+		<div class="span12">				
+				<input type='text' id='customer_id' name='customer_id' />
+		</div>
+		
+		<div class="span12">		
+				<div class="form-actions">
+		            <button class='btn btn-primary'>저장하기 </button>
+		            <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
+		        </div>
+		</div>
+	</form>        
+</div>        
 
-		<div id="region">
-		   <select name="bigname"  id="bigname"  onchange="LowList(this);" >
-		    <option value="0">==지역선택==</option>
-		   <c:forEach items="${sidos}" var="sido">
-		   	<option value="${sido.sido}">${sido.sido}</option>
-		   </c:forEach>
-		   </select>
-		</div>
-		
-		<div id="vender">
-		   <select name="venderBigname"  id="venderBigname"  onchange="venderLowList(this);" >
-		    <option value="0">==제조선택==</option>
-		   <c:forEach items="${venders}" var="vender">
-		   	<option value="${vender.code}">${vender.value}</option>
-		   </c:forEach>
-		   </select>
-		</div>
-		<div>
-		<textarea name="customer_req" rows="2" ></textarea>
-		</div>
-		<div>
-		<input type='text' id='customer_id' name='customer_id' />
-		</div>
-		
-		<div class="form-actions">
-            <button class='btn btn-primary'>저장하기 </button>
-            <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
-        </div>
-</form>
 </mvc:simple>
