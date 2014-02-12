@@ -30,7 +30,16 @@
     		function (data) {
 				if (data.list != "") {
 					$.each(data.list, function(idx, row) {
-						$(".items").append("<li>" + row.CUSTOMER_REQ + "</li>");
+						//$(".items").append("<li class='media'>" + row.CUSTOMER_REQ + "</li>");
+						$(".media-list").append("<li class='media'><a class='pull-left' href='#'><img class='media-object' img src='/resources/img/request/member.png'></a>");
+						$(".media-list").append("<div class='media-body'>");
+						$(".media-list").append("<h4 class='media-heading'>"+row.CUSTOMER_REQ + "</h4>");
+						$(".media-list").append(	row.CUSTOMER_REQ	);
+						$(".media-list").append("  <div class='media'>");
+						$(".media-list").append("    test");
+						$(".media-list").append("   </div>");
+						$(".media-list").append(" </div>");						
+						$(".media-list").append("</li>");
 					});
 					$('#hdnCurrentSeq').val(data.currentSeq);
 					//console.log("li =" + $("li").last().attr('id'));
@@ -57,8 +66,32 @@
 
 </script>
 	<!-- <div style="overflow-y:scroll; width:300px; height:150px;padding:10px;">  -->
+	<div class="span12">
+		<form id='frm' name='frm'>
+		<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
+		<ul class="media-list">
+			<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
+			  	<li class="media">
+			    <a class="pull-left" href="#">
+			      <img class="media-object" img src="/resources/img/request/member.png">
+			    </a>
+			    <div class="media-body">
+			      <h4 class="media-heading">${estimateReg.CUSTOMER_REQ}</h4>
+			      	${estimateReg.CUSTOMER_REQ}
+			      <!-- 안에 있는 미디어 객체 -->
+			      <div class="media">
+			        test
+			     </div>
+			    </div>
+			  	</li>
+			</c:forEach>
+		</ul>
+		<div id="lastPostsLoader" ></div>
+		<input type='button' value="더보기" onclick="lastAddedLiveFunc();" />
+		</form>					
+	</div>
 	
-	<div class="span12">	
+<%-- 	<div class="span12">	
 		<div id="tab_list" class="focus-list">	
 			<div class="list">	    	
 				<div class="bond-num">
@@ -76,7 +109,7 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div> --%>	
 	<div class="span12">		
 		<ul class="breadcrumb">
          <li><a href="/">홈</a> <span class="divider">/</span></li>
