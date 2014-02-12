@@ -29,9 +29,14 @@
 					$.each(data.list, function(idx, row) {
 						$(".items").append("<li>" + row.CUSTOMER_REQ + "</li>");
 					});
-		
 					$('#hdnCurrentSeq').val(data.currentSeq);
+					console.log("li =" + $("li").last().attr('id'));
+					console.log("data ==" + data.currentSeq);
 					$('div#lastPostsLoader').empty();
+				}else{
+					$('div#lastPostsLoader').empty();
+					$('div#lastPostsLoader').html("더 누르지 말아효~~");
+					console.log("data nothing");
 				}				
 			}
     	); 
@@ -55,8 +60,8 @@
 		<input type='button' value="테스트" onclick="lastAddedLiveFunc();" />
 	    	
 		<ul class="items">	
-		 	<c:forEach items="${estimateRegList}" var="estimateReg">
-		 	<li>${estimateReg.CUSTOMER_REQ}</li>
+		 	<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
+		 	<li id="${status.count}">${estimateReg.CUSTOMER_REQ}</li>
 			</c:forEach>
 		</ul>
 		<div id="lastPostsLoader" ></div>
