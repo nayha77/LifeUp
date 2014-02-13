@@ -12,7 +12,7 @@
   <p>신나고 재미나는 플젝을 만들기 위해 너는 얼마나 똥을 쌌는가?</p>
   <p>
     <a href="http://www.google.co.kr" class="btn btn-primary btn-large">
-      더 알아보기
+    <img src="/resources/img/main/2014-02-14.png">
     </a>
   </p>
 </div>

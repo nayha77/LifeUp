@@ -7,6 +7,7 @@
   
 <mvc:simple>
 <style type="text/css">
+/*  CSS 테스트 */
 .focus-list .list {width:100%;}
 .bond-num {position:relative;float:left;overflow: hidden;width:513px;height:126px;border:1px solid #c8c8c8;}
 .bond-num h3 {font-size:16px;height:50px;line-height: 52px;border-bottom:1px solid #c8c8c8;color:#151515;}
@@ -31,12 +32,13 @@
 				if (data.list != "") {
 					$.each(data.list, function(idx, row) {
 						//$(".items").append("<li class='media'>" + row.CUSTOMER_REQ + "</li>");
-						$(".media-list").append("<li class='media'><a class='pull-left' href='#'><img class='media-object' img src='/resources/img/request/member.png'></a>");
+						// append li 단락을 주면 오류.. 
+						$(".media-list").append("<li class='media'><a class='pull-left' href='#'><img class='media-object' img src='/resources/img/request/Download.ico'></a>");
 						$(".media-list").append("<div class='media-body'>");
-						$(".media-list").append("<h4 class='media-heading'>"+row.CUSTOMER_REQ + "</h4>");
+						$(".media-list").append("<h4 class='media-heading'>"+row.REGION_NM + " > "+  row.CAR_NM+"</h4>");
 						$(".media-list").append(	row.CUSTOMER_REQ	);
 						$(".media-list").append("  <div class='media'>");
-						$(".media-list").append("    test");
+						$(".media-list").append("    "+ row.CUSTOMER_ID+ "/"+ row.CREATE_DATE +"/ 상태 : "+ row.STATUS +" ");
 						$(".media-list").append("   </div>");
 						$(".media-list").append(" </div>");						
 						$(".media-list").append("</li>");
@@ -54,7 +56,8 @@
     	); 
 	}
 
-	$(window).scroll(function(){
+/* 	// 스크롤 기능
+ 	$(window).scroll(function(){
 
 		var wintop = $(window).scrollTop(), docheight = $(document).height(), winheight = $(window).height();
 		var scrolltrigger = 0.95;
@@ -62,7 +65,7 @@
 		if((wintop/(docheight-winheight)) > scrolltrigger) {
 			lastAddedLiveFunc();			
 		}	
-	});	
+	});	 */
 
 </script>
 	<!-- <div style="overflow-y:scroll; width:300px; height:150px;padding:10px;">  -->
@@ -73,14 +76,14 @@
 			<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
 			  	<li class="media">
 			    <a class="pull-left" href="#">
-			      <img class="media-object" img src="/resources/img/request/member.png">
+			      <img class="media-object" img src="/resources/img/request/Download.ico">
 			    </a>
 			    <div class="media-body">
-			      <h4 class="media-heading">${estimateReg.CUSTOMER_REQ}</h4>
+			      <h4 class="media-heading">${estimateReg.REGION_NM}  > ${estimateReg.CAR_NM}</h4>
 			      	${estimateReg.CUSTOMER_REQ}
 			      <!-- 안에 있는 미디어 객체 -->
 			      <div class="media">
-			        test
+			        ${estimateReg.CUSTOMER_ID}  / ${estimateReg.CREATE_DATE} / 상태 : ${estimateReg.STATUS}
 			     </div>
 			    </div>
 			  	</li>
@@ -90,26 +93,7 @@
 		<input type='button' value="더보기" onclick="lastAddedLiveFunc();" />
 		</form>					
 	</div>
-	
-<%-- 	<div class="span12">	
-		<div id="tab_list" class="focus-list">	
-			<div class="list">	    	
-				<div class="bond-num">
-				<h3><span>지역</span><strong>1354545-4546542</strong>(차량종류)</h3>
-					<form id='frm' name='frm'>
-					<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
-					<input type='button' value="테스트" onclick="lastAddedLiveFunc();" />
-					<ul class="items">	
-					 	<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
-					 	<li id="${status.count}">${estimateReg.CUSTOMER_REQ}</li>
-						</c:forEach>
-					</ul>
-					<div id="lastPostsLoader" ></div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div> --%>	
+
 	<div class="span12">		
 		<ul class="breadcrumb">
          <li><a href="/">홈</a> <span class="divider">/</span></li>
