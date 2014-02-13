@@ -81,7 +81,7 @@
 		INSERT INTO salesman (
 			SALESMAN_ID, SALESMAN_NM, PWD, MOBILE, OFFICE_NO, VENDOR_ID, LOCATION, INTRO_MSG, PHOTO, STAR_POINT, COMP_POINT, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, null, 0, 0, sysdate(), sysdate()
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, #{photo}, 0, 0, sysdate(), sysdate()
 		)			
 	</insert>						
 </mapper>

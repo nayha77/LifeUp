@@ -90,3 +90,12 @@ html, body {
 	width: 99%;
 }
 /*** 글쓰기 화면 디자인 ***/
+
+.request-detail {  
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #eeeeee;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}

@@ -1,13 +1,7 @@
 package salesman.estimate.web;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/contract/*")
@@ -16,8 +10,9 @@ public class ContractController {
 	/*
 	 * 견적서 요청에 대한 견적 작성 폼
 	 */
-    @RequestMapping("/write")
-    public String write(@RequestParam Map<String,Object> paramMap, ModelMap model, HttpServletRequest request)
+    @RequestMapping("/writeform")
+//    public String write(@RequestParam int requestId)
+    public String write()
     {
     	// 1. 파라메터 수신
     	

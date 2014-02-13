@@ -14,6 +14,7 @@
 	
 	<!-- Le styles -->
 	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
+	<link href='<spring:url value="/resources/css/screen.css"/>' rel='stylesheet'>
 	<style type='text/css'>
 		body {
 			padding-top: 60px;
@@ -238,7 +239,7 @@
 					<ul class='nav'>
 						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
 						<li class='active'><a href='<spring:url value="/request/list"/>'>견적의뢰</a></li>
-						<li class='active'><a href='<spring:url value="/contract/write"/>'>견적남기기</a></li>
+						<li class='active'><a href='<spring:url value="/contract/writeform"/>'>견적남기기</a></li>
 						<c:if test="${not empty sessionScope._USER_INFO_}">
 							<li class='active'><a href='#' onclick="fnMyInfo();">내정보</a></li>							
 						</c:if>						

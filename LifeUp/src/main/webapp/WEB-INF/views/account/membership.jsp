@@ -367,8 +367,26 @@
 						<div class="controls"><input type='password' id='tbxPwdConfirm' name='passwordConfirm' /></div>		
 						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>성명</div>
 						<div class="controls"><input type='text' id='tbxUserNm' name='userNm' /></div>
-						<div class="control-label" style='text-align: left;'><i class="icon-check"></i>사진</div>
-						<div class="controls"><input type='file' id='imgFile' name='imgFile' /></div>						
+						<div class="control-label" style='text-align: left;'>아이콘</div>
+						<div class="controls" style='text-align: left;'>
+							<table style="width: 100%">
+								<tr>
+									<td style='text-align: center;'><input type='radio' id='rdoFirst' name='photo' value='member.png' checked="checked" /></td>
+									<td style='text-align: center;'><input type='radio' id='rdoSecond' name='photo' value='member.png' /></td>
+									<td style='text-align: center;'><input type='radio' id='rdoThird' name='photo' value='member.png' /></td>
+									<td style='text-align: center;'><input type='radio' id='rdoFourth' name='photo' value='member.png' /></td>
+									<td style='text-align: center;'><input type='radio' id='rdoFifth' name='photo' value='member.png' /></td>
+								</tr>
+								<tr>
+									<td style='text-align: center;'><img src='/resources/img/ico/member.png' /></td>
+									<td style='text-align: center;'><img src='/resources/img/ico/member.png' /></td>
+									<td style='text-align: center;'><img src='/resources/img/ico/member.png' /></td>
+									<td style='text-align: center;'><img src='/resources/img/ico/member.png' /></td>
+									<td style='text-align: center;'><img src='/resources/img/ico/member.png' /></td>
+								</tr>
+							</table>											
+						</div>		
+						<div style="height: 10px;"></div>				
 						<div class="control-label" style='text-align: left;'>핸드폰 번호</div>
 						<div class="controls"><input type='text' id='tbxMobile' name='mobile' /></div>
 						<div class="control-label" style='text-align: left;'>사무실 전화번호</div>
