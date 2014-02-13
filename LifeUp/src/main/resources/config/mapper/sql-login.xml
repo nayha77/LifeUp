@@ -32,7 +32,7 @@
 	</update>
 	
 	<select id="getUser" resultType="salesman.vo.account.SessionVO">
-		SELECT customer_id userId, customer_nm userNm, '1' userType
+		SELECT customer_id userId, customer_nm userNm, '1' userType, region
 		  FROM CUSTOMER
 		 WHERE customer_id = #{userId}		 
 		   AND pwd         = #{password}

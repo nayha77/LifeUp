@@ -17,8 +17,9 @@ public class SessionVO implements Serializable{
 	/** 소속 지점 */
 	private String vendorLoc;
 	/** 핸드폰번호 */
-	private String mobile;
-	
+	private String mobile;	
+	/** 거주지역 **/
+	private String region;
 	/** 이전 등록 비번 **/
 	private String prevPassword;
 	/** 비밀번호 (수정시 사용 ) */
@@ -54,6 +55,12 @@ public class SessionVO implements Serializable{
 	public void setVendorLoc(String vendorLoc) {
 		this.vendorLoc = vendorLoc;
 	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}	
 	public String getPrevPassword() {
 		return prevPassword;
 	}
