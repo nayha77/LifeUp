@@ -24,7 +24,7 @@
 	function lastAddedLiveFunc()
 	{
 		//$('div#lastPostsLoader').html('<img src="bigLoader.gif">');
-		$('div#lastPostsLoader').html('Loading111');
+		$('div#lastPostsLoader').html('Loading. . .');
 		//console.log(  $('.items li:last').html() );	
 		_Async.post (
     		"/request/listJson",
