@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
   
-<mvc:simple>
+<mvc:test>
 <style type="text/css">
 /*  CSS 테스트 */
 .focus-list .list {width:100%;}
@@ -53,8 +53,7 @@
 					$('div#lastPostsLoader').empty();
 				}else{
 					$('div#lastPostsLoader').empty();
-					$('div#lastPostsLoader').html("더 누르지 말아효~~");
-					//console.log("data nothing");
+					$('div#lastPostsLoader').html("마지막 데이타 입니다.");
 				}				
 			}
     	); 
@@ -121,15 +120,13 @@
 		
 		</form>		
 
-
-
-	<div class="span12">		
+			
 		<ul class="breadcrumb">
          <li><a href="/">홈</a> <span class="divider">/</span></li>
 		 <li><a href="/request/writeform">등록</a> <span class="divider">/</span></li>
 		 <li><a href="/request/list">리스트</a></li>        
         </ul>
-	</div>	
+		
 	
 
 
@@ -183,4 +180,4 @@
 	</div>
 </div> -->
 
-</mvc:simple>
+</mvc:test>
