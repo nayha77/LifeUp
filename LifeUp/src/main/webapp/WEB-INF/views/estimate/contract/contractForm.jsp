@@ -19,9 +19,9 @@
     </div>
     <div class="info-inner" style='position:relative;'>
        	<div class="label label-info">옵션</div>
-       	<div class="request-detail" style='height: 20px;'>풀옵션, 썬루프, 알루미늄휠</div>
+       	<div class="request-detail" style='height: 40px;'>풀옵션, 썬루프, 알루미늄휠</div>
        	<div class="label label-info">요구사항</div>
-       	<div class="request-detail" style='height: 50px; overflow-y:auto;overflow-x:hidden;'>
+       	<div class="request-detail" style='height: 80px; overflow-y:auto;overflow-x:hidden;'>
        		현금 DC 가능하신 분 연락주세요.<br>
        		현금 DC 가능하신 분 연락주세요.<br>
        		현금 DC 가능하신 분 연락주세요.<br>
@@ -32,8 +32,8 @@
     <hr class="message-inner-separator">
     <div class="info-inner" style='position:relative; text-align: right;'>
 	    <span>
-	    	<img class="media-object" src="/resources/img/ico/member.png">	    
-	    	<textarea rows="4" style="width: 95%;">돈으로 주께.</textarea>
+	    	<img class="media-object" src="/resources/img/ico/member.png" style='width: 10%;'>	    
+	    	<textarea rows="4" style="width: 90%;">돈으로 줄께요</textarea>
 	    </span>	    
     </div>
     <div style='position:relative; text-align: right;'>

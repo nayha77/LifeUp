@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import salesman.board.service.BoardService;
 import salesman.common.service.CodesService;
+import salesman.estimate.service.RequestService;
 import salesman.model.EstimateReqVO;
 
 
@@ -22,16 +22,16 @@ import salesman.model.EstimateReqVO;
 public class RequestController {
 	
 	@Autowired
-	private BoardService boardService;
+	private RequestService requestService;
 	
     @Autowired
-    private  CodesService codeService;	
+    private CodesService codeService;	
 	    
     @RequestMapping("/list")
     public String list( ModelMap model)
     {
     	int currentSeq = 0;
-        model.put("estimateRegList", boardService.EstimateRegList(currentSeq));
+        model.put("estimateRegList", requestService.EstimateRegList(currentSeq));
     	return "estimate/request/requestList";
     } 
     
@@ -39,7 +39,7 @@ public class RequestController {
     public @ResponseBody Map<String, Object> listJson(@RequestBody int currentSeq)
     {
     	Map<String, Object> result = new HashMap<String, Object>();    	
-    	List<HashMap<String, Object>> list = boardService.EstimateRegList(currentSeq);    	
+    	List<HashMap<String, Object>> list = requestService.EstimateRegList(currentSeq);    	
     	    
     	result.put("list", list);    	
     	result.put("currentSeq", currentSeq + 2);
@@ -58,17 +58,15 @@ public class RequestController {
     public String writing(EstimateReqVO estimateReqVO, ModelMap model) {
     	estimateReqVO.setCar_model("뭐델");
     	estimateReqVO.setCar_option("carop");
-    	int wireResult = boardService.EstimateReg(estimateReqVO);
+    	int wireResult = requestService.EstimateReg(estimateReqVO);
         return "estimate/request/requestList";
     }
     
     @RequestMapping("/detail")
     public String detail(@RequestParam Integer ID ,ModelMap model) {
     	Map<String, Object> result = new HashMap<String, Object>();  
-    	result = boardService.EstimateDetail(ID);
+    	result = requestService.EstimateDetail(ID);
     	model.put("result", result);
         return "estimate/request/detail";
     }
-    
-
 }

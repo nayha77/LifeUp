@@ -27,12 +27,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public HashMap<String, Object> EstimateDetail(int ReqId) {
-		// 견적의뢰 상세 가져오기
-		return  boarddao1.getEstimateDetail(ReqId);
-	}
-
-	@Override
 	public Post getView(int num) {
 		// TODO Auto-generated method stub
 		return  boarddao1.getBoard(num);
@@ -49,16 +43,4 @@ public class BoardServiceImpl implements BoardService {
 		return boarddao1.erase(postNo);
 		
 	}
-
-	@Override
-	public int EstimateReg(EstimateReqVO estimateReqVO) {
-		return boarddao1.EstimateReg(estimateReqVO);
-	}
-
-	@Override
-	public List<HashMap<String, Object>> EstimateRegList(int currentSeq) {
-		// TODO Auto-generated method stub
-		return boarddao1.EstimateRegList(currentSeq);
-	}
-
 }
