@@ -41,8 +41,30 @@
 	
 	<!-- 견적의뢰 상세화면-->
 	<select id="getEstimateDetail"   resultType="java.util.HashMap">
-		select * from ESTIMATE_REQUEST
-		where REQUEST_ID = #{ReqId}
+		SELECT A.REQUEST_ID
+			 , A.CUSTOMER_ID
+			 , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = A.CUSTOMER_ID) CUSTOMER_NM
+		     , B.REGION_CD
+			 , B.SIDO
+		     , B.GUGUN
+			 , A.CAR_ID
+		     , C.CAR_NM
+			 , D.VENDOR_ID
+		     , D.VENDOR_NM
+		     , A.CAR_OPTION
+		     , A.CUSTOMER_REQ
+			 , A.STATUS
+		     , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+		     , A.CREATE_DATE
+			 , A.PURCHASE_PERIOD_CD
+		  FROM ESTIMATE_REQUEST A
+		     , REGION B
+		     , CAR_MASTER C
+		     , VENDOR D
+		 WHERE A.REGION_CD  = B.REGION_CD
+		   AND A.CAR_ID     = C.CAR_ID
+		   AND C.VENDOR_ID  = D.VENDOR_ID 
+		   AND A.REQUEST_ID = #{ReqId}
 	</select>
 	
 
