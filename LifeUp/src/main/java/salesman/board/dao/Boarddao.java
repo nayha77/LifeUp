@@ -24,5 +24,7 @@ public interface Boarddao {
 	
 	public List<HashMap<String,Object>> EstimateRegList(int currentSeq);
 	
+	public  HashMap<String, Object> getEstimateDetail(int ReqId);
+	
 
 }

@@ -19,6 +19,7 @@
 			 , b.*
 		  FROM (
 				  SELECT @RNUM:=0
+				  	   ,a.REQUEST_ID
 					   , a.CUSTOMER_ID
 					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
 					   , a.REGION_CD
@@ -36,6 +37,12 @@
 				    from ESTIMATE_REQUEST a
 			   ) b 
 		  limit #{currentSeq}, 2;
+	</select>
+	
+	<!-- 견적의뢰 상세화면-->
+	<select id="getEstimateDetail"   resultType="java.util.HashMap">
+		select * from ESTIMATE_REQUEST
+		where REQUEST_ID = #{ReqId}
 	</select>
 	
 

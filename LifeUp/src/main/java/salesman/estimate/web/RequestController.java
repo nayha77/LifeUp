@@ -62,5 +62,13 @@ public class RequestController {
         return "estimate/request/requestList";
     }
     
+    @RequestMapping("/detail")
+    public String detail(@RequestParam Integer ID ,ModelMap model) {
+    	Map<String, Object> result = new HashMap<String, Object>();  
+    	result = boardService.EstimateDetail(ID);
+    	model.put("result", result);
+        return "estimate/request/detail";
+    }
+    
 
 }

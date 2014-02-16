@@ -26,11 +26,11 @@ public class BoardServiceImpl implements BoardService {
 		return boarddao1.writeProc(post);
 	}
 
-/*	@Override
-	public String getView(String postNo) {
-		// TODO Auto-generated method stub
-		return  boarddao1.getView(postNo);
-	}*/
+	@Override
+	public HashMap<String, Object> EstimateDetail(int ReqId) {
+		// 견적의뢰 상세 가져오기
+		return  boarddao1.getEstimateDetail(ReqId);
+	}
 
 	@Override
 	public Post getView(int num) {

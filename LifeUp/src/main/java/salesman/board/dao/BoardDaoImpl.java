@@ -27,16 +27,8 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements Boarddao{
 
 	}
 
-/*	@Override
-	public String getView(String postNo) {
-
-		return getSqlSession().selectOne(postNo, "main.getView");
-	}*/
-
 	@Override
 	public  Post getBoard(int num) {
-
-		
 		//Post dto = (Post) getSqlSession().selectOne("main.getView",num);
 		//System.out.println(dto.toString());
 		return getSqlSession().selectOne("main.getView",num);
@@ -65,5 +57,10 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements Boarddao{
 		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
 		estimateReglist = getSqlSession().selectList("request.estimateReglist", currentSeq);
 		return estimateReglist;
+	}
+	
+	@Override
+	public  HashMap<String, Object> getEstimateDetail(int ReqId) {
+		return getSqlSession().selectOne("request.getEstimateDetail",ReqId);
 	}
 }
