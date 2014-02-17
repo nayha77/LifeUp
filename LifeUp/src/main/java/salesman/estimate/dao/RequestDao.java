@@ -2,12 +2,13 @@ package salesman.estimate.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import salesman.model.EstimateReqVO;
+
+import salesman.vo.estimate.RequestVO;
 
 public interface RequestDao {
-	public int EstimateReg(EstimateReqVO estimateReqVO);
+	public int registerRequest(RequestVO estimateReqVO);
 	
-	public List<HashMap<String,Object>> EstimateRegList(int currentSeq);
+	public List<HashMap<String,Object>> getRequestList(int currentSeq);
 	
-	public  HashMap<String, Object> getEstimateDetail(int ReqId);
+	public  HashMap<String, Object> getRequestDetail(int ReqId);
 }

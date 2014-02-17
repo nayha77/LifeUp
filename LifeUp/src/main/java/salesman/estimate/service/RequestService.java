@@ -3,10 +3,10 @@ package salesman.estimate.service;
 import java.util.HashMap;
 import java.util.List;
 
-import salesman.model.EstimateReqVO;
+import salesman.vo.estimate.RequestVO;
 
 public interface RequestService {
-	public int EstimateReg(EstimateReqVO estimateReqVO);
-	public List<HashMap<String, Object>> EstimateRegList(int currentSeq);
-	public HashMap<String,Object> EstimateDetail(int reqID);
+	public int registerRequest(RequestVO estimateReqVO);
+	public List<HashMap<String, Object>> getRequestList(int currentSeq);
+	public HashMap<String,Object> getRequestDetail(int reqID);
 }

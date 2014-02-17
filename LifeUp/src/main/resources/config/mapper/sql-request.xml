@@ -2,10 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
 
 <mapper namespace="request">
-
-	<!-- 견적의뢰 등록-->
 	
-	<insert id="EstimateReg" parameterType="salesman.model.EstimateReqVO">
+	<insert id="registerRequest" parameterType="salesman.vo.estimate.RequestVO">
 
 		INSERT INTO estimate_request (
 			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, create_date
@@ -14,7 +12,7 @@
 		)			
 	</insert>
 	
-	<select id="estimateReglist" resultType="java.util.HashMap" parameterType="Integer">
+	<select id="getRequestList" resultType="java.util.HashMap" parameterType="Integer">
 		SELECT @RNUM:=@RNUM+1 AS ROWNUM
 			 , b.*
 		  FROM (
@@ -40,7 +38,7 @@
 	</select>
 	
 	<!-- 견적의뢰 상세화면-->
-	<select id="getEstimateDetail"   resultType="java.util.HashMap">
+	<select id="getRequestDetail" resultType="java.util.HashMap">
 		SELECT A.REQUEST_ID
 			 , A.CUSTOMER_ID
 			 , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = A.CUSTOMER_ID) CUSTOMER_NM

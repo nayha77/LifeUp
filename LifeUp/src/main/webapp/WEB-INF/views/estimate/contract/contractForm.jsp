@@ -6,7 +6,24 @@
 
 <mvc:main>
 <script type="text/javascript">
+	function fnSave() {
+		if($('#tbxSalesBenefit').val().trim() == "") {
+			alert('견적을 입력하세요');
+			return;
+		}
 
+		_Async.post (
+   			"/contract/registContract.do",
+   			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
+   			function (data) {    
+				if(data.message == 'success') {
+					document.location.href='/request/detail?ID=' + $('#hdnRequestId').val();
+				} else {
+					alert(data.detail);
+				}
+   			} 
+   		);
+	}
 </script>		
 <div class="message other alert pinned alert alert-success chrome-extension" style="padding-left: 25px;">
     <div class="message-title" style='height:30px; position:relative; padding-top: 10px;'>
@@ -22,22 +39,23 @@
     <div class="info-inner" style='position:relative;'>
        	<div class="label label-info">옵션</div>
        	<div class="request-detail" style='height: 40px;'>${requestDetail.CAR_OPTION}</div>       	
-       	<div class="label label-info" padding-top: 5px;>요구사항</div>
+       	<div class="label label-info">요구사항</div>
        	<div class="request-detail" style='height: 80px; overflow-y:auto;overflow-x:hidden;'>
        		${requestDetail.CUSTOMER_REQ}
        	</div>
     </div>
     <hr class="message-inner-separator">
     <div class="info-inner" style='position:relative;'>
-    	<span style='width:20px; height:20px; text-align: center; margin-right: 20px;'>
-    		<img class="media-object" src="/resources/img/ico/member.png">
+   		<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    
+    	<span style='text-align: center; margin-left: 5px; margin-right: 5px;'>
+    		<img class="media-object" src="/resources/img/ico/member.png" width="40px" height="40px" border="1">
     	</span>
-	    <span style='width: 90%; text-align: right;'>    
-	    	<textarea rows="4" style='width: 80%;'></textarea>
+	    <span style='width: 65%; text-align: right;'>    
+	    	<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="4"></textarea>
 	    </span>
 	    <span>
-	    	<input type='submit' class="btn btn-primary" value='등록' />
-	    </span>	    
+	    	<input type='submit' class="btn btn-primary" value='등록' onclick="fnSave();" />
+	    </span>   
     </div>
 </div>			
 

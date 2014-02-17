@@ -17,5 +17,13 @@
 	<bean id="requestDao" class="salesman.estimate.dao.RequestDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	<bean id="contractService" class="salesman.estimate.service.ContractServiceImpl">
+		<property name="contractDao" ref="contractDao"/>
+	</bean>
+
+	<bean id="contractDao" class="salesman.estimate.dao.ContractDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>	
 
 </beans>

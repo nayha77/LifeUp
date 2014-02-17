@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import salesman.common.service.CodesService;
 import salesman.estimate.service.RequestService;
-import salesman.model.EstimateReqVO;
+import salesman.vo.estimate.RequestVO;
 
 
 @Controller
@@ -31,7 +31,7 @@ public class RequestController {
     public String list( ModelMap model)
     {
     	int currentSeq = 0;
-        model.put("estimateRegList", requestService.EstimateRegList(currentSeq));
+        model.put("estimateRegList", requestService.getRequestList(currentSeq));
     	return "estimate/request/requestList";
     } 
     
@@ -39,7 +39,7 @@ public class RequestController {
     public @ResponseBody Map<String, Object> listJson(@RequestBody int currentSeq)
     {
     	Map<String, Object> result = new HashMap<String, Object>();    	
-    	List<HashMap<String, Object>> list = requestService.EstimateRegList(currentSeq);    	
+    	List<HashMap<String, Object>> list = requestService.getRequestList(currentSeq);    	
     	    
     	result.put("list", list);    	
     	result.put("currentSeq", currentSeq + 2);
@@ -55,17 +55,17 @@ public class RequestController {
     }
     // 견적의뢰 등록
     @RequestMapping("/regform")
-    public String writing(EstimateReqVO estimateReqVO, ModelMap model) {
+    public String writing(RequestVO estimateReqVO, ModelMap model) {
     	estimateReqVO.setCar_model("뭐델");
     	estimateReqVO.setCar_option("carop");
-    	int wireResult = requestService.EstimateReg(estimateReqVO);
+    	int wireResult = requestService.registerRequest(estimateReqVO);
         return "estimate/request/requestList";
     }
     
     @RequestMapping("/detail")
     public String detail(@RequestParam Integer ID ,ModelMap model) {
     	Map<String, Object> result = new HashMap<String, Object>();  
-    	result = requestService.EstimateDetail(ID);
+    	result = requestService.getRequestDetail(ID);
     	model.put("result", result);
         return "estimate/request/detail";
     }

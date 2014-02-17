@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import salesman.estimate.dao.RequestDao;
-import salesman.model.EstimateReqVO;
+import salesman.vo.estimate.RequestVO;
 
 public class RequestServiceImpl implements RequestService {
 
@@ -15,19 +15,19 @@ public class RequestServiceImpl implements RequestService {
 	}	
 	
 	@Override
-	public HashMap<String, Object> EstimateDetail(int ReqId) {
+	public HashMap<String, Object> getRequestDetail(int ReqId) {
 		// 견적의뢰 상세 가져오기
-		return  requestDao.getEstimateDetail(ReqId);
+		return  requestDao.getRequestDetail(ReqId);
 	}
 	
 	@Override
-	public int EstimateReg(EstimateReqVO estimateReqVO) {
-		return requestDao.EstimateReg(estimateReqVO);
+	public int registerRequest(RequestVO estimateReqVO) {
+		return requestDao.registerRequest(estimateReqVO);
 	}
 
 	@Override
-	public List<HashMap<String, Object>> EstimateRegList(int currentSeq) {
+	public List<HashMap<String, Object>> getRequestList(int currentSeq) {
 		// TODO Auto-generated method stub
-		return requestDao.EstimateRegList(currentSeq);
+		return requestDao.getRequestList(currentSeq);
 	}	
 }
