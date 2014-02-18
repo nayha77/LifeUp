@@ -3,6 +3,12 @@
 
 <mapper namespace="contract">
 	
+	<select id="getContractDetail" resultType="java.util.HashMap">
+		SELECT REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
+		  FROM ESTIMATE_CONTRACT
+		 WHERE REQUEST_ID = #{reqId}		 
+	</select>
+		
 	<insert id="registerContract" parameterType="salesman.vo.estimate.ContractVO">
 		INSERT INTO ESTIMATE_CONTRACT(
 			REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
@@ -10,5 +16,15 @@
 			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), sysdate()
 		)				
 	</insert>
+	
+	<update id="modifyContract" parameterType="salesman.vo.estimate.ContractVO">
+		UPDATE ESTIMATE_CONTRACT
+		   SET SALESMAN_BENEFIT = #{salesman_benefit}
+		     , STAR_POINT       = IFNULL(#{star_point}, STAR_POINT)
+		     , STATUS           = IFNULL(#{status}, STATUS)
+		     , UPDATE_DATE      = sysdate()
+		 WHERE REQUEST_ID  = #{request_id}
+		   AND SALESMAN_ID = #{salesman_id} 
+	</update>
 	
 </mapper>

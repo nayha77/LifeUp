@@ -6,84 +6,82 @@
   
 <mvc:test>
 <style type="text/css">
-.selectedRow {
-   background-color: #F9EDA5;
-   cursor: pointer;
-}
-
+	.selectedRow {
+	   background-color: #F9EDA5;
+	   cursor: pointer;
+	}
 </style>
-
 <script type="text/javascript">
-
 	function fnLoad() {		     
-		console.log('fnload');
+		fnInit();		
+	}
+	
+	function fnInit() {
 		$("div[id^=contents]").mouseover(function(e){
 			 $(this).addClass('selectedRow');
 		}).mouseout(function() {
 	        $(this).removeClass('selectedRow');
-	   });
+	   	});
+
+//		$("div[id^=contents]").click(function(e){
+//		});		
+	}	
+	
+	function fnDetail(requestId) {
+		$('#hdnID').val(requestId);
 		
-		//$("#contents").click(function(e){ 요건 전체 안먹음;;
-		$("div[id^=contents]").click(function(e){
-			var ID = $(this).find('p').attr('id');
-			document.location.href='/request/detail?ID='+ID;
-		});
-		
-		 $('.breadcrumb').focus();
+		document.frm.action = "/request/detail";
+		document.frm.submit();
 	}
 	
 	function lastAddedLiveFunc()
-	{
-		$('div#lastPostsLoader').html('Loading. . .');
+	{		
 		_Async.post (
     		"/request/listJson",
     		currentSeq = $('#hdnCurrentSeq').val(),
     		function (data) {
 				if (data.list != "") {
 					$.each(data.list, function(idx, row) {
- 						$(".messages").append("<div id='contents' class='message other alert pinned alert alert-success chrome-extension'><p id='"+row.REQUEST_ID+"'class='message-title'><span class='text'>"+row.REGION_NM + " > "+  row.CAR_NM+">"+ row.CREATE_DATE +"</span></p><hr class='message-inner-separator'><div class='info-inner'>"+row.CUSTOMER_REQ +":"+row.CUSTOMER_ID +"</div>");						
+ 						$(".messages").append("<div id='contents' onclick=\"fnDetail('"+row.REQUEST_ID+"');\" class='message other alert pinned alert alert-success chrome-extension' style='margin-bottom: 7px;'><div id='"+row.REQUEST_ID+"' class='message-title' style='height: 8px;'><span class='text'>"+row.REGION_NM + " > "+  row.CAR_NM + " > " + row.CREATE_DATE + "</span></div><hr class='message-inner-separator' style='margin-bottom: 10px;'><div class='info-inner' style='vertical-align: top;'>"+row.CUSTOMER_REQ +":"+row.CUSTOMER_ID +"</div>");						
  						$(".messages").append("</div>");
 					});
-					$('#hdnCurrentSeq').val(data.currentSeq);
 					
+					$('#hdnCurrentSeq').val(data.currentSeq);					
 					$('div#lastPostsLoader').empty();
-					fnLoad();
-				}else{
-					
-					$('div#lastPostsLoader').empty();
-					$('div#lastPostsLoader').html("마지막 데이타 입니다.");
+							
+					fnInit();
+				} else {					
+					$('div#lastPostsLoader').empty();					
+					$('#moreView').empty();
+					$('#moreView').text("더이상 등록된 견적 요청정보가 없습니다");
 				}				
 			}
     	); 
 	}
-
 </script>
-
-	<div class="alert alert-info">견적의뢰 하는 곳</div>
-	
-		<form id='frm' name='frm'>
-		<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
-		<div class="messages">		
-			<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
-				<div id="contents" class="message other alert pinned alert alert-success chrome-extension" >
-				    <p id="${estimateReg.REQUEST_ID}" class="message-title"><span class="text" >${estimateReg.REGION_NM}  > ${estimateReg.CAR_NM}> ${estimateReg.CREATE_DATE}</span></p>
-				    <hr class="message-inner-separator">
-				    <div class="info-inner">
-				       ${estimateReg.CUSTOMER_REQ}: ${estimateReg.CUSTOMER_ID}
-				    </div>
-				</div>
-			</c:forEach>
-		</div>			
-		<div id="lastPostsLoader" ></div>
-		<input type='button' value="더보기" onclick="lastAddedLiveFunc();" />
-		
-		</form>		
-
-			
-		<ul class="breadcrumb">
-         <li><a href="/">홈</a> <span class="divider">/</span></li>
-		 <li><a href="/request/writeform">등록</a> <span class="divider">/</span></li>
-		 <li><a href="/request/list">리스트</a></li>        
-        </ul>
-<script></script>	
+<form id='frm' name='frm' method='post'>
+	<input type='hidden' id='hdnCurrentSeq' name='hdnCurrentSeq' value='2' />
+	<input type='hidden' id='hdnID' name='ID'/>
+	<div class="messages" style="margin-bottom: -10px;">		
+		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
+			<div id="contents" onclick="fnDetail('${estimateReg.REQUEST_ID}');" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
+			    <div id="${estimateReg.REQUEST_ID}" class="message-title" style='height: 8px;'>
+			    	<span class="text" >${estimateReg.REGION_NM}  > ${estimateReg.CAR_NM} > ${estimateReg.CREATE_DATE}</span>
+			    </div>
+			    <hr class="message-inner-separator" style='margin-bottom: 10px;'>
+			    <div class="info-inner" style='vertical-align: top;'>
+			       ${estimateReg.CUSTOMER_REQ}: ${estimateReg.CUSTOMER_ID}
+			    </div>
+			</div>
+		</c:forEach>
+	</div>					
+</form>
+<div>
+	<ul class="breadcrumb" style='text-align: center; cursor: pointer;' onclick='lastAddedLiveFunc();'>
+		<li id='moreView'>더보기</li>
+	</ul>
+</div>
+<div style='float: right;'>
+	<span class="breadcrumb"><a href="/request/writeform">등록</a></span>
+</div>				
 </mvc:test>

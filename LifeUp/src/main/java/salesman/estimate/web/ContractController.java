@@ -34,7 +34,8 @@ public class ContractController {
 	@RequestMapping("/writeform")
     public String writeform(@RequestParam(value="requestId", required=false) String requestId, ModelMap model) {
 		int id = 0;
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> request = new HashMap<String, Object>();
+		Map<String, Object> contract = new HashMap<String, Object>();
 		
 		requestId = "4";
 				
@@ -42,8 +43,11 @@ public class ContractController {
 			throw new CustomException("유효하지 않은 정보로 인해 페이지를 열 수 없습니다");
 			
 		id = Integer.parseInt(requestId);  
-		result = requestService.getRequestDetail(id);		
-		model.put("requestDetail", result);		
+		request = requestService.getRequestDetail(id);
+		contract = contractService.getContractDetail(id);
+		
+		model.put("requestDetail", request);
+		model.put("contractDetail", contract);
 		
     	return "estimate/contract/contractForm";
     }  
@@ -60,10 +64,11 @@ public class ContractController {
 			result.put("detail", "로그인 후 견적등록을 할 수 있습니다");			
 		} else {
 			contractVO.setSalesman_id(userInfo.getUserId());
-			
-			if(contractService.registerContract(contractVO) <= 0) {							
-				message = "failed";
-				result.put("detail", "견적등록 중 오류가 발생했습니다");
+			if(contractService.modifyContract(contractVO) == 0) {
+				if(contractService.registerContract(contractVO) <= 0) {							
+					message = "failed";
+					result.put("detail", "견적등록 중 오류가 발생했습니다");
+				}
 			}
 		}
 		
