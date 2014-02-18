@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="contract">
+	
+	<insert id="registerContract" parameterType="salesman.vo.estimate.ContractVO">
+		INSERT INTO ESTIMATE_CONTRACT(
+			REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
+		) VALUES (
+			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), sysdate()
+		)				
+	</insert>
+	
+</mapper>

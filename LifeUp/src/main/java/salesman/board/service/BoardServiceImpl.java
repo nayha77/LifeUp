@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import salesman.board.dao.Boarddao;
-import salesman.model.EstimateReqVO;
 import salesman.model.Post;
 
 public class BoardServiceImpl implements BoardService {
