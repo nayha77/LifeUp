@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import salesman.common.service.CodesService;
+import salesman.estimate.service.ContractService;
 import salesman.estimate.service.RequestService;
 import salesman.vo.estimate.RequestVO;
 
@@ -24,14 +25,19 @@ public class RequestController {
 	@Autowired
 	private RequestService requestService;
 	
+	@Autowired
+	private ContractService contractService;
+	
     @Autowired
     private CodesService codeService;	
 	    
     @RequestMapping("/list")
-    public String list( ModelMap model)
+    public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
     {
-    	int currentSeq = 0;
-        model.put("estimateRegList", requestService.getRequestList(currentSeq));
+    	if(currentSeq == null || currentSeq == "")
+    		currentSeq = "2";
+    	
+        model.put("estimateRegList", requestService.getRequestList(Integer.parseInt(currentSeq)));
     	return "estimate/request/requestList";
     } 
     
@@ -39,7 +45,7 @@ public class RequestController {
     public @ResponseBody Map<String, Object> listJson(@RequestBody int currentSeq)
     {
     	Map<String, Object> result = new HashMap<String, Object>();    	
-    	List<HashMap<String, Object>> list = requestService.getRequestList(currentSeq);    	
+    	List<HashMap<String, Object>> list = requestService.getRequestListMore(currentSeq);    	
     	    
     	result.put("list", list);    	
     	result.put("currentSeq", currentSeq + 2);
@@ -58,15 +64,19 @@ public class RequestController {
     public String writing(RequestVO estimateReqVO, ModelMap model) {
     	estimateReqVO.setCar_model("뭐델");
     	estimateReqVO.setCar_option("carop");
-    	int wireResult = requestService.registerRequest(estimateReqVO);
-        return "estimate/request/requestList";
+    	requestService.registerRequest(estimateReqVO);
+        
+    	return "estimate/request/requestList";
     }
     
     @RequestMapping("/detail")
-    public String detail(@RequestParam Integer ID ,ModelMap model) {
-    	Map<String, Object> result = new HashMap<String, Object>();  
-    	result = requestService.getRequestDetail(ID);
-    	model.put("result", result);
+    public String detail(@RequestParam int ID, ModelMap model) {    	    
+    	Map<String, Object> request = requestService.getRequestDetail(ID);
+    	List<HashMap<String, Object>> contract = contractService.getContractDetail(ID, null);
+    	
+    	model.put("request", request);   	    	
+    	model.put("contract", contract);
+    	
         return "estimate/request/detail";
     }
 }

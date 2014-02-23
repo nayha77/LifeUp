@@ -16,6 +16,11 @@ public class RequestDaoImpl extends SqlSessionDaoSupport implements RequestDao{
 	}
 
 	@Override
+	public  HashMap<String, Object> getRequestDetail(int ReqId) {
+		return getSqlSession().selectOne("request.getRequestDetail",ReqId);
+	}
+	
+	@Override
 	public List<HashMap<String, Object>> getRequestList(int currentSeq) {
 		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
 		estimateReglist = getSqlSession().selectList("request.getRequestList", currentSeq);
@@ -23,7 +28,9 @@ public class RequestDaoImpl extends SqlSessionDaoSupport implements RequestDao{
 	}
 	
 	@Override
-	public  HashMap<String, Object> getRequestDetail(int ReqId) {
-		return getSqlSession().selectOne("request.getRequestDetail",ReqId);
+	public List<HashMap<String, Object>> getRequestListMore(int currentSeq) {
+		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
+		estimateReglist = getSqlSession().selectList("request.getRequestListMore", currentSeq);
+		return estimateReglist;
 	}
 }

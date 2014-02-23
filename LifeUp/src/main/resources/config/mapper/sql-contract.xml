@@ -4,9 +4,23 @@
 <mapper namespace="contract">
 	
 	<select id="getContractDetail" resultType="java.util.HashMap">
-		SELECT REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
-		  FROM ESTIMATE_CONTRACT
-		 WHERE REQUEST_ID = #{reqId}		 
+		SELECT A.REQUEST_ID
+			 , A.SALESMAN_ID
+			 , B.SALESMAN_NM
+			 , B.PHOTO
+			 , B.STAR_POINT
+			 , B.COMP_POINT
+			 , A.SALESMAN_BENEFIT
+			 , A.STAR_POINT
+			 , A.STATUS
+			 , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP='1002' AND CODE_CD = A.STATUS) STATUS_NM			 
+			 , A.CREATE_DATE
+			 , A.UPDATE_DATE
+		  FROM ESTIMATE_CONTRACT A
+		  	 , SALESMAN B
+		 WHERE A.REQUEST_ID  = #{reqId}
+		   AND A.SALESMAN_ID = B.SALESMAN_ID
+		   AND A.SALESMAN_ID = IFNULL(#{salesman_id}, A.SALESMAN_ID)
 	</select>
 		
 	<insert id="registerContract" parameterType="salesman.vo.estimate.ContractVO">

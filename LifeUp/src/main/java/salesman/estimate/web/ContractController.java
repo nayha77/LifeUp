@@ -1,6 +1,8 @@
 package salesman.estimate.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +37,19 @@ public class ContractController {
     public String writeform(@RequestParam(value="requestId", required=false) String requestId, ModelMap model) {
 		int id = 0;
 		Map<String, Object> request = new HashMap<String, Object>();
-		Map<String, Object> contract = new HashMap<String, Object>();
-		
-		requestId = "4";
+		List<HashMap<String, Object>> contract = new ArrayList<HashMap<String, Object>>();	
 				
 		if(requestId == null || requestId == "")
 			throw new CustomException("유효하지 않은 정보로 인해 페이지를 열 수 없습니다");
 			
+		SessionVO userInfo = storageService.getAuthenticatedUser();		
+		if(userInfo == null) {
+			throw new CustomException("로그인 후 등록할 수 있습니다");
+		}
+		
 		id = Integer.parseInt(requestId);  
 		request = requestService.getRequestDetail(id);
-		contract = contractService.getContractDetail(id);
+		contract = contractService.getContractDetail(id, userInfo.getUserId());
 		
 		model.put("requestDetail", request);
 		model.put("contractDetail", contract);

@@ -7,8 +7,7 @@ import salesman.vo.estimate.RequestVO;
 
 public interface RequestDao {
 	public int registerRequest(RequestVO estimateReqVO);
-	
-	public List<HashMap<String,Object>> getRequestList(int currentSeq);
-	
 	public  HashMap<String, Object> getRequestDetail(int ReqId);
+	public List<HashMap<String,Object>> getRequestList(int currentSeq);
+	public List<HashMap<String,Object>> getRequestListMore(int currentSeq);
 }

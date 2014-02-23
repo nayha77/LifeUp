@@ -1,6 +1,7 @@
 package salesman.estimate.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import salesman.estimate.dao.ContractDao;
 import salesman.vo.estimate.ContractVO;
@@ -14,8 +15,8 @@ public class ContractServiceImpl implements ContractService {
 	}		
 	
 	@Override
-	public HashMap<String, Object> getContractDetail(int reqId) {
-		return contractDao.getContractDetail(reqId);
+	public List<HashMap<String, Object>> getContractDetail(int reqId, String userId) {
+		return contractDao.getContractDetail(reqId, userId);
 	}
 	
 	@Override

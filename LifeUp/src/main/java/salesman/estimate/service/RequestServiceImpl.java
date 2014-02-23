@@ -15,19 +15,22 @@ public class RequestServiceImpl implements RequestService {
 	}	
 	
 	@Override
-	public HashMap<String, Object> getRequestDetail(int ReqId) {
-		// 견적의뢰 상세 가져오기
-		return  requestDao.getRequestDetail(ReqId);
-	}
-	
-	@Override
 	public int registerRequest(RequestVO estimateReqVO) {
 		return requestDao.registerRequest(estimateReqVO);
 	}
 
 	@Override
+	public HashMap<String, Object> getRequestDetail(int ReqId) {
+		return  requestDao.getRequestDetail(ReqId);
+	}
+	
+	@Override
 	public List<HashMap<String, Object>> getRequestList(int currentSeq) {
-		// TODO Auto-generated method stub
 		return requestDao.getRequestList(currentSeq);
+	}	
+	
+	@Override
+	public List<HashMap<String, Object>> getRequestListMore(int currentSeq) {
+		return requestDao.getRequestListMore(currentSeq);
 	}	
 }

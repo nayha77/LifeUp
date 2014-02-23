@@ -52,10 +52,13 @@
     	<div style="position:relative;">    	
 	   		<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    
 		    <div>
-				<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="4" class="input-xlarge">${contractDetail.SALESMAN_BENEFIT}</textarea>
+		    	<c:forEach items="${contractDetail}" var="detail" varStatus="status">
+					<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="4" class="input-xlarge">${detail.SALESMAN_BENEFIT}</textarea>
+				</c:forEach>
 		    </div>
 		    <div style='float: right;'>
 		    	<input type='submit' class="btn btn-primary" value='등록' onclick="fnSave();" />
+		    	<input type='submit' class="btn btn-primary" value='이전으로' onclick="history.back(-1);" />
 		    </div>
 	    </div>
 	    <div style="height: 30px;"></div>

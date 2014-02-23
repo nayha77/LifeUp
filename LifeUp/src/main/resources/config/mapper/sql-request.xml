@@ -4,15 +4,39 @@
 <mapper namespace="request">
 	
 	<insert id="registerRequest" parameterType="salesman.vo.estimate.RequestVO">
-
 		INSERT INTO estimate_request (
 			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, create_date
 		) VALUES (
 			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option},#{customer_req},'0001', sysdate()
 		)			
 	</insert>
-	
+
 	<select id="getRequestList" resultType="java.util.HashMap" parameterType="Integer">
+		SELECT @RNUM:=@RNUM+1 AS ROWNUM
+			 , b.*
+		  FROM (
+				  SELECT @RNUM:=0
+				  	   ,a.REQUEST_ID
+					   , a.CUSTOMER_ID
+					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
+					   , a.REGION_CD
+					   , (SELECT CONCAT(SIDO, ' ', GUGUN) FROM REGION WHERE REGION_CD = a.REGION_CD) REGION_NM
+					   , a.CAR_ID
+					   , (SELECT CAR_NM FROM CAR_MASTER WHERE CAR_ID = a.CAR_ID) CAR_NM
+					   , a.CAR_MODEL
+					   , a.CAR_OPTION
+					   , a.CUSTOMER_REQ
+					   , a.STATUS
+					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+					   , a.CREATE_DATE
+					   , a.UPDATE_DATE
+					   , a.PURCHASE_PERIOD_CD
+				    from ESTIMATE_REQUEST a
+			   ) b 
+		  limit 0, #{currentSeq};
+	</select>
+		
+	<select id="getRequestListMore" resultType="java.util.HashMap" parameterType="Integer">
 		SELECT @RNUM:=@RNUM+1 AS ROWNUM
 			 , b.*
 		  FROM (
