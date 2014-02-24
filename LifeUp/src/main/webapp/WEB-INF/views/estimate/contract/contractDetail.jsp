@@ -35,7 +35,7 @@
 	    		<span class="label label-info">${requestDetail.STATUS_NM} > ${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.CAR_NM}</span>
 	    	</div>
 	    	<div style="float: right;">
-	    		<span class="label">${requestDetail.CUSTOMER_ID}</span>
+	    		<span class="label">${requestDetail.CUSTOMER_NM}</span>
 	    	</div>    				    				
 		</div>
 		<div class="info-inner" style='padding-top: 18px;'>
@@ -49,15 +49,29 @@
 	</div>		
 	<hr class="message-inner-separator" style="margin-top: 2px; margin-bottom: 7px;">
     <div class="info-inner" style='position:relative;'>
-    	<div style="position:relative;">    	
-	   		<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    
-		    <div>		    	
-				<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="4" class="input-xlarge"><c:forEach items="${contractDetail}" var="detail" varStatus="status">${detail.SALESMAN_BENEFIT}</c:forEach></textarea>				
-		    </div>
-		    <div style='float: right;'>
-		    	<input type='submit' class="btn btn-primary" value='등록' onclick="fnSave();" />
-		    	<input type='submit' class="btn btn-primary" value='이전으로' onclick="history.back(-1);" />
-		    </div>
+    	<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />
+    	<div style="position:relative;">    		   						   		   
+			<c:forEach items="${contractDetail}" var="detail" varStatus="status">
+				<c:if test="${detail.SALESMAN_ID == sessionScope._USER_INFO_.userId}">
+					<div>				    	    	
+						<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="4" class="input-xlarge">${detail.SALESMAN_BENEFIT}</textarea>				
+					</div>
+				    <div style='float: right;'>		    	
+				    	<input type='submit' class="btn btn-primary" value='수정' onclick="fnSave();" />
+				    	<input type='submit' class="btn btn-primary" value='이전으로' onclick="history.back(-1);" />
+				    </div>
+				</c:if>
+				<c:if test="${detail.SALESMAN_ID != sessionScope._USER_INFO_.userId}">
+					<div class="breadcrumb">
+						<div>[${detail.CREATE_DATE}] ${detail.VENDOR_NM} > ${detail.LOCATION} > ${detail.SALESMAN_NM} - ${detail.MOBILE}</div>
+						<hr class="message-inner-separator" style='margin-top: 8px; margin-bottom: 8px;'>
+						<div>${detail.SALESMAN_BENEFIT}</div>
+					</div>
+				    <div style='float: right;'>		    	
+				    	<input type='submit' class="btn btn-primary" value='이전으로' onclick="history.back(-1);" />
+				    </div>					
+				</c:if>		    		    			    
+			</c:forEach>			    		    
 	    </div>
 	    <div style="height: 30px;"></div>
     </div>	     

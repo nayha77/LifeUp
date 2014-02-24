@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -77,8 +78,26 @@ public class ContractController {
 			}
 		}
 		
-		result.put("message", message);
-		
+		result.put("message", message);	
 		return result;
 	}
+	
+	@RequestMapping("/detail")
+    public String detail(@ModelAttribute ContractVO contractVO, ModelMap model) {
+		int id = 0;
+		Map<String, Object> request = new HashMap<String, Object>();
+		List<HashMap<String, Object>> contract = new ArrayList<HashMap<String, Object>>();	
+				
+		if(contractVO.getRequest_id() == null || contractVO.getRequest_id() == "")
+			throw new CustomException("유효하지 않은 정보로 인해 페이지를 열 수 없습니다");			
+				
+		id = Integer.parseInt(contractVO.getRequest_id());  
+		request = requestService.getRequestDetail(id);			
+		contract = contractService.getContractDetail(id, contractVO.getSalesman_id());
+		
+		model.put("requestDetail", request);
+		model.put("contractDetail", contract);
+		
+    	return "estimate/contract/contractDetail";
+    }  
 }
