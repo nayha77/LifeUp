@@ -29,20 +29,20 @@
 	}
 </script>		
 <div class="messages" style="margin-bottom: -10px;">
-	<div id="contents" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
+	<div id="contents" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
 		<div class="message-title" style='height: 8px; position:relative; padding-top: 10px;'>
 			<div style="float: left;">
 	    		<span class="label label-info">${requestDetail.STATUS_NM} > ${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.CAR_NM}</span>
 	    	</div>
 	    	<div style="float: right;">
-	    		<span class="label">${requestDetail.CUSTOMER_ID}</span>
+	    		<span class="label">${requestDetail.CUSTOMER_NM}</span>
 	    	</div>    				    				
 		</div>
 		<div class="info-inner" style='padding-top: 18px;'>
 	       	<div class="label label-info">옵션</div>
-	       	<div class="request-detail" style="height: 40px; padding-bottom: 0px;">${requestDetail.CAR_OPTION}</div>       	
+	       	<div class="request-detail" style="height: 25px; padding-bottom: 0px;">${requestDetail.CAR_OPTION}</div>       	
 	       	<div class="label label-info">요구사항</div>
-	       	<div class="request-detail" style='height: 80px; overflow-y:auto;overflow-x:hidden;'>
+	       	<div class="request-detail" style='height: 50px; overflow-y:auto;overflow-x:hidden;'>
 	       		${requestDetail.CUSTOMER_REQ}
 	       	</div>		
 		</div>		

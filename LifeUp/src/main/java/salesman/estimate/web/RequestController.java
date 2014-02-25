@@ -1,4 +1,4 @@
-package salesman.estimate.web;
+	package salesman.estimate.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -72,7 +72,7 @@ public class RequestController {
     @RequestMapping("/detail")
     public String detail(@RequestParam int ID, ModelMap model) {    	    
     	Map<String, Object> request = requestService.getRequestDetail(ID);
-    	List<HashMap<String, Object>> contract = contractService.getContractDetail(ID, null);
+    	List<HashMap<String, Object>> contract = contractService.getContractList(ID, null);
     	
     	model.put("request", request);   	    	
     	model.put("contract", contract);

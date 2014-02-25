@@ -73,7 +73,7 @@
 		INSERT INTO customer (
 			CUSTOMER_ID, CUSTOMER_NM, PWD, MOBILE, REGION, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{userId}, #{userNm}, #{password}, #{mobile}, #{region}, sysdate(), sysdate()
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{region}, now(), now()
 		)			
 	</insert>
 
@@ -81,7 +81,7 @@
 		INSERT INTO salesman (
 			SALESMAN_ID, SALESMAN_NM, PWD, MOBILE, OFFICE_NO, VENDOR_ID, LOCATION, INTRO_MSG, PHOTO, STAR_POINT, COMP_POINT, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, #{photo}, 0, 0, sysdate(), sysdate()
+			#{userId}, #{userNm}, #{password}, #{mobile}, #{officeNo}, #{vendorId}, #{location}, #{introMsg}, #{photo}, 0, 0, now(), now()
 		)			
 	</insert>						
 </mapper>

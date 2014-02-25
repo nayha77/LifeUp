@@ -3,7 +3,7 @@
 
 <mapper namespace="contract">
 	
-	<select id="getContractDetail" resultType="java.util.HashMap">
+	<select id="getContractList" resultType="java.util.HashMap">
 		SELECT A.REQUEST_ID
 			 , A.SALESMAN_ID
 			 , B.SALESMAN_NM
@@ -32,7 +32,7 @@
 		INSERT INTO ESTIMATE_CONTRACT(
 			REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), sysdate()
+			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), now()
 		)				
 	</insert>
 	
@@ -41,9 +41,32 @@
 		   SET SALESMAN_BENEFIT = #{salesman_benefit}
 		     , STAR_POINT       = IFNULL(#{star_point}, STAR_POINT)
 		     , STATUS           = IFNULL(#{status}, STATUS)
-		     , UPDATE_DATE      = sysdate()
+		     , UPDATE_DATE      = now()
 		 WHERE REQUEST_ID  = #{request_id}
 		   AND SALESMAN_ID = #{salesman_id} 
 	</update>
+	
+	<insert id="registerContractReply" parameterType="salesman.vo.estimate.ContractReplyVO">
+		INSERT INTO ESTIMATE_REPLY (
+			REQUEST_ID, SALESMAN_ID, MESSAGE, USE_YN, CREATE_USER_ID, CREATE_USER_NM, CREATE_DATE
+		) VALUES (
+			#{request_id}, #{salesman_id}, #{message}, 'Y', #{create_user_id}, #{create_user_nm}, now()
+		)
+	</insert>
+	
+	<select id="getContractReplyList" resultType="java.util.HashMap">
+		SELECT REQUEST_ID
+			 , SALESMAN_ID
+			 , MESSAGE
+			 , USE_YN
+			 , CREATE_USER_ID
+			 , CREATE_USER_NM
+			 , CREATE_DATE
+		  FROM ESTIMATE_REPLY
+		 WHERE REQUEST_ID  = #{request_id}
+		   AND SALESMAN_ID = #{salesman_id} 
+		   AND USE_YN      = 'Y'
+		 ORDER BY CREATE_DATE ASC 	 
+	</select>
 	
 </mapper>
