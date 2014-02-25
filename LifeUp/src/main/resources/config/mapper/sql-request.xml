@@ -21,8 +21,10 @@
 					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
 					   , a.REGION_CD
 					   , (SELECT CONCAT(SIDO, ' ', GUGUN) FROM REGION WHERE REGION_CD = a.REGION_CD) REGION_NM
+					   , c.VENDOR_ID
+					   , c.VENDOR_NM					   
 					   , a.CAR_ID
-					   , (SELECT CAR_NM FROM CAR_MASTER WHERE CAR_ID = a.CAR_ID) CAR_NM
+					   , b.CAR_NM
 					   , a.CAR_MODEL
 					   , a.CAR_OPTION
 					   , a.CUSTOMER_REQ
@@ -31,7 +33,9 @@
 					   , a.CREATE_DATE
 					   , a.UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
-				    from ESTIMATE_REQUEST a
+				    FROM ESTIMATE_REQUEST a
+					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
 			   ) b 
 		  limit 0, #{currentSeq};
 	</select>
@@ -46,8 +50,10 @@
 					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
 					   , a.REGION_CD
 					   , (SELECT CONCAT(SIDO, ' ', GUGUN) FROM REGION WHERE REGION_CD = a.REGION_CD) REGION_NM
+					   , c.VENDOR_ID
+					   , c.VENDOR_NM					   
 					   , a.CAR_ID
-					   , (SELECT CAR_NM FROM CAR_MASTER WHERE CAR_ID = a.CAR_ID) CAR_NM
+					   , b.CAR_NM
 					   , a.CAR_MODEL
 					   , a.CAR_OPTION
 					   , a.CUSTOMER_REQ
@@ -56,7 +62,9 @@
 					   , a.CREATE_DATE
 					   , a.UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
-				    from ESTIMATE_REQUEST a
+				    FROM ESTIMATE_REQUEST a
+					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
 			   ) b 
 		  limit #{currentSeq}, 2;
 	</select>
