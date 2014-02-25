@@ -34,8 +34,9 @@
 					   , a.UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
 				    FROM ESTIMATE_REQUEST a
-					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
+				   ORDER BY a.REQUEST_ID DESC
 			   ) b 
 		  limit 0, #{currentSeq};
 	</select>
