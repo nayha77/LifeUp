@@ -2,19 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
 
 <mapper namespace="request">
-
-	<!-- 견적의뢰 등록-->
 	
-	<insert id="EstimateReg" parameterType="salesman.model.EstimateReqVO">
-
+	<insert id="registerRequest" parameterType="salesman.vo.estimate.RequestVO">
 		INSERT INTO estimate_request (
 			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, create_date
 		) VALUES (
 			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option},#{customer_req},'0001', sysdate()
 		)			
 	</insert>
-	
-	<select id="estimateReglist" resultType="java.util.HashMap" parameterType="Integer">
+
+	<select id="getRequestList" resultType="java.util.HashMap" parameterType="Integer">
 		SELECT @RNUM:=@RNUM+1 AS ROWNUM
 			 , b.*
 		  FROM (
@@ -24,8 +21,10 @@
 					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
 					   , a.REGION_CD
 					   , (SELECT CONCAT(SIDO, ' ', GUGUN) FROM REGION WHERE REGION_CD = a.REGION_CD) REGION_NM
+					   , c.VENDOR_ID
+					   , c.VENDOR_NM					   
 					   , a.CAR_ID
-					   , (SELECT CAR_NM FROM CAR_MASTER WHERE CAR_ID = a.CAR_ID) CAR_NM
+					   , b.CAR_NM
 					   , a.CAR_MODEL
 					   , a.CAR_OPTION
 					   , a.CUSTOMER_REQ
@@ -34,15 +33,68 @@
 					   , a.CREATE_DATE
 					   , a.UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
-				    from ESTIMATE_REQUEST a
+				    FROM ESTIMATE_REQUEST a
+					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
+			   ) b 
+		  limit 0, #{currentSeq};
+	</select>
+		
+	<select id="getRequestListMore" resultType="java.util.HashMap" parameterType="Integer">
+		SELECT @RNUM:=@RNUM+1 AS ROWNUM
+			 , b.*
+		  FROM (
+				  SELECT @RNUM:=0
+				  	   ,a.REQUEST_ID
+					   , a.CUSTOMER_ID
+					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
+					   , a.REGION_CD
+					   , (SELECT CONCAT(SIDO, ' ', GUGUN) FROM REGION WHERE REGION_CD = a.REGION_CD) REGION_NM
+					   , c.VENDOR_ID
+					   , c.VENDOR_NM					   
+					   , a.CAR_ID
+					   , b.CAR_NM
+					   , a.CAR_MODEL
+					   , a.CAR_OPTION
+					   , a.CUSTOMER_REQ
+					   , a.STATUS
+					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+					   , a.CREATE_DATE
+					   , a.UPDATE_DATE
+					   , a.PURCHASE_PERIOD_CD
+				    FROM ESTIMATE_REQUEST a
+					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
+				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
 			   ) b 
 		  limit #{currentSeq}, 2;
 	</select>
 	
 	<!-- 견적의뢰 상세화면-->
-	<select id="getEstimateDetail"   resultType="java.util.HashMap">
-		select * from ESTIMATE_REQUEST
-		where REQUEST_ID = #{ReqId}
+	<select id="getRequestDetail" resultType="java.util.HashMap">
+		SELECT A.REQUEST_ID
+			 , A.CUSTOMER_ID
+			 , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = A.CUSTOMER_ID) CUSTOMER_NM
+		     , B.REGION_CD
+			 , B.SIDO
+		     , B.GUGUN
+			 , A.CAR_ID
+		     , C.CAR_NM
+			 , D.VENDOR_ID
+		     , D.VENDOR_NM
+		     , A.CAR_OPTION
+		     , A.CUSTOMER_REQ
+			 , A.STATUS
+		     , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
+		     , A.CREATE_DATE
+			 , A.PURCHASE_PERIOD_CD
+		  FROM ESTIMATE_REQUEST A
+		     , REGION B
+		     , CAR_MASTER C
+		     , VENDOR D
+		 WHERE A.REGION_CD  = B.REGION_CD
+		   AND A.CAR_ID     = C.CAR_ID
+		   AND C.VENDOR_ID  = D.VENDOR_ID 
+		   AND A.REQUEST_ID = #{ReqId}
 	</select>
 	
 

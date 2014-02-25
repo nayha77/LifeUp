@@ -5,10 +5,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <mvc:simple>
-
+<c:out value="${sessionScope._USER_INFO_.region}"></c:out>
 <script type="text/javascript">
 	
-	function fnLoad() {		     
+	function fnLoad() {		
+		
+		
 	}
 	
 	function LowList(obj){

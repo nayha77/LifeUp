@@ -1,6 +1,6 @@
-package salesman.model;
+package salesman.vo.estimate;
 
-public class EstimateReqVO {
+public class RequestVO {
 	
 	private String customer_id;
 	private String region_cd;
@@ -51,7 +51,4 @@ public class EstimateReqVO {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	
-}
+	}}

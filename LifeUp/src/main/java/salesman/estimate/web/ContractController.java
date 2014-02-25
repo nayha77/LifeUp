@@ -1,23 +1,103 @@
 package salesman.estimate.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import salesman.common.service.StorageService;
+import salesman.common.support.CustomException;
+import salesman.estimate.service.ContractService;
+import salesman.estimate.service.RequestService;
+import salesman.vo.account.SessionVO;
+import salesman.vo.estimate.ContractVO;
 
 @Controller
 @RequestMapping("/contract/*")
 public class ContractController {
 	 
-	/*
-	 * 견적서 요청에 대한 견적 작성 폼
-	 */
-    @RequestMapping("/writeform")
-//    public String write(@RequestParam int requestId)
-    public String write()
-    {
-    	// 1. 파라메터 수신
-    	
-    	// 2. 견적요청 내용 가져오기    	
-    	
+	@Autowired
+	private RequestService requestService;
+	
+	@Autowired
+	private ContractService contractService;
+	
+    @Autowired
+    private StorageService storageService;	
+	
+	@RequestMapping("/writeform")
+    public String writeform(@RequestParam(value="requestId", required=false) String requestId, ModelMap model) {
+		int id = 0;
+		Map<String, Object> request = new HashMap<String, Object>();
+		List<HashMap<String, Object>> contract = new ArrayList<HashMap<String, Object>>();	
+				
+		if(requestId == null || requestId == "")
+			throw new CustomException("유효하지 않은 정보로 인해 페이지를 열 수 없습니다");
+			
+		SessionVO userInfo = storageService.getAuthenticatedUser();		
+		if(userInfo == null) {
+			throw new CustomException("로그인 후 등록할 수 있습니다");
+		}
+		
+		id = Integer.parseInt(requestId);  
+		request = requestService.getRequestDetail(id);
+		contract = contractService.getContractDetail(id, userInfo.getUserId());
+		
+		model.put("requestDetail", request);
+		model.put("contractDetail", contract);
+		
     	return "estimate/contract/contractForm";
-    }    
+    }  
+	
+	@RequestMapping(value="/registContract", produces={"application/xml", "application/json"} )
+	public @ResponseBody Map<String, Object> registContract(@RequestBody ContractVO contractVO) {
+		
+		String message = "success";
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		SessionVO userInfo = storageService.getAuthenticatedUser();		
+		if(userInfo == null) {
+			message = "failed";
+			result.put("detail", "로그인 후 견적등록을 할 수 있습니다");			
+		} else {
+			contractVO.setSalesman_id(userInfo.getUserId());
+			if(contractService.modifyContract(contractVO) == 0) {
+				if(contractService.registerContract(contractVO) <= 0) {							
+					message = "failed";
+					result.put("detail", "견적등록 중 오류가 발생했습니다");
+				}
+			}
+		}
+		
+		result.put("message", message);	
+		return result;
+	}
+	
+	@RequestMapping("/detail")
+    public String detail(@ModelAttribute ContractVO contractVO, ModelMap model) {
+		int id = 0;
+		Map<String, Object> request = new HashMap<String, Object>();
+		List<HashMap<String, Object>> contract = new ArrayList<HashMap<String, Object>>();	
+				
+		if(contractVO.getRequest_id() == null || contractVO.getRequest_id() == "")
+			throw new CustomException("유효하지 않은 정보로 인해 페이지를 열 수 없습니다");			
+				
+		id = Integer.parseInt(contractVO.getRequest_id());  
+		request = requestService.getRequestDetail(id);			
+		contract = contractService.getContractDetail(id, contractVO.getSalesman_id());
+		
+		model.put("requestDetail", request);
+		model.put("contractDetail", contract);
+		
+    	return "estimate/contract/contractDetail";
+    }  
 }

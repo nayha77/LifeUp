@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="contract">
+	
+	<select id="getContractDetail" resultType="java.util.HashMap">
+		SELECT A.REQUEST_ID
+			 , A.SALESMAN_ID
+			 , B.SALESMAN_NM
+			 , B.PHOTO
+			 , B.STAR_POINT
+			 , B.COMP_POINT
+			 , A.SALESMAN_BENEFIT
+			 , A.STAR_POINT
+			 , C.VENDOR_NM
+			 , B.LOCATION
+			 , B.MOBILE			 
+			 , A.STATUS
+			 , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP='1002' AND CODE_CD = A.STATUS) STATUS_NM			 
+			 , A.CREATE_DATE
+			 , A.UPDATE_DATE
+		  FROM ESTIMATE_CONTRACT A
+		  	 , SALESMAN B
+		  	 , VENDOR C
+		 WHERE A.REQUEST_ID  = #{reqId}
+		   AND A.SALESMAN_ID = B.SALESMAN_ID
+		   AND A.SALESMAN_ID = IFNULL(#{salesman_id}, A.SALESMAN_ID)
+		   AND B.VENDOR_ID   = C.VENDOR_ID
+	</select>
+		
+	<insert id="registerContract" parameterType="salesman.vo.estimate.ContractVO">
+		INSERT INTO ESTIMATE_CONTRACT(
+			REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
+		) VALUES (
+			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), sysdate()
+		)				
+	</insert>
+	
+	<update id="modifyContract" parameterType="salesman.vo.estimate.ContractVO">
+		UPDATE ESTIMATE_CONTRACT
+		   SET SALESMAN_BENEFIT = #{salesman_benefit}
+		     , STAR_POINT       = IFNULL(#{star_point}, STAR_POINT)
+		     , STATUS           = IFNULL(#{status}, STATUS)
+		     , UPDATE_DATE      = sysdate()
+		 WHERE REQUEST_ID  = #{request_id}
+		   AND SALESMAN_ID = #{salesman_id} 
+	</update>
+	
+</mapper>

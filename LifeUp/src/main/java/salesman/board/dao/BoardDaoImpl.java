@@ -3,11 +3,9 @@ package salesman.board.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import salesman.model.EstimateReqVO;
 import salesman.model.Post;
 
 public class BoardDaoImpl extends SqlSessionDaoSupport implements Boarddao{
@@ -44,23 +42,5 @@ public class BoardDaoImpl extends SqlSessionDaoSupport implements Boarddao{
 	public int erase(Integer postNo) {
 
 		return getSqlSession().delete("main.erasePost",postNo);
-	}
-
-	@Override
-	public int EstimateReg(EstimateReqVO estimateReqVO) {
-
-		return getSqlSession().insert("request.EstimateReg",estimateReqVO);
-	}
-
-	@Override
-	public List<HashMap<String, Object>> EstimateRegList(int currentSeq) {
-		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
-		estimateReglist = getSqlSession().selectList("request.estimateReglist", currentSeq);
-		return estimateReglist;
-	}
-	
-	@Override
-	public  HashMap<String, Object> getEstimateDetail(int ReqId) {
-		return getSqlSession().selectOne("request.getEstimateDetail",ReqId);
 	}
 }

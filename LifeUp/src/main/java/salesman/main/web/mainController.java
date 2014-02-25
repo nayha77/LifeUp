@@ -39,7 +39,7 @@ public class mainController {
     	SessionVO session = storageService.getAuthenticatedUser();
     	
     	// 로그인을 한 경우 쿠키로직 수행
-    	if(session != null) { 
+    	if(session != null && saveYn != null) {
 	    	if(saveYn.equals("N")) { // 저장하지 않도록 설정한 경우 (로그인해서 호출한 경우만 'N' 값이 넘어올 수 있다)
 	    		Cookie []cookies = request.getCookies();
 	    		if(cookies != null) {

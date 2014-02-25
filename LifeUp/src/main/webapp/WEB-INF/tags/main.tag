@@ -239,7 +239,6 @@
 					<ul class='nav'>
 						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
 						<li class='active'><a href='<spring:url value="/request/list"/>'>견적의뢰</a></li>
-						<li class='active'><a href='<spring:url value="/contract/writeform"/>'>견적남기기</a></li>
 						<c:if test="${not empty sessionScope._USER_INFO_}">
 							<li class='active'><a href='#' onclick="fnMyInfo();">내정보</a></li>							
 						</c:if>						
@@ -250,10 +249,8 @@
 		</div>
 	</div>
 	<div class='container'>
-		<jsp:doBody/>	
-		<hr>
+		<jsp:doBody/>					
 		<footer style="text-align: center;">
-		<p></p>
 		</footer>	
     </div>
 	<!-- /container -->  		   
