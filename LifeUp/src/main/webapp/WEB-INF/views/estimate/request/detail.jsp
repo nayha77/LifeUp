@@ -27,8 +27,8 @@
 	</div>
 
 	<a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>
-    <a href='' class='btn btn-info'>수정하기</a>                        
-    <a href='javascript:$.form.delete("", 5)' class='btn btn-danger'>삭제하기</a>
+    <a href='<spring:url value="/request/edit/${result.REQUEST_ID}"/>' class='btn btn-info'>수정하기</a>                        
+    <!-- <a href='javascript:$.form.delete("", ${result.REQUEST_ID})' class='btn btn-danger'>삭제하기</a>  -->
 	 
 
 </mvc:test>
