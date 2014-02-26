@@ -49,9 +49,13 @@ public class mainController {
 		    		}
 	    		}    	
 	    	} else if (saveYn.equals("Y")) { // 로그인 완료 후     		
-	    		cookie = new Cookie("userId", session.getUserId());	
+	    		cookie = new Cookie("userId", session.getUserId());		    		
 		    	cookie.setMaxAge(60*60*24*30);
 		    	response.addCookie(cookie);
+		    	
+	    		cookie = new Cookie("userType", String.valueOf(session.getUserType()));		    		
+		    	cookie.setMaxAge(60*60*24*30);
+		    	response.addCookie(cookie);		    	
 	    	}
     	}
     	

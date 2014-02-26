@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
 <%@ taglib prefix="mvc" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<mvc:simple>
-<c:out value="${sessionScope._USER_INFO_.region}"></c:out>
-<script type="text/javascript">
-	
+<mvc:main>
+<script type="text/javascript">	
 	function fnLoad() {		
-		
-		
 	}
 	
 	function LowList(obj){
@@ -66,47 +60,70 @@
    	    
 		$("#vender_second").append(select);     
 	}	
-</script>
-<div class="row">
-	<form id='estimateReq' name='estimateReq' method='post' action='/request/regform'>
 	
-		<div class="span6" >
-			<div id="region">
-			   <select name="bigname"  id="bigname"  onchange="LowList(this);" >
-			    <option value="0">==지역선택==</option>
-			   <c:forEach items="${sidos}" var="sido">
-			   	<option value="${sido.sido}">${sido.sido}</option>
-			   </c:forEach>
-			   </select>
-			</div>
-		</div>
-		
-		<div class="span6">
-			<div id="vender">
-			   <select name="venderBigname"  id="venderBigname"  onchange="venderLowList(this);" >
-			    <option value="0">==제조선택==</option>
-			   <c:forEach items="${venders}" var="vender">
-			   	<option value="${vender.code}">${vender.value}</option>
-			   </c:forEach>
-			   </select>
-			</div>
-		</div>
-					
-		<div class="span12">
+	function fnSave() {
+		document.frm.action = "/request/regform";
+		document.frm.submit();
+	}
+</script>
+<form id='frm' name='frm' method='post'>
+	<div class="messages" style="margin-bottom: -10px;">		
+		<div id="contents" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
+		    <div class="message-title" style='height: 18px; position: relative;'>
+		    	<span style='padding-right: 10px;'>지역</span>
+		    	<span id="region">
+					<select name="bigname" id="bigname"  onchange="LowList(this);" >
+				    	<option value="0">==지역선택==</option>
+				   		<c:forEach items="${sidos}" var="sido">
+				   			<option value="${sido.sido}">${sido.sido}</option>
+				   		</c:forEach>
+				   	</select>
+				</span>				
+				<div style="height: 20px;">
+		    </div>
+		</div>		    		    
+	    <hr class="message-inner-separator" style='margin-bottom: 10px; position: relative;'>
+	    <div class="message-title" style='height: 18px; position: relative;'>
+	    	<span style='padding-right: 10px;'>차량</span>
+	    	<span>
+				<select name="venderBigname"  id="venderBigname"  onchange="venderLowList(this);" >
+			    	<option value="0">==제조선택==</option>
+			   		<c:forEach items="${venders}" var="vender">
+			   			<option value="${vender.code}">${vender.value}</option>
+			   		</c:forEach>
+			   	</select>
+			</span>
+	    </div>	
+	    <hr class="message-inner-separator" style='margin-bottom: 10px; position: relative;'>    
+		<div class="message-title" style='height: 18px; position: relative;'>
+	    	<span style='padding-right: 10px;'>트림</span>
+	    	<span>
+				<input type="text" id="" name="" class="input-xlarge" />
+			</span>
+	    </div>
+	    <hr class="message-inner-separator" style='margin-bottom: 10px; position: relative;'>
+	    <div class="message-title" style='height: 18px; position: relative;'>
+	    	<span style='padding-right: 10px;'>옵션</span>
+	    	<span>
+				<input type="text" id="" name="" class="input-xlarge" />
+			</span>
+	    </div>
+	    <hr class="message-inner-separator" style='margin-bottom: 10px; position: relative;'>		    
+	    <div class="message-title" style='height: 18px; position: relative;'>
+	    	<span style='padding-right: 10px;'>요구사항</span>
+	    	<span>
 				<textarea name="customer_req" rows="2" ></textarea>
-		</div>
-						
-		<div class="span12">				
-				<input type='text' id='customer_id' name='customer_id' />
-		</div>
-		
-		<div class="span12">		
-				<div class="form-actions">
-		            <button class='btn btn-primary'>저장하기 </button>
-		            <a href='javascript:history.go(-1);' class='btn'>뒤로가기</a>           
-		        </div>
-		</div>
-	</form>        
-</div>        
-
-</mvc:simple>
+			</span>
+	    </div>
+	    <div style="height: 22px;"></div>
+	    <div class="info-inner" style='position:relative; padding-top: 15px;'>
+	    	<div style="position:relative;">    	    
+			    <div style='float: right;'>
+			    	<input type='button' class="btn btn-primary" value='등록' onclick="fnSave();" />
+			    	<input type='button' class="btn btn-primary" value='목록' onclick="history.back(-1);" />
+			    </div>
+		    </div>
+	    </div>	
+	</div>					
+</form>   
+</mvc:main>

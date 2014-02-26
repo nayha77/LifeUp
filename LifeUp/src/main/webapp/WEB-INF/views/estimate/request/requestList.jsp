@@ -29,6 +29,15 @@
 //		});		
 	}	
 	
+	function fnWrite(userCheck) {
+		if(typeof(userCheck) == "undefined" || userCheck == '2') {
+			alert('일반사용자는 로그인 후 등록할 수 있습니다');
+			return;
+		}
+		
+		location.href="/request/writeform";
+	}
+	
 	function fnDetail(requestId) {
 		$('#hdnID').val(requestId);		
 		document.frm.action = "/request/detail";
@@ -84,6 +93,6 @@
 	</ul>
 </div>
 <div style='float: right;'>
-	<span class="breadcrumb"><a href="/request/writeform">등록</a></span>
+	<span class="breadcrumb" onclick="fnWrite(${sessionScope._USER_INFO_.userType});" style="cursor: pointer;">등록</span>
 </div>				
 </mvc:main>

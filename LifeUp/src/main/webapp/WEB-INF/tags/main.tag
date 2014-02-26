@@ -101,9 +101,11 @@
         	$('#loginModal').modal('show');
         	
         	var userId = '${cookie.userId.value}';
-        	$('#txtUserID').val(userId); 
-        	
+        	var userType = '${cookie.userType.value}';
+        	        
         	if(userId != "") {
+        		$('#txtUserID').val(userId); 
+        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true);        		
         		$('#chkAutoLogin').attr('checked', true);
         		$('#txtUserPwd').focus();
         	} else {        	
