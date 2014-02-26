@@ -73,14 +73,14 @@
 						  request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
 				<span class="breadcrumb" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');" style="cursor:pointer;">
 					<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
-					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적이 등록되었습니다
+					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 등록
 					<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 
 				</span>			
 			</c:when>
 			<c:otherwise>
 				<span class="breadcrumb">
 					<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
-					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적이 등록되었습니다
+					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 등록
 					<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 
 				</span>			
 			</c:otherwise>
