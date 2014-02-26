@@ -9,12 +9,7 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 	
 	@Override
 	public SessionVO getUserInfo(LoginVO login) {
-		SessionVO userInfo;
-		if(login.getUserType() == 1)
-			userInfo = (SessionVO) getSqlSession().selectOne("account.getUserInfo", login);
-		else
-			userInfo = (SessionVO) getSqlSession().selectOne("account.getSalesmanInfo", login);
-		
+		SessionVO userInfo = (SessionVO) getSqlSession().selectOne("account.getUserInfo", login);		
 		return userInfo;
 	}
 	
