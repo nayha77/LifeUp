@@ -67,7 +67,7 @@
 					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
 			   ) b 
-		  limit #{currentSeq}, 2;
+		  limit #{currentSeq}, 5;
 	</select>
 	
 	<!-- 견적의뢰 상세화면-->

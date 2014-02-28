@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import salesman.common.service.CodesService;
+import salesman.common.service.StorageService;
 import salesman.estimate.service.ContractService;
 import salesman.estimate.service.RequestService;
+import salesman.vo.account.SessionVO;
 import salesman.vo.estimate.RequestVO;
 
 
@@ -31,11 +33,14 @@ public class RequestController {
     @Autowired
     private CodesService codeService;	
 	    
+    @Autowired
+    private StorageService storageService;	
+    
     @RequestMapping("/list")
     public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
     {
     	if(currentSeq == null || currentSeq == "")
-    		currentSeq = "2";
+    		currentSeq = "5";
     	
         model.put("estimateRegList", requestService.getRequestList(Integer.parseInt(currentSeq)));
     	return "estimate/request/requestList";
@@ -48,7 +53,7 @@ public class RequestController {
     	List<HashMap<String, Object>> list = requestService.getRequestListMore(currentSeq);    	
     	    
     	result.put("list", list);    	
-    	result.put("currentSeq", currentSeq + 2);
+    	result.put("currentSeq", currentSeq + 5);
     	
     	return result;
     }     
@@ -59,15 +64,27 @@ public class RequestController {
     	model.put("venders", codeService.getVendorCodes());
         return "estimate/request/writeform";
     }
-    // 견적의뢰 등록
-    @RequestMapping("/regform")
-    public String writing(RequestVO estimateReqVO, ModelMap model) {
-    	estimateReqVO.setCar_model("뭐델");
-    	estimateReqVO.setCar_option("carop");
-    	requestService.registerRequest(estimateReqVO);
-        
-    	return "estimate/request/requestList";
-    }
+    
+    @RequestMapping(value="/writing", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> writing(@RequestBody RequestVO requestVO)
+    {    	
+    	String message = "success";
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	
+		SessionVO userInfo = storageService.getAuthenticatedUser();
+		if(userInfo == null) {
+			message = "로그인 후 등록할 수 있습니다";
+		} else {			    	
+	    	requestVO.setStatus("0001");
+	    	requestVO.setCustomer_id(userInfo.getUserId());
+	    	
+	    	if(requestService.registerRequest(requestVO) <= 0)
+	    		message = "failed";
+		}
+		
+    	result.put("message", message);
+    	return result;
+    } 
     
     @RequestMapping("/detail")
     public String detail(@RequestParam int ID, ModelMap model) {    	    

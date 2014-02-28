@@ -23,8 +23,8 @@
 	
 	<!--  vendor id 로 자동차 종류/ ID 를 가져온다 -->
 	<select id="getCarCode" resultType="java.util.HashMap">
-			SELECT car_id,car_nm FROM CAR_MASTER
-			WHERE VENDOR_ID= #{vende_id}
+		SELECT car_id,car_nm FROM CAR_MASTER
+		 WHERE VENDOR_ID= #{vender_id}
 	</select>	
 
 </mapper>

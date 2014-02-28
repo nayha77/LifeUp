@@ -5,9 +5,10 @@ public class RequestVO {
 	private String customer_id;
 	private String region_cd;
 	private String car_id;
-	private String car_model;
+	private String car_trim;
 	private String car_option;
-	private String customer_req;
+	private String customer_region;
+	private String customer_req;	
 	private String status;
 	
 	public String getCustomer_id() {
@@ -29,10 +30,10 @@ public class RequestVO {
 		this.car_id = car_id;
 	}
 	public String getCar_model() {
-		return car_model;
+		return car_trim;
 	}
-	public void setCar_model(String car_model) {
-		this.car_model = car_model;
+	public void setCar_trim(String car_trim) {
+		this.car_trim = car_trim;
 	}
 	public String getCar_option() {
 		return car_option;
@@ -40,6 +41,12 @@ public class RequestVO {
 	public void setCar_option(String car_option) {
 		this.car_option = car_option;
 	}
+	public String getCustomer_region() {
+		return customer_region;
+	}
+	public void setCustomer_region(String customer_region) {
+		this.customer_region = customer_region;
+	}	
 	public String getCustomer_req() {
 		return customer_req;
 	}
