@@ -128,12 +128,18 @@
     			"/account/actionLogin.do",
     			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
     			function (data) {    
-    				if(data.message == 'success' || data.message == 'duplicated')
+    				if(data.message == 'success' || data.message == 'duplicated') {
     					document.location.href='/main?saveYn=' + autoLogin;
-    				else
+    					sendUserInfoToApp($('#txtUserID').val(), $('#txtUserPwd').val(), $('input[name=userType]:checked').val());
+    				} else {
     					alert(data.message);
+    				}
     			}
     		);
+    	}
+        
+    	function sendUserInfoToApp(id, pwd, autoSaveYn){
+    		window.HybridApp.setMessage(id);
     	}
         
         // 사용자찾기
