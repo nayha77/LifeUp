@@ -143,7 +143,7 @@
     	}
     	
     	function fnLoginFromApp(id) {
-    		$('#txtUserID').val(id);
+    		location.href="http://www.naver.com?id=" + id;
     	}
         
         // 사용자찾기
