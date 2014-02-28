@@ -141,6 +141,10 @@
     	function sendUserInfoToApp(id, pwd, autoSaveYn){
     		window.HybridApp.setMessage(id);
     	}
+    	
+    	function fnLoginFromApp(id) {
+    		alert(id);
+    	}
         
         // 사용자찾기
     	function fnFindUser() {
