@@ -143,7 +143,7 @@
     	}
     	
     	function fnLoginFromApp(id) {
-    		alert(id);
+    		$('#txtUserID').val(id);
     	}
         
         // 사용자찾기
