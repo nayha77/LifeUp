@@ -139,7 +139,7 @@
     	}
         
     	function sendUserInfoToApp(id, pwd, autoSaveYn){
-    		window.HybridApp.setMessage(id);
+    		window.HybridApp.setMessage(id, pwd);
     	}
     	
     	function fnLoginFromApp(id) {
