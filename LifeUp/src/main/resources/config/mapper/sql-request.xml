@@ -5,9 +5,9 @@
 	
 	<insert id="registerRequest" parameterType="salesman.vo.estimate.RequestVO">
 		INSERT INTO estimate_request (
-			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, create_date
+			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, purchase_period_cd, hit_cnt, create_date
 		) VALUES (
-			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option},#{customer_req},'0001', now()
+			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option}, #{customer_req}, '0001', #{purchase_period_cd}, 0, now()
 		)			
 	</insert>
 
@@ -33,6 +33,7 @@
 					   , DATE(a.CREATE_DATE) CREATE_DATE
 					   , DATE(a.UPDATE_DATE) UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
+					   , a.HIT_CNT
 				    FROM ESTIMATE_REQUEST a
 				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
@@ -63,6 +64,7 @@
 					   , DATE(a.CREATE_DATE) CREATE_DATE
 					   , DATE(a.UPDATE_DATE) UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
+					   , a.HIT_CNT
 				    FROM ESTIMATE_REQUEST a
 					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
@@ -89,6 +91,7 @@
 		     , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
 			 , DATE(A.CREATE_DATE) CREATE_DATE
 			 , A.PURCHASE_PERIOD_CD
+			 , a.HIT_CNT
 		  FROM ESTIMATE_REQUEST A
 		     , REGION B
 		     , CAR_MASTER C
@@ -97,6 +100,18 @@
 		   AND A.CAR_ID     = C.CAR_ID
 		   AND C.VENDOR_ID  = D.VENDOR_ID 
 		   AND A.REQUEST_ID = #{ReqId}
-	</select>	
+	</select>
+	
+	<insert id="updateRequestHitCnt">
+		UPDATE estimate_request
+		   SET HIT_CNT    = HIT_CNT + 1
+		 WHERE REQUEST_ID = #{request_id}
+	</insert>		
+	
+	<update id="updateRequestStatus">
+		UPDATE estimate_request
+		   SET STATUS     = ${status}
+		 WHERE REQUEST_ID = #{request_id}
+	</update>
 
 </mapper>

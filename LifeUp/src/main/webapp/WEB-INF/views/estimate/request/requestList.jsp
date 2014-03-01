@@ -38,7 +38,7 @@
 	}
 	
 	function fnDetail(requestId) {
-		$('#hdnID').val(requestId);		
+		$('#hdnRequestId').val(requestId);		
 		document.frm.action = "/request/detail";
 		document.frm.submit();
 	}	
@@ -50,8 +50,8 @@
     		currentSeq = $('#hdnCurrentSeq').val(),
     		function (data) {
 				if (data.list != "") {
-					$.each(data.list, function(idx, row) {
- 						$(".messages").append("<div id='contents' onclick=\"fnDetail('"+row.REQUEST_ID+"');\" class='message other alert pinned alert alert-success chrome-extension' style='margin-bottom: 7px; padding-right: 15px;'><div id='"+row.REQUEST_ID+"' class='message-title' style='height: 8px;'><span class='text'>"+row.REGION_NM + " > "+  row.VENDOR_NM + " > " + row.CAR_NM + " > " + "</span><span style='float: right;'>" + row.CREATE_DATE + "</span></div><hr class='message-inner-separator' style='margin-bottom: 10px;'><div class='info-inner' style='vertical-align: top;'>"+row.CUSTOMER_REQ +"</div>");						
+					$.each(data.list, function(idx, row) {						
+ 						$(".messages").append("<div id='contents' onclick=\"fnDetail('"+row.REQUEST_ID+"');\" class='message other alert pinned alert alert-success chrome-extension' style='margin-bottom: 7px; padding-right: 15px;'><div id='"+row.REQUEST_ID+"' class='message-title' style='height: 8px;'><span class='text'>"+row.REGION_NM + " > "+  row.VENDOR_NM + " > " + row.CAR_NM + " > " + "</span><span style='float: right;'>" + row.CREATE_DATE + "</span></div><hr class='message-inner-separator' style='margin-bottom: 10px;'><div class='info-inner' style='vertical-align: top;'>"+row.CUSTOMER_REQ + "<span class='badge badge-info' style='float: right;'>" + row.HIT_CNT + "</span></div>");						
  						$(".messages").append("</div>");
 					});
 					
@@ -70,17 +70,18 @@
 </script>
 <form id='frm' name='frm' method='post'>
 	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='7' />
-	<input type='hidden' id='hdnID' name='ID'/>
+	<input type='hidden' id='hdnRequestId' name='request_id'/>
 	<div class="messages" style="margin-bottom: -10px;">		
 		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
 			<div id="contents" onclick="fnDetail('${estimateReg.REQUEST_ID}');" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
 			    <div id="${estimateReg.REQUEST_ID}" class="message-title" style='height: 8px;'>
 			    	<span class="text" >${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}</span>
-			    	<span style='float: right;'>${estimateReg.CREATE_DATE}</span>
+			    	<span style='float: right;'>${estimateReg.CREATE_DATE}</span>			    				    
 			    </div>
 			    <hr class="message-inner-separator" style='margin-bottom: 10px;'>
 			    <div class="info-inner" style='vertical-align: top;'>
 			       ${estimateReg.CUSTOMER_REQ}
+			       <span class="badge badge-info" style='float: right;'>${estimateReg.HIT_CNT}</span>
 			    </div>
 			</div>
 		</c:forEach>

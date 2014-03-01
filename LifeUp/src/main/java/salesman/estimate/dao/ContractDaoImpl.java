@@ -43,4 +43,9 @@ public class ContractDaoImpl extends SqlSessionDaoSupport implements ContractDao
 		
 		return getSqlSession().selectList("contract.getContractReplyList", param);	
 	}		
+	
+	@Override
+	public int updateContractStatus(ContractVO contractVO) {
+		return getSqlSession().update("contract.updateContractStatus", contractVO);
+	}
 }

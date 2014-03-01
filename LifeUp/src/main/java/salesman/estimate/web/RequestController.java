@@ -17,6 +17,7 @@ import salesman.common.service.StorageService;
 import salesman.estimate.service.ContractService;
 import salesman.estimate.service.RequestService;
 import salesman.vo.account.SessionVO;
+import salesman.vo.estimate.ContractVO;
 import salesman.vo.estimate.RequestVO;
 
 
@@ -79,7 +80,7 @@ public class RequestController {
 	    	requestVO.setCustomer_id(userInfo.getUserId());
 	    	
 	    	if(requestService.registerRequest(requestVO) <= 0)
-	    		message = "failed";
+	    		message = "등록 중 오류가 발생했습니다";
 		}
 		
     	result.put("message", message);
@@ -87,13 +88,44 @@ public class RequestController {
     } 
     
     @RequestMapping("/detail")
-    public String detail(@RequestParam int ID, ModelMap model) {    	    
-    	Map<String, Object> request = requestService.getRequestDetail(ID);
-    	List<HashMap<String, Object>> contract = contractService.getContractList(ID, null);
+    public String detail(@RequestParam int request_id, ModelMap model) {    	        	
+    	// 조회수 업데이트
+    	requestService.updateRequestHitCnt(request_id);
+    	// 요구사항 상세
+    	Map<String, Object> request = requestService.getRequestDetail(request_id);
+    	// 견적서 등록리스트
+    	List<HashMap<String, Object>> contract = contractService.getContractList(request_id, null);
     	
     	model.put("request", request);   	    	
     	model.put("contract", contract);
     	
         return "estimate/request/detail";
     }
+    
+    @RequestMapping(value="/updateContractStatus", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> updateContractStatus(@RequestBody RequestVO requestVO)
+    {    	
+    	String message = "success";
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	
+		SessionVO userInfo = storageService.getAuthenticatedUser();
+		if(userInfo == null) {
+			message = "로그인 후 등록할 수 있습니다";
+		} else {			
+	    	if(requestService.updateRequestStatus(requestVO) <= 0) {
+	    		message = "상태 업데이트 중 오류가 발생했습니다";
+	    	} else {
+	    		if(requestVO.getStatus().equals("0002")) { // 확정
+	    			ContractVO contractVO = new ContractVO();
+	    			contractVO.setRequest_id(requestVO.getRequest_id());
+	    			contractVO.setSalesman_id(requestVO.getSalesman_id());
+	    			contractVO.setStatus(requestVO.getStatus());
+	    			contractService.updateContractStatus(contractVO);
+	    		}
+	    	}
+		}
+		
+    	result.put("message", message);
+    	return result;
+    }           
 }

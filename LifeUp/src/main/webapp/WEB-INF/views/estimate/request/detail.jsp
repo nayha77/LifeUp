@@ -57,7 +57,9 @@
 	    	<div style="position:relative;">    	
 		   		<input type='hidden' id='hdnRequestId' name='request_id' value='${request.REQUEST_ID}' />    
 			    <div style='float: right;'>
-			    	<input type='button' class="btn btn-primary" value='견적남기기' onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});" />
+			    	<c:if test="${sessionScope._USER_INFO_.userType == '2'}">
+			    		<input type='button' class="btn btn-primary" value='견적남기기' onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});" />
+			    	</c:if>
 			    	<input type='button' class="btn btn-primary" value='목록' onclick="fnList();" />
 			    </div>
 		    </div>
@@ -72,6 +74,7 @@
 			<c:when test="${salesDoc.SALESMAN_ID == sessionScope._USER_INFO_.userId || 
 						  request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
 				<span class="breadcrumb" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');" style="cursor:pointer;">
+					<c:if test="${salesDoc.STATUS == '0002'}"><a href="#" class="icon-ok"></a></c:if>					
 					<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
 					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 등록
 					<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 
@@ -79,6 +82,7 @@
 			</c:when>
 			<c:otherwise>
 				<span class="breadcrumb">
+					<c:if test="${salesDoc.STATUS == '0002'}"><a href="#" class="icon-ok"></a></c:if>
 					<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
 					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 등록
 					<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 

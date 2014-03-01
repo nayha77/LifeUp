@@ -39,4 +39,9 @@ public class ContractServiceImpl implements ContractService {
 	public List<HashMap<String, Object>> getContractReplyList(int request_id, String salesman_id) {
 		return contractDao.getContractReplyList(request_id, salesman_id);
 	}
+	
+	@Override
+	public int updateContractStatus(ContractVO contractVO) {
+		return contractDao.updateContractStatus(contractVO);
+	}
 }

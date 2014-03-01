@@ -5,6 +5,7 @@ import java.util.List;
 
 import salesman.vo.estimate.ContractReplyVO;
 import salesman.vo.estimate.ContractVO;
+import salesman.vo.estimate.RequestVO;
 
 public interface ContractService {
 	public int modifyContract(ContractVO contractVO);
@@ -13,4 +14,6 @@ public interface ContractService {
 	
 	public int registerContractReply(ContractReplyVO contractReplyVO);
 	public List<HashMap<String, Object>> getContractReplyList(int request_id, String salesman_id);
+	
+	public int updateContractStatus(ContractVO contractVO);
 }

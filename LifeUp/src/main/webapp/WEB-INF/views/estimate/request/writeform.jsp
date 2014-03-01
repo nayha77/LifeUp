@@ -6,7 +6,10 @@
 <script type="text/javascript">	
 	function fnLoad() {		
 		$("select[name=customer_region]").hide();
-		$("select[name=car_id]").hide();		
+		$("select[name=car_id]").hide();
+		
+		_Commn.SetDatePickter();
+		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));		
 	}
 	
 	function fnSidoChange(obj){
@@ -58,6 +61,7 @@
    							 car_trim: $('#carTrim').val(), 
    							 car_option: $('#carOption').val(),
    							 customer_region: $('#ddlGugun').val(),
+   							 purchase_period_cd: $('#purchase_period_cd').val(),
    							 customer_req: $('#customer_req').val()}),
    			function (data) {    
 				if(data.message == "success") {
@@ -111,12 +115,18 @@
   	</div>
 </div>
 <div class="row">
-	<div class="span1">요구사항</div>
+	<div class="span1">구매예정일</div>
   	<div class="span11">
+		<input type="text" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" style="width:80px;" readonly="readonly" />
+  	</div>
+</div>
+<div class="row">
+	<div class="span1">요구사항</div>
+  	<div class="span11">  		
 		<textarea id="customer_req" name="customer_req" rows="2" class="input-xlarge"></textarea>
   	</div>
 </div>
-<div class="info-inner" style='position:relative; padding-top: 15px;'>
+<div class="info-inner" style='position:relative;'>
 	<div style="position:relative;">    	    
 		<div style='float: right;'>
 			<input type='button' class="btn btn-primary" value='등록' onclick="fnSave();" />

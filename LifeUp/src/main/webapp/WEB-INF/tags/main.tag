@@ -15,6 +15,7 @@
 	<!-- Le styles -->
 	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
 	<link href='<spring:url value="/resources/css/screen.css"/>' rel='stylesheet'>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
 	<style type='text/css'>
 		body {
 			padding-top: 60px;
@@ -35,6 +36,7 @@
     <![endif]-->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src='<spring:url value="/resources/js/jquery.js"/>'></script>
+	<script src='<spring:url value="/resources/js/jquery-ui-1.10.1.min.js"/>'></script>	
 	<script src='<spring:url value="/resources/js/bootstrap-transition.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-alert.js"/>'></script>
 	<script src='<spring:url value="/resources/js/bootstrap-modal.js"/>'></script>
@@ -52,7 +54,7 @@
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
-    
+				
         $.form = function() {
             var createForm = function(method, url, params) {
                 var form = $('<form name="jquery.form"/>')

@@ -25,6 +25,11 @@ public class RequestServiceImpl implements RequestService {
 	}
 	
 	@Override
+	public int updateRequestHitCnt(int ReqId) {
+		return requestDao.updateRequestHitCnt(ReqId);
+	}
+	
+	@Override
 	public List<HashMap<String, Object>> getRequestList(int currentSeq) {
 		return requestDao.getRequestList(currentSeq);
 	}	
@@ -33,4 +38,9 @@ public class RequestServiceImpl implements RequestService {
 	public List<HashMap<String, Object>> getRequestListMore(int currentSeq) {
 		return requestDao.getRequestListMore(currentSeq);
 	}	
+	
+	@Override
+	public int updateRequestStatus(RequestVO estimateReqVO) {
+		return requestDao.updateRequestStatus(estimateReqVO);
+	}
 }

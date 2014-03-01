@@ -20,7 +20,7 @@
    			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
    			function (data) {    
 				if(data.message == 'success') {
-					document.location.href='/request/detail?ID=' + $('#hdnRequestId').val();
+					document.location.href='/request/detail?request_id=' + $('#hdnRequestId').val();
 				} else {
 					alert(data.detail);
 				}

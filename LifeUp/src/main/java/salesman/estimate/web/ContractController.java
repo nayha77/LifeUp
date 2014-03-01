@@ -21,6 +21,7 @@ import salesman.estimate.service.RequestService;
 import salesman.vo.account.SessionVO;
 import salesman.vo.estimate.ContractReplyVO;
 import salesman.vo.estimate.ContractVO;
+import salesman.vo.estimate.RequestVO;
 
 @Controller
 @RequestMapping("/contract/*")
@@ -127,4 +128,24 @@ public class ContractController {
 		result.put("message", message);	
 		return result;
 	}
+	
+    @RequestMapping(value="/contractCancel", produces={"application/xml", "application/json"} )
+    public @ResponseBody Map<String, Object> contractCancel(@RequestBody ContractVO contractVO)
+    {    	
+    	String message = "success";
+    	Map<String, Object> result = new HashMap<String, Object>();
+    	
+		SessionVO userInfo = storageService.getAuthenticatedUser();
+		if(userInfo == null) {
+			message = "로그인 후 등록할 수 있습니다";
+		} else {			
+			contractVO.setSalesman_id(userInfo.getUserId());
+	    	if(contractService.updateContractStatus(contractVO) <= 0) {
+	    		message = "상태 업데이트 중 오류가 발생했습니다";
+	    	} 
+		}
+		
+    	result.put("message", message);
+    	return result;
+    }
 }
