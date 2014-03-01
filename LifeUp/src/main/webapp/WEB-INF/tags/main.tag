@@ -113,8 +113,13 @@
         	}
         }
         
-        function fnEnterKey() {
-        	if(event.keyCode == 13) fnLogin();
+        function fnEnterKey(type) {
+        	if(event.keyCode == 13) {
+	        	if(type == "I")
+	        		$('#txtUserPwd').focus();
+	        	else if(type == "P")
+	        		fnLogin();
+        	}
         }
         
         // 로그인
@@ -279,9 +284,9 @@
 					<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
 				</div>			               
 			    <label class="control-label">아이디(이메일)</label>
-			    <div class="controls"><input type='text' id='txtUserID' /></div>                
+			    <div class="controls"><input type='text' id='txtUserID' onKeypress="fnEnterKey('I');" /></div>                
 			    <label class="control-label">비밀번호</label>
-			    <div class="controls"><input type='password' id='txtUserPwd' onKeypress='fnEnterKey();' /></div>
+			    <div class="controls"><input type='password' id='txtUserPwd' onKeypress="fnEnterKey('P');" /></div>
 			    <div class="controls"><input type="checkbox" name="chkAutoLogin" id="chkAutoLogin">ID저장</div>			    
 			</div>			                   
         </div>
