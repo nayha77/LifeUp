@@ -17,8 +17,8 @@
 			 , B.MOBILE			 
 			 , A.STATUS
 			 , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP='1002' AND CODE_CD = A.STATUS) STATUS_NM			 
-			 , A.CREATE_DATE
-			 , A.UPDATE_DATE
+			 , DATE(A.CREATE_DATE) CREATE_DATE
+			 , DATE(A.UPDATE_DATE) UPDATE_DATE
 		  FROM ESTIMATE_CONTRACT A
 		  	 , SALESMAN B
 		  	 , VENDOR C
@@ -26,13 +26,14 @@
 		   AND A.SALESMAN_ID = B.SALESMAN_ID
 		   AND A.SALESMAN_ID = IFNULL(#{salesman_id}, A.SALESMAN_ID)
 		   AND B.VENDOR_ID   = C.VENDOR_ID
+		 ORDER BY A.CREATE_DATE DESC		   
 	</select>
 		
 	<insert id="registerContract" parameterType="salesman.vo.estimate.ContractVO">
 		INSERT INTO ESTIMATE_CONTRACT(
 			REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), now()
+			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', now(), now()
 		)				
 	</insert>
 	
@@ -61,7 +62,7 @@
 			 , USE_YN
 			 , CREATE_USER_ID
 			 , CREATE_USER_NM
-			 , CREATE_DATE
+			 , DATE(CREATE_DATE) CREATE_DATE
 		  FROM ESTIMATE_REPLY
 		 WHERE REQUEST_ID  = #{request_id}
 		   AND SALESMAN_ID = #{salesman_id} 

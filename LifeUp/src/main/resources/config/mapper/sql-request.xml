@@ -7,7 +7,7 @@
 		INSERT INTO estimate_request (
 			customer_id, region_cd, car_id, car_model, car_option, customer_req, status, create_date
 		) VALUES (
-			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option},#{customer_req},'0001', sysdate()
+			#{customer_id}, #{region_cd}, #{car_id}, #{car_model}, #{car_option},#{customer_req},'0001', now()
 		)			
 	</insert>
 
@@ -30,13 +30,13 @@
 					   , a.CUSTOMER_REQ
 					   , a.STATUS
 					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
-					   , a.CREATE_DATE
-					   , a.UPDATE_DATE
+					   , DATE(a.CREATE_DATE) CREATE_DATE
+					   , DATE(a.UPDATE_DATE) UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
 				    FROM ESTIMATE_REQUEST a
 				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
-				   ORDER BY a.REQUEST_ID DESC
+				   ORDER BY a.CREATE_DATE DESC
 			   ) b 
 		  limit 0, #{currentSeq};
 	</select>
@@ -60,14 +60,15 @@
 					   , a.CUSTOMER_REQ
 					   , a.STATUS
 					   , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
-					   , a.CREATE_DATE
-					   , a.UPDATE_DATE
+					   , DATE(a.CREATE_DATE) CREATE_DATE
+					   , DATE(a.UPDATE_DATE) UPDATE_DATE
 					   , a.PURCHASE_PERIOD_CD
 				    FROM ESTIMATE_REQUEST a
 					LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
-			   ) b 
-		  limit #{currentSeq}, 5;
+				   ORDER BY a.CREATE_DATE DESC
+			   ) b 			   
+		  limit #{currentSeq}, 7;
 	</select>
 	
 	<!-- 견적의뢰 상세화면-->
@@ -86,7 +87,7 @@
 		     , A.CUSTOMER_REQ
 			 , A.STATUS
 		     , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP = '1001' AND CODE_CD = A.STATUS) STATUS_NM
-		     , A.CREATE_DATE
+			 , DATE(A.CREATE_DATE) CREATE_DATE
 			 , A.PURCHASE_PERIOD_CD
 		  FROM ESTIMATE_REQUEST A
 		     , REGION B
@@ -96,7 +97,6 @@
 		   AND A.CAR_ID     = C.CAR_ID
 		   AND C.VENDOR_ID  = D.VENDOR_ID 
 		   AND A.REQUEST_ID = #{ReqId}
-	</select>
-	
+	</select>	
 
 </mapper>

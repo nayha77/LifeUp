@@ -2,30 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
 
 <mapper namespace="main">
-
-	<!-- 오늘 날짜를 가지고 온다  -->
-	<select id="getToday" resultType="java.lang.String">
-	  select now() 
-	</select>
 	
 	<insert id="formInsert">
-	
-	insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{reg_id},sysdate())
-	
+		insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{reg_id},sysdate())	
 	</insert>
 	
-	<select id="getList"   resultType="java.util.HashMap">
-	select id,title,reg_id from board
+	<select id="getList" resultType="java.util.HashMap">
+		select id,title,reg_id from board
 	</select>
 	
-	<select id="getView"  resultType="salesman.model.Post">
+	<select id="getView" resultType="salesman.model.Post">
 	SELECT 
 	id,
     reg_id,
     title,
     content,
-    create_date,
-    update_date
+    DATE(create_date) create_date,
+    DATE(update_date) update_date
 	FROM board
 	WHERE id =#{postNo}
 	</select>

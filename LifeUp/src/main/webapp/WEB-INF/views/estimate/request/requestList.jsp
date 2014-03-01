@@ -13,8 +13,7 @@
 </style>
 <script type="text/javascript">
 	function fnLoad() {		     
-		fnInit();		
-		
+		fnInit();				
 		$('#hdnCurrentSeq').val(${param.currentSeq});
 	}
 	
@@ -70,7 +69,7 @@
 	}
 </script>
 <form id='frm' name='frm' method='post'>
-	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='5' />
+	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='7' />
 	<input type='hidden' id='hdnID' name='ID'/>
 	<div class="messages" style="margin-bottom: -10px;">		
 		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">

@@ -40,7 +40,7 @@ public class RequestController {
     public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
     {
     	if(currentSeq == null || currentSeq == "")
-    		currentSeq = "5";
+    		currentSeq = "7";
     	
         model.put("estimateRegList", requestService.getRequestList(Integer.parseInt(currentSeq)));
     	return "estimate/request/requestList";
@@ -53,7 +53,7 @@ public class RequestController {
     	List<HashMap<String, Object>> list = requestService.getRequestListMore(currentSeq);    	
     	    
     	result.put("list", list);    	
-    	result.put("currentSeq", currentSeq + 5);
+    	result.put("currentSeq", currentSeq + 7);
     	
     	return result;
     }     
