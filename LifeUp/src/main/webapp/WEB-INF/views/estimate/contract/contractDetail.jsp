@@ -68,11 +68,13 @@
    			function (data) {    
 				if(data.message == 'success') {
 					if($('.replyMsg').length > 0)
-						$('#divReply').append("<hr class='message-inner-separator' style='margin-top: 8px; margin-bottom: 8px;'>");					
+						$('#divReply').append("<hr class='message-inner-separator' style='margin-bottom: 5px; margin-top: 9px;'>");
 					
-					$('#divReply').append("<div class='replyMsg'>");
-					$('#divReply').append("<span style='padding-right: 10px;'>${sessionScope._USER_INFO_.userNm}</span>");
-					$('#divReply').append("<span>" + $('#tbxShortMsg').val().trim() + "</span>");
+					$('#divReply').append("<div class='message-title' style='height: 13px;'>");
+					$('#divReply').append("<span class='replyMsg'>");
+					$('#divReply').append("<span>${sessionScope._USER_INFO_.userNm}</span>");
+					$('#divReply').append("<span style='padding-left:9px;'>" + $('#tbxShortMsg').val().trim() + "</span>");
+					$('#divReply').append("</span>");
 					$('#divReply').append("</div>");
 					
 					$('#replyContainer').show();
@@ -89,64 +91,119 @@
 		document.frm.submit();
 	}
 </script>
-<form id='frm' name='frm' method="post">		
-	<div class="messages" style="margin-bottom: -10px;">
-		<div id="contents" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
-			<div class="message-title" style='height: 8px; position:relative; padding-top: 10px;'>
-				<div style="float: left;">
-		    		<span class="label label-info">${requestDetail.STATUS_NM} > ${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.CAR_NM}</span>
-		    	</div>
-		    	<div style="float: right;">
-		    		<span class="label">${requestDetail.CUSTOMER_NM}</span>
-		    	</div>    				    				
-			</div>
-			<div class="info-inner" style='padding-top: 18px;'>
-		       	<div class="label label-info">옵션</div>
-		       	<div class="request-detail" style="height: 25px; padding-bottom: 0px;">${requestDetail.CAR_OPTION}</div>       	
-		       	<div class="label label-info">요구사항</div>
-		       	<div class="request-detail" style='height: 50px; overflow-y:auto;overflow-x:hidden;'>
-		       		${requestDetail.CUSTOMER_REQ}
-		       	</div>		
-			</div>		
-		</div>		
-		<hr class="message-inner-separator" style="margin-top: 2px; margin-bottom: 7px;">
-	    <div class="info-inner" style='position:relative;'>
-	    	<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    	
-	    	<div style="position:relative;">    		   						   		   
-				<c:forEach items="${contractDetail}" var="detail" varStatus="loop">
-					<input type='hidden' id='hdnSalesman_id' name='salesman_id' value='${detail.SALESMAN_ID}' />
-					<c:choose>
-					<c:when test="${detail.SALESMAN_ID == sessionScope._USER_INFO_.userId}">
-						<div>				    	    	
-							<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="3" class="input-xlarge">${detail.SALESMAN_BENEFIT}</textarea>				
+<form id='frm' name='frm' method="post">
+	<div class="messages">		
+		<div id="contents" onclick="" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
+		    <div id="" class="message-title" style='height: 8px;'>
+		    	<span class="text">
+		    		<span class="label label-info">지역/차종</span>
+		    		<span style="padding-left:5px;">${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</span>
+		    	</span>			    				    
+		    </div>
+		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
+		    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
+		    	<span class="text">
+		    		<span class="label label-info">등록상태</span>
+		    		<span style="padding-left:5px;">${requestDetail.STATUS_NM}</span>
+		    		<span style='float: right;'>
+			    		<span class="label label-info">요청자</span>
+			    		<span style="padding-left:5px; margin-right:30px;">${requestDetail.CUSTOMER_NM}</span>
+		    		</span>
+		    	</span>
+		    </div>		    
+		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
+		    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
+		    	<span class="text">
+		    		<span class="label label-info">차량옵션</span>
+		    		<span style="padding-left:5px;">${requestDetail.CAR_OPTION}</span>
+		    		<span style='float: right;'>
+			    		<span class="label label-info">구매예정일</span>
+			    		<span style="padding-left:5px;">${requestDetail.PURCHASE_PERIOD_CD}</span>
+		    		</span>
+		    	</span>
+		    </div>	
+		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
+		    <div class="info-inner" style='vertical-align: middle; height: 55px;'>
+		    	<span class="text">
+		    		<span class="label label-info">요구사항</span>
+		    		<span style="padding-left:5px; height: 50px; overflow-y:auto;overflow-x:hidden;">${requestDetail.CUSTOMER_REQ}</span>
+		    	</span>
+		    </div>		    
+		</div>
+	</div>	
+	<c:forEach items="${contractDetail}" var="detail" varStatus="loop">
+		<div class="messages">		
+		    <div id="contents" onclick="" class="breadcrumb" style="margin-bottom: 7px;">
+		    	<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    	   		   						   		   			
+				<input type='hidden' id='hdnSalesman_id' name='salesman_id' value='${detail.SALESMAN_ID}' />
+				<c:choose>
+					<c:when test="${detail.SALESMAN_ID == sessionScope._USER_INFO_.userId}">					
+						<div class="info-inner" style='vertical-align: middle; height: 80px; margin-top: 3px;'>
+							<span class="label label-info">견적내용</span>
+							<span>				    	    	
+								<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="3" class="input-xlarge">${detail.SALESMAN_BENEFIT}</textarea>
+							</span>				
 						</div>
-					    <div style='float: right;'>					    					    
-					    	<c:if test="${detail.STATUS == '0001'}">
-					    		<input type='button' class="btn btn-warning" value='수정' onclick="fnSave();" />
-					    		<input type='button' id="btnCancel" class="btn btn-info" value='등록취소' onclick="fnCancel();" />
-					    	</c:if>				    											    	
-					    	<input type='button' class="btn" value='이전' onclick="fnMoveBack();" />
+					</c:when>
+					<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">				
+					    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
+					    	<span class="text">
+					    		<span class="label label-info">제안일자</span>
+					    		<span style="padding-left:5px;">${detail.CREATE_DATE}</span>
+					    	</span>
+					    </div>						
+						<hr class="message-inner-separator" style='margin-bottom: 5px;'>
+					    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
+					    	<span class="text">
+					    		<span class="label label-info">영업사원</span>
+					    		<span style="padding-left:5px;">${detail.VENDOR_NM} > ${detail.LOCATION} > ${detail.SALESMAN_NM}</span>
+					    	</span>
+					    </div>						
+						<hr class="message-inner-separator" style='margin-bottom: 5px;'>					
+					    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
+					    	<span class="text">
+					    		<span class="label label-info">핸드폰번호</span>
+					    		<span style="padding-left:5px;">${detail.MOBILE}</span>
+					    	</span>
+					    </div>	
+					    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
+					    <div class="info-inner" style='vertical-align: middle; height: 55px;'>
+					    	<span class="text">
+					    		<span class="label label-info">견적내용</span>
+					    		<span style="padding-left:5px; height: 50px; overflow-y:auto;overflow-x:hidden;">${detail.SALESMAN_BENEFIT}</span>
+					    	</span>
 					    </div>
 					</c:when>
-					<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
-						<div class="breadcrumb" style="margin-bottom: 8px;">
-							<div>[${detail.CREATE_DATE}] ${detail.VENDOR_NM} > ${detail.LOCATION} > ${detail.SALESMAN_NM} - ${detail.MOBILE}</div>
-							<hr class="message-inner-separator" style='margin-top: 8px; margin-bottom: 8px;'>
-							<div>${detail.SALESMAN_BENEFIT}</div>
-						</div>
-					    <div style='float: right;'>
+				</c:choose>    		    			    						    		   
+		    </div>
+		</div>
+	    <div class="messages">		
+		    <div id="contents">			    
+				<c:choose>
+				    <c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
+					    <div style='float: right; padding-bottom:5px;'>
 					    	<c:if test="${requestDetail.STATUS == '0001'}">				    	
 								<input type='button' id="btnConfirm" class="btn btn-warning" value='거래확정' onclick="fnConfirm();" />
 							</c:if>
 					    	<input type='button' class="btn" value='이전' onclick="fnMoveBack();" />
 					    </div>					
-					</c:when>
-					</c:choose>    		    			    
-				</c:forEach>			    		    
-		    </div>
-		    <div style="height: 30px;"></div>
-	    </div>	   
-	    <c:if test="${requestDetail.STATUS != '0003'}">
+				   	</c:when>	
+					<c:otherwise>	    
+					    <div class="info-inner" style='float: right; margin-top: 0px;'>					    					    
+					    	<c:if test="${detail.STATUS == '0001'}">
+					    		<input type='button' class="btn btn-warning" value='수정' onclick="fnSave();" />
+					    		<input type='button' id="btnCancel" class="btn btn-info" value='등록취소' onclick="fnCancel();" />
+					    	</c:if>				    												    	
+					    	<input type='button' class="btn" value='이전' onclick="fnMoveBack();" />
+					    </div>						
+					</c:otherwise>	    
+	   			</c:choose>
+	   		</div>
+	   	</div>   	
+   	</c:forEach>
+    <c:if test="${requestDetail.STATUS != '0003'}">
+    <div class="messages" style="padding-top: 32px;">		
+	    <div id="contents">
 		    <div class="info-inner" style='position:relative;'>   	
 		    	<span style="float: left; width: 85%">
 					<textarea id='tbxShortMsg' name='message' rows="2" class="input-xlarge"></textarea>
@@ -155,23 +212,26 @@
 					<input type="button" id="btnReply" value="댓글" class="btn btn-warning" style="width: 43px; height: 43px;" onclick="fnReply();" />
 				</span>
 		    </div>
-	    </c:if>
-	    <div style="height: 50px;"></div>       	   
-	    <div id="replyContainer" class="info-inner" style='position:relative; height:100%; display: none;'>    	   	
-			<div id="divReply" class="breadcrumb" style="margin-bottom: 8px;">
-				<c:forEach items="${contractReply}" var="reply" varStatus="loop">
-					<div class='replyMsg'>
-						<span style='padding-right: 10px;'>${reply.CREATE_USER_NM}</span>
-						<span>${reply.MESSAGE}</span>
-						<span style='float: right;'>${reply.CREATE_DATE}</span>
-					</div>
-					<c:if test="${!loop.last}">
-						<hr class="message-inner-separator" style='margin-top: 8px; margin-bottom: 8px;'>
-					</c:if>
-				</c:forEach>
-			</div>
-	    </div>   
+	    </div>
 	</div>
+    </c:if>    		      
+	<div id="replyContainer" class="messages" style="display: none;">
+		<div style="height:50px;"></div>	
+		<div id="divReply" onclick="" class="breadcrumb" style="padding-right: 15px;">
+			<c:forEach items="${contractReply}" var="reply" varStatus="loop">
+			    <div class="message-title" style='height: 13px;'>
+			    	<span class="replyMsg">
+			    		<span>${reply.CREATE_USER_NM}</span>
+				    	<span style="padding-left:9px;">${reply.MESSAGE}</span>
+				    	<span style='float: right;'>${reply.CREATE_DATE}</span>
+			    	</span>		    				    
+			    </div>
+			    <c:if test="${!loop.last}">
+			    	<hr class="message-inner-separator" style='margin-bottom: 5px; margin-top: 9px;'>
+			    </c:if>
+		    </c:forEach>
+		</div>
+	</div>		        	
 </form>	
 <c:if test="${not empty contractReply}">
 <script type="text/javascript">

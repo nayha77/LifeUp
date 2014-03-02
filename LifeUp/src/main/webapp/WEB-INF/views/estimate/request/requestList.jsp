@@ -30,7 +30,7 @@
 	
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
-			alert('일반사용자는 로그인 후 등록할 수 있습니다');
+			alert('일반사용자만이 등록할 수 있습니다');
 			return;
 		}
 		
@@ -92,7 +92,9 @@
 		<li id='moreView'>더보기</li>
 	</ul>
 </div>
-<div style='float: right;'>
-	<span class="breadcrumb" onclick="fnWrite(${sessionScope._USER_INFO_.userType});" style="cursor: pointer;">등록</span>
-</div>				
+<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}" >
+	<div style='float: right;'>
+		<span class="breadcrumb" onclick="fnWrite(${sessionScope._USER_INFO_.userType});" style="cursor: pointer;">등록</span>
+	</div>				
+</c:if>
 </mvc:main>

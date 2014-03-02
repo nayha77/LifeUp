@@ -110,7 +110,7 @@
 	
 	<update id="updateRequestStatus">
 		UPDATE estimate_request
-		   SET STATUS     = ${status}
+		   SET STATUS     = #{status}
 		 WHERE REQUEST_ID = #{request_id}
 	</update>
 

@@ -130,7 +130,7 @@
 	<div style="position:relative;">    	    
 		<div style='float: right;'>
 			<input type='button' class="btn btn-primary" value='등록' onclick="fnSave();" />
-			<input type='button' class="btn btn-primary" value='목록' onclick="history.back(-1);" />
+			<input type='button' class="btn btn-primary" value='목록' onclick="location.href='/request/list'" />
 		</div>
 	</div>
 </div>	

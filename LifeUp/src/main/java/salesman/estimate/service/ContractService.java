@@ -5,7 +5,6 @@ import java.util.List;
 
 import salesman.vo.estimate.ContractReplyVO;
 import salesman.vo.estimate.ContractVO;
-import salesman.vo.estimate.RequestVO;
 
 public interface ContractService {
 	public int modifyContract(ContractVO contractVO);

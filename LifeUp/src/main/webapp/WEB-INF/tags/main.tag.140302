@@ -255,26 +255,13 @@
                     </c:if>
                 </div>
 				<div class='nav-collapse'>
-	                <ul class="nav nav-list">	                
-	                	<div class="well">	                	
-						    <ul class="nav nav-list">
-								<c:if test="${not empty sessionScope._USER_INFO_}">
-									<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
-									<li><a href='#' onclick="fnMyInfo();">내거래현황</a></li>
-									<hr class="message-inner-separator" style='margin-top: 5px; margin-bottom: 5px;'>
-								</c:if>	              								   
-							  	<li><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
-							  	<li><a href='<spring:url value="/notice/post"/>'>FAQ</a></li>
-							  	<li><a href='<spring:url value="/notice/post"/>'>Q&A</a></li>
-							  	<hr class="message-inner-separator" style='margin-top: 5px; margin-bottom: 5px;'>
-							  	<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}">
-							  		<li><a href='<spring:url value="/request/writeform"/>'>견적의뢰</a></li>
-							  	</c:if>
-							  	<li><a href='<spring:url value="/request/list"/>'>의뢰목록</a></li>
-							  	<li><a href='<spring:url value="/request/list"/>'>영업랭킹</a></li>
-						    </ul>
-						</div>	                  
-					</ul>				
+					<ul class='nav'>
+						<li class='active'><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
+						<li class='active'><a href='<spring:url value="/request/list"/>'>의뢰목록</a></li>
+						<c:if test="${not empty sessionScope._USER_INFO_}">
+							<li class='active'><a href='#' onclick="fnMyInfo();">내정보</a></li>							
+						</c:if>						
+					</ul>
 				</div>
 				<!--/.nav-collapse -->
 			</div>
