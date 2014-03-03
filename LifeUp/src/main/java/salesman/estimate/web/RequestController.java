@@ -136,8 +136,10 @@ public class RequestController {
     	model.put("user_id", user_id);
     	model.put("user_pw", user_pw);   	
     	model.put("user_hpid", user_hpid);
-    	
-    	System.out.println(user_hpid);
+
+    	System.out.println("HP >>>>>>>>>>>>>" + user_id);
+    	System.out.println("HP >>>>>>>>>>>>>" + user_pw);
+    	System.out.println("HP >>>>>>>>>>>>>" + user_hpid);
     	
     	// 사용자 찾기 .. 일반 회원인지 영업 사원인지..
     	/*
