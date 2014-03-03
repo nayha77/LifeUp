@@ -3,12 +3,77 @@
 
 <mapper namespace="contract">
 	
+	<select id="getContractList" resultType="java.util.HashMap">
+		SELECT A.REQUEST_ID
+			 , A.SALESMAN_ID
+			 , B.SALESMAN_NM
+			 , B.PHOTO
+			 , B.STAR_POINT
+			 , B.COMP_POINT
+			 , A.SALESMAN_BENEFIT
+			 , A.STAR_POINT
+			 , C.VENDOR_NM
+			 , B.LOCATION
+			 , B.MOBILE			 
+			 , A.STATUS
+			 , (SELECT CODE_NM FROM CODES WHERE CODE_GROUP='1002' AND CODE_CD = A.STATUS) STATUS_NM			 
+			 , DATE(A.CREATE_DATE) CREATE_DATE
+			 , DATE(A.UPDATE_DATE) UPDATE_DATE
+		  FROM ESTIMATE_CONTRACT A
+		  	 , SALESMAN B
+		  	 , VENDOR C
+		 WHERE A.REQUEST_ID  = #{reqId}
+		   AND A.SALESMAN_ID = B.SALESMAN_ID
+		   AND A.SALESMAN_ID = IFNULL(#{salesman_id}, A.SALESMAN_ID)
+		   AND B.VENDOR_ID   = C.VENDOR_ID
+		 ORDER BY A.CREATE_DATE DESC		   
+	</select>
+		
 	<insert id="registerContract" parameterType="salesman.vo.estimate.ContractVO">
 		INSERT INTO ESTIMATE_CONTRACT(
 			REQUEST_ID, SALESMAN_ID, SALESMAN_BENEFIT, STAR_POINT, STATUS, CREATE_DATE, UPDATE_DATE
 		) VALUES (
-			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', sysdate(), sysdate()
+			#{request_id}, #{salesman_id}, #{salesman_benefit}, 0, '0001', now(), now()
 		)				
 	</insert>
 	
+	<update id="modifyContract" parameterType="salesman.vo.estimate.ContractVO">
+		UPDATE ESTIMATE_CONTRACT
+		   SET SALESMAN_BENEFIT = #{salesman_benefit}
+		     , STAR_POINT       = IFNULL(#{star_point}, STAR_POINT)
+		     , STATUS           = IFNULL(#{status}, STATUS)
+		     , UPDATE_DATE      = now()
+		 WHERE REQUEST_ID  = #{request_id}
+		   AND SALESMAN_ID = #{salesman_id} 
+	</update>
+	
+	<insert id="registerContractReply" parameterType="salesman.vo.estimate.ContractReplyVO">
+		INSERT INTO ESTIMATE_REPLY (
+			REQUEST_ID, SALESMAN_ID, MESSAGE, USE_YN, CREATE_USER_ID, CREATE_USER_NM, CREATE_DATE
+		) VALUES (
+			#{request_id}, #{salesman_id}, #{message}, 'Y', #{create_user_id}, #{create_user_nm}, now()
+		)
+	</insert>
+	
+	<select id="getContractReplyList" resultType="java.util.HashMap">
+		SELECT REQUEST_ID
+			 , SALESMAN_ID
+			 , MESSAGE
+			 , USE_YN
+			 , CREATE_USER_ID
+			 , CREATE_USER_NM
+			 , DATE(CREATE_DATE) CREATE_DATE
+		  FROM ESTIMATE_REPLY
+		 WHERE REQUEST_ID  = #{request_id}
+		   AND SALESMAN_ID = #{salesman_id} 
+		   AND USE_YN      = 'Y'
+		 ORDER BY CREATE_DATE ASC 	 
+	</select>
+	
+	<update id="updateContractStatus">
+		UPDATE ESTIMATE_CONTRACT
+		   SET STATUS      = #{status}
+		 WHERE REQUEST_ID  = #{request_id}
+		   AND SALESMAN_ID = #{salesman_id}
+	</update>	
 </mapper>
