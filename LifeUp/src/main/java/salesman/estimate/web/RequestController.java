@@ -129,9 +129,10 @@ public class RequestController {
     	result.put("message", message);
     	return result;
     }
+    
     @RequestMapping(value="/app" ,method=RequestMethod.POST)
     public String appPost(@RequestParam String user_id,@RequestParam String user_pw,@RequestParam String user_hpid ,ModelMap model){
-    	
+
     	model.put("user_id", user_id);
     	model.put("user_pw", user_pw);   	
     	model.put("user_hpid", user_hpid);   	
