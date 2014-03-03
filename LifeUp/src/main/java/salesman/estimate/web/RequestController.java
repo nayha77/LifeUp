@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -127,5 +128,14 @@ public class RequestController {
 		
     	result.put("message", message);
     	return result;
-    }           
+    }
+    @RequestMapping(value="/app" ,method=RequestMethod.POST)
+    public String appPost(@RequestParam String user_id,@RequestParam String user_pw,@RequestParam String user_hpid ,ModelMap model){
+    	
+    	model.put("user_id", user_id);
+    	model.put("user_pw", user_pw);   	
+    	model.put("user_hpid", user_hpid);   	
+    	
+    	return "estimate/request/app";
+    }
 }
