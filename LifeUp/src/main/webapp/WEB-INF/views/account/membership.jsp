@@ -143,13 +143,13 @@
         });		
 	}
 	
-	function fnRegister() {		
+/* 	function fnRegister() {		
 		if($('#divNormalCase').is($('#divNormalCase').show())) {
 			document.frmNormal.submit();
 		} else {
 			document.frmSales.submit();
 		}	
-	}	
+	}	*/
 	
 	function fnChangeRegion(obj) {				
 		_Async.post (

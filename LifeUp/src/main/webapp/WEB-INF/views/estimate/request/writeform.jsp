@@ -5,7 +5,7 @@
 <mvc:main>
 <script type="text/javascript">	
 	function fnLoad() {		
-		$("select[name=customer_region]").hide();
+		$("select[name=region_cd]").hide();
 		$("select[name=car_id]").hide();
 		
 		_Commn.SetDatePickter();
@@ -16,7 +16,7 @@
 		if(obj.value == '0')			
 			return;
  		
- 		$("select[name=customer_region]").find("option").remove().end().append("<option value=\"0\">선택</option>");
+ 		$("select[name=region_cd]").find("option").remove().end().append("<option value=\"0\">선택</option>");
  
  		_Async.post (
    			"/regionSecondJson",
@@ -24,10 +24,10 @@
    			function (data) {    
 				var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
 				$.each(resultData, function(index, row){	    		      		
-					$("select[name=customer_region]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
+					$("select[name=region_cd]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
 				});
 
-				$("select[name=customer_region]").show();
+				$("select[name=region_cd]").show();
    			}    			
    		);   	         
 	}	
@@ -53,14 +53,43 @@
    		);   	       
 	}	
 	
-	function fnSave() {
+	function fnSave() {		
+		var check = true;
+		
+		$('.error').hide();
+		
+		if($('#ddlSido').val() == "" || $('#ddlGugun').val() == "0") {
+			check = false;
+			$('#ddlGugun').after('<label class="error">거주지역을 선택하세요</label>');
+		} else if($('#ddlVendor').val() == "" || $('#ddlCar').val() == "") {
+			check = false;
+			$('#ddlCar').after('<label class="error">차량을 선택하세요</label>');
+		} else if($('#carTrim').val() == "") {
+			check = false;
+			$('#carTrim').focus();
+			$('#carTrim').after('<label class="error">트림을 입력하세요</label>');
+		} else if($('#carOption').val() == "") {
+			check = false;
+			$('#carOption').focus();
+			$('#carOption').after('<label class="error">옵션을 입력하세요</label>');			
+		} else if($('#purchase_period_cd').val() == "") {
+			check = false;
+			$('.ui-datepicker-trigger').after('<label class="error">예상구매일을 입력 하세요</label>');
+		} else if($('#customer_req').val() == "") {
+			check = false;
+			$('#customer_req').focus();
+			$('#customer_req').after('<label class="error">요구사항을 입력 하세요</label>');
+		}				
+		
+		if(check == false)
+			return;
+		
    	    _Async.post (
    			"/request/writing",
    			JSON.stringify({ region_cd: $('#ddlGugun').val(), 
    							 car_id: $('#ddlCar').val(), 
    							 car_trim: $('#carTrim').val(), 
    							 car_option: $('#carOption').val(),
-   							 customer_region: $('#ddlGugun').val(),
    							 purchase_period_cd: $('#purchase_period_cd').val(),
    							 customer_req: $('#customer_req').val()}),
    			function (data) {    
@@ -75,24 +104,24 @@
 </script>
 <form id='frm' name='frm' method='post'>
 <div class="row">
-	<div class="span1">지역</div>
+	<div class="span1"><i class="icon-check"></i>지역</div>
   	<div class="span11">
 		<select name="ddlSido" id="ddlSido" class="input-xlarge" onchange="fnSidoChange(this);" >
-			<option value="0">선택</option>
+			<option value=''>선택</option>
 			<c:forEach items="${sidos}" var="sido">
 				<option value="${sido.sido}">${sido.sido}</option>
 			</c:forEach>
 		</select>
-		<select name="customer_region" id="ddlGugun" class='input-xlarge'>
+		<select name="region_cd" id="ddlGugun" class='input-xlarge'>
 			<option value=''>선택</option>
 		</select>		
   	</div>
 </div>
 <div class="row">
-	<div class="span1">차량</div>
+	<div class="span1"><i class="icon-check"></i>차량</div>
   	<div class="span11">
 		<select name="ddlVendor" id="ddlVendor" class="input-xlarge" onchange="fnVenderChange(this);" >
-	    	<option value="0">선택</option>
+	    	<option value=''>선택</option>
 	   		<c:forEach items="${venders}" var="vender">
 	   			<option value="${vender.code}">${vender.value}</option>
 	   		</c:forEach>
@@ -103,25 +132,25 @@
   	</div>
 </div>
 <div class="row">
-	<div class="span1">트림</div>
+	<div class="span1"><i class="icon-check"></i>트림</div>
   	<div class="span11">
 		<input type="text" id="carTrim" name="car_trim" class="input-xlarge" />
   	</div>
 </div>
 <div class="row">
-	<div class="span1">옵션</div>
+	<div class="span1"><i class="icon-check"></i>옵션</div>
   	<div class="span11">
 		<input type="text" id="carOption" name="car_option" class="input-xlarge" />
   	</div>
 </div>
 <div class="row">
-	<div class="span1">구매예정일</div>
+	<div class="span1"><i class="icon-check"></i>구매예정일</div>
   	<div class="span11">
 		<input type="text" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" style="width:80px;" readonly="readonly" />
   	</div>
 </div>
 <div class="row">
-	<div class="span1">요구사항</div>
+	<div class="span1"><i class="icon-check"></i>요구사항</div>
   	<div class="span11">  		
 		<textarea id="customer_req" name="customer_req" rows="2" class="input-xlarge"></textarea>
   	</div>

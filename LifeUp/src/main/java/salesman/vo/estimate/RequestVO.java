@@ -8,7 +8,6 @@ public class RequestVO {
 	private String car_id;
 	private String car_trim;
 	private String car_option;
-	private String customer_region;
 	private String purchase_period_cd;
 	private String customer_req;	
 	private String status;
@@ -50,12 +49,6 @@ public class RequestVO {
 	}
 	public void setCar_option(String car_option) {
 		this.car_option = car_option;
-	}
-	public String getCustomer_region() {
-		return customer_region;
-	}
-	public void setCustomer_region(String customer_region) {
-		this.customer_region = customer_region;
 	}	
 	public String getPurchase_period_cd() {
 		return purchase_period_cd;
