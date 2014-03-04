@@ -1,4 +1,4 @@
-	package salesman.estimate.web;
+package salesman.estimate.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,26 +37,39 @@ public class RequestController {
     @Autowired
     private StorageService storageService;	
     
+    private int pageRecordCnt = 7;
+    
     @RequestMapping("/list")
     public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
     {
     	if(currentSeq == null || currentSeq == "")
-    		currentSeq = "7";
+    		currentSeq = String.valueOf(this.pageRecordCnt);
     	
-        model.put("estimateRegList", requestService.getRequestList(Integer.parseInt(currentSeq)));
+    	Map<String, Object> param = new HashMap<String, Object>();
+    	param.put("startIdx", 0);
+    	param.put("endIdx", Integer.parseInt(currentSeq));
+    	
+        model.put("estimateRegList", requestService.getRequestList(param));
     	return "estimate/request/requestList";
     } 
     
     @RequestMapping(value="/listJson", produces={"application/xml", "application/json"} )
-    public @ResponseBody Map<String, Object> listJson(@RequestBody int currentSeq)
+    public @ResponseBody Map<String, Object> listJson(@RequestBody String currentSeq)
     {
-    	Map<String, Object> result = new HashMap<String, Object>();    	
-    	List<HashMap<String, Object>> list = requestService.getRequestListMore(currentSeq);    	
-    	    
-    	result.put("list", list);    	
-    	result.put("currentSeq", currentSeq + 7);
+    	if(currentSeq == null || currentSeq == "")
+    		return null;
     	
-    	return result;
+    	Map<String, Object> arrData = new HashMap<String, Object>();     	    	
+    	arrData.put("startIdx", Integer.parseInt(currentSeq));
+    	arrData.put("endIdx", this.pageRecordCnt);
+    	
+    	List<HashMap<String, Object>> list = requestService.getRequestList(arrData);    	
+    	arrData.clear();    
+    	
+    	arrData.put("list", list);    	
+    	arrData.put("currentSeq", currentSeq + 7);
+    	
+    	return arrData;
     }     
     
     @RequestMapping("/writeform")

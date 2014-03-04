@@ -68,10 +68,39 @@
     	); 
 	}
 </script>
+<ul class="nav nav-tabs" style="margin-bottom: 8px; margin-top: -10px;">
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">전체</a>
+	</li>
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">상태<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<a href="#">진행중</a>
+			<a href="#">거래완료</a>
+		</ul>		
+	</li>	
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">업체<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<a href="#">현대</a>
+			<a href="#">기아</a>
+			<a href="#">쌍용</a>
+			<a href="#">한국GM</a>			
+		</ul>
+	</li>	
+	<li class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">지역<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+			<a href="#">서울</a>
+			<a href="#">경기</a>
+			<a href="#">충정도</a>
+		</ul>		
+	</li>					
+</ul>
 <form id='frm' name='frm' method='post'>
 	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='7' />
 	<input type='hidden' id='hdnRequestId' name='request_id'/>
-	<div class="messages" style="margin-bottom: -10px;">		
+	<div class="messages" style="margin-bottom: 0px;">		
 		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
 			<div id="contents" onclick="fnDetail('${estimateReg.REQUEST_ID}');" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
 			    <div id="${estimateReg.REQUEST_ID}" class="message-title" style='height: 8px;'>

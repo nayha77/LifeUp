@@ -3,6 +3,7 @@ package salesman.estimate.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -27,18 +28,11 @@ public class RequestDaoImpl extends SqlSessionDaoSupport implements RequestDao{
 	
 	
 	@Override
-	public List<HashMap<String, Object>> getRequestList(int currentSeq) {
+	public List<HashMap<String, Object>> getRequestList(Map<String, Object> param) {
 		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
-		estimateReglist = getSqlSession().selectList("request.getRequestList", currentSeq);
+		estimateReglist = getSqlSession().selectList("request.getRequestList", param);
 		return estimateReglist;
-	}
-	
-	@Override
-	public List<HashMap<String, Object>> getRequestListMore(int currentSeq) {
-		List<HashMap<String, Object>> estimateReglist = new ArrayList<HashMap<String,Object>>();
-		estimateReglist = getSqlSession().selectList("request.getRequestListMore", currentSeq);
-		return estimateReglist;
-	}
+	}	
 	
 	@Override
 	public int updateRequestStatus(RequestVO estimateReqVO) {

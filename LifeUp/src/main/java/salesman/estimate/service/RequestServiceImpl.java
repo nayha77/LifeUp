@@ -2,6 +2,7 @@ package salesman.estimate.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import salesman.estimate.dao.RequestDao;
 import salesman.vo.estimate.RequestVO;
@@ -30,14 +31,9 @@ public class RequestServiceImpl implements RequestService {
 	}
 	
 	@Override
-	public List<HashMap<String, Object>> getRequestList(int currentSeq) {
-		return requestDao.getRequestList(currentSeq);
-	}	
-	
-	@Override
-	public List<HashMap<String, Object>> getRequestListMore(int currentSeq) {
-		return requestDao.getRequestListMore(currentSeq);
-	}	
+	public List<HashMap<String, Object>> getRequestList(Map<String, Object> param) {
+		return requestDao.getRequestList(param);
+	}		
 	
 	@Override
 	public int updateRequestStatus(RequestVO estimateReqVO) {
