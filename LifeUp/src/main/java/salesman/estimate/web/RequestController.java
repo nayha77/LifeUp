@@ -80,26 +80,7 @@ public class RequestController {
     	model.put("sidos", codeService.selectRegionSidoTable());
     	model.put("venders", codeService.getVendorCodes());
         return "estimate/request/writeform";
-    }
-    
-//    @RequestMapping("/writing")
-//    public String writing(@ModelAttribute RequestVO requestVO)
-//    {    	
-//    	Map<String, Object> result = new HashMap<String, Object>();
-//    	
-//		SessionVO userInfo = storageService.getAuthenticatedUser();
-//		if(userInfo == null) {
-//			throw new CustomException("로그인 후 등록할 수 있습니다");
-//		} else {			    	
-//	    	requestVO.setStatus("0001");
-//	    	requestVO.setCustomer_id(userInfo.getUserId());
-//	    	
-//	    	if(requestService.registerRequest(requestVO) <= 0)
-//	    		throw new CustomException("등록 중 오류가 발생했습니다");
-//		}
-//	
-//		return "redirect:/request/list";
-//    }     
+    }   
     
     @RequestMapping(value="/writing", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> writing(@RequestBody RequestVO requestVO)
