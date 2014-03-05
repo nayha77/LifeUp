@@ -58,6 +58,14 @@
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
 		</div><!-- /header -->
 		
+			<ul data-role="listview" data-count-theme="b" data-inset="true">
+			    <li><a href="#">견적1 <span class="ui-li-count">12</span></a></li>
+			    <li><a href="#">견적2 <span class="ui-li-count">0</span></a></li>
+			    <li><a href="#">견적3 <span class="ui-li-count">4</span></a></li>
+			    <li><a href="#">견적4<span class="ui-li-count">328</span></a></li>
+			    <li><a href="#">견적5 <span class="ui-li-count">62</span></a></li>
+			</ul>		
+		
 	<a href="../" data-rel="back" data-ajax="false" class="ui-btn ui-shadow ui-corner-all ui-mini ui-btn-inline ui-icon-carat-l ui-btn-icon-left ui-alt-icon ui-nodisc-icon">Back</a>
 	</div>
 
