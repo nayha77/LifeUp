@@ -18,39 +18,21 @@
 <body> 
 
 	<div data-role="page" class="jqm-demos ui-responsive-panel" id="panel-responsive-page1"  >
-	
-			<div data-role="header">
-				<h1>지유! 천하!</h1>
-				<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
-			</div><!-- /header -->
+
+	<%@include file="./include/header.jsp" %>
 		
-		    <div role="main" class="ui-content jqm-content jqm-fullwidth">
-		        <h1>불편한 CSS 걷어내기 </h1>
-	   	        <h4>편할려고 만들었더만 발목잡네 ~~ </h4>
-	   	        <h4>좀더 개발자 스러운 <a href="http://demos.jquerymobile.com/1.4.2/">jQueryMobile</a> 적용 </h4>
-		        <div data-demo-html="#panel-responsive-page1"></div><!--/demo-html -->
-	   	        <div data-demo-html="#panel-responsive-page2"></div><!--/demo-html -->
-		        <br>
-		    </div><!-- /content -->	
-		
-			<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">
-	
-				<ul data-role="listview">
-		            <li data-icon="delete"><a href="#" data-rel="close">메뉴 닫기</a></li>
-			            
-		                <!-- <li><a href="#panel-responsive-page2">Q&A</a></li> -->
-		                <li><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
-		                <li><a href="#panel-responsive-page2">FAQ</a></li>
-		                <li><a href="#panel-responsive-page2">의뢰목록</a></li>
-					  	<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}">
-				  		<li><a href="#panel-responsive-page2">견적의뢰</a></li>
-					  	</c:if>
-		                <li><a href="#panel-responsive-page2">영업랭킹</a></li>	                	                
-		        </ul>
-		    </div><!-- /panel -->
+	    <div  class="ui-content jqm-content jqm-fullwidth">
+	        <h1>불편한 CSS 걷어내기 </h1>
+	  	        <h4>편할려고 만들었더만 발목잡네 ~~ </h4>
+	  	        <h4>좀더 개발자 스러운 <a href="http://demos.jquerymobile.com/1.4.2/">jQueryMobile</a> 적용 </h4>
+	        <div data-demo-html="#panel-responsive-page1"></div><!--/demo-html -->
+	  	        <div data-demo-html="#panel-responsive-page2"></div><!--/demo-html -->
+	        <br>
+	    </div><!-- /content -->	
 	
 	</div><!-- /page -->
-<!-- div 로 나누어도 되고 페이지로 나누어도 가능함 -->
+	
+	<!-- div 로 나누어도 되고 페이지로 나누어도 가능함 -->
 	<div data-role="page" class="jqm-demos ui-responsive-panel" id="panel-responsive-page2"  >
 	
 		<div data-role="header">
