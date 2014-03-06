@@ -24,21 +24,36 @@
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
         
 		$(document).ready(function() {
-/*         	var userId = '${cookie.userId.value}';
+			fnOpenLoginPanel();
+			
+			fnLoad();			
+		});		
+
+		// 로그인/찾기 패널 토글
+		$(function(){
+		    $('a[href=#frmUserLogin], a[href=#frmFindUserInfo]').click(function(){
+		        var panel = $(this).attr('href');
+		        $(panel).toggle();
+		        return false;
+		    });
+		});
+
+		// 로그인 패널 뷰
+		function fnOpenLoginPanel() {
+			var userId = '${cookie.userId.value}';
         	var userType = '${cookie.userType.value}';
         	        
          	if(userId != "") {
-        		$('#txtUserID').val(userId); 
-        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true);        		
-        		$('#chkAutoLogin').attr('checked', true);
+        		$('#txtUser').val(userId); 
+        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true);        		        	
         		$('#txtUserPwd').focus();
         	} else {        	
+        		$("input:radio[name=userType]:input[value='1']").attr("checked", true);
         		$('#txtUserID').focus();
-        	} */
-        	
-			fnLoad();
-		});	
-                
+        	}         	         
+		}
+         
+		// 로그인 엔터입력
         function fnEnterKey(type) {
         	if(event.keyCode == 13) {
 	        	if(type == "I") 
@@ -53,15 +68,15 @@
         	var autoLogin = 'N';
         	
         	if($('#chkAutoLogin').is(":checked"))
-        		autoLogin = "Y";        	
+        		autoLogin = "Y";        	        
         	
       	    _Async.post (
     			"/account/actionLogin.do",
-    			JSON.stringify({ userId: $('#txtUser').val(), password: $('#txtUserPwd').val(), userType: $('#ddlUserType option:selected').val() }),
+    			JSON.stringify({ userId: $('#txtUser').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
     			function (data) {    
     				if(data.message == 'success' || data.message == 'duplicated') {
     					document.location.href='/main?saveYn=' + autoLogin;
-    					sendUserInfoToApp($('#txtUser').val(), $('#txtUserPwd').val(), $('#ddlUserType option:selected').val());
+    					sendUserInfoToApp($('#txtUser').val(), $('#txtUserPwd').val(), $('input[name=userType]:checked').val());
     				} else {
     					alert(data.message);
     				}
@@ -86,20 +101,19 @@
     			
     		_Async.post (
     			url,
-    			JSON.stringify({ userId: $('#txtFUserId').val(), userType: $('#findUserModal').find(':input[name=fUserType]:checked').val() }),
+    			JSON.stringify({ userId: $('#txtFUserId').val(), userType: $('input[name=fUserType]:checked').val() }),
     			function (data) {                
     				if(data.message =='success') {
     					$('#txtFUserId').val("");
-    					$('#findUserModal').find(':input[name=fUserType][value=1]').attr('checked', true);
+    					$('input[name=fUserType][value=1]').attr('checked', true);
     				} else {
     					alert(data.message);
     				}    					    				    		
     			} 
-    		);	
-    		
-			alert('등록된 메일로 전송되었습니다');		    	
+    		);	    				    
     	}        
-    	
+
+/*
         // 내정보 
     	function fnMyInfo() {			
       	    _Async.post (
@@ -143,20 +157,23 @@
     				}
     			} 
     		);		
-    	}   
+    	}    
+*/
         
         // 사용자/비밀번호 찾기 Div Open
         function fnOpenFindUser(title) {
-        	if(title == 'U')
+			if(title == 'U') {
         		title = '사용자찾기';
-        	else
+        	} else {
         		title = '비밀번호찾기';
-        	        	       	
-        	$('#findUserModal').show(); 
-        	$('#spTitle').html(title); 
+        	}
+        	
+         	$('#spTitle').html(title); 
         	$('#txtFUserId').focus();
-        }
-
+        	        	
+        	$('#frmUserLogin').hide();
+        	$('#frmFindUserInfo').show();        	
+ 		}
     </script>    
 </head>
 <body>
@@ -166,8 +183,7 @@
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
 			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#add-form" data-icon="info" data-iconpos="notext">로그인</a>
-				<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';">회원가입</a>
+				<a href="#add-form" data-icon="info" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a href="/logout" data-icon="forward" data-iconpos="notext">로그아웃</a>
@@ -195,75 +211,51 @@
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="add-form" data-theme="b">
-			<form class="userform">
+			<form id="frmUserLogin" class="userform">
 				<h2>로그인</h2>
-				<label for="name">ID (Email)</label>
-				<input type="text" name="userId" id="txtUser" data-mini="true" onKeypress="fnEnterKey('I');">
-						
-				<label for="password">Password</label>
-				<input type="password" name="password" id="txtUserPwd" data-clear-btn="true" autocomplete="off" data-mini="true" onKeypress="fnEnterKey('P');">
-			
 				<div class="switch">
-					<label for="status">영업사원 이신가요?</label>
-					<select name="userType" id="ddlUserType" data-role="slider" data-mini="true">
-					    <option value="1">아니오</option>
-					    <option value="2">예</option>
-					</select>
+				    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+				        <input type="radio" name="userType" id="radio-choice-t-4a" value="1" checked="checked">
+				        <label for="radio-choice-t-4a">일반</label>
+				        <input type="radio" name="userType" id="radio-choice-t-4c" value="2">
+				        <label for="radio-choice-t-4c">영업사원</label>
+				    </fieldset>					
 				</div>
-						
-				<label for="name">ID를 저장하시겠습니까?</label>
+				<label for="name">ID (Email)</label>
+				<input type="text" name="userId" id="txtUser" data-mini="true" onKeypress="fnEnterKey('I');">						
+				<label for="password">Password</label>
+				<input type="password" name="password" id="txtUserPwd" data-clear-btn="true" autocomplete="off" data-mini="true" onKeypress="fnEnterKey('P');">				
 				<label for="name" style="width:45px;">ID저장
-					<input type="checkbox" name="chkAutoLogin" id="chkAutoLogin" data-clear-btn="true" data-mini="true">
+					<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 				</label>
 				<div class="ui-grid-a">
-				    <div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true">취소</a></div>
-				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true" onClick="fnLogin();">로그인</a></div>
-				</div>
-			</form>			
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
+				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
+				</div>							
+				<div class="ui-grid-a">
+					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');">ID를 분실하셨나요?</a></label>
+					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');">비빌번호를 분실하셨나요?</a></label>
+					<label for="name">						
+						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';">계정이 없으신가요?</a>				
+					</label>
+				</div>	
+			</form>	
+			<form id="frmFindUserInfo" class="userform" style="display: none;">
+				<h2 id="spTitle">사용자찾기</h2>			
+			    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+			        <input type="radio" name="fUserType" id="radio-choice-t-4a" value="1" checked="checked">
+			        <label for="radio-choice-t-4a">일반</label>
+			        <input type="radio" name="fUserType" id="radio-choice-t-4c" value="2">
+			        <label for="radio-choice-t-4c">영업사원</label>
+			    </fieldset>										
+				<label for="name">ID (Email)</label>
+				<input type="text" name="txtFUserId" id="txtFUserId" data-mini="true">
+				<div class="ui-grid-a">
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnFindUser();">찾기</a></div>
+				    <div class="ui-block-b"><a href="#frmUserLogin" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
+				</div>								    			
+			</form>				
 		</div><!-- /panel -->			
-				
-    <div id="findUserModal">
-        <div>
-			<div style="margin-left: 50px;">
-			    <label >사용자</label>
-			    <div>
-					<input type='radio' id='rdoFUserType' name='fUserType' value='1' checked="checked" />일반사용자 
-					<input type='radio' id='rdoFUserType' name='fUserType' value='2' />영업사원
-				</div>                
-			    <label >아이디(이메일)</label>
-			    <div><input type='text' id='txtFUserId' /></div>                
-			</div>			                   
-        </div>
-        <div class="modal-footer">
-            <a href="#">취소</a>
-            <a onclick="fnFindUser();">찾기</a>            
-        </div>
-    </div>       	
-	<div id="myInfoModal">
-	    <div>
-			<div style="margin-left: 50px;">
-			    <label >사용자 ID(Email)</label>
-			    <div><input type="text" id="txtIUserId" readonly="readonly" /></div>
-			    <label >성명</label>
-			    <div><input type="text" id="txtIUserNm" readonly="readonly" /></div>
-			    <label >이동전화</label>
-			    <div><input type="text" id="txtIMobile" /></div>
-				<label >이전 비밀번호</label>
-			    <div><input type="password" id="txtIPrevPasswd" /></div>			    
-			    <label >신규 비밀번호</label>
-			    <div><input type="password" id="txtIPasswd" /></div>                		    
-			    <label >신규 비밀번호 확인</label>
-			    <div><input type="password" id="txtIPasswdConfirm" /></div>			    
-			</div>
-	    </div>
-	    <div>
-	        <a href="#">취소</a>
-	        <a onclick="fnMyInfoUpdate();">수정</a>
-	    </div>
-	</div>
-			
-		
-		
-		<jsp:doBody/>	
-	</div><!-- /page -->				
+		<jsp:doBody/><!-- Contents by pages -->	
+	</div><!-- /page -->
 </html>
