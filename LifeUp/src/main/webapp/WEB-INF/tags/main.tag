@@ -13,6 +13,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
 	
 	<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
+    	
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   	<script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
     <script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
@@ -23,31 +25,26 @@
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
         
 		$(document).ready(function() {
-			fnLoad();			
-		});	
-        
-        function fnShowLogin() {    
-        	
-        	$('#loginModal').show();
-        	
-        	var userId = '${cookie.userId.value}';
+/*         	var userId = '${cookie.userId.value}';
         	var userType = '${cookie.userType.value}';
         	        
-        	if(userId != "") {
+         	if(userId != "") {
         		$('#txtUserID').val(userId); 
         		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true);        		
         		$('#chkAutoLogin').attr('checked', true);
         		$('#txtUserPwd').focus();
         	} else {        	
         		$('#txtUserID').focus();
-        	}
-        }
-        
+        	} */
+        	
+			fnLoad();
+		});	
+                
         function fnEnterKey(type) {
         	if(event.keyCode == 13) {
-	        	if(type == "I")
+	        	if(type == "I") 
 	        		$('#txtUserPwd').focus();
-	        	else if(type == "P")
+	        	else if(type == "P") 
 	        		fnLogin();
         	}
         }
@@ -61,11 +58,11 @@
         	
       	    _Async.post (
     			"/account/actionLogin.do",
-    			JSON.stringify({ userId: $('#txtUserID').val(), password: $('#txtUserPwd').val(), userType: $('input[name=userType]:checked').val() }),
+    			JSON.stringify({ userId: $('#txtUser').val(), password: $('#txtUserPwd').val(), userType: $('#ddlUserType option:selected').val() }),
     			function (data) {    
     				if(data.message == 'success' || data.message == 'duplicated') {
     					document.location.href='/main?saveYn=' + autoLogin;
-    					sendUserInfoToApp($('#txtUserID').val(), $('#txtUserPwd').val(), $('input[name=userType]:checked').val());
+    					sendUserInfoToApp($('#txtUser').val(), $('#txtUserPwd').val(), $('#ddlUserType option:selected').val());
     				} else {
     					alert(data.message);
     				}
@@ -155,8 +152,7 @@
         		title = '사용자찾기';
         	else
         		title = '비밀번호찾기';
-        	        	
-        	$('#loginModal').hide();        	
+        	        	       	
         	$('#findUserModal').show(); 
         	$('#spTitle').html(title); 
         	$('#txtFUserId').focus();
@@ -169,9 +165,10 @@
 		<div data-role="header">
 			<h1>견적의신</h1>			
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#" data-icon="info" data-iconpos="notext" onclick="fnShowLogin();">로그인</a>
-				<a href="#" data-icon="user" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';">회원가입</a>
+				<a href="#add-form" data-icon="info" data-iconpos="notext">로그인</a>
+				<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';">회원가입</a>
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a href="/logout" data-icon="forward" data-iconpos="notext">로그아웃</a>
@@ -197,31 +194,35 @@
 					<li><a href="#panel-responsive-page2">견적의뢰</a></li>
 				</c:if>	                	                
 			</ul>	    
-		</div>		
+		</div>	
+		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="add-form" data-theme="b">
+			<form class="userform">
+				<h2>로그인</h2>
+				<label for="name">ID (Email)</label>
+				<input type="text" name="userId" id="txtUser" data-mini="true" onKeypress="fnEnterKey('I');">
+						
+				<label for="password">Password</label>
+				<input type="password" name="password" id="txtUserPwd" data-clear-btn="true" autocomplete="off" data-mini="true" onKeypress="fnEnterKey('P');">
+			
+				<div class="switch">
+					<label for="status">영업사원 이신가요?</label>
+					<select name="userType" id="ddlUserType" data-role="slider" data-mini="true">
+					    <option value="1">아니오</option>
+					    <option value="2">예</option>
+					</select>
+				</div>
+						
+				<label for="name">ID를 저장하시겠습니까?</label>
+				<label for="name" style="width:45px;">ID저장
+					<input type="checkbox" name="chkAutoLogin" id="chkAutoLogin" data-clear-btn="true" data-mini="true">
+				</label>
+				<div class="ui-grid-a">
+				    <div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true">취소</a></div>
+				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true" onClick="fnLogin();">로그인</a></div>
+				</div>
+			</form>			
+		</div><!-- /panel -->			
 				
-    <div id="loginModal">
-		<div style="margin-left: 50px;">
-		    <label >사용자</label>
-		    <div>
-				<input type='radio' id='rdoUserType' name='userType' value='1' checked="checked" />일반사용자 
-				<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
-			</div>			               
-		    <label >아이디(이메일)</label>
-		    <div><input type='text' id='txtUserID' onKeypress="fnEnterKey('I');" /></div>                
-		    <label >비밀번호</label>
-		    <div><input type='password' id='txtUserPwd' onKeypress="fnEnterKey('P');" /></div>
-		    <div><input type="checkbox" name="chkAutoLogin" id="chkAutoLogin">ID저장</div>			    
-		</div>			                   
-
-        <div >
-        	<div style="float: left">
-	            <a onclick="fnOpenFindUser('U');">사용자찾기</a>
-	            <a onclick="fnOpenFindUser('P');">비밀번호찾기</a>
-        	</div>
-            <a href="#">취소</a>
-            <a href="#" onclick="fnLogin();">로그인</a>            
-        </div>
-    </div> 
     <div id="findUserModal">
         <div>
 			<div style="margin-left: 50px;">
