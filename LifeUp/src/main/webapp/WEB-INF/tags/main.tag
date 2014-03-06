@@ -12,12 +12,11 @@
 	<meta name='author' content=''>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
 	
-	<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
 	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
     	
-	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  	<script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
-    <script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
 
     <script type="text/javascript">
@@ -161,7 +160,7 @@
     </script>    
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage"  >
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage">
 		<div data-role="header">
 			<h1>견적의신</h1>			
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
