@@ -6,101 +6,29 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>SSAGEZYO</title>
+	<title>저기요</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
 	
-	<!-- Le styles -->
-	<link href='<spring:url value="/resources/css/bootstrap.css"/>' rel='stylesheet'>
-	<link href='<spring:url value="/resources/css/screen.css"/>' rel='stylesheet'>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
-	<style type='text/css'>
-		body {
-			padding-top: 60px;
-			padding-bottom: 40px;
-		}
-        
-        table.table thead th {
-            text-align: center;
-        }
-        table.table .txt_c {
-            text-align: center;
-        }
-	</style>
-	<link href='<spring:url value="/resources/css/bootstrap-responsive.css"/>' rel='stylesheet'>
-	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-      <script src='<spring:url value="/resources/js/html5.js"/>'></script>
-    <![endif]-->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src='<spring:url value="/resources/js/jquery.js"/>'></script>
-	<script src='<spring:url value="/resources/js/jquery-ui-1.10.1.min.js"/>'></script>	
-	<script src='<spring:url value="/resources/js/bootstrap-transition.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-alert.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-modal.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-dropdown.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-scrollspy.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-tab.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-tooltip.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-popover.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-button.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-collapse.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-carousel.js"/>'></script>
-	<script src='<spring:url value="/resources/js/bootstrap-typeahead.js"/>'></script>	
-	<script src='<spring:url value="/resources/js/webService.js"/>'></script>		
-	
+	<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  	<script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
+    <script src="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
+	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
+
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
-				
-        $.form = function() {
-            var createForm = function(method, url, params) {
-                var form = $('<form name="jquery.form"/>')
-                			.attr('method', method === 'get' ? 'get' : 'post')
-                			.attr('action', url);
-                form.append('<input type="hidden" name="_method" value="' + method + '" />');
-                form.appendTo('body');
-                
-                if(params) {
-                    for(var key in params)
-                        form.append('<input type="hidden" name="' + key + '" value="' + params[key] + '" />');
-                }
-                
-                return form;
-            };
-            return {
-                get: function(url, params) {
-                    createForm('get', url, params).submit();
-                },
-                post: function(url, params) {
-                    createForm('post', url, params).submit();
-                },
-                put: function(url, params) {
-                    createForm('put', url, params).submit();
-                },
-                delete: function(url, params) {
-                    createForm('delete', url, params).submit();
-                }       
-            };
-        }();
         
-        $('#loginModal').modal({ show: false });
-        $('#loginModal').on('shown', function() {
-			$('input[name=username]').focus();
-        });
+		$(document).ready(function() {
+			fnLoad();			
+		});	
         
-        $(document).ready(function() {
-			if('${loginRequest}' === 'true') {
-			    $('#loginModal').modal('show');
-			}
-			
-			fnLoad();
-		});
-
-        function fnShowLogin() {        	
-        	$('#loginModal').modal('show');
+        function fnShowLogin() {    
+        	
+        	$('#loginModal').show();
         	
         	var userId = '${cookie.userId.value}';
         	var userType = '${cookie.userType.value}';
@@ -209,7 +137,7 @@
     			JSON.stringify({ userId: $('#txtIUserId').val(), mobile: $('#txtIMobile').val(), password: $('#txtIPasswd').val(), prevPassword: $('#txtIPrevPasswd').val() }),
     			function (data) {                
     				if(data.message == 'success') {
-    					$('#myInfoModal').modal('hide');
+    					$('#myInfoModal').hide();
     					
     					$('#txtIPasswd').val("");
     					$('#txtIPrevPasswd').val("");
@@ -228,132 +156,114 @@
         	else
         		title = '비밀번호찾기';
         	        	
-        	$('#loginModal').modal('hide');        	
-        	$('#findUserModal').modal('show'); 
+        	$('#loginModal').hide();        	
+        	$('#findUserModal').show(); 
         	$('#spTitle').html(title); 
         	$('#txtFUserId').focus();
         }
+
     </script>    
 </head>
 <body>
-	<div class='navbar navbar-fixed-top'>
-		<div class='navbar-inner'>
-			<div class='container'>
-				<a class='btn btn-navbar' data-toggle='collapse' data-target='.nav-collapse'>
-                    <span class='icon-bar'></span>
-                    <span class='icon-bar'></span>
-                    <span class='icon-bar'></span>
-				</a>
-                <a class='brand' href='<spring:url value="/main"/>'>SSAGEZYO</a>
-                <div class="btn-group pull-right">
-                    <c:if test="${empty sessionScope._USER_INFO_}">
-	                    <button class="btn" onclick="fnShowLogin();"><i class="icon-user"></i> 로그인</button>
-                    	<button class="btn" onclick="document.location.href='<spring:url value="/account/membership"/>';"><i class="icon-user"></i> 회원가입</button>                    		                    
-                    </c:if>
-                    <c:if test="${not empty sessionScope._USER_INFO_}">
-                    	<a class="btn" href='/logout'><i class="icon-user"></i>로그아웃</a>
-                    </c:if>
-                </div>
-				<div class='nav-collapse'>
-					<ul class='nav'>
-						<c:if test="${not empty sessionScope._USER_INFO_}">
-							<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
-							<li><a href='#' onclick="fnMyInfo();">내거래현황</a></li>
-						</c:if>	 
-					  	<li><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
-					  	<li><a href='<spring:url value="/notice/post"/>'>FAQ</a></li>
-					  	<li><a href='<spring:url value="/notice/post"/>'>Q&A</a></li>
-					  	<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}">
-					  		<li><a href='<spring:url value="/request/writeform"/>'>견적의뢰</a></li>
-					  	</c:if>
-					  	<li><a href='<spring:url value="/request/list"/>'>의뢰목록</a></li>
-					  	<li><a href='<spring:url value="/request/list"/>'>영업랭킹</a></li>																					
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
-			</div>
-		</div>
-	</div>
-	<div class='container'>
-		<jsp:doBody/>					
-		<footer style="text-align: center;">
-		</footer>	
-    </div>
-	<!-- /container -->  		   
-    <div id="loginModal" class="modal hide">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>로그인</h3>
-        </div>
-        <div class="modal-body">
-			<div style="margin-left: 50px;">
-			    <label class="control-label">사용자</label>
-			    <div class="controls">
-					<input type='radio' id='rdoUserType' name='userType' value='1' checked="checked" />일반사용자 
-					<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
-				</div>			               
-			    <label class="control-label">아이디(이메일)</label>
-			    <div class="controls"><input type='text' id='txtUserID' onKeypress="fnEnterKey('I');" /></div>                
-			    <label class="control-label">비밀번호</label>
-			    <div class="controls"><input type='password' id='txtUserPwd' onKeypress="fnEnterKey('P');" /></div>
-			    <div class="controls"><input type="checkbox" name="chkAutoLogin" id="chkAutoLogin">ID저장</div>			    
-			</div>			                   
-        </div>
-        <div class="modal-footer">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage"  >
+		<div data-role="header">
+			<h1>견적의신</h1>			
+			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+			<c:if test="${empty sessionScope._USER_INFO_}">
+				<a href="#" data-icon="info" data-iconpos="notext" onclick="fnShowLogin();">로그인</a>
+				<a href="#" data-icon="user" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';">회원가입</a>
+			</c:if>
+			<c:if test="${not empty sessionScope._USER_INFO_}">
+				<a href="/logout" data-icon="forward" data-iconpos="notext">로그아웃</a>
+			</c:if>
+		</div>	
+		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	
+			<ul data-role="listview">
+				<li data-icon="delete"><a href="#" data-rel="close">닫기</a></li>
+				<li><a href='<spring:url value="/"/>'>HOME</a></li>
+				<c:if test="${not empty sessionScope._USER_INFO_}">
+					<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
+					<li><a href='#' onclick="fnMyInfo();">내거래현황</a></li>
+				</c:if>	 				
+				<li><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
+				<li><a href="#panel-responsive-page2">FAQ</a></li>
+				<li><a href='<spring:url value="/notice/post"/>'>Q&A</a></li>
+				<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}">
+					<li><a href='<spring:url value="/request/writeform"/>'>견적의뢰</a></li>
+				</c:if>
+				<li><a href='<spring:url value="/request/list"/>'>의뢰목록</a></li>
+				<li><a href='<spring:url value="/request/list"/>'>영업랭킹</a></li>																					
+				<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}">
+					<li><a href="#panel-responsive-page2">견적의뢰</a></li>
+				</c:if>	                	                
+			</ul>	    
+		</div>		
+				
+    <div id="loginModal">
+		<div style="margin-left: 50px;">
+		    <label >사용자</label>
+		    <div>
+				<input type='radio' id='rdoUserType' name='userType' value='1' checked="checked" />일반사용자 
+				<input type='radio' id='rdoUserType' name='userType' value='2' />영업사원
+			</div>			               
+		    <label >아이디(이메일)</label>
+		    <div><input type='text' id='txtUserID' onKeypress="fnEnterKey('I');" /></div>                
+		    <label >비밀번호</label>
+		    <div><input type='password' id='txtUserPwd' onKeypress="fnEnterKey('P');" /></div>
+		    <div><input type="checkbox" name="chkAutoLogin" id="chkAutoLogin">ID저장</div>			    
+		</div>			                   
+
+        <div >
         	<div style="float: left">
-	            <button class="btn" onclick="fnOpenFindUser('U');"><i class="icon-user"></i> 사용자찾기</button>
-	            <button class="btn" onclick="fnOpenFindUser('P');"><i class="icon-refresh"></i> 비밀번호찾기</button>
+	            <a onclick="fnOpenFindUser('U');">사용자찾기</a>
+	            <a onclick="fnOpenFindUser('P');">비밀번호찾기</a>
         	</div>
-            <a href="#" class="btn" data-dismiss="modal">취소</a>
-            <button class="btn btn-primary" onclick="fnLogin();">로그인</button>            
+            <a href="#">취소</a>
+            <a href="#" onclick="fnLogin();">로그인</a>            
         </div>
     </div> 
-    <div id="findUserModal" class="modal hide">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3><span id="spTitle"></span></h3>
-        </div>
-        <div class="modal-body">
+    <div id="findUserModal">
+        <div>
 			<div style="margin-left: 50px;">
-			    <label class="control-label">사용자</label>
-			    <div class="controls">
+			    <label >사용자</label>
+			    <div>
 					<input type='radio' id='rdoFUserType' name='fUserType' value='1' checked="checked" />일반사용자 
 					<input type='radio' id='rdoFUserType' name='fUserType' value='2' />영업사원
 				</div>                
-			    <label class="control-label">아이디(이메일)</label>
-			    <div class="controls"><input type='text' id='txtFUserId' /></div>                
+			    <label >아이디(이메일)</label>
+			    <div><input type='text' id='txtFUserId' /></div>                
 			</div>			                   
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">취소</a>
-            <button class="btn btn-primary" onclick="fnFindUser();">찾기</button>            
+            <a href="#">취소</a>
+            <a onclick="fnFindUser();">찾기</a>            
         </div>
     </div>       	
-	<div id="myInfoModal" class="modal hide">
-	    <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">×</button>
-	        <h3>내정보</h3>
-	    </div>
-	    <div class="modal-body">
+	<div id="myInfoModal">
+	    <div>
 			<div style="margin-left: 50px;">
-			    <label class="control-label">사용자 ID(Email)</label>
-			    <div class="controls"><input type="text" id="txtIUserId" readonly="readonly" /></div>
-			    <label class="control-label">성명</label>
-			    <div class="controls"><input type="text" id="txtIUserNm" readonly="readonly" /></div>
-			    <label class="control-label">이동전화</label>
-			    <div class="controls"><input type="text" id="txtIMobile" /></div>
-				<label class="control-label">이전 비밀번호</label>
-			    <div class="controls"><input type="password" id="txtIPrevPasswd" /></div>			    
-			    <label class="control-label">신규 비밀번호</label>
-			    <div class="controls"><input type="password" id="txtIPasswd" /></div>                		    
-			    <label class="control-label">신규 비밀번호 확인</label>
-			    <div class="controls"><input type="password" id="txtIPasswdConfirm" /></div>			    
+			    <label >사용자 ID(Email)</label>
+			    <div><input type="text" id="txtIUserId" readonly="readonly" /></div>
+			    <label >성명</label>
+			    <div><input type="text" id="txtIUserNm" readonly="readonly" /></div>
+			    <label >이동전화</label>
+			    <div><input type="text" id="txtIMobile" /></div>
+				<label >이전 비밀번호</label>
+			    <div><input type="password" id="txtIPrevPasswd" /></div>			    
+			    <label >신규 비밀번호</label>
+			    <div><input type="password" id="txtIPasswd" /></div>                		    
+			    <label >신규 비밀번호 확인</label>
+			    <div><input type="password" id="txtIPasswdConfirm" /></div>			    
 			</div>
 	    </div>
-	    <div class="modal-footer">
-	        <a href="#" class="btn" data-dismiss="modal">취소</a>
-	        <button class="btn btn-primary" onclick="fnMyInfoUpdate();">수정</button>
+	    <div>
+	        <a href="#">취소</a>
+	        <a onclick="fnMyInfoUpdate();">수정</a>
 	    </div>
-	</div>     
-</body>
+	</div>
+			
+		
+		
+		<jsp:doBody/>	
+	</div><!-- /page -->				
 </html>

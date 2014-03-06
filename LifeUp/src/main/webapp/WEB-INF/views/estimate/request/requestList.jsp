@@ -5,12 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   
 <mvc:main>
-<style type="text/css">
-	.selectedRow {
-	   background-color: #F9EDA5;
-	   cursor: pointer;
-	}
-</style>
 <script type="text/javascript">
 	function fnLoad() {		     
 		fnInit();				
@@ -68,62 +62,35 @@
     	); 
 	}
 </script>
-<ul class="nav nav-tabs" style="margin-bottom: 8px; margin-top: -10px;">
-	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">전체</a>
-	</li>
-	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">상태<b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<a href="#">진행중</a>
-			<a href="#">거래완료</a>
-		</ul>		
-	</li>	
-	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">업체<b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<a href="#">현대</a>
-			<a href="#">기아</a>
-			<a href="#">쌍용</a>
-			<a href="#">한국GM</a>			
+<div  class="ui-content jqm-content jqm-fullwidth">
+	<form id='frm' name='frm' method='post'>
+		<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='7' />
+		<input type='hidden' id='hdnRequestId' name='request_id'/>
+		<div class="messages" style="margin-bottom: 0px;">		
+			<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
+				<div id="contents" onclick="fnDetail('${estimateReg.REQUEST_ID}');" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
+				    <div id="${estimateReg.REQUEST_ID}" class="message-title" style='height: 8px;'>
+				    	<span class="text" >${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}</span>
+				    	<span style='float: right;'>${estimateReg.CREATE_DATE}</span>			    				    
+				    </div>
+				    <hr class="message-inner-separator" style='margin-bottom: 10px;'>
+				    <div class="info-inner" style='vertical-align: top;'>
+				       ${estimateReg.CUSTOMER_REQ}
+				       <span class="badge badge-info" style='float: right;'>${estimateReg.HIT_CNT}</span>
+				    </div>
+				</div>
+			</c:forEach>
+		</div>					
+	</form>
+	<div>
+		<ul class="breadcrumb" style='text-align: center; cursor: pointer;' onclick='lastAddedLiveFunc();'>
+			<li id='moreView'>더보기</li>
 		</ul>
-	</li>	
-	<li class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">지역<b class="caret"></b></a>
-		<ul class="dropdown-menu">
-			<a href="#">서울</a>
-			<a href="#">경기</a>
-			<a href="#">충정도</a>
-		</ul>		
-	</li>					
-</ul>
-<form id='frm' name='frm' method='post'>
-	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='7' />
-	<input type='hidden' id='hdnRequestId' name='request_id'/>
-	<div class="messages" style="margin-bottom: 0px;">		
-		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
-			<div id="contents" onclick="fnDetail('${estimateReg.REQUEST_ID}');" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
-			    <div id="${estimateReg.REQUEST_ID}" class="message-title" style='height: 8px;'>
-			    	<span class="text" >${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}</span>
-			    	<span style='float: right;'>${estimateReg.CREATE_DATE}</span>			    				    
-			    </div>
-			    <hr class="message-inner-separator" style='margin-bottom: 10px;'>
-			    <div class="info-inner" style='vertical-align: top;'>
-			       ${estimateReg.CUSTOMER_REQ}
-			       <span class="badge badge-info" style='float: right;'>${estimateReg.HIT_CNT}</span>
-			    </div>
-			</div>
-		</c:forEach>
-	</div>					
-</form>
-<div>
-	<ul class="breadcrumb" style='text-align: center; cursor: pointer;' onclick='lastAddedLiveFunc();'>
-		<li id='moreView'>더보기</li>
-	</ul>
-</div>
-<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}" >
-	<div style='float: right;'>
-		<span class="breadcrumb" onclick="fnWrite(${sessionScope._USER_INFO_.userType});" style="cursor: pointer;">등록</span>
-	</div>				
-</c:if>
+	</div>
+	<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}" >
+		<div style='float: right;'>
+			<span class="breadcrumb" onclick="fnWrite(${sessionScope._USER_INFO_.userType});" style="cursor: pointer;">등록</span>
+		</div>				
+	</c:if>
+</div>	
 </mvc:main>

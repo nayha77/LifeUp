@@ -14,8 +14,6 @@
 
 <div data-role="page" class="jqm-demos ui-responsive-panel" id="panel-responsive-page1"  >
 
-	<%@include file="../include/header.jsp" %>
-	
 	<div class="ui-content jqm-content jqm-fullwidth">
 
 		<table data-role="table" id="table-custom-2" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-btn-text="필요한것만.." data-column-popup-theme="a">
