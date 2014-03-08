@@ -59,18 +59,18 @@ public class RequestController {
     @RequestMapping(value="/listJson", produces={"application/xml", "application/json"} )
     public @ResponseBody Map<String, Object> listJson(@RequestBody String currentSeq)
     {
-    	if(currentSeq == null || currentSeq == "")
-    		return null;
+    	Map<String, Object> arrData = new HashMap<String, Object>();
     	
-    	Map<String, Object> arrData = new HashMap<String, Object>();     	    	
-    	arrData.put("startIdx", Integer.parseInt(currentSeq));
-    	arrData.put("endIdx", this.pageRecordCnt);
-    	
-    	List<HashMap<String, Object>> list = requestService.getRequestList(arrData);    	
-    	arrData.clear();    
-    	
-    	arrData.put("list", list);    	
-    	arrData.put("currentSeq", currentSeq + 7);
+    	if( currentSeq != null && !currentSeq.equals("") ) {    	     	   
+	    	arrData.put("startIdx", Integer.parseInt(currentSeq));
+	    	arrData.put("endIdx", this.pageRecordCnt);
+	    	
+	    	List<HashMap<String, Object>> list = requestService.getRequestList(arrData);    	
+	    	arrData.clear();    
+	    	
+	    	arrData.put("list", list);    	
+	    	arrData.put("currentSeq", String.valueOf(Integer.parseInt(currentSeq) + 7));
+    	}
     	
     	return arrData;
     }     

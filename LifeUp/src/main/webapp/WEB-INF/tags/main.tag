@@ -13,9 +13,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
 	
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
     	
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
 
@@ -23,21 +25,23 @@
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
         
-		$(document).ready(function() {
-			fnOpenLoginPanel();
-			
-			fnLoad();			
-		});		
-
-		// 로그인/찾기 패널 토글
+		// 로그인/찾기 패널 토글  및 쿠키정보값 설정
 		$(function(){
 		    $('a[href=#frmUserLogin], a[href=#frmFindUserInfo]').click(function(){
 		        var panel = $(this).attr('href');
 		        $(panel).toggle();
 		        return false;
 		    });
+		    
+		    $('a[href=#right-panel]').click(function(){
+		    	fnOpenLoginPanel();
+		    });		    
 		});
-
+		
+		$(document).ready(function() {		
+			fnLoad();			
+		});		
+		
 		// 로그인 패널 뷰
 		function fnOpenLoginPanel() {
 			var userId = '${cookie.userId.value}';
@@ -50,7 +54,7 @@
         	} else {        	
         		$("input:radio[name=userType]:input[value='1']").attr("checked", true);
         		$('#txtUserID').focus();
-        	}         	         
+        	}
 		}
          
 		// 로그인 엔터입력
@@ -183,7 +187,7 @@
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
 			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#add-form" data-icon="info" data-iconpos="notext">로그인</a>				
+				<a href="#right-panel" data-icon="user" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a href="/logout" data-icon="forward" data-iconpos="notext">로그아웃</a>
@@ -210,7 +214,7 @@
 				</c:if>	                	                
 			</ul>	    
 		</div>	
-		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="add-form" data-theme="b">
+		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
 			<form id="frmUserLogin" class="userform">
 				<h2>로그인</h2>
 				<div class="switch">
@@ -256,6 +260,6 @@
 				</div>								    			
 			</form>				
 		</div><!-- /panel -->			
-		<jsp:doBody/><!-- Contents by pages -->	
+		<jsp:doBody /><!-- Contents by pages -->	
 	</div><!-- /page -->
 </html>

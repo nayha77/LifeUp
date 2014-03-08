@@ -102,66 +102,54 @@
    		);   
 	}
 </script>
-<form id='frm' name='frm' method='post'>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>지역</div>
-  	<div class="span11">
-		<select name="ddlSido" id="ddlSido" class="input-xlarge" onchange="fnSidoChange(this);" >
-			<option value=''>선택</option>
-			<c:forEach items="${sidos}" var="sido">
-				<option value="${sido.sido}">${sido.sido}</option>
-			</c:forEach>
-		</select>
-		<select name="region_cd" id="ddlGugun" class='input-xlarge'>
-			<option value=''>선택</option>
-		</select>		
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>차량</div>
-  	<div class="span11">
-		<select name="ddlVendor" id="ddlVendor" class="input-xlarge" onchange="fnVenderChange(this);" >
-	    	<option value=''>선택</option>
+<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
+	<div class="ui-field-contain">
+		<label for="ddlSido">지역</label>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+		    <select name="ddlSido" id="ddlSido" data-native-menu="false" onchange="fnSidoChange(this);">
+				<option value=''>선택</option>
+				<c:forEach items="${sidos}" var="sido">
+					<option value="${sido.sido}">${sido.sido}</option>
+				</c:forEach>
+		    </select>
+		    <select name="region_cd" id="ddlGugun" data-native-menu="false">
+				<option value=''>선택</option>
+		    </select>
+		</fieldset>	
+    </div>
+    <div class="ui-field-contain">
+        <label for="ddlVendor">차량</label>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+		    <select name="ddlVendor" id="ddlVendor" data-native-menu="false" onchange="fnVenderChange(this);">
+				<option value=''>선택</option>
 	   		<c:forEach items="${venders}" var="vender">
 	   			<option value="${vender.code}">${vender.value}</option>
 	   		</c:forEach>
-	   	</select>
-		<select name="car_id" id="ddlCar" class='input-xlarge'>
-			<option value=''>선택</option>
-		</select>		   		
-  	</div>
+		    </select>
+		    <select name="car_id" id="ddlCar" data-native-menu="false">
+				<option value=''>선택</option>
+		    </select>
+		</fieldset>
+    </div>
+    <div class="ui-field-contain">    	 
+         <label for="car_trim">트림</label>
+         <input type="text" data-clear-btn="true" id="carTrim" name="car_trim">
+    </div>
+    <div class="ui-field-contain">
+         <label for="car_option">옵션</label>
+         <input type="text" data-clear-btn="true" id="carOption" name="car_option">
+    </div>
+    <div class="ui-field-contain">    	
+         <label for="purchase_period_cd">구매예정일</label>
+         <input type="text" data-clear-btn="true" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" readonly="readonly">         
+    </div>    
+    <div class="ui-field-contain">
+        <label for="customer_req">요구사항</label>
+        <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req"></textarea>
+    </div>
+	<div style="margin-right: -10px; text-align: right;">
+		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
+		<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="location.href='/request/list';">목록</a>
+	</div>    
 </div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>트림</div>
-  	<div class="span11">
-		<input type="text" id="carTrim" name="car_trim" class="input-xlarge" />
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>옵션</div>
-  	<div class="span11">
-		<input type="text" id="carOption" name="car_option" class="input-xlarge" />
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>구매예정일</div>
-  	<div class="span11">
-		<input type="text" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" style="width:80px;" readonly="readonly" />
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>요구사항</div>
-  	<div class="span11">  		
-		<textarea id="customer_req" name="customer_req" rows="2" class="input-xlarge"></textarea>
-  	</div>
-</div>
-<div class="info-inner" style='position:relative;'>
-	<div style="position:relative;">    	    
-		<div style='float: right;'>
-			<input type='button' class="btn btn-primary" value='등록' onclick="fnSave();" />
-			<input type='button' class="btn btn-primary" value='목록' onclick="location.href='/request/list'" />
-		</div>
-	</div>
-</div>	
-</form>
 </mvc:main>
