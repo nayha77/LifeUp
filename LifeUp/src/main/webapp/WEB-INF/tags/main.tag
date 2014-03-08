@@ -36,10 +36,6 @@
 		    $('a[href=#right-panel]').click(function(){
 		    	fnOpenLoginPanel();
 		    });		    
-		});
-		
-		$(document).ready(function() {		
-			fnLoad();			
 		});		
 		
 		// 로그인 패널 뷰

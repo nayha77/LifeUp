@@ -4,30 +4,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <mvc:main>
 <script type="text/javascript">	
-	function fnLoad() {		
-		$("select[name=region_cd]").hide();
-		$("select[name=car_id]").hide();
+	$(document).ready(function() {		
+		$("#ddlGugun").hide();
+		$("#ddlCar").hide();
 		
 		_Commn.SetDatePickter();
-		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));		
-	}
-	
+		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));					
+	});	
+
 	function fnSidoChange(obj){
 		if(obj.value == '0')			
 			return;
  		
- 		$("select[name=region_cd]").find("option").remove().end().append("<option value=\"0\">선택</option>");
+ 		$("#ddlGugun").find("option").remove().end().append("<option value=\"0\">선택</option>");
  
  		_Async.post (
    			"/regionSecondJson",
    			sido = obj.value,
    			function (data) {    
-				var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
+				var resultData = data.Sido2; 
 				$.each(resultData, function(index, row){	    		      		
-					$("select[name=region_cd]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
+					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
 				});
 
-				$("select[name=region_cd]").show();
+				//$("#ddlGugun").show();
    			}    			
    		);   	         
 	}	
@@ -37,7 +37,7 @@
 		if(obj.value == '')
 			return;
 		
- 		$("select[name=car_id]").find("option").remove().end().append("<option value=\"\">선택</option>");
+ 		$("#ddlCar").find("option").remove().end().append("<option value=\"\">선택</option>");
  		
    	    _Async.post (
    			"/selectCarJson",
@@ -45,10 +45,10 @@
    			function (data) {    
    				var resultData = data.carCodeList;  
 				$.each(resultData, function(index, row){
-					$("select[name=car_id]").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
+					$("#ddlCar").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
 				});
 				
-				$("select[name=car_id]").show();
+				//$("#ddlCar").show();
    			} 
    		);   	       
 	}	
@@ -116,7 +116,7 @@
 				<option value=''>선택</option>
 		    </select>
 		</fieldset>	
-    </div>
+    </div>   
     <div class="ui-field-contain">
         <label for="ddlVendor">차량</label>
 		<fieldset data-role="controlgroup" data-type="horizontal">

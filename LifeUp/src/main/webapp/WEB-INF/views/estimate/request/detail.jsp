@@ -6,8 +6,8 @@
 
 <mvc:main>
 <script type="text/javascript">	
-	function fnLoad() {
-	}
+	$(document).ready(function() {
+	});
 	
 	function fnList() {
 		frm.action = '/request/list';
@@ -33,56 +33,85 @@
 	<input type='hidden' id='hdnRequestId' name='requestId' value='${request.REQUEST_ID}' />
 	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='${param.currentSeq}' />
 	<input type='hidden' id='hdnSalesmanId' name='salesman_id' />	
-	<div class="messages">		
-		<div id="contents" onclick="" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
-		    <div id="" class="message-title" style='height: 8px;'>
-		    	<span class="text">
-		    		<span class="label label-info">지역/차종</span>
-		    		<span style="padding-left:5px;">${request.SIDO} ${request.GUGUN} > ${request.VENDOR_NM} > ${request.CAR_NM}</span>
-		    	</span>			    				    
-		    </div>
-		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
-		    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
-		    	<span class="text">
-		    		<span class="label label-info">등록상태</span>
-		    		<span style="padding-left:5px;">${request.STATUS_NM}</span>
-		    		<span style='float: right;'>
-			    		<span class="label label-info">요청자</span>
-			    		<span style="padding-left:5px; margin-right:30px;">${request.CUSTOMER_NM}</span>
-		    		</span>
-		    	</span>
-		    </div>		    
-		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
-		    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
-		    	<span class="text">
-		    		<span class="label label-info">차량옵션</span>
-		    		<span style="padding-left:5px;">${request.CAR_OPTION}</span>
-		    		<span style='float: right;'>
-			    		<span class="label label-info">구매예정일</span>
-			    		<span style="padding-left:5px;">${request.PURCHASE_PERIOD_CD}</span>
-		    		</span>
-		    	</span>
-		    </div>	
-		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
-		    <div class="info-inner" style='vertical-align: middle; height: 55px;'>
-		    	<span class="text">
-		    		<span class="label label-info">요구사항</span>
-		    		<span style="padding-left:5px; height: 50px; overflow-y:auto;overflow-x:hidden;">${request.CUSTOMER_REQ}</span>
-		    	</span>
-		    </div>		    
-		</div>
-	</div>
-   	<div>    	
-   		<input type='hidden' id='hdnRequestId' name='request_id' value='${request.REQUEST_ID}' />    
-	    <div style='float: right;'>
-	    	<c:if test="${sessionScope._USER_INFO_.userType == '2'}">
-	    		<input type='button' class="btn btn-primary" value='견적남기기' onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});" />
-	    	</c:if>
-	    	<input type='button' class="btn btn-primary" value='목록' onclick="fnList();" />
-	    </div>
-    </div>
-	<div style="height: 15px;"></div>
 </form>
+<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
+	<ul data-role="listview" data-inset="true">
+	    <li data-role="list-divider">지역/차종 </li>
+	    <li>
+		    <h1>${request.SIDO} ${request.GUGUN} > ${request.VENDOR_NM} > ${request.CAR_NM}</h1>
+	    </li>
+	    <li data-role="list-divider">등록상태 </li>
+	    <li>
+		    <h1>${request.STATUS_NM}</h1>
+	    </li>
+	    <li data-role="list-divider">요청자 </li>
+	    <li>
+		    <h1>${request.CUSTOMER_NM}</h1>
+	    </li>
+	    
+	    <li data-role="list-divider">차량옵션</li>
+	    <li>
+		    <h1>${request.CAR_OPTION}</h1>
+	    </li>	
+	    <li data-role="list-divider">구매예정일 </li>
+	    <li>
+		    <h1>${request.PURCHASE_PERIOD_CD}</h1>
+	    </li>
+	    <li data-role="list-divider">요구사항 </li>
+	    <li>
+		    <h1>${request.CUSTOMER_REQ}</h1>
+	    </li>		    		    	    		    	    
+	</ul>	
+	
+	<ul data-role="listview" data-inset="true">		
+		<li data-role="list-divider">견적제안</li>
+		<c:if test="${empty contract}">
+			<li>등록된 견적 제안이 없습니다</li>	
+		</c:if>	
+		<c:forEach items="${contract}" var="salesDoc" varStatus="loop">	
+			<c:choose>
+				<c:when test="${salesDoc.SALESMAN_ID == sessionScope._USER_INFO_.userId || request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">				
+			    	<li>
+			    		<a href="#" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');">
+			    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
+							<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
+								[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
+							<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 								    			
+			    		</a>
+			    	</li>
+		    	</c:when>
+		    	<c:otherwise>
+			    	<li>
+			    		<a href="#" onclick="return false;" style="cursor: default;">
+			    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
+							<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
+								[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
+							<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if>
+						</a>
+			    	</li>	    		
+		    	</c:otherwise>
+	    	</c:choose>
+	    </c:forEach>
+	</ul>	
+	
+	<c:choose>
+		<c:when test="${sessionScope._USER_INFO_.userType == '2'}">
+			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
+				<a href="#" data-role="button" data-icon="write" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});">견적남기기</a>
+				<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="fnList();">목록</a>
+			</div>
+		</c:when>	
+		<c:otherwise>
+			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
+				<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="fnList();">목록</a>
+			</div>
+		</c:otherwise>
+	</c:choose>
+	
+</div>
+
+<%-- 
+
 <div>
 	<c:forEach items="${contract}" var="salesDoc" varStatus="status">
 		<img id='imgSalesmanIco' src='/resources/img/ico/member.png' />
@@ -107,5 +136,5 @@
 		</c:choose>
 		<div style='height:7px;'></div>		
 	</c:forEach>
-</div>		
+ --%>	
 </mvc:main>

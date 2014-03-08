@@ -5,10 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   
 <mvc:main>
-<script type="text/javascript">
-	function fnLoad() {		   			
-	}
-	
+<script type="text/javascript">	
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
 			alert('일반사용자만이 등록할 수 있습니다');
