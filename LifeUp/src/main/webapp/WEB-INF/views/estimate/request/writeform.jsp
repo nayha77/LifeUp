@@ -5,8 +5,8 @@
 <mvc:main>
 <script type="text/javascript">	
 	$(document).ready(function() {		
-		$("#ddlGugun").hide();
-		$("#ddlCar").hide();
+		//$("#ddlGugun").hide();
+		//$("#ddlCar").hide();
 		
 		_Commn.SetDatePickter();
 		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));					
@@ -17,16 +17,16 @@
 			return;
  		
  		$("#ddlGugun").find("option").remove().end().append("<option value=\"0\">선택</option>");
- 
+
  		_Async.post (
    			"/regionSecondJson",
    			sido = obj.value,
    			function (data) {    
 				var resultData = data.Sido2; 
 				$.each(resultData, function(index, row){	    		      		
-					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
+					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	
 				});
-
+				 $("#ddlGugun").listview("refresh");
 				//$("#ddlGugun").show();
    			}    			
    		);   	         
@@ -45,7 +45,7 @@
    			function (data) {    
    				var resultData = data.carCodeList;  
 				$.each(resultData, function(index, row){
-					$("#ddlCar").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
+					$("#ddlCar-button").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
 				});
 				
 				//$("#ddlCar").show();
@@ -113,7 +113,6 @@
 				</c:forEach>
 		    </select>
 		    <select name="region_cd" id="ddlGugun" data-native-menu="false">
-				<option value=''>선택</option>
 		    </select>
 		</fieldset>	
     </div>   

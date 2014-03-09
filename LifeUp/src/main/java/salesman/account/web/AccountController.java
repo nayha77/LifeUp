@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import salesman.account.service.AccountService;
 import salesman.common.define.RegionVo;
@@ -44,11 +45,11 @@ public class AccountController {
 	@Autowired
 	private CodesService codesService;	
 	   	       
-    @RequestMapping("/logout")
+    @RequestMapping(value="/account/logout/")
     public String logout() 
     {
     	storageService.SessionOut();
-    	return "redirect:/main.do";    	
+    	return "/account/logout";
     }
     
     /*

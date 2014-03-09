@@ -174,6 +174,9 @@
         	$('#frmUserLogin').hide();
         	$('#frmFindUserInfo').show();        	
  		}
+ 		function Ssibal(){
+ 			location.href ="/account/logout/";
+ 		}
     </script>    
 </head>
 <body>
@@ -186,7 +189,8 @@
 				<a href="#right-panel" data-icon="user" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="/logout" data-icon="forward" data-iconpos="notext">로그아웃</a>
+			<a href="javascript:Ssibal();" data-icon="forward" data-iconpos="notext">로그아웃</a>
+				<!-- <a href="/account/logout/" data-icon="forward" data-iconpos="notext">로그아웃</a> -->
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	

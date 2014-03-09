@@ -32,11 +32,14 @@
   						$("#rowData").append("<li data-role='list-divider'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
  						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
  						$("#rowData").append("</a></li>");
+ 				
 					});					
 					
 					$('#hdnCurrentSeq').val(data.currentSeq);
-				} else {							
+					 $("#rowData").listview("refresh");
+				} else {
 					$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
+					$("#moreView").button("refresh");
 				}			
 			}
     	); 
