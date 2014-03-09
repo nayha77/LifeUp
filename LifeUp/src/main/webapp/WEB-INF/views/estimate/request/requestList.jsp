@@ -36,7 +36,7 @@
 					});					
 					
 					$('#hdnCurrentSeq').val(data.currentSeq);
-					 $("#rowData").listview("refresh");
+					$("#rowData").listview("refresh");
 				} else {
 					$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
 					$("#moreView").button("refresh");
