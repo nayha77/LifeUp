@@ -45,7 +45,7 @@
    
          	if(userId != "") {
         		$('#txtUser').val(userId); 
-        		$('input:radio[name=userType]:input[value="2"]').attr("checked", true).checkboxradio("refresh");        
+        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
         		$('#txtUserPwd').focus();
         	} else {        	
         		$('input:radio[name=userType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");
