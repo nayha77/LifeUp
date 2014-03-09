@@ -85,13 +85,9 @@
     		);
     	}
         
-    	function sendUserInfoToApp(id, pwd, autoSaveYn){
-    		window.HybridApp.setMessage(id, pwd);
-    	}
-    	
-    	function fnLoginFromApp(id) {
-    		location.href="http://www.naver.com?id=" + id;
-    	}
+    	function sendUserInfoToApp(id, pwd, userType){
+    		window.HybridApp.setMessage(id, pwd, userType);
+    	}    	    
         
         // 사용자찾기
     	function fnFindUser() {
