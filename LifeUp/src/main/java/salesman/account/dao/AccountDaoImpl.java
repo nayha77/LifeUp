@@ -83,9 +83,9 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 		param.put("appId", appId);
 		
 		if(userType.equals("1"))
-			rtnValue = getSqlSession().update("account.modifyCustomerAppId", userId);		
+			rtnValue = getSqlSession().update("account.modifyCustomerAppId", param);		
 		else
-			rtnValue = getSqlSession().update("account.modifySalesmanAppId", userId);
+			rtnValue = getSqlSession().update("account.modifySalesmanAppId", param);
 			
 		return rtnValue > 0 ? true : false;
 	}
