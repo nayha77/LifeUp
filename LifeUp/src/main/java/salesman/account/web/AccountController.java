@@ -97,9 +97,21 @@ public class AccountController {
     @RequestMapping(value="/app" ,method=RequestMethod.POST)
     public void appPost(@RequestParam String userId, @RequestParam String userType, @RequestParam String appId, ModelMap model) {    	
     
-    	SessionVO userInfo = storageService.getAuthenticatedUser();    	
+    	System.out.println("userId : " + userId);
+    	
+    	SessionVO userInfo = storageService.getAuthenticatedUser();
+    	
+    	System.out.println("userType : " + userType);
+    	
+    	
     	if(userInfo != null) {
-    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {    			
+    		
+    		System.out.println("sessionId : " + userInfo.getUserId());
+    		
+    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {
+    			
+    			System.out.println("appId : " + appId);
+    			
     			accountService.modifyAppId(userType, userId, appId);
     		}
 		} 
