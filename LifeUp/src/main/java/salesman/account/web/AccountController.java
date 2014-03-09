@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -90,6 +91,19 @@ public class AccountController {
     	return result;
     }   
     
+    /*
+     * 스마트폰 ID UPDATE
+     */
+    @RequestMapping(value="/app" ,method=RequestMethod.POST)
+    public void appPost(@RequestParam String userId, @RequestParam String userType, @RequestParam String appId, ModelMap model) {    	
+    
+    	SessionVO userInfo = storageService.getAuthenticatedUser();    	
+    	if(userInfo != null) {
+    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {    			
+    			accountService.modifyAppId(userType, userId, appId);
+    		}
+		} 
+    }    
     /*
      * 사용자 찾기
      */

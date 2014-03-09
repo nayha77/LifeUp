@@ -1,5 +1,8 @@
 package salesman.account.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import salesman.vo.account.LoginVO;
@@ -67,6 +70,22 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 			rtnValue = getSqlSession().update("account.registerCustomer", userInfo);		
 		else
 			rtnValue = getSqlSession().update("account.registerSalesman", userInfo);
+			
+		return rtnValue > 0 ? true : false;
+	}
+	
+	@Override
+	public boolean modifyAppId(String userType, String userId, String appId) {
+		int rtnValue = 0;
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("userId", userId);
+		param.put("appId", appId);
+		
+		if(userType.equals("1"))
+			rtnValue = getSqlSession().update("account.modifyCustomerAppId", userId);		
+		else
+			rtnValue = getSqlSession().update("account.modifySalesmanAppId", userId);
 			
 		return rtnValue > 0 ? true : false;
 	}

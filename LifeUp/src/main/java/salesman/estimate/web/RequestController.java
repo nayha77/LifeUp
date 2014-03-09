@@ -143,35 +143,5 @@ public class RequestController {
 		
     	result.put("message", message);
     	return result;
-    }
-    
-    @RequestMapping(value="/app" ,method=RequestMethod.POST)
-    public String appPost(@RequestParam String user_id,@RequestParam String user_pw,@RequestParam String user_hpid ,ModelMap model){
-
-    	model.put("user_id", user_id);
-    	model.put("user_pw", user_pw);   	
-    	model.put("user_hpid", user_hpid);
-
-    	System.out.println("HP >>>>>>>>>>>>>" + user_id);
-    	System.out.println("HP >>>>>>>>>>>>>" + user_pw);
-    	System.out.println("HP >>>>>>>>>>>>>" + user_hpid);
-    	
-    	// 사용자 찾기 .. 일반 회원인지 영업 사원인지..
-    	/*
-    	
-		SELECT customer_id userId, customer_nm userNm, '' vendor_id, '' vendorLoc, '1' userType, mobile
-		  FROM CUSTOMER
-		 WHERE customer_id = 'sijm@naver.com'
-		UNION
-		SELECT salesman_id userId, salesman_nm userNm, vendor_id vendorId, location vendorLoc, '2' userType, mobile
-		  FROM SALESMAN
-		 WHERE salesman_id = 'sijm@naver.com'
-		 
-    	 */
-    	// 있으면 해당 회원 타입으로 업데이트
-    	
-    	// 없으면 더미 사용자로 업데이트.. (이게 필요할려나 ...) 
-    	
-    	return "estimate/request/app";
-    }
+    }   
 }
