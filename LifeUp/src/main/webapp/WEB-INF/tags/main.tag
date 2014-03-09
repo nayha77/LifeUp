@@ -106,7 +106,7 @@
     			function (data) {                
     				if(data.message =='success') {
     					$('#txtFUserId').val("");
-    					$('input[name=fUserType][value=1]').attr('checked', true);
+    					$('input:radio[name=fUserType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");
     				} else {
     					alert(data.message);
     				}    					    				    		
