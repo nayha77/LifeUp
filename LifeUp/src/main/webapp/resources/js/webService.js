@@ -72,11 +72,11 @@
                     changeYear: true, //년변경가능
                     yearRange: '1988:+10', // 연도 셀렉트 박스 범위(현재와 같으면 1988~현재년)
                     showMonthAfterYear: true, //년 뒤에 월 표시
-                    buttonImageOnly: true, //이미지표시  
-                    buttonText: '',
-                    autoSize: false, //오토리사이즈(body등 상위태그의 설정에 따른다)
-                    buttonImage: '/resources/img/button/icon_calendar.gif',
-                    showOn: "both" //엘리먼트와 이미지 동시 사용         
+//                    buttonImageOnly: true, //이미지표시  
+//                    buttonText: '',
+//                    autoSize: false, //오토리사이즈(body등 상위태그의 설정에 따른다)
+//                    buttonImage: '/resources/img/button/icon_calendar.gif',
+//                    showOn: "both" //엘리먼트와 이미지 동시 사용         
                 });
             };
 

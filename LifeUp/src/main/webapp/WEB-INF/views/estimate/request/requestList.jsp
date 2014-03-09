@@ -5,23 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   
 <mvc:main>
-<script type="text/javascript">
-	function fnLoad() {		     
-		fnInit();				
-		$('#hdnCurrentSeq').val(${param.currentSeq});
-	}
-	
-	function fnInit() {
-		$("div[id^=contents]").mouseover(function(e){
-			 $(this).addClass('selectedRow');
-		}).mouseout(function() {
-	        $(this).removeClass('selectedRow');
-	   	});
-
-//		$("div[id^=contents]").click(function(e){
-//		});		
-	}	
-	
+<script type="text/javascript">	
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
 			alert('일반사용자만이 등록할 수 있습니다');
@@ -38,59 +22,49 @@
 	}	
 	
 	function lastAddedLiveFunc()
-	{		
+	{			
 		_Async.post (
     		"/request/listJson",
     		currentSeq = $('#hdnCurrentSeq').val(),
     		function (data) {
-				if (data.list != "") {
+				if (data.list != null && data.list != "") {
 					$.each(data.list, function(idx, row) {						
- 						$(".messages").append("<div id='contents' onclick=\"fnDetail('"+row.REQUEST_ID+"');\" class='message other alert pinned alert alert-success chrome-extension' style='margin-bottom: 7px; padding-right: 15px;'><div id='"+row.REQUEST_ID+"' class='message-title' style='height: 8px;'><span class='text'>"+row.REGION_NM + " > "+  row.VENDOR_NM + " > " + row.CAR_NM + " > " + "</span><span style='float: right;'>" + row.CREATE_DATE + "</span></div><hr class='message-inner-separator' style='margin-bottom: 10px;'><div class='info-inner' style='vertical-align: top;'>"+row.CUSTOMER_REQ + "<span class='badge badge-info' style='float: right;'>" + row.HIT_CNT + "</span></div>");						
- 						$(".messages").append("</div>");
-					});
+  						$("#rowData").append("<li data-role='list-divider'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
+ 						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
+ 						$("#rowData").append("</a></li>");
+					});					
 					
-					$('#hdnCurrentSeq').val(data.currentSeq);					
-					$('div#lastPostsLoader').empty();
-							
-					fnInit();
-				} else {					
-					$('div#lastPostsLoader').empty();					
-					$('#moreView').empty();
-					$('#moreView').text("더이상 등록된 견적 요청정보가 없습니다");
+					$('#hdnCurrentSeq').val(data.currentSeq);
+				} else {							
+					$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
 				}			
 			}
     	); 
 	}
 </script>
-<div  class="ui-content jqm-content jqm-fullwidth">
-	<form id='frm' name='frm' method='post'>
-		<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='7' />
-		<input type='hidden' id='hdnRequestId' name='request_id'/>
-		<div class="messages" style="margin-bottom: 0px;">		
-			<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
-				<div id="contents" onclick="fnDetail('${estimateReg.REQUEST_ID}');" class="message other alert pinned alert alert-success chrome-extension" style="margin-bottom: 7px; padding-right: 15px;">
-				    <div id="${estimateReg.REQUEST_ID}" class="message-title" style='height: 8px;'>
-				    	<span class="text" >${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}</span>
-				    	<span style='float: right;'>${estimateReg.CREATE_DATE}</span>			    				    
-				    </div>
-				    <hr class="message-inner-separator" style='margin-bottom: 10px;'>
-				    <div class="info-inner" style='vertical-align: top;'>
-				       ${estimateReg.CUSTOMER_REQ}
-				       <span class="badge badge-info" style='float: right;'>${estimateReg.HIT_CNT}</span>
-				    </div>
-				</div>
-			</c:forEach>
-		</div>					
-	</form>
-	<div>
-		<ul class="breadcrumb" style='text-align: center; cursor: pointer;' onclick='lastAddedLiveFunc();'>
-			<li id='moreView'>더보기</li>
-		</ul>
-	</div>
+<form id='frm' name='frm' method='post'>
+<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='7'>
+<input type='hidden' id='hdnRequestId' name='request_id'/>		
+</form>
+<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 	<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}" >
-		<div style='float: right;'>
-			<span class="breadcrumb" onclick="fnWrite(${sessionScope._USER_INFO_.userType});" style="cursor: pointer;">등록</span>
-		</div>				
+		<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
+			<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+		</div>
 	</c:if>
-</div>	
+	<ul data-role="listview" data-inset="true" id="rowData">
+		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
+		    <li data-role="list-divider">
+		    	${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}
+		    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
+		    </li>
+		    <li>
+		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');">
+			    	<p>${estimateReg.CUSTOMER_REQ}</p>
+		        </a>
+		    </li>
+		</c:forEach>
+	</ul>
+	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick='lastAddedLiveFunc();'>
+</div>
 </mvc:main>

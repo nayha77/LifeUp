@@ -4,30 +4,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <mvc:main>
 <script type="text/javascript">	
-	function fnLoad() {		
-		$("select[name=region_cd]").hide();
-		$("select[name=car_id]").hide();
+	$(document).ready(function() {		
+		$("#ddlGugun").hide();
+		$("#ddlCar").hide();
 		
 		_Commn.SetDatePickter();
-		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));		
-	}
-	
+		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));					
+	});	
+
 	function fnSidoChange(obj){
 		if(obj.value == '0')			
 			return;
  		
- 		$("select[name=region_cd]").find("option").remove().end().append("<option value=\"0\">선택</option>");
+ 		$("#ddlGugun").find("option").remove().end().append("<option value=\"0\">선택</option>");
  
  		_Async.post (
    			"/regionSecondJson",
    			sido = obj.value,
    			function (data) {    
-				var resultData = data.Sido2;  // vo 객체로 넘어와서 한번 감싸줘야함 
+				var resultData = data.Sido2; 
 				$.each(resultData, function(index, row){	    		      		
-					$("select[name=region_cd]").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
+					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	    		      		
 				});
 
-				$("select[name=region_cd]").show();
+				//$("#ddlGugun").show();
    			}    			
    		);   	         
 	}	
@@ -37,7 +37,7 @@
 		if(obj.value == '')
 			return;
 		
- 		$("select[name=car_id]").find("option").remove().end().append("<option value=\"\">선택</option>");
+ 		$("#ddlCar").find("option").remove().end().append("<option value=\"\">선택</option>");
  		
    	    _Async.post (
    			"/selectCarJson",
@@ -45,10 +45,10 @@
    			function (data) {    
    				var resultData = data.carCodeList;  
 				$.each(resultData, function(index, row){
-					$("select[name=car_id]").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
+					$("#ddlCar").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
 				});
 				
-				$("select[name=car_id]").show();
+				//$("#ddlCar").show();
    			} 
    		);   	       
 	}	
@@ -102,66 +102,54 @@
    		);   
 	}
 </script>
-<form id='frm' name='frm' method='post'>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>지역</div>
-  	<div class="span11">
-		<select name="ddlSido" id="ddlSido" class="input-xlarge" onchange="fnSidoChange(this);" >
-			<option value=''>선택</option>
-			<c:forEach items="${sidos}" var="sido">
-				<option value="${sido.sido}">${sido.sido}</option>
-			</c:forEach>
-		</select>
-		<select name="region_cd" id="ddlGugun" class='input-xlarge'>
-			<option value=''>선택</option>
-		</select>		
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>차량</div>
-  	<div class="span11">
-		<select name="ddlVendor" id="ddlVendor" class="input-xlarge" onchange="fnVenderChange(this);" >
-	    	<option value=''>선택</option>
+<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
+	<div class="ui-field-contain">
+		<label for="ddlSido">지역</label>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+		    <select name="ddlSido" id="ddlSido" data-native-menu="false" onchange="fnSidoChange(this);">
+				<option value=''>선택</option>
+				<c:forEach items="${sidos}" var="sido">
+					<option value="${sido.sido}">${sido.sido}</option>
+				</c:forEach>
+		    </select>
+		    <select name="region_cd" id="ddlGugun" data-native-menu="false">
+				<option value=''>선택</option>
+		    </select>
+		</fieldset>	
+    </div>   
+    <div class="ui-field-contain">
+        <label for="ddlVendor">차량</label>
+		<fieldset data-role="controlgroup" data-type="horizontal">
+		    <select name="ddlVendor" id="ddlVendor" data-native-menu="false" onchange="fnVenderChange(this);">
+				<option value=''>선택</option>
 	   		<c:forEach items="${venders}" var="vender">
 	   			<option value="${vender.code}">${vender.value}</option>
 	   		</c:forEach>
-	   	</select>
-		<select name="car_id" id="ddlCar" class='input-xlarge'>
-			<option value=''>선택</option>
-		</select>		   		
-  	</div>
+		    </select>
+		    <select name="car_id" id="ddlCar" data-native-menu="false">
+				<option value=''>선택</option>
+		    </select>
+		</fieldset>
+    </div>
+    <div class="ui-field-contain">    	 
+         <label for="car_trim">트림</label>
+         <input type="text" data-clear-btn="true" id="carTrim" name="car_trim">
+    </div>
+    <div class="ui-field-contain">
+         <label for="car_option">옵션</label>
+         <input type="text" data-clear-btn="true" id="carOption" name="car_option">
+    </div>
+    <div class="ui-field-contain">    	
+         <label for="purchase_period_cd">구매예정일</label>
+         <input type="text" data-clear-btn="true" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" readonly="readonly">         
+    </div>    
+    <div class="ui-field-contain">
+        <label for="customer_req">요구사항</label>
+        <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req"></textarea>
+    </div>
+	<div style="margin-right: -10px; text-align: right;">
+		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
+		<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="location.href='/request/list';">목록</a>
+	</div>    
 </div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>트림</div>
-  	<div class="span11">
-		<input type="text" id="carTrim" name="car_trim" class="input-xlarge" />
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>옵션</div>
-  	<div class="span11">
-		<input type="text" id="carOption" name="car_option" class="input-xlarge" />
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>구매예정일</div>
-  	<div class="span11">
-		<input type="text" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" style="width:80px;" readonly="readonly" />
-  	</div>
-</div>
-<div class="row">
-	<div class="span1"><i class="icon-check"></i>요구사항</div>
-  	<div class="span11">  		
-		<textarea id="customer_req" name="customer_req" rows="2" class="input-xlarge"></textarea>
-  	</div>
-</div>
-<div class="info-inner" style='position:relative;'>
-	<div style="position:relative;">    	    
-		<div style='float: right;'>
-			<input type='button' class="btn btn-primary" value='등록' onclick="fnSave();" />
-			<input type='button' class="btn btn-primary" value='목록' onclick="location.href='/request/list'" />
-		</div>
-	</div>
-</div>	
-</form>
 </mvc:main>
