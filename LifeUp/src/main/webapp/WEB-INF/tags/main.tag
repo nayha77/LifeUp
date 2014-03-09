@@ -42,15 +42,16 @@
 		function fnOpenLoginPanel() {
 			var userId = '${cookie.userId.value}';
         	var userType = '${cookie.userType.value}';
-        	        
+   
          	if(userId != "") {
         		$('#txtUser').val(userId); 
-        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true);        		        	
+        		$('input:radio[name=userType]:input[value="2"]').attr("checked", true).checkboxradio("refresh");        
         		$('#txtUserPwd').focus();
         	} else {        	
-        		$("input:radio[name=userType]:input[value='1']").attr("checked", true);
+        		$('input:radio[name=userType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");
         		$('#txtUserID').focus();
         	}
+  
 		}
          
 		// 로그인 엔터입력
@@ -84,9 +85,13 @@
     		);
     	}
         
-    	function sendUserInfoToApp(id, pwd, userType){
-    		window.HybridApp.setMessage(id, pwd, userType);
-    	}    
+    	function sendUserInfoToApp(id, pwd, autoSaveYn){
+    		window.HybridApp.setMessage(id, pwd);
+    	}
+    	
+    	function fnLoginFromApp(id) {
+    		location.href="http://www.naver.com?id=" + id;
+    	}
         
         // 사용자찾기
     	function fnFindUser() {
@@ -215,7 +220,7 @@
 				<h2>로그인</h2>
 				<div class="switch">
 				    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
-				        <input type="radio" name="userType" id="radio-choice-t-4a" value="1" checked="checked">
+				        <input type="radio" name="userType" id="radio-choice-t-4a" value="1" >
 				        <label for="radio-choice-t-4a">일반</label>
 				        <input type="radio" name="userType" id="radio-choice-t-4c" value="2">
 				        <label for="radio-choice-t-4c">영업사원</label>
