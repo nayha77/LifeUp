@@ -21,7 +21,6 @@ import salesman.estimate.service.RequestService;
 import salesman.vo.account.SessionVO;
 import salesman.vo.estimate.ContractReplyVO;
 import salesman.vo.estimate.ContractVO;
-import salesman.vo.estimate.RequestVO;
 
 @Controller
 @RequestMapping("/contract/*")

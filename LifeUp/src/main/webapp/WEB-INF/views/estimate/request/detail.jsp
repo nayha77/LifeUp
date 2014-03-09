@@ -30,37 +30,28 @@
 	}
 </script>
 <form id='frm' method="post">
-	<input type='hidden' id='hdnRequestId' name='requestId' value='${request.REQUEST_ID}' />
+	<input type='hidden' id='hdnRequestId' name='request_id' value='${request.REQUEST_ID}' />
 	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='${param.currentSeq}' />
 	<input type='hidden' id='hdnSalesmanId' name='salesman_id' />	
 </form>
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 	<ul data-role="listview" data-inset="true">
-	    <li data-role="list-divider">지역/차종 </li>
+	    <li data-role="list-divider">지역/차종<span class="ui-li-count">${request.STATUS_NM}</span></li>
 	    <li>
 		    <h1>${request.SIDO} ${request.GUGUN} > ${request.VENDOR_NM} > ${request.CAR_NM}</h1>
 	    </li>
-	    <li data-role="list-divider">등록상태 </li>
-	    <li>
-		    <h1>${request.STATUS_NM}</h1>
-	    </li>
-	    <li data-role="list-divider">요청자 </li>
-	    <li>
-		    <h1>${request.CUSTOMER_NM}</h1>
-	    </li>
-	    
 	    <li data-role="list-divider">차량옵션</li>
 	    <li>
 		    <h1>${request.CAR_OPTION}</h1>
 	    </li>	
+	    <li data-role="list-divider">${request.CUSTOMER_NM}님 요구사항 </li>
+	    <li>
+		    <h1>${request.CUSTOMER_REQ}</h1>
+	    </li>
 	    <li data-role="list-divider">구매예정일 </li>
 	    <li>
 		    <h1>${request.PURCHASE_PERIOD_CD}</h1>
-	    </li>
-	    <li data-role="list-divider">요구사항 </li>
-	    <li>
-		    <h1>${request.CUSTOMER_REQ}</h1>
-	    </li>		    		    	    		    	    
+	    </li>	    		    		    	    		    	    
 	</ul>	
 	
 	<ul data-role="listview" data-inset="true">		
@@ -72,7 +63,7 @@
 			<c:choose>
 				<c:when test="${salesDoc.SALESMAN_ID == sessionScope._USER_INFO_.userId || request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">				
 			    	<li>
-			    		<a href="#" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');">
+			    		<a href="#" data-icon="" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');">
 			    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
 							<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
 								[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
@@ -82,12 +73,10 @@
 		    	</c:when>
 		    	<c:otherwise>
 			    	<li>
-			    		<a href="#" onclick="return false;" style="cursor: default;">
-			    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
-							<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
-								[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
-							<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if>
-						</a>
+		    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
+						<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
+							[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
+						<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if>
 			    	</li>	    		
 		    	</c:otherwise>
 	    	</c:choose>
@@ -106,35 +95,6 @@
 				<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="fnList();">목록</a>
 			</div>
 		</c:otherwise>
-	</c:choose>
-	
+	</c:choose>	
 </div>
-
-<%-- 
-
-<div>
-	<c:forEach items="${contract}" var="salesDoc" varStatus="status">
-		<img id='imgSalesmanIco' src='/resources/img/ico/member.png' />
-		<c:choose>
-			<c:when test="${salesDoc.SALESMAN_ID == sessionScope._USER_INFO_.userId || 
-						  request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
-				<span class="breadcrumb" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');" style="cursor:pointer;">
-					<c:if test="${salesDoc.STATUS == '0002'}"><a href="#" class="icon-ok"></a></c:if>					
-					<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
-					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
-					<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 
-				</span>			
-			</c:when>
-			<c:otherwise>
-				<span class="breadcrumb">
-					<c:if test="${salesDoc.STATUS == '0002'}"><a href="#" class="icon-ok"></a></c:if>
-					<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
-					[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
-					<c:if test="${salesDoc.STATUS == '0003'}"></s></c:if> 
-				</span>			
-			</c:otherwise>
-		</c:choose>
-		<div style='height:7px;'></div>		
-	</c:forEach>
- --%>	
 </mvc:main>

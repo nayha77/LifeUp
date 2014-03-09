@@ -6,8 +6,8 @@
 
 <mvc:main>
 <script type="text/javascript">
-	function fnLoad() {		
-	}
+	$(document).ready(function() {
+	});
 	
 	function fnSave() {
 		if($('#tbxSalesBenefit').val().trim() == "") {
@@ -91,46 +91,32 @@
 		document.frm.submit();
 	}
 </script>
+
+<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
+	<ul data-role="listview" data-inset="true">
+	    <li data-role="list-divider">지역/차종<span class="ui-li-count">${requestDetail.STATUS_NM}</span></li>
+	    <li>
+		    <h1>${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</h1>
+	    </li>
+	    <li data-role="list-divider">차량옵션</li>
+	    <li>
+		    <h1>${requestDetail.CAR_OPTION}</h1>
+	    </li>	
+	    <li data-role="list-divider">${requestDetail.CUSTOMER_NM}님 요구사항 </li>
+	    <li>
+		    <h1>${requestDetail.CUSTOMER_REQ}</h1>
+	    </li>
+	    <li data-role="list-divider">구매예정일 </li>
+	    <li>
+		    <h1>${requestDetail.PURCHASE_PERIOD_CD}</h1>
+	    </li>	    		    		    	    		    	    
+	</ul>
+</div>	
+
+
+
 <form id='frm' name='frm' method="post">
-	<div class="messages">		
-		<div id="contents" onclick="" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
-		    <div id="" class="message-title" style='height: 8px;'>
-		    	<span class="text">
-		    		<span class="label label-info">지역/차종</span>
-		    		<span style="padding-left:5px;">${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</span>
-		    	</span>			    				    
-		    </div>
-		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
-		    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
-		    	<span class="text">
-		    		<span class="label label-info">등록상태</span>
-		    		<span style="padding-left:5px;">${requestDetail.STATUS_NM}</span>
-		    		<span style='float: right;'>
-			    		<span class="label label-info">요청자</span>
-			    		<span style="padding-left:5px; margin-right:30px;">${requestDetail.CUSTOMER_NM}</span>
-		    		</span>
-		    	</span>
-		    </div>		    
-		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
-		    <div class="info-inner" style='vertical-align: middle; height: 8px;'>
-		    	<span class="text">
-		    		<span class="label label-info">차량옵션</span>
-		    		<span style="padding-left:5px;">${requestDetail.CAR_OPTION}</span>
-		    		<span style='float: right;'>
-			    		<span class="label label-info">구매예정일</span>
-			    		<span style="padding-left:5px;">${requestDetail.PURCHASE_PERIOD_CD}</span>
-		    		</span>
-		    	</span>
-		    </div>	
-		    <hr class="message-inner-separator" style='margin-bottom: 5px;'>
-		    <div class="info-inner" style='vertical-align: middle; height: 55px;'>
-		    	<span class="text">
-		    		<span class="label label-info">요구사항</span>
-		    		<span style="padding-left:5px; height: 50px; overflow-y:auto;overflow-x:hidden;">${requestDetail.CUSTOMER_REQ}</span>
-		    	</span>
-		    </div>		    
-		</div>
-	</div>	
+	
 	<c:forEach items="${contractDetail}" var="detail" varStatus="loop">
 		<div class="messages">		
 		    <div id="contents" onclick="" class="breadcrumb" style="margin-bottom: 7px;">
