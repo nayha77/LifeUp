@@ -86,14 +86,14 @@
 	<update id="modifyCustomerAppId">
 		UPDATE CUSTOMER
 		   SET APP_ID       = #{appId}
-		     , UPDATE_DATE  = now
+		     , UPDATE_DATE  = now()
 		 WHERE CUSTOMER_ID  = #{userId}
 	</update>						
 	
 	<update id="modifySalesmanAppId">
 		UPDATE SALESMAN
 		   SET APP_ID       = #{appId}
-		     , UPDATE_DATE  = now
+		     , UPDATE_DATE  = now()
 		 WHERE SALESMAN_ID  = #{userId}
 	</update>	
 </mapper>
