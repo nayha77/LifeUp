@@ -20,7 +20,8 @@
    			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
    			function (data) {    
 				if(data.message == 'success') {
-					document.location.href='/request/detail?request_id=' + $('#hdnRequestId').val();
+					document.frm.action = "/contract/detail";
+					document.frm.submit();
 				} else {
 					alert(data.detail);
 				}
@@ -67,7 +68,7 @@
    			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_id: $('#hdnSalesman_id').val(), message: $('#tbxShortMsg').val() } ),
    			function (data) {    
 				if(data.message == 'success') {				
-					$('#replyContainer').append("<li data-icon='delete'><a href='#'>${sessionScope._USER_INFO_.userNm} " + $('#tbxShortMsg').val().trim() + "<span class='ui-li-count'>오늘</span></a></li>");
+					$('#replyContainer').append("<li data-icon='false'><a href='#' style='cursor: default;'>${sessionScope._USER_INFO_.userNm} " + $('#tbxShortMsg').val().trim() + "<span class='ui-li-count'>오늘</span></a></li>");
 					$('#replyContainer').listview("refresh");
 					
 					$('#replyContainer').show();
@@ -130,65 +131,46 @@
 				    </li>
 				</ul>	
 			</c:when>
-		</c:choose>
-	</c:forEach>	
+		</c:choose>	
 
-	<c:choose>
-		<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
-			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
-				<c:if test="${requestDetail.STATUS == '0001'}">
-					<a href="#" data-role="button" id="btnConfirm" data-icon="write" data-inline="true" onclick="fnConfirm();">거래확정</a>					
-				</c:if>
-				<a href="#" data-role="button" data-icon="prev" data-inline="true" onclick="fnMoveBack();">이전</a>
+		<c:choose>
+			<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
+				<div style="margin-bottom: -10px; margin-right: -10px; text-align: right;">
+					<c:if test="${requestDetail.STATUS == '0001'}">
+						<a href="#" data-role="button" id="btnConfirm" data-icon="check" data-inline="true" onclick="fnConfirm();">거래확정</a>					
+					</c:if>
+					<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
+				</div>
+			</c:when>	
+			<c:otherwise>
+				<div style="margin-right: -10px; text-align: right;">
+					<c:if test="${detail.STATUS == '0001'}">
+						<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnSave();">수정</a>
+						<a href="#" id="btnCancel" data-role="button" data-icon="list" data-inline="true" onclick="fnCancel();">등록취소</a>
+					</c:if>
+					<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
+				</div>
+			</c:otherwise>
+		</c:choose>	    	       
+	
+		<ul id="replyContainer" data-role="listview" data-inset="true" style="display: none;">
+			<c:forEach items="${contractReply}" var="reply" varStatus="loop">
+			    <li data-icon="false"><a href="#" style='cursor: default;'>${reply.CREATE_USER_NM} ${reply.MESSAGE} <span class="ui-li-count">${reply.CREATE_DATE}</span></a></li>
+		    </c:forEach>
+		</ul>			
+			
+		<c:if test="${requestDetail.STATUS != '0003'}">
+			<div class="ui-block-a" style="width:70%;">
+			    <input type="text" data-clear-btn="true" id='tbxShortMsg' name='message' style="margin-top: 8px;">
 			</div>
-		</c:when>	
-		<c:otherwise>
-			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
-				<c:if test="${detail.STATUS == '0001'}">
-					<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="fnSave();">수정</a>
-					<a href="#" id="btnCancel" data-role="button" data-icon="list" data-inline="true" onclick="fnCancel();">등록취소</a>
-				</c:if>
-				<a href="#" data-role="button" data-icon="prev" data-inline="true" onclick="fnMoveBack();">이전</a>
+			<div class="ui-block-b" style="width:30%">
+				<a href="#" data-role="button" id="btnReply" onclick="fnReply();">댓글</a>
 			</div>
-		</c:otherwise>
-	</c:choose>	    	       
-
-	<ul id="replyContainer" data-role="listview" data-inset="true" style="display: none;">
-		<c:forEach items="${contractReply}" var="reply" varStatus="loop">
-		    <li data-icon="delete"><a href="#">${reply.CREATE_USER_NM} ${reply.MESSAGE} <span class="ui-li-count">${reply.CREATE_DATE}</span></a></li>
-	    </c:forEach>
-	</ul>			
-		
-	<c:if test="${requestDetail.STATUS != '0003'}">
-		<div class="ui-block-a" style="width:70%;">
-		    <input type="text" data-clear-btn="true" id='tbxShortMsg' name='message' style="margin-top: 8px;">
-		</div>
-		<div class="ui-block-b" style="width:30%">
-			<a href="#" data-role="button" id="btnReply" onclick="fnReply();">댓글</a>
-		</div>
-	</c:if>	
+		</c:if>	
+	</c:forEach>		
 </form>		
 </div>	
 
-<%--    		      
-	<div id="replyContainer" class="messages" style="display: none;">
-		<div style="height:50px;"></div>	
-		<div id="divReply" onclick="" class="breadcrumb" style="padding-right: 15px;">
-			<c:forEach items="${contractReply}" var="reply" varStatus="loop">
-			    <div class="message-title" style='height: 13px;'>
-			    	<span class="replyMsg">
-			    		<span>${reply.CREATE_USER_NM}</span>
-				    	<span style="padding-left:9px;">${reply.MESSAGE}</span>
-				    	<span style='float: right;'>${reply.CREATE_DATE}</span>
-			    	</span>		    				    
-			    </div>
-			    <c:if test="${!loop.last}">
-			    	<hr class="message-inner-separator" style='margin-bottom: 5px; margin-top: 9px;'>
-			    </c:if>
-		    </c:forEach>
-		</div>
-	</div>		        	
- --%>
 <c:if test="${not empty contractReply}">
 <script type="text/javascript">
 	$('#replyContainer').show();

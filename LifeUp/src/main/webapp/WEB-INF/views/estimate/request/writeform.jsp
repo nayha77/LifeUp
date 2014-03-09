@@ -4,19 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <mvc:main>
 <script type="text/javascript">	
-	$(document).ready(function() {		
-		//$("#ddlGugun").hide();
-		//$("#ddlCar").hide();
-		
-		_Commn.SetDatePickter();
-		//$('#purchase_period_cd').val(_Commn.ConvertDate(new Date(), "-"));					
+	$(document).ready(function() {	
+		_Commn.SetDatePickter();					
 	});	
 
 	function fnSidoChange(obj){
 		if(obj.value == '0')			
 			return;
  		
- 		$("#ddlGugun").find("option").remove().end().append("<option value=\"0\">선택</option>");
+ 		$("#ddlGugun").find("option").remove().end().append("<option value=\"\">선택</option>");
 
  		_Async.post (
    			"/regionSecondJson",
@@ -26,8 +22,8 @@
 				$.each(resultData, function(index, row){	    		      		
 					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	
 				});
-				 $("#ddlGugun").listview("refresh");
-				//$("#ddlGugun").show();
+				 $("#ddlGugun").show();
+				 $("#ddlGugun").selectmenu("refresh");
    			}    			
    		);   	         
 	}	
@@ -45,40 +41,50 @@
    			function (data) {    
    				var resultData = data.carCodeList;  
 				$.each(resultData, function(index, row){
-					$("#ddlCar-button").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
+					$("#ddlCar").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
 				});
 				
-				//$("#ddlCar").show();
+				$("#ddlCar").show();
+				$("#ddlCar").selectmenu("refresh");							
    			} 
    		);   	       
 	}	
+	
+	function fnChangeDDL(obj) {
+		$(obj).parent().parent().find(".error").hide();
+	}
+	
+	function fnChangeTextValue(obj) {
+		if(obj != "")
+			$(obj).parent().parent().find(".error").hide();
+	}
 	
 	function fnSave() {		
 		var check = true;
 		
 		$('.error').hide();
 		
-		if($('#ddlSido').val() == "" || $('#ddlGugun').val() == "0") {
+		if($('#ddlSido').val() == "" || $('#ddlGugun').val() == "") {
 			check = false;
-			$('#ddlGugun').after('<label class="error">거주지역을 선택하세요</label>');
+			$('#ddlGugun').parent().after('<div class="error" style="padding-top: 13px;">거주지역을 선택하세요</div>');
 		} else if($('#ddlVendor').val() == "" || $('#ddlCar').val() == "") {
 			check = false;
-			$('#ddlCar').after('<label class="error">차량을 선택하세요</label>');
+			$('#ddlCar').parent().after('<div class="error" style="padding-top: 13px;">차량을 선택하세요</div>');
 		} else if($('#carTrim').val() == "") {
 			check = false;
 			$('#carTrim').focus();
-			$('#carTrim').after('<label class="error">트림을 입력하세요</label>');
+			$('#carTrim').parent().after('<div class="error" style="padding-top: 13px;">트림을 입력하세요</div>');
 		} else if($('#carOption').val() == "") {
 			check = false;
 			$('#carOption').focus();
-			$('#carOption').after('<label class="error">옵션을 입력하세요</label>');			
+			$('#carOption').parent().after('<div class="error" style="padding-top: 13px;">옵션을 입력하세요</div>');			
 		} else if($('#purchase_period_cd').val() == "") {
 			check = false;
-			$('.ui-datepicker-trigger').after('<label class="error">예상구매일을 입력 하세요</label>');
+			$('#purchase_period_cd').parent().after('<div class="error" style="padding-top: 13px;">구매예정일을 입력하세요</div>');
 		} else if($('#customer_req').val() == "") {
 			check = false;
 			$('#customer_req').focus();
-			$('#customer_req').after('<label class="error">요구사항을 입력 하세요</label>');
+			$('#customer_req').parent().after('<div class="error" style="padding-top: 13px;">요구사항을 입력하세요</div>');
 		}				
 		
 		if(check == false)
@@ -112,39 +118,40 @@
 					<option value="${sido.sido}">${sido.sido}</option>
 				</c:forEach>
 		    </select>
-		    <select name="region_cd" id="ddlGugun" data-native-menu="false">
-		    </select>
-		</fieldset>	
+		    <select name="region_cd" id="ddlGugun" data-native-menu="false" onchange="fnChangeDDL(this);">
+		    	<option value=''>선택</option>
+		    </select>		    		        	 
+		</fieldset>					
     </div>   
     <div class="ui-field-contain">
         <label for="ddlVendor">차량</label>
 		<fieldset data-role="controlgroup" data-type="horizontal">
 		    <select name="ddlVendor" id="ddlVendor" data-native-menu="false" onchange="fnVenderChange(this);">
 				<option value=''>선택</option>
-	   		<c:forEach items="${venders}" var="vender">
-	   			<option value="${vender.code}">${vender.value}</option>
-	   		</c:forEach>
+		   		<c:forEach items="${venders}" var="vender">
+		   			<option value="${vender.code}">${vender.value}</option>
+		   		</c:forEach>
 		    </select>
-		    <select name="car_id" id="ddlCar" data-native-menu="false">
+		    <select name="car_id" id="ddlCar" data-native-menu="false" onchange="fnChangeDDL(this);">
 				<option value=''>선택</option>
-		    </select>
+		    </select>		    
 		</fieldset>
     </div>
     <div class="ui-field-contain">    	 
          <label for="car_trim">트림</label>
-         <input type="text" data-clear-btn="true" id="carTrim" name="car_trim">
+         <input type="text" data-clear-btn="true" id="carTrim" name="car_trim" onchange="fnChangeTextValue(this);">
     </div>
     <div class="ui-field-contain">
          <label for="car_option">옵션</label>
-         <input type="text" data-clear-btn="true" id="carOption" name="car_option">
+         <input type="text" data-clear-btn="true" id="carOption" name="car_option" onchange="fnChangeTextValue(this);">
     </div>
     <div class="ui-field-contain">    	
          <label for="purchase_period_cd">구매예정일</label>
-         <input type="text" data-clear-btn="true" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" readonly="readonly">         
+         <input type="text" data-clear-btn="true" id="purchase_period_cd" name="purchase_period_cd" class="datePicker" readonly="readonly" onchange="fnChangeTextValue(this);">
     </div>    
     <div class="ui-field-contain">
         <label for="customer_req">요구사항</label>
-        <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req"></textarea>
+        <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req" onchange="fnChangeTextValue(this);"></textarea>
     </div>
 	<div style="margin-right: -10px; text-align: right;">
 		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>

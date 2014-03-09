@@ -10,8 +10,11 @@
 	}
 	
 	function fnSave() {
+		
+		$('.error').hide();
+		
 		if($('#tbxSalesBenefit').val().trim() == "") {
-			alert('견적을 입력하세요');
+			$('#tbxSalesBenefit').after('<div class="error" style="padding-top: 13px;">견적을 입력하세요</div>');
 			return;
 		}
 
@@ -20,46 +23,53 @@
    			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
    			function (data) {    
 				if(data.message == 'success') {
-					document.location.href='/request/detail?request_id=' + $('#hdnRequestId').val();
+					frm.action = "/contract/writeform";
+					frm.submit();
 				} else {
 					alert(data.detail);
 				}
    			} 
    		);
 	}
-</script>		
-<div class="messages" style="margin-bottom: -10px;">
-	<div id="contents" class="breadcrumb" style="margin-bottom: 7px; padding-right: 15px;">
-		<div class="message-title" style='height: 8px; position:relative; padding-top: 10px;'>
-			<div style="float: left;">
-	    		<span class="label label-info">${requestDetail.STATUS_NM} > ${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.CAR_NM}</span>
-	    	</div>
-	    	<div style="float: right;">
-	    		<span class="label">${requestDetail.CUSTOMER_NM}</span>
-	    	</div>    				    				
-		</div>
-		<div class="info-inner" style='padding-top: 18px;'>
-	       	<div class="label label-info">옵션</div>
-	       	<div class="request-detail" style="height: 25px; padding-bottom: 0px;">${requestDetail.CAR_OPTION}</div>       	
-	       	<div class="label label-info">요구사항</div>
-	       	<div class="request-detail" style='height: 50px; overflow-y:auto;overflow-x:hidden;'>
-	       		${requestDetail.CUSTOMER_REQ}
-	       	</div>		
-		</div>		
-	</div>		
-	<hr class="message-inner-separator" style="margin-top: 2px; margin-bottom: 7px;">
-    <div class="info-inner" style='position:relative;'>
-    	<div style="position:relative;">    	
-	   		<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    
-		    <div>		    	
-				<textarea id='tbxSalesBenefit' name='salesman_benefit' rows="4" class="input-xlarge"><c:forEach items="${contractDetail}" var="detail" varStatus="status">${detail.SALESMAN_BENEFIT}</c:forEach></textarea>				
-		    </div>
-		    <div style='float: right;'>
-		    	<input type='submit' class="btn btn-primary" value='등록' onclick="fnSave();" />
-		    	<input type='submit' class="btn btn-primary" value='이전으로' onclick="history.back(-1);" />
-		    </div>
-	    </div>
-	    <div style="height: 30px;"></div>
-    </div>	     
-</div>
+	
+	function fnMoveBack() {
+		frm.action = "/request/detail";
+		frm.submit();
+	}
+</script>	
+<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
+<form id='frm' name='frm' method="post">
+	<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />
+	<ul data-role="listview" data-inset="true">
+	    <li data-role="list-divider">지역/차종<span class="ui-li-count">${requestDetail.STATUS_NM}</span></li>
+	    <li>
+		    <h1>${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</h1>
+	    </li>
+	    <li data-role="list-divider">차량옵션</li>
+	    <li>
+		    <h1>${requestDetail.CAR_OPTION}</h1>
+	    </li>	
+	    <li data-role="list-divider">${requestDetail.CUSTOMER_NM}님 요구사항 </li>
+	    <li>
+		    <h1>${requestDetail.CUSTOMER_REQ}</h1>
+	    </li>
+	    <li data-role="list-divider">구매예정일 </li>
+	    <li>
+		    <h1>${requestDetail.PURCHASE_PERIOD_CD}</h1>
+	    </li>	    		    		    	    		    	    
+	</ul>
+	<c:if test="${requestDetail.STATUS != '0003'}">
+
+			<div class="ui-field-contain">
+				<label for="salesman_benefit">견적제안</label>
+				<textarea data-mini="false" cols="40" rows="8" id='tbxSalesBenefit' name='salesman_benefit'><c:forEach items="${contractDetail}" var="detail" varStatus="status">${detail.SALESMAN_BENEFIT}</c:forEach></textarea>				
+			</div>
+			<div style="margin-right: -10px; text-align: right;">
+				<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnSave();">등록</a>
+				<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
+			</div>
+
+	</c:if>		
+</form>
+</div>		
 </mvc:main>

@@ -36,12 +36,12 @@ public class ContractController {
     private StorageService storageService;	
 	
 	@RequestMapping("/writeform")
-    public String writeform(@RequestParam(value="requestId", required=false) String requestId, ModelMap model) {
+    public String writeform(@RequestParam(value="request_id", required=false) String request_id, ModelMap model) {
 		int id = 0;
 		Map<String, Object> request = new HashMap<String, Object>();
 		List<HashMap<String, Object>> contract = new ArrayList<HashMap<String, Object>>();	
 				
-		if(requestId == null || requestId == "")
+		if(request_id == null || request_id == "")
 			throw new CustomException("유효하지 않은 정보로 인해 페이지를 열 수 없습니다");
 			
 		SessionVO userInfo = storageService.getAuthenticatedUser();		
@@ -49,7 +49,7 @@ public class ContractController {
 			throw new CustomException("로그인 후 등록할 수 있습니다");
 		}
 		
-		id = Integer.parseInt(requestId);  
+		id = Integer.parseInt(request_id);  
 		request = requestService.getRequestDetail(id);
 		contract = contractService.getContractList(id, userInfo.getUserId());
 		
