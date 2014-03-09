@@ -94,7 +94,7 @@ public class AccountController {
     /*
      * 스마트폰 ID UPDATE
      */
-    @RequestMapping(value="/app" ,method=RequestMethod.POST)
+    @RequestMapping(value="/account/app" ,method=RequestMethod.POST)
     public void appPost(@RequestParam String userId, @RequestParam String userType, @RequestParam String appId, ModelMap model) {    	
     
     	System.out.println("userId : " + userId);
