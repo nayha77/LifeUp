@@ -19,11 +19,13 @@
    			sido = obj.value,
    			function (data) {    
 				var resultData = data.Sido2; 
+				
 				$.each(resultData, function(index, row){	    		      		
 					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	
 				});
-				 $("#ddlGugun").show();
-				 $("#ddlGugun").selectmenu("refresh");
+				
+				$("#ddlGugun").show();
+				$("#ddlGugun").selectmenu("refresh");
    			}    			
    		);   	         
 	}	

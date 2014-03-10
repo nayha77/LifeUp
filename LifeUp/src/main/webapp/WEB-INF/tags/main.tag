@@ -18,7 +18,8 @@
     	
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>			
+  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  	<script src='<spring:url value="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"/>'></script>			
 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
 
     <script type="text/javascript">
@@ -27,33 +28,46 @@
         
 		// 로그인/찾기 패널 토글  및 쿠키정보값 설정
 		$(function(){
-		    $('a[href=#frmUserLogin], a[href=#frmFindUserInfo]').click(function(){
+ 		    $('a[href=#frmUserLogin]').click(function(){
 		        var panel = $(this).attr('href');
 		        $(panel).toggle();
+		        
+	        	$('#frmUserLogin').show();
+	        	$('#frmFindUserInfo').hide();
+	        	
 		        return false;
 		    });
-		    
+ 			
 		    $('a[href=#right-panel]').click(function(){
-		    	fnOpenLoginPanel();
+				var userId = '${cookie.userId.value}';
+	        	var userType = '${cookie.userType.value}';
+	   
+	         	if(userId != "") {
+	        		$('#txtUser').val(userId); 
+	        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
+	        		$('#txtUserPwd').focus();
+	        	} else {        	
+	        		$('input:radio[name=userType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");
+	        		$('#txtUserID').focus();
+	        	}
 		    });		    
 		});		
 		
-		// 로그인 패널 뷰
-		function fnOpenLoginPanel() {
-			var userId = '${cookie.userId.value}';
-        	var userType = '${cookie.userType.value}';
-   
-         	if(userId != "") {
-        		$('#txtUser').val(userId); 
-        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
-        		$('#txtUserPwd').focus();
-        	} else {        	
-        		$('input:radio[name=userType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");
-        		$('#txtUserID').focus();
+        // 사용자/비밀번호 찾기 Div Open
+        function fnOpenFindUser(title) {
+			if(title == 'U') {
+        		title = '사용자찾기';
+        	} else {
+        		title = '비밀번호찾기';
         	}
-  
-		}
-         
+        	
+         	$('#spTitle').html(title); 
+        	$('#txtFUserId').focus();
+        	        	
+        	$('#frmUserLogin').hide();
+        	$('#frmFindUserInfo').show();        	
+ 		}
+        
 		// 로그인 엔터입력
         function fnEnterKey(type) {
         	if(event.keyCode == 13) {
@@ -155,22 +169,8 @@
     			} 
     		);		
     	}    
-*/
-        
-        // 사용자/비밀번호 찾기 Div Open
-        function fnOpenFindUser(title) {
-			if(title == 'U') {
-        		title = '사용자찾기';
-        	} else {
-        		title = '비밀번호찾기';
-        	}
-        	
-         	$('#spTitle').html(title); 
-        	$('#txtFUserId').focus();
-        	        	
-        	$('#frmUserLogin').hide();
-        	$('#frmFindUserInfo').show();        	
- 		}
+*/       
+ 		
  		function Ssibal(){
  			location.href ="/account/logout/";
  		}
@@ -231,10 +231,10 @@
 				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>							
 				<div class="ui-grid-a">
-					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');">ID를 분실하셨나요?</a></label>
-					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');">비빌번호를 분실하셨나요?</a></label>
+					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');" style="text-decoration: none;">ID를 분실했나요?</a></label>
+					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');" style="text-decoration: none;">비빌번호를 분실했나요?</a></label>
 					<label for="name">						
-						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';">계정이 없으신가요?</a>				
+						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" style="text-decoration: none;">계정이 없으신가요?</a>				
 					</label>
 				</div>	
 			</form>	
