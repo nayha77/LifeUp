@@ -200,10 +200,6 @@
 				</c:if>	 				
 				<li><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
 				<li><a href="<spring:url value="/faq/list"/>">FAQ</a></li>
-				<li><a href='<spring:url value="/notice/post"/>'>Q&A</a></li>
-				<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}">
-					<li><a href='<spring:url value="/request/writeform"/>'>견적의뢰</a></li>
-				</c:if>
 				<li><a href='<spring:url value="/request/list"/>'>의뢰목록</a></li>
 				<li><a href='<spring:url value="/request/list"/>'>영업랭킹</a></li>																					
 			</ul>	    

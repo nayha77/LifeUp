@@ -23,15 +23,15 @@
 	function fnChoiceUser(userType) {
 		if(userType == 1) {
 			$("#divSalesForm").hide();
-			$("#divNormalForm").toggle();
+			$("#divNormalForm").show();
 		} else {
 			$("#divNormalForm").hide();
-			$("#divSalesForm").toggle();
+			$("#divSalesForm").show();
 		}	
 	}
 	
 	function fnValidation() {
-    	if( !$('#chkAgreeOne').is(":checked") ) {
+    	if( !$('#chkAgreeOne').is(":checked") || !$('#chkAgreeTwo').is(":checked")) {
 			alert('이용약관과 개인정보 수집 및 이용에 대한 안내를 모두 동의해주세요');
 			return false;
 		} 
@@ -154,11 +154,11 @@
 		    </div>
 		    <div class="ui-field-contain">    	 
 		         <label for="password">비밀번호</label>
-		         <input type="text" data-clear-btn="true" id='tbxNPwd' name='password' />
+		         <input type="password" data-clear-btn="true" id='tbxNPwd' name='password' />
 		    </div>
 		    <div class="ui-field-contain">    	 
 		         <label for="passwordConfirm">비밀번호 확인</label>
-		         <input type="text" data-clear-btn="true" id='tbxNPwdConfirm' name='passwordConfirm' />
+		         <input type="password" data-clear-btn="true" id='tbxNPwdConfirm' name='passwordConfirm' />
 		    </div>    
 		    <div class="ui-field-contain">    	 
 		         <label for="userNm">성명</label>
@@ -193,11 +193,11 @@
 		    </div>
 		    <div class="ui-field-contain">    	 
 		         <label for="password">비밀번호</label>
-		         <input type="text" data-clear-btn="true" id='tbxSPwd' name='password' />
+		         <input type="password" data-clear-btn="true" id='tbxSPwd' name='password' />
 		    </div>
 		    <div class="ui-field-contain">    	 
 		         <label for="passwordConfirm">비밀번호 확인</label>
-		         <input type="text" data-clear-btn="true" id='tbxSPwdConfirm' name='passwordConfirm' />
+		         <input type="password" data-clear-btn="true" id='tbxSPwdConfirm' name='passwordConfirm' />
 		    </div>    
 		    <div class="ui-field-contain">    	 
 		         <label for="userNm">성명</label>

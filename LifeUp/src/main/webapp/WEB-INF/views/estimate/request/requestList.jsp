@@ -8,7 +8,7 @@
 <script type="text/javascript">	
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
-			alert('일반사용자만이 등록할 수 있습니다');
+			alert('로그인 후 등록할 수 있습니다');
 			return;
 		}
 		
@@ -51,11 +51,9 @@
 <input type='hidden' id='hdnRequestId' name='request_id'/>		
 </form>
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
-	<c:if test="${not empty sessionScope._USER_INFO_ && sessionScope._USER_INFO_.userType == '1'}" >
-		<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
-			<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
-		</div>
-	</c:if>
+	<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
+		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+	</div>
 	<ul data-role="listview" data-inset="true" id="rowData">
 		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
 		    <li data-role="list-divider">
