@@ -16,7 +16,7 @@
 			 , b.*
 		  FROM (
 				  SELECT @RNUM:=0
-				  	   ,a.REQUEST_ID
+				  	   , a.REQUEST_ID
 					   , a.CUSTOMER_ID
 					   , (SELECT CUSTOMER_NM FROM CUSTOMER WHERE CUSTOMER_ID = a.CUSTOMER_ID) CUSTOMER_NM
 					   , a.REGION_CD
@@ -37,6 +37,8 @@
 				    FROM ESTIMATE_REQUEST a
 				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
+				   WHERE a.REGION_CD = IFNULL(#{region_cd}, a.REGION_CD)
+				     AND c.VENDOR_ID = IFNULL(#{vendor_id}, c.VENDOR_ID)
 				   ORDER BY a.CREATE_DATE DESC
 			   ) b 
 		  limit #{startIdx}, #{endIdx};

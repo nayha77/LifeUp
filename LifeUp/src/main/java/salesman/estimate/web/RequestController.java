@@ -48,28 +48,35 @@ public class RequestController {
     	Map<String, Object> param = new HashMap<String, Object>();
     	param.put("startIdx", 0);
     	param.put("endIdx", Integer.parseInt(currentSeq));
+    	param.put("region_cd", null);
+    	param.put("vendor_id", null);
     	
-        model.put("estimateRegList", requestService.getRequestList(param));
+        model.put("estimateRegList", requestService.getRequestList(param));        
+        model.put("sidos", codeService.selectRegionSidoTable());
+        model.put("venders", codeService.getVendorCodes());
+        
     	return "estimate/request/requestList";
     } 
     
     @RequestMapping(value="/listJson", produces={"application/xml", "application/json"} )
-    public @ResponseBody Map<String, Object> listJson(@RequestBody String currentSeq)
+    public @ResponseBody Map<String, Object> listJson(@RequestBody Map<String, Object> param)
     {
-    	Map<String, Object> arrData = new HashMap<String, Object>();
-    	
+    	String currentSeq = param.get("currentSeq") == null ? "" : param.get("currentSeq").toString();
+    	    	
     	if( currentSeq != null && !currentSeq.equals("") ) {    	     	   
-	    	arrData.put("startIdx", Integer.parseInt(currentSeq));
-	    	arrData.put("endIdx", this.pageRecordCnt);
+    		param.put("startIdx", Integer.parseInt(currentSeq));
+    		param.put("endIdx", this.pageRecordCnt);
+        	param.put("region_cd", param.get("region_cd").toString() == "" ? null : param.get("region_cd").toString());
+        	param.put("vendor_id", param.get("vendor_id").toString() == "" ? null : param.get("vendor_id").toString());    		
 	    	
-	    	List<HashMap<String, Object>> list = requestService.getRequestList(arrData);    	
-	    	arrData.clear();    
+	    	List<HashMap<String, Object>> list = requestService.getRequestList(param);	    	
+	    	param.clear();
 	    	
-	    	arrData.put("list", list);    	
-	    	arrData.put("currentSeq", String.valueOf(Integer.parseInt(currentSeq) + 7));
+	    	param.put("list", list);    	
+	    	param.put("currentSeq", String.valueOf(Integer.parseInt(currentSeq) + 7));
     	}
-    	
-    	return arrData;
+    	    	
+    	return param;
     }     
     
     @RequestMapping("/writeform")

@@ -5,6 +5,7 @@ public class RequestVO {
 	private String request_id;
 	private String customer_id;
 	private String region_cd;
+	private String vendor_id;
 	private String car_id;
 	private String car_trim;
 	private String car_option;
@@ -32,6 +33,12 @@ public class RequestVO {
 	public void setRegion_cd(String region_cd) {
 		this.region_cd = region_cd;
 	}
+	public String getVendor_id() {
+		return vendor_id;
+	}
+	public void setVendor_id(String vendor_id) {
+		this.vendor_id = vendor_id;
+	}	
 	public String getCar_id() {
 		return car_id;
 	}
