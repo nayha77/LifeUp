@@ -196,7 +196,6 @@
 				<li><a href='<spring:url value="/"/>'>HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
 					<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
-					<li><a href='#' onclick="fnMyInfo();">내거래현황</a></li>
 				</c:if>	 				
 				<li><a href='<spring:url value="/notice/post"/>'>공지사항</a></li>
 				<li><a href="<spring:url value="/faq/list"/>">FAQ</a></li>
