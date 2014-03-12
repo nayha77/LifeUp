@@ -22,29 +22,48 @@
 		$('#hdnRequestId').val(requestId);		
 		document.frm.action = "/request/detail";
 		document.frm.submit();
-	}	
+	}		
 	
-	function fnChooseRegion() {
-		if($("#ddlGugun").val() == "") {
+	// 지역(시/도) 조회 및 지역(구/군) 셋팅
+	function fnSidoChange(obj){			
+		
+		if(obj.value == '') {			
 			$("#ddlGugun").empty().data('options');
 			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
-			$("#ddlSido")[0].selectedIndex = 0;
-			$("#ddlSido").selectmenu("refresh");
+			$("#ddlGugun").selectmenu("refresh");
+		} else {
+	 		_Async.post (
+	   			"/regionSecondJson",
+	   			sido_cd = obj.value,
+	   			function (data) {   				
+	   				$("#ddlGugun").empty().data('options');
+	   				$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
+	   				
+					var resultData = data.Sido2; 
+					$.each(resultData, function(index, row){	    		      		
+						$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
+					});
+					
+					$("#ddlGugun").show();
+					$("#ddlGugun").selectmenu("refresh");
+	   			}    			
+	   		); 
 		}
 		
-		fnSearch('R');		
-	}
-	
+		fnSearch('R');
+	}		
+		
+	// 검색조회 / 더보기 
 	function fnSearch(type)
 	{			
 		var currentSeq = $("#hdnCurrentSeq").val();
 		if(type == "R" || type == "V") {
 			currentSeq = 0;					
-		}
+		}			
 			
 		_Async.post (
     		"/request/listJson",
-    		JSON.stringify({ currentSeq: currentSeq, region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val() }),
+    		JSON.stringify({ currentSeq: currentSeq, sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val() }),
     		function (data) {
     			if(type == "R" || type == "V") {
     				$("#rowData").empty();
@@ -69,34 +88,6 @@
 			}
     	); 
 	}		
-	
-	function fnSidoChange(obj){
-		if(obj.value == '') {			
-			$("#ddlGugun").empty().data('options');
-			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
-			$("#ddlGugun").selectmenu("refresh");
-			
-			fnSearch('R');
-			return;
-		}			
-			 		
- 		_Async.post (
-   			"/regionSecondJson",
-   			sido_cd = obj.value,
-   			function (data) {   				
-   				$("#ddlGugun").empty().data('options');
-   				$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
-   				
-				var resultData = data.Sido2; 
-				$.each(resultData, function(index, row){	    		      		
-					$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
-				});
-				
-				$("#ddlGugun").show();
-				$("#ddlGugun").selectmenu("refresh");
-   			}    			
-   		); 		
-	}		
 </script>
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
@@ -115,7 +106,7 @@
 						</c:forEach>
 				    </select>	
 				    <label for="region_cd">구(군)</label>
-				    <select name="region_cd" id="ddlGugun" onchange="fnChooseRegion();">
+				    <select name="region_cd" id="ddlGugun" onchange="fnSearch('R');">
 				    	<option value="">구(군)</option>				   		
 				    </select>				    		       
 				</fieldset>

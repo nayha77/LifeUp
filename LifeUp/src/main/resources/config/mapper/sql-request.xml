@@ -37,8 +37,10 @@
 				    FROM ESTIMATE_REQUEST a
 				  	LEFT JOIN CAR_MASTER  b ON a.CAR_ID    = b.CAR_ID
 				   INNER JOIN VENDOR      c ON b.VENDOR_ID = c.VENDOR_ID
+				   INNER JOIN REGION      d ON a.REGION_CD = d.GUGUN_CD
 				   WHERE a.REGION_CD = IFNULL(#{region_cd}, a.REGION_CD)
 				     AND c.VENDOR_ID = IFNULL(#{vendor_id}, c.VENDOR_ID)
+				     AND d.SIDO_CD   = IFNULL(#{sido_cd}  , d.SIDO_CD)
 				   ORDER BY a.CREATE_DATE DESC
 			   ) b 
 		  limit #{startIdx}, #{endIdx};

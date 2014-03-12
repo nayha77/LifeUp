@@ -48,6 +48,7 @@ public class RequestController {
     	Map<String, Object> param = new HashMap<String, Object>();
     	param.put("startIdx", 0);
     	param.put("endIdx", Integer.parseInt(currentSeq));
+    	param.put("sido_cd", null);
     	param.put("region_cd", null);
     	param.put("vendor_id", null);
     	
@@ -66,6 +67,7 @@ public class RequestController {
     	if( currentSeq != null && !currentSeq.equals("") ) {    	     	   
     		param.put("startIdx", Integer.parseInt(currentSeq));
     		param.put("endIdx", this.pageRecordCnt);
+    		param.put("sido_cd",   param.get("sido_cd").toString()   == "" ? null : param.get("sido_cd").toString());
         	param.put("region_cd", param.get("region_cd").toString() == "" ? null : param.get("region_cd").toString());
         	param.put("vendor_id", param.get("vendor_id").toString() == "" ? null : param.get("vendor_id").toString());    		
 	    	
