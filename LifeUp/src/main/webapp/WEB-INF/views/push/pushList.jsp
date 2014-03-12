@@ -48,7 +48,7 @@ function check(fm) {
 <h3>메시지 전송</h3>
 <p class="warning">주의 : 메시지는 위에 등록된 모든 디바이스에 전송됩니다.</p>
 <hr />
-<form action="/push/Send" method="post" onsubmit="return check(this)">
+<form action="/push/send" method="post" onsubmit="return check(this)">
 	<label for="message">전송 할 메시지 : </label>
 	<input type="text" id="message" name="message" size="100" />
 	<input type="submit" value="전송" /> 
