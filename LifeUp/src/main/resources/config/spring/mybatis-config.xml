@@ -13,7 +13,8 @@
 		<mapper resource="config/mapper/sql-contract.xml" />
 		<mapper resource="config/mapper/sql-login.xml" />		
 		<mapper resource="config/mapper/sql-main.xml" />
-		<mapper resource="config/mapper/sql-request.xml" />		
+		<mapper resource="config/mapper/sql-request.xml" />
+		<mapper resource="config/mapper/sql-push.xml" />						
 	</mappers>
 	
 </configuration>
