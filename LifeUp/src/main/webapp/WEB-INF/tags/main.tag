@@ -40,8 +40,8 @@
  			
 		    $('a[href=#right-panel]').click(function(){
 				var userId = '${cookie.userId.value}';
-	        	var userType = '${cookie.userType.value}';
-	   	        	
+	        	var userType = '${cookie.userType.value}';	   	        	        	
+        		
 	         	if(userId != "" && userType != "") {
 	        		$('#txtUser').val(userId); 
 	        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
@@ -122,7 +122,11 @@
     				}    					    				    		
     			} 
     		);	    				    
-    	}        
+    	}  
+        
+ 		function movePage(url) {
+			location.href = url;
+		}       
 
 /*
         // 내정보 
@@ -169,11 +173,7 @@
     			} 
     		);		
     	}    
-*/       
- 		
- 		function Ssibal(){
- 			location.href ="/account/logout/";
- 		}
+*/        		
     </script>    
 </head>
 <body>
@@ -186,14 +186,13 @@
 				<a href="#right-panel" data-icon="user" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-			<a href="javascript:Ssibal();" data-icon="forward" data-iconpos="notext">로그아웃</a>
-				<!-- <a href="/account/logout/" data-icon="forward" data-iconpos="notext">로그아웃</a> -->
+				<a href="javascript:movePage('/account/logout');" data-icon="forward" data-iconpos="notext">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close">닫기</a></li>
-				<li><a href='<spring:url value="/"/>'>HOME</a></li>
+				<li><a href="javascript:movePage('/main');">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
 					<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
 				</c:if>	 				

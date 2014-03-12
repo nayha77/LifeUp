@@ -120,7 +120,7 @@
 		$("#ddlNGugun").find("option").remove().end().append("<option value=\"\">선택</option>");
 		
  		_Async.post (
-   			"/regionSecondJson",
+   			"/selectRegionJson",
    			sido_cd = obj.value,
    			function (data) {    
 				var resultData = data.Sido2; 

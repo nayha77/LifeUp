@@ -46,7 +46,7 @@ public class AccountController {
 	@Autowired
 	private CodesService codesService;	
 	   	       
-    @RequestMapping(value="/account/logout/")
+    @RequestMapping(value="/account/logout")
     public String logout() 
     {
     	storageService.SessionOut();

@@ -23,17 +23,16 @@
 		document.frm.action = "/request/detail";
 		document.frm.submit();
 	}		
-	
-	// 지역(시/도) 조회 및 지역(구/군) 셋팅
-	function fnSidoChange(obj){			
 		
+	// 지역(시/도) 조회 및 지역(구/군) 셋팅
+	function fnSidoChange(obj){					
 		if(obj.value == '') {			
 			$("#ddlGugun").empty().data('options');
 			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
 			$("#ddlGugun").selectmenu("refresh");
 		} else {
 	 		_Async.post (
-	   			"/regionSecondJson",
+	   			"/selectRegionJson",
 	   			sido_cd = obj.value,
 	   			function (data) {   				
 	   				$("#ddlGugun").empty().data('options');
@@ -49,21 +48,31 @@
 	   			}    			
 	   		); 
 		}
-		
+				
+		$("#hdnCurrentSeq").val('0');		
 		fnSearch('R');
 	}		
 		
+	function fnDDLChanage(type) {
+		$("#hdnCurrentSeq").val('0');	
+		fnSearch(type);
+	}
+	
 	// 검색조회 / 더보기 
 	function fnSearch(type)
 	{			
-		var currentSeq = $("#hdnCurrentSeq").val();
-		if(type == "R" || type == "V") {
-			currentSeq = 0;					
+/* 		var currentSeq = $("#hdnCurrentSeq").val();
+		if(type == "R" || type == "V") {			
+			currentSeq = 0;				
+			$("#hdnCurrentSeq").val(currentSeq);
 		}			
-			
+ */
+		$('#moreView').val("더보기");	
+		$("#moreView").button("refresh");
+		
 		_Async.post (
     		"/request/listJson",
-    		JSON.stringify({ currentSeq: currentSeq, sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val() }),
+    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val() }),
     		function (data) {
     			if(type == "R" || type == "V") {
     				$("#rowData").empty();
@@ -76,9 +85,9 @@
  						$("#rowData").append("</a></li>"); 				
 					});					
 					
-					if(type == "M") {
-						$('#hdnCurrentSeq').val(data.currentSeq);
-					}
+					//if(type == "M") {
+					$('#hdnCurrentSeq').val(data.currentSeq);
+					//}
 					
 					$("#rowData").listview("refresh");
 				} else {
@@ -106,7 +115,7 @@
 						</c:forEach>
 				    </select>	
 				    <label for="region_cd">구(군)</label>
-				    <select name="region_cd" id="ddlGugun" onchange="fnSearch('R');">
+				    <select name="region_cd" id="ddlGugun" onchange="fnDDLChanage('R');">
 				    	<option value="">구(군)</option>				   		
 				    </select>				    		       
 				</fieldset>
@@ -114,7 +123,7 @@
 			<div class="ui-block-b" style="padding-left: 7px;">
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    <label for="ddlVendor">제조업체</label>
-				    <select name="ddlVendor" id="ddlVendor"  onchange="fnSearch('V');">
+				    <select name="ddlVendor" id="ddlVendor"  onchange="fnDDLChanage('V');">
 				    	<option value="">제조업체</option>
 				   		<c:forEach items="${venders}" var="vender">
 				   			<option value="${vender.code}">${vender.value}</option>

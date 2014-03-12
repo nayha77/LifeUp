@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,15 +59,9 @@ public class mainController {
     	}
     	
     	return "main";
-    }
+    }   
     
-    @RequestMapping("/selectBoxTest")
-	public  String list(ModelMap model) {
-         model.put("Sido", codeService.selectRegionSidoTable());
-    	return "common/selectBox";
-    }
-    
-    @RequestMapping("/regionSecondJson")
+    @RequestMapping("/selectRegionJson")
 	public @ResponseBody Map<String, Object> listJson(@RequestBody String sido_cd, HttpServletRequest request) {
     	Map<String, Object> result = new HashMap<String, Object>();
     	
