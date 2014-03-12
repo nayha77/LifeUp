@@ -2,39 +2,33 @@ package salesman.common.define;
 
 public class RegionVo {
 	
-	String sido;
-	String region_cd;
-	String gugun;
+	String sido_cd;
+	String sido_nm;
+	String gugun_cd;
+	String gugun_nm;
 	
-	public String getRegion_cd() {
-		return region_cd;
+	public String getSido_cd() {
+		return sido_cd;
 	}
-	
-	public void setRegion_cd(String region_cd) {
-		this.region_cd = region_cd;
+	public void setSido_cd(String sido_cd) {
+		this.sido_cd = sido_cd;
 	}
-	
-	public String getGugun() {
-		return gugun;
+	public String getSido_nm() {
+		return sido_nm;
 	}
-
-	public void setGugun(String gugun) {
-		this.gugun = gugun;
+	public void setSido_nm(String sido_nm) {
+		this.sido_nm = sido_nm;
 	}
-
-	public String getSido() {
-		return sido;
+	public String getGugun_cd() {
+		return gugun_cd;
 	}
-
-	public void setSido(String sido) {
-		this.sido = sido;
+	public void setGugun_cd(String gugun_cd) {
+		this.gugun_cd = gugun_cd;
 	}
-
-	@Override
-	public String toString() {
-		return "RegionVo [sido=" + sido + ", gugun=" + gugun + "]";
+	public String getGugun_nm() {
+		return gugun_nm;
 	}
-	
-	
-
+	public void setGugun_nm(String gugun_nm) {
+		this.gugun_nm = gugun_nm;
+	}	
 }

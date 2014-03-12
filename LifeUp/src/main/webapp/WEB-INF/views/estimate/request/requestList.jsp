@@ -26,6 +26,8 @@
 	
 	function fnChooseRegion() {
 		if($("#ddlGugun").val() == "") {
+			$("#ddlGugun").empty().data('options');
+			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
 			$("#ddlSido")[0].selectedIndex = 0;
 			$("#ddlSido").selectmenu("refresh");
 		}
@@ -69,19 +71,25 @@
 	}		
 	
 	function fnSidoChange(obj){
-		if(obj.value == '0')			
+		if(obj.value == '') {			
+			$("#ddlGugun").empty().data('options');
+			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
+			$("#ddlGugun").selectmenu("refresh");
+			
+			fnSearch('R');
 			return;
- 		
- 		$("#ddlGugun").find("option").remove().end().append("<option value=\"\">선택</option>");
-
+		}			
+			 		
  		_Async.post (
    			"/regionSecondJson",
-   			sido = obj.value,
-   			function (data) {    
+   			sido_cd = obj.value,
+   			function (data) {   				
+   				$("#ddlGugun").empty().data('options');
+   				$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
+   				
 				var resultData = data.Sido2; 
-				
 				$.each(resultData, function(index, row){	    		      		
-					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	
+					$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
 				});
 				
 				$("#ddlGugun").show();
@@ -98,22 +106,22 @@
 	<div class="ui-grid-a" style="border-top: 0px; margin-top: 0px; padding-top: 0px;">
 		<div class="ui-block-a" style="width:70%;">
 			<div class="ui-block-a">
-				<fieldset data-role="controlgroup" data-type="horizontal">
-				    <label for="ddlSido">시도</label>
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+				    <label for="ddlSido">시(도)</label>
 				    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange(this);">
-				    	<option value="">시도</option>
+				    	<option value="">시(도)</option>
 						<c:forEach items="${sidos}" var="sido">
-							<option value="${sido.sido}">${sido.sido}</option>
+							<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 						</c:forEach>
 				    </select>	
-				    <label for="region_cd">구군</label>
+				    <label for="region_cd">구(군)</label>
 				    <select name="region_cd" id="ddlGugun" onchange="fnChooseRegion();">
-				    	<option value="">구군</option>				   		
+				    	<option value="">구(군)</option>				   		
 				    </select>				    		       
 				</fieldset>
 			</div>
-			<div class="ui-block-b" style="padding-left: 3px;">
-				<fieldset data-role="controlgroup" data-type="horizontal">
+			<div class="ui-block-b" style="padding-left: 7px;">
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    <label for="ddlVendor">제조업체</label>
 				    <select name="ddlVendor" id="ddlVendor"  onchange="fnSearch('V');">
 				    	<option value="">제조업체</option>
@@ -124,8 +132,8 @@
 				</fieldset>
 			</div>						
 		</div>
-		<div class="ui-block-b" style="width:30%; margin-right: -10px; text-align: right;">
-			<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+		<div class="ui-block-b" style="width:30%; text-align: right;">
+			<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
 		</div>
 	</div>	
 	<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">

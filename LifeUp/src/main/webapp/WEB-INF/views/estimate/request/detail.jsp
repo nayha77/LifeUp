@@ -38,7 +38,7 @@
 	<ul data-role="listview" data-inset="true">
 	    <li data-role="list-divider">지역/차종<span class="ui-li-count">${request.STATUS_NM}</span></li>
 	    <li>
-		    <h1>${request.SIDO} ${request.GUGUN} > ${request.VENDOR_NM} > ${request.CAR_NM}</h1>
+		    <h1>${request.SIDO_NM} ${request.GUGUN_NM} > ${request.VENDOR_NM} > ${request.CAR_NM}</h1>
 	    </li>
 	    <li data-role="list-divider">차량옵션</li>
 	    <li>

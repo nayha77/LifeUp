@@ -69,13 +69,13 @@ public class mainController {
     }
     
     @RequestMapping("/regionSecondJson")
-	public @ResponseBody Map<String, Object> listJson(@RequestBody String sido, HttpServletRequest request) {
+	public @ResponseBody Map<String, Object> listJson(@RequestBody String sido_cd, HttpServletRequest request) {
     	Map<String, Object> result = new HashMap<String, Object>();
     	
-    	if( sido == null || sido.equals("") ){
+    	if( sido_cd == null || sido_cd.equals("") ){
     		result.put("Sido", codeService.selectRegionSidoTable());
     	}else{
-    		result.put("Sido2", codeService.selectRegionGuTable(sido));
+    		result.put("Sido2", codeService.selectRegionGuTable(sido_cd));
     	}
 
     	return result;

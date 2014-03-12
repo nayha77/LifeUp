@@ -5,15 +5,15 @@
 
 	<!-- 지역 시 를  가지고 온다  -->
 	<select id="getSido" resultType="salesman.common.define.RegionVo">
-	   select SIDO from region
- 	   group by sido
-	   order by REGION_CD asc
+	   select SIDO_CD, SIDO_NM from region
+ 	   group by SIDO_CD, SIDO_NM
+	   order by SIDO_CD asc
 	</select>
 	
 	<!-- 구 를  가지고 온다  -->	
 	<select id="getGu" parameterType="salesman.common.define.RegionVo"  resultType="salesman.common.define.RegionVo">
-		select gugun,region_cd from region
-		where sido = #{sido}
+		select GUGUN_CD, GUGUN_NM from region
+		where SIDO_CD = #{sido_cd}
 	</select>
 	
 	<select id="getVendorCodes" resultType="java.util.HashMap">

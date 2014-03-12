@@ -43,7 +43,7 @@
 	<ul data-role="listview" data-inset="true">
 	    <li data-role="list-divider">지역/차종<span class="ui-li-count">${requestDetail.STATUS_NM}</span></li>
 	    <li>
-		    <h1>${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</h1>
+		    <h1>${requestDetail.SIDO_NM} ${requestDetail.GUGUN_NM} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</h1>
 	    </li>
 	    <li data-role="list-divider">차량옵션</li>
 	    <li>
@@ -66,7 +66,7 @@
 			</div>
 			<div style="margin-right: -10px; text-align: right;">
 				<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnSave();">등록</a>
-				<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
+				<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
 			</div>
 
 	</c:if>		

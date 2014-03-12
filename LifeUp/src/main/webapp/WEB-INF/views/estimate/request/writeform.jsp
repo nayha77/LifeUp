@@ -16,12 +16,12 @@
 
  		_Async.post (
    			"/regionSecondJson",
-   			sido = obj.value,
+   			sido_cd = obj.value,
    			function (data) {    
 				var resultData = data.Sido2; 
 				
 				$.each(resultData, function(index, row){	    		      		
-					$("#ddlGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	
+					$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
 				});
 				
 				$("#ddlGugun").show();
@@ -117,7 +117,7 @@
 		    <select name="ddlSido" id="ddlSido" data-native-menu="false" onchange="fnSidoChange(this);">
 				<option value=''>선택</option>
 				<c:forEach items="${sidos}" var="sido">
-					<option value="${sido.sido}">${sido.sido}</option>
+					<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 				</c:forEach>
 		    </select>
 		    <select name="region_cd" id="ddlGugun" data-native-menu="false" onchange="fnChangeDDL(this);">
@@ -157,7 +157,7 @@
     </div>
 	<div style="margin-right: -10px; text-align: right;">
 		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
-		<a href="#" data-role="button" data-icon="list" data-inline="true" onclick="location.href='/request/list';">목록</a>
+		<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="location.href='/request/list';">목록</a>
 	</div>    
 </div>
 </mvc:main>

@@ -41,8 +41,8 @@
 		    $('a[href=#right-panel]').click(function(){
 				var userId = '${cookie.userId.value}';
 	        	var userType = '${cookie.userType.value}';
-	   
-	         	if(userId != "") {
+	   	        	
+	         	if(userId != "" && userType != "") {
 	        		$('#txtUser').val(userId); 
 	        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
 	        		$('#txtUserPwd').focus();

@@ -91,7 +91,7 @@
 	<ul data-role="listview" data-inset="true">
 	    <li data-role="list-divider">지역/차종<span class="ui-li-count">${requestDetail.STATUS_NM}</span></li>
 	    <li>
-		    <h1>${requestDetail.SIDO} ${requestDetail.GUGUN} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</h1>
+		    <h1>${requestDetail.SIDO_NM} ${requestDetail.GUGUN_NM} > ${requestDetail.VENDOR_NM} > ${requestDetail.CAR_NM}</h1>
 	    </li>
 	    <li data-role="list-divider">차량옵션</li>
 	    <li>
@@ -146,7 +146,7 @@
 				<div style="margin-right: -10px; text-align: right;">
 					<c:if test="${detail.STATUS == '0001'}">
 						<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnSave();">수정</a>
-						<a href="#" id="btnCancel" data-role="button" data-icon="list" data-inline="true" onclick="fnCancel();">등록취소</a>
+						<a href="#" id="btnCancel" data-role="button" data-icon="delete" data-inline="true" onclick="fnCancel();">등록취소</a>
 					</c:if>
 					<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
 				</div>

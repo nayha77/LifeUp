@@ -121,12 +121,12 @@
 		
  		_Async.post (
    			"/regionSecondJson",
-   			sido = obj.value,
+   			sido_cd = obj.value,
    			function (data) {    
 				var resultData = data.Sido2; 
 				
 				$.each(resultData, function(index, row){	    		      		
-					$("#ddlNGugun").append("<option value='"+ row.region_cd +"'>" + row.gugun  + "</option>");	
+					$("#ddlNGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");
 				});
 				
  				$("#ddlNGugun").show();
@@ -170,7 +170,7 @@
 				    <select name="ddlSido" id="ddlNSido" data-native-menu="false" onchange="fnSidoChange(this);">
 						<option value=''>선택</option>
 						<c:forEach items="${regions}" var="sido">
-							<option value="${sido.sido}">${sido.sido}</option>
+							<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 						</c:forEach>
 				    </select>		    
 				    <select name="region_cd" id="ddlNGugun" data-native-menu="false" onchange="fnChangeDDL(this);">
