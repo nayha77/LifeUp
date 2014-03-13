@@ -40,22 +40,29 @@ public class RequestController {
     private int pageRecordCnt = 7;
     
     @RequestMapping("/list")
-    public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
-    {
+    //public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
+    public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, 
+    		@RequestParam (value="sidoCd", required=false) String sidoCd, 
+    		@RequestParam (value="gugunCd", required=false) String gugunCd, 
+    		@RequestParam (value="vendorCd", required=false) String vendorCd, 
+    		ModelMap model)
+    {   	
     	if(currentSeq == null || currentSeq == "")
     		currentSeq = String.valueOf(this.pageRecordCnt);
     	
-    	Map<String, Object> param = new HashMap<String, Object>();
-    	param.put("startIdx", 0);
-    	param.put("endIdx", Integer.parseInt(currentSeq));
-    	param.put("sido_cd", null);
-    	param.put("region_cd", null);
-    	param.put("vendor_id", null);
+    	Map<String, Object> args = new HashMap<String, Object>();
+    	args.put("startIdx", 0);
+    	args.put("endIdx", Integer.parseInt(currentSeq));
+    	args.put("sido_cd", sidoCd != null ? (sidoCd.equals("") ? null : sidoCd) : null);
+    	args.put("region_cd", gugunCd != null ? (gugunCd.equals("") ? null : gugunCd) : null);
+    	args.put("vendor_id", vendorCd != null ? (vendorCd.equals("") ? null : vendorCd) : null);
     	
-        model.put("estimateRegList", requestService.getRequestList(param));        
+    	List<HashMap<String, Object>> rtnValues = requestService.getRequestList(args);
+    	
+        model.put("estimateRegList", rtnValues);        
         model.put("sidos", codeService.selectRegionSidoTable());
-        model.put("venders", codeService.getVendorCodes());
-        
+        model.put("venders", codeService.getVendorCodes());       
+               
     	return "estimate/request/requestList";
     } 
     

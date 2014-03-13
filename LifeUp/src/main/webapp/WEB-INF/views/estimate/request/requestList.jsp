@@ -6,9 +6,14 @@
   
 <mvc:main>
 <script type="text/javascript">	
-	$(document).ready(function() {
+	$(window).load(function() {
+		$('#ddlVendor').val('${param.vendorCd}');		
+		$('#ddlSido').val('${param.sidoCd}');
+		
+		if($('#ddlSido').val != "")
+			fnSidoChange('${param.gugunCd}', '${param.pageMove}');		
 	});		
-
+		
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
 			alert('로그인 후 등록할 수 있습니다');
@@ -25,15 +30,19 @@
 	}		
 		
 	// 지역(시/도) 조회 및 지역(구/군) 셋팅
-	function fnSidoChange(obj){					
-		if(obj.value == '') {			
+	function fnSidoChange(gugunCd, pageMoveYn){			
+		var sido = $('#ddlSido').val();		
+					
+		if(sido == '') {			
 			$("#ddlGugun").empty().data('options');
 			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
-			$("#ddlGugun").selectmenu("refresh");
+			
+			if(typeof pageMoveYn == 'undefined') 
+				fnSearch();
 		} else {
 	 		_Async.post (
 	   			"/selectRegionJson",
-	   			sido_cd = obj.value,
+	   			sido_cd = sido,
 	   			function (data) {   				
 	   				$("#ddlGugun").empty().data('options');
 	   				$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
@@ -42,31 +51,61 @@
 					$.each(resultData, function(index, row){	    		      		
 						$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
 					});
+									
+					if(gugunCd != "") { // 페이지 로딩시 조회 			
+						$('#ddlGugun').val(gugunCd);
+					}
 					
-					$("#ddlGugun").show();
 					$("#ddlGugun").selectmenu("refresh");
+										
+					if(typeof pageMoveYn == 'undefined')
+						fnSearch();					
 	   			}    			
-	   		); 
-		}
-				
-		$("#hdnCurrentSeq").val('0');		
-		fnSearch('R');
-	}		
+	   		); 	 		
+		}	
 		
-	function fnDDLChanage(type) {
-		$("#hdnCurrentSeq").val('0');	
-		fnSearch(type);
+		if(gugunCd == "") { // 검색조건에 따른 조회 			
+			$("#hdnCurrentSeq").val('0');
+		}			
 	}
 	
-	// 검색조회 / 더보기 
-	function fnSearch(type)
+	// 드롭다운박스 검색조건 
+	function fnDDLChanage() {
+		$("#hdnCurrentSeq").val('0');
+		fnSearch();
+	}
+	
+	// 검색조회 
+	function fnSearch()
 	{			
-/* 		var currentSeq = $("#hdnCurrentSeq").val();
-		if(type == "R" || type == "V") {			
-			currentSeq = 0;				
-			$("#hdnCurrentSeq").val(currentSeq);
-		}			
- */
+		_Async.post (
+    		"/request/listJson",
+    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val() }),
+    		function (data) {
+    			$("#rowData").empty();
+    			
+				if (data.list != null && data.list != "") {
+					$.each(data.list, function(idx, row) {						
+  						$("#rowData").append("<li data-role='list-divider'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
+ 						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
+ 						$("#rowData").append("</a></li>"); 				
+					});					
+															
+					$("#rowData").listview("refresh");									
+				} else {
+					$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
+					$("#moreView").button("refresh");
+				}		
+				
+				$("#ddlSido").selectmenu("refresh");
+				$("#ddlVendor").selectmenu("refresh");
+			}    		    	
+    	); 
+	}
+	
+	// 더보기 
+	function fnMoreView()
+	{			
 		$('#moreView').val("더보기");	
 		$("#moreView").button("refresh");
 		
@@ -74,9 +113,6 @@
     		"/request/listJson",
     		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val() }),
     		function (data) {
-    			if(type == "R" || type == "V") {
-    				$("#rowData").empty();
-    			}
     			
 				if (data.list != null && data.list != "") {
 					$.each(data.list, function(idx, row) {						
@@ -85,9 +121,7 @@
  						$("#rowData").append("</a></li>"); 				
 					});					
 					
-					//if(type == "M") {
 					$('#hdnCurrentSeq').val(data.currentSeq);
-					//}
 					
 					$("#rowData").listview("refresh");
 				} else {
@@ -108,14 +142,14 @@
 			<div class="ui-block-a">
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    <label for="ddlSido">시(도)</label>
-				    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange(this);">
+				    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange('');">
 				    	<option value="">시(도)</option>
 						<c:forEach items="${sidos}" var="sido">
 							<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 						</c:forEach>
 				    </select>	
 				    <label for="region_cd">구(군)</label>
-				    <select name="region_cd" id="ddlGugun" onchange="fnDDLChanage('R');">
+				    <select name="region_cd" id="ddlGugun" onchange="fnDDLChanage();">
 				    	<option value="">구(군)</option>				   		
 				    </select>				    		       
 				</fieldset>
@@ -123,7 +157,7 @@
 			<div class="ui-block-b" style="padding-left: 7px;">
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    <label for="ddlVendor">제조업체</label>
-				    <select name="ddlVendor" id="ddlVendor"  onchange="fnDDLChanage('V');">
+				    <select name="ddlVendor" id="ddlVendor"  onchange="fnDDLChanage();">
 				    	<option value="">제조업체</option>
 				   		<c:forEach items="${venders}" var="vender">
 				   			<option value="${vender.code}">${vender.value}</option>
@@ -149,7 +183,7 @@
 		    </li>
 		</c:forEach>
 	</ul>
-	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick="fnSearch('M');">
+	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick="fnMoreView();">
 </form>	
 </div>
 </mvc:main>
