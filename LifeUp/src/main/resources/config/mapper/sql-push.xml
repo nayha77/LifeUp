@@ -12,11 +12,14 @@
 	</select>
 	
 	<insert id="insertPushInfo">
-		insert into device(uuid, phone, reg_id) values(#{uuid},#{phone},#{reg_id})
+		insert into device
+		(uuid, phone, reg_id,user_id,user_pass,user_type) 
+		values(#{uuid},#{phone},#{reg_id},#{webId},#{webP},#{webType})
 	</insert>
 	
 	<update id="updatePushInfo">
-		update device set phone=#{phone}, reg_id=#{reg_id} where uuid=#{uuid}
+		update device set phone=#{phone}, reg_id=#{reg_id},user_id=#{webId},user_pass=#{webP},user_type={webType} 
+		where uuid=#{uuid}
 	</update>
 	
 </mapper>
