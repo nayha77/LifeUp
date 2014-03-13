@@ -4,8 +4,11 @@
 <mapper namespace="push">
     
 	<select id="getPushList" resultType="salesman.vo.push.Device">
-		select id, uuid, phone, reg_id from device order by id
-	</select>		
+		select id, uuid, phone, reg_id, user_id from device order by id
+	</select>
+	<select id="getOneDevice" resultType="hashmap">
+		select id, uuid, phone, reg_id, user_id from device where user_id =#{user_id}
+	</select>			
 	
 	<select id="getTotalCount"  parameterType="hashmap"  resultType="integer">
 	    select count(uuid) total from device where uuid= #{uuid}

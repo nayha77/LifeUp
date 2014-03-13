@@ -16,6 +16,11 @@ public class PushDaoImpl extends SqlSessionDaoSupport implements PushDao{
 	public List<Device> getAllDevices() {
 		return getSqlSession().selectList("push.getPushList");
 	}
+	
+	@Override
+	public Map<String, String> getOneDevice(String user_id) {
+		return getSqlSession().selectOne("push.getOneDevice",user_id);
+	}
 
 	@Override
 	public int getTotalCount(Map<String, String> params) {
@@ -31,6 +36,8 @@ public class PushDaoImpl extends SqlSessionDaoSupport implements PushDao{
 	public int insertPushInfo(Map<String, String> params) {
 		return getSqlSession().insert("push.insertPushInfo", params);
 	}
+
+
 	
 
 }

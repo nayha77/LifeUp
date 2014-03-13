@@ -16,7 +16,15 @@ public class PushServiceImpl implements PushService {
 
 	@Override
 	public List<Device> getAllDevices() {
-		return pushDao1.getAllDevices();
+		
+		List<Device> devices = pushDao1.getAllDevices();
+		for(Device device :devices){
+			String phone = device.getPhone();
+			device.setPhone(phone.substring(0,phone.length()-2)+"**");
+			String regid = device.getReg_Id();
+			device.setReg_Id(regid.substring(0,Math.min(regid.length(), 10)));
+		}
+		return devices;
 	}
 
 	@Override
@@ -33,6 +41,14 @@ public class PushServiceImpl implements PushService {
 	@Override
 	public int updatePushInfo(Map<String, String> params) {
 		return pushDao1.updatePushInfo(params);
-	}	
+	}
+
+	@Override
+	public Map<String, String> getOneDevice(String user_id) {
+	
+		return pushDao1.getOneDevice(user_id);
+	}
+
+
 	
 }
