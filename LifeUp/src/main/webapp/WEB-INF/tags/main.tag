@@ -193,7 +193,7 @@
 					<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
 				</c:if>	 				
 				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');">공지사항</a></li>
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/Qna"/>');">FAQ</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');">FAQ</a></li>
 				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');">의뢰목록</a></li>
 				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');">영업랭킹</a></li>																					
 			</ul>	    
