@@ -187,15 +187,15 @@
 		</div>	
 		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	
 			<ul data-role="listview">
-				<li data-icon="delete"><a href="#" data-rel="close">닫기</a></li>
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');">HOME</a></li>
+				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a href='#' onclick="fnMyInfo();">내정보</a></li>							
+					<li><a href='#' onclick="fnMyInfo();" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');">공지사항</a></li>
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');">FAQ</a></li>
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');">의뢰목록</a></li>
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');">영업랭킹</a></li>																					
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
