@@ -6,7 +6,7 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>저기요</title>
+	<title>Mypage</title>
 	<meta name="viewport" content="user-scalable=no,   width=device-width,  target-densitydpi=device-mdpi">
 	<meta name='description' content=''>
 	<meta name='author' content=''>
@@ -14,7 +14,8 @@
 	
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	 	
+	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
+    	
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
@@ -184,17 +185,17 @@
 				<a href="javascript:_Commn.fnPageMove('/account/logout');" data-icon="forward" data-iconpos="notext">로그아웃</a>
 			</c:if>
 		</div>	
-		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:200px;">	
+		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
-				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" style="height:30px; padding-top: 18px;">HOME</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a id="menuMyInfo" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a href='#' onclick="fnMyInfo();" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" style="height:30px; padding-top: 18px;">공지사항</a></li>
-				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a id="menuRequest" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
-				<li><a id="menuRanking" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">

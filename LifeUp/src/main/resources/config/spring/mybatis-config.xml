@@ -14,7 +14,8 @@
 		<mapper resource="config/mapper/sql-login.xml" />		
 		<mapper resource="config/mapper/sql-main.xml" />
 		<mapper resource="config/mapper/sql-request.xml" />
-		<mapper resource="config/mapper/sql-push.xml" />						
+		<mapper resource="config/mapper/sql-push.xml" />	
+		<mapper resource="config/mapper/sql-mypage.xml" />								
 	</mappers>
 	
 </configuration>

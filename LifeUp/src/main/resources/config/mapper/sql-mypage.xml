@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="mypage">
+    
+	<select id="getMyList" resultType="salesman.vo.mypage.MypageVO">
+		select REQUEST_ID,CUSTOMER_REQ,STATUS,CREATE_DATE 
+		  from estimate_request
+		 where CUSTOMER_ID =#{user_id}
+	</select>
+	<select id="getOneDevice" resultType="hashmap">
+		select id, uuid, phone, reg_id, user_id from device where user_id =#{user_id}
+	</select>			
+	
+	<select id="getTotalCount"  parameterType="hashmap"  resultType="integer">
+	    select count(uuid) total from device where uuid= #{uuid}
+	</select>
+	
+	<insert id="insertPushInfo">
+		insert into device
+		(uuid, phone, reg_id,user_id,user_pass,user_type) 
+		values(#{uuid},#{phone},#{reg_id},#{webId},#{webP},#{webType})
+	</insert>
+	
+	<update id="updatePushInfo">
+		update device set phone=#{phone}, reg_id=#{reg_id},user_id=#{webId},user_pass=#{webP},user_type=#{webType} 
+		where uuid=#{uuid}
+	</update>
+	
+</mapper>
