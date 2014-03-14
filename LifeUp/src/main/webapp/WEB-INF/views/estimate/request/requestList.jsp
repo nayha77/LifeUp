@@ -181,7 +181,7 @@
 	</div>	
 	<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">
 		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
-		    <li data-role="list-divider">
+		    <li data-role="list-divider" style="height:25px; padding-top: 10px;">
 		    	${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}
 		    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
 		    </li>
