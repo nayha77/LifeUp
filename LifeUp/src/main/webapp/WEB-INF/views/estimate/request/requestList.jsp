@@ -17,6 +17,7 @@
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
 			alert('로그인 후 등록할 수 있습니다');
+			_Commn.fnOpenLoginPanel();
 			return;
 		}
 		

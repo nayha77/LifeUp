@@ -21,6 +21,9 @@
             	location.href=URL;
             };
             
+            this.fnOpenLoginPanel = function() {
+            	$("#lnklogin").trigger("click");
+            }
             /// <summary>
             /// 테이블 ROW 데이터를 배열에 담는다
             /// <summary>
