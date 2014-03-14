@@ -64,7 +64,7 @@ public class PushController {
     }
     
     @RequestMapping("/send")
-    public String Send(@RequestParam String message,ModelMap model){
+    public String Send(@RequestParam String message,@RequestParam String AllMessage,@RequestParam String user_id,ModelMap model){
 
     	final String API_KEY = "AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI";
 		
@@ -73,12 +73,21 @@ public class PushController {
 		gcmMessage.setData(new GCMData(message));
 		
 		// 데이터베이스에서 registration_id를 전부 읽어 온다.
-		
-		List<Device> devices = pushService.getAllDevices();
+		System.out.println("AllMessage 확인" + AllMessage );
+			//전체 메세지 보내기
+			if(AllMessage.equals("ALL")){
+				List<Device> devices = pushService.getAllDevices();
+				for(Device device : devices) {
+					gcmMessage.addRegistrationId(device.getReg_Id());
+				}
+			}else{
+				Map<String, String> device = pushService.getOneDevice(user_id);
+				System.out.println("REG_ID 확인" + device.get("reg_id") );
+				gcmMessage.addRegistrationId(device.get("reg_id"));
+			}
+	
 
-		for(Device device : devices) {
-			gcmMessage.addRegistrationId(device.getReg_Id());
-		}
+		// 특정 아이디 보내기
 		
 		// JSON으로 변환
 		Gson gson = new Gson();
