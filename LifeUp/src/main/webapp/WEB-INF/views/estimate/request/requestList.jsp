@@ -125,8 +125,8 @@
     			
 				if (data.list != null && data.list != "") {
 					$.each(data.list, function(idx, row) {						
-  						$("#rowData").append("<li data-role='list-divider'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
- 						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
+  						$("#rowData").append("<li data-role='list-divider' style='height:20px; padding-top: 10px;'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
+ 						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"  style='height:55px;'><p>" + row.CUSTOMER_REQ + "</p>");
  						$("#rowData").append("</a></li>"); 				
 					});					
 					
@@ -181,12 +181,12 @@
 	</div>	
 	<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">
 		<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
-		    <li data-role="list-divider" style="height:25px; padding-top: 10px;">
+		    <li data-role="list-divider" style="height:20px; padding-top: 10px;">
 		    	${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}
 		    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
 		    </li>
 		    <li>
-		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:60px;">
+		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:55px;">
 			    	<p>${estimateReg.CUSTOMER_REQ}</p>
 		        </a>
 		    </li>
