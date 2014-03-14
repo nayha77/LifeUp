@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
 
 <mapper namespace="main">
+
+	<select id="getNoticeList" resultType="java.util.HashMap">
+		SELECT TITLE, CONTENT, CREATE_DATE 
+		  FROM NOTICE 
+		 WHERE USE_YN = 'Y' 
+		 ORDER BY SORT ASC 
+	</select>
+
+
+
+
+
+
+
+
 	
 	<insert id="formInsert">
 		insert into board(title,content,reg_id,create_date) value (#{title},#{content},#{reg_id},sysdate())	

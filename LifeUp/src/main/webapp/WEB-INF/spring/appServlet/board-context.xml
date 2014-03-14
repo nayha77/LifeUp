@@ -9,6 +9,18 @@
 	   	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	   	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+	<bean id="noticeService" class="salesman.board.service.NoticeServiceImpl">
+		<property name="noticeDao" ref="noticeDao"/>
+	</bean>
+
+	<bean id="noticeDao" class="salesman.board.dao.NoticeDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+
+
 	
 	<bean id="boardService" class="salesman.board.service.BoardServiceImpl">
 	<!--  property name 은 set name과 맵핑 -->
