@@ -7,6 +7,9 @@
 <mvc:main>
 <script type="text/javascript">	
 	$(window).load(function() {
+		// 선택 메뉴 마킹
+		_Commn.fnMarkingLeftMenu($("#menuRequest"));
+		
 		$('#ddlVendor').val('${param.vendorCd}');		
 		$('#ddlSido').val('${param.sidoCd}');
 		

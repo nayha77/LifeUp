@@ -23,6 +23,10 @@
             
             this.fnOpenLoginPanel = function() {
             	$("#lnklogin").trigger("click");
+            };
+            
+            this.fnMarkingLeftMenu = function(obj) {
+            	$(obj).css("background-color", "#38c");
             }
             /// <summary>
             /// 테이블 ROW 데이터를 배열에 담는다
