@@ -45,8 +45,8 @@ public class RequestController {
     		@RequestParam (value="sidoCd", required=false) String sidoCd, 
     		@RequestParam (value="gugunCd", required=false) String gugunCd, 
     		@RequestParam (value="vendorCd", required=false) String vendorCd, 
-    		ModelMap model)
-    {   	
+    		@RequestParam (value="status_cd", required=false) String status_cd, ModelMap model) {
+    	
     	if(currentSeq == null || currentSeq == "") {
     		currentSeq = String.valueOf(this.pageRecordCnt);
     	}
@@ -57,6 +57,7 @@ public class RequestController {
     	args.put("sido_cd", sidoCd != null ? (sidoCd.equals("") ? null : sidoCd) : null);
     	args.put("region_cd", gugunCd != null ? (gugunCd.equals("") ? null : gugunCd) : null);
     	args.put("vendor_id", vendorCd != null ? (vendorCd.equals("") ? null : vendorCd) : null);
+    	args.put("status_cd", status_cd != null ? (status_cd.equals("") ? null : status_cd) : null);
     	
     	List<HashMap<String, Object>> requestList = requestService.getRequestList(args);
     	
@@ -79,6 +80,7 @@ public class RequestController {
     		param.put("sido_cd",   param.get("sido_cd").toString()   == "" ? null : param.get("sido_cd").toString());
         	param.put("region_cd", param.get("region_cd").toString() == "" ? null : param.get("region_cd").toString());
         	param.put("vendor_id", param.get("vendor_id").toString() == "" ? null : param.get("vendor_id").toString());    		
+        	param.put("status_cd", param.get("status_cd").toString() == "" ? null : param.get("status_cd").toString());
 	    	
 	    	List<HashMap<String, Object>> list = requestService.getRequestList(param);	    	
 	    	param.clear();

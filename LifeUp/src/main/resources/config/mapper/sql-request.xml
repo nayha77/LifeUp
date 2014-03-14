@@ -41,6 +41,7 @@
 				   WHERE a.REGION_CD = IFNULL(#{region_cd}, a.REGION_CD)
 				     AND c.VENDOR_ID = IFNULL(#{vendor_id}, c.VENDOR_ID)
 				     AND d.SIDO_CD   = IFNULL(#{sido_cd}  , d.SIDO_CD)
+				     AND a.STATUS    = IFNULL(#{status_cd}, a.STATUS)
 				   ORDER BY a.CREATE_DATE DESC
 			   ) b 
 		  limit #{startIdx}, #{endIdx};

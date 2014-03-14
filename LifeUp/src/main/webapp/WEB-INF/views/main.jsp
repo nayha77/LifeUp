@@ -3,9 +3,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <mvc:main>
-<script type="text/javascript">
-function fnLoad() {
-}
+<script type="text/javascript">	
+	$(document).ready(function() {
+		// 선택 메뉴 마킹
+		_Commn.fnMarkingLeftMenu($("#menuMain"));		
+	});
 </script>
 <div class="ui-content jqm-content jqm-fullwidth">
     <h1>불편한 CSS 걷어내기 </h1>
