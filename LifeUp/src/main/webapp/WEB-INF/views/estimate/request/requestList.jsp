@@ -163,7 +163,7 @@
 				    </select>				    		       
 				</fieldset>
 			</div>
-			<div class="ui-block-b" style="padding-left: 7px;">
+			<div class="ui-block-b" style="padding-left: 3px;">
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    <label for="ddlVendor">제조업체</label>
 				    <select name="ddlVendor" id="ddlVendor"  onchange="fnDDLChanage();">
@@ -186,7 +186,7 @@
 		    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
 		    </li>
 		    <li>
-		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');">
+		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:60px;">
 			    	<p>${estimateReg.CUSTOMER_REQ}</p>
 		        </a>
 		    </li>
