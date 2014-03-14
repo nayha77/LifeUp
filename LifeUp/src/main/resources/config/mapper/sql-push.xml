@@ -4,19 +4,25 @@
 <mapper namespace="push">
     
 	<select id="getPushList" resultType="salesman.vo.push.Device">
-		select id, uuid, phone, reg_id from device order by id
-	</select>		
+		select id, uuid, phone, reg_id, user_id from device order by id
+	</select>
+	<select id="getOneDevice" resultType="hashmap">
+		select id, uuid, phone, reg_id, user_id from device where user_id =#{user_id}
+	</select>			
 	
 	<select id="getTotalCount"  parameterType="hashmap"  resultType="integer">
 	    select count(uuid) total from device where uuid= #{uuid}
 	</select>
 	
 	<insert id="insertPushInfo">
-		insert into device(uuid, phone, reg_id) values(#{uuid},#{phone},#{reg_id})
+		insert into device
+		(uuid, phone, reg_id,user_id,user_pass,user_type) 
+		values(#{uuid},#{phone},#{reg_id},#{webId},#{webP},#{webType})
 	</insert>
 	
 	<update id="updatePushInfo">
-		update device set phone=#{phone}, reg_id=#{reg_id} where uuid=#{uuid}
+		update device set phone=#{phone}, reg_id=#{reg_id},user_id=#{webId},user_pass=#{webP},user_type=#{webType} 
+		where uuid=#{uuid}
 	</update>
 	
 </mapper>

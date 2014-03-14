@@ -17,6 +17,10 @@
                 window.open(URL, '', 'width=' + width + ',height=' + height + ',status=yes,toolbar=no,menubar=no,location=no,scrollbars=no');
             };
 
+            this.fnPageMove = function (URL) {
+            	location.href=URL;
+            };
+            
             /// <summary>
             /// 테이블 ROW 데이터를 배열에 담는다
             /// <summary>

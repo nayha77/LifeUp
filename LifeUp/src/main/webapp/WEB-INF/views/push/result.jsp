@@ -13,6 +13,6 @@ body { font-size: 12px; }
 <hr />
 ${result}
 <hr />
-<a href="index.do">첫 페이지로 돌아가기</a>
+<a href="/push/list">첫 페이지로 돌아가기</a>
 </body>
 </html>
