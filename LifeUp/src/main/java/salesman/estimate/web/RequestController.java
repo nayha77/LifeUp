@@ -47,8 +47,9 @@ public class RequestController {
     		@RequestParam (value="vendorCd", required=false) String vendorCd, 
     		ModelMap model)
     {   	
-    	if(currentSeq == null || currentSeq == "")
+    	if(currentSeq == null || currentSeq == "") {
     		currentSeq = String.valueOf(this.pageRecordCnt);
+    	}
     	
     	Map<String, Object> args = new HashMap<String, Object>();
     	args.put("startIdx", 0);
@@ -57,13 +58,14 @@ public class RequestController {
     	args.put("region_cd", gugunCd != null ? (gugunCd.equals("") ? null : gugunCd) : null);
     	args.put("vendor_id", vendorCd != null ? (vendorCd.equals("") ? null : vendorCd) : null);
     	
-    	List<HashMap<String, Object>> rtnValues = requestService.getRequestList(args);
+    	List<HashMap<String, Object>> requestList = requestService.getRequestList(args);
     	
-        model.put("estimateRegList", rtnValues);        
+        model.put("estimateRegList", requestList);        
         model.put("sidos", codeService.selectRegionSidoTable());
         model.put("venders", codeService.getVendorCodes());       
-               
-    	return "estimate/request/requestList";
+        model.put("listCnt", requestList.size());
+    	
+        return "estimate/request/requestList";    	
     } 
     
     @RequestMapping(value="/listJson", produces={"application/xml", "application/json"} )

@@ -30,15 +30,22 @@
 	}		
 		
 	// 지역(시/도) 조회 및 지역(구/군) 셋팅
-	function fnSidoChange(gugunCd, pageMoveYn){			
-		var sido = $('#ddlSido').val();		
+	function fnSidoChange(gugunCd, pageMoveYn) {			
+		var sido = $('#ddlSido').val();
+		
+		if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N')
+			$("#hdnCurrentSeq").val('0');
 					
 		if(sido == '') {			
 			$("#ddlGugun").empty().data('options');
 			$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
 			
-			if(typeof pageMoveYn == 'undefined') 
+			if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N') {
+				$("#ddlGugun").selectmenu("refresh");
+				$("#ddlVendor").selectmenu("refresh");
+				
 				fnSearch();
+			}
 		} else {
 	 		_Async.post (
 	   			"/selectRegionJson",
@@ -58,14 +65,15 @@
 					
 					$("#ddlGugun").selectmenu("refresh");
 										
-					if(typeof pageMoveYn == 'undefined')
-						fnSearch();					
+					if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N') {
+						fnSearch();
+						$("#hdnCurrentSeq").val(7);
+					} else {
+						$("#ddlSido").selectmenu("refresh");
+						$("#ddlVendor").selectmenu("refresh");						
+					}
 	   			}    			
 	   		); 	 		
-		}	
-		
-		if(gugunCd == "") { // 검색조건에 따른 조회 			
-			$("#hdnCurrentSeq").val('0');
 		}			
 	}
 	
@@ -91,14 +99,15 @@
  						$("#rowData").append("</a></li>"); 				
 					});					
 															
-					$("#rowData").listview("refresh");									
+					$("#rowData").listview("refresh");					
+					$("#hdnCurrentSeq").val(data.currentSeq);
+					
+					$('#moreView').val("더보기");	
 				} else {
 					$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
-					$("#moreView").button("refresh");
 				}		
 				
-				$("#ddlSido").selectmenu("refresh");
-				$("#ddlVendor").selectmenu("refresh");
+				$("#moreView").button("refresh");
 			}    		    	
     	); 
 	}
@@ -135,14 +144,14 @@
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 <form id='frm' name='frm' method='post'>
-	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='7'>
+	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
 	<input type='hidden' id='hdnRequestId' name='request_id'/>		
 	<div class="ui-grid-a" style="border-top: 0px; margin-top: 0px; padding-top: 0px;">
 		<div class="ui-block-a" style="width:70%;">
 			<div class="ui-block-a">
 				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 				    <label for="ddlSido">시(도)</label>
-				    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange('');">
+				    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange('', 'N');">
 				    	<option value="">시(도)</option>
 						<c:forEach items="${sidos}" var="sido">
 							<option value="${sido.sido_cd}">${sido.sido_nm}</option>
