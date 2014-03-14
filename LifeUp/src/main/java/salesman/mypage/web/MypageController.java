@@ -26,7 +26,7 @@ public class MypageController {
 		SessionVO userInfo = storageService.getAuthenticatedUser();		
 		if(userInfo == null) {
 			//message = "failed";
-			model.put("mypageList","로그인 후 견적등록을 할 수 있습니다");
+			model.put("mypageList","로그인 후 견적등록을 할 수 있습니다.");
 		} else {
 			model.put("mypageList",mypageService.getMypagelist(userInfo.getUserId()));
 		}
