@@ -135,7 +135,7 @@
 
 		<c:choose>
 			<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
-				<div style="margin-bottom: -10px; margin-right: -10px; text-align: right;">
+				<div style="margin-top: -11px; margin-right: -10px; text-align: right;">
 					<c:if test="${requestDetail.STATUS == '0001'}">
 						<a href="#" data-role="button" id="btnConfirm" data-icon="check" data-inline="true" onclick="fnConfirm();">거래확정</a>					
 					</c:if>
@@ -143,7 +143,7 @@
 				</div>
 			</c:when>	
 			<c:otherwise>
-				<div style="margin-right: -10px; text-align: right;">
+				<div style="margin-top: -11px; margin-right: -10px; text-align: right;">
 					<c:if test="${detail.STATUS == '0001'}">
 						<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnSave();">수정</a>
 						<a href="#" id="btnCancel" data-role="button" data-icon="delete" data-inline="true" onclick="fnCancel();">등록취소</a>
@@ -158,12 +158,12 @@
 			    <li data-icon="false"><a href="#" style='cursor: default;'>${reply.CREATE_USER_NM} ${reply.MESSAGE} <span class="ui-li-count">${reply.CREATE_DATE}</span></a></li>
 		    </c:forEach>
 		</ul>			
-			
+		<div style="padding-top: 8px;"></div>	
 		<c:if test="${requestDetail.STATUS != '0003'}">
-			<div class="ui-block-a" style="width:70%;">
+			<div class="ui-block-a" style="width:70%; margin-top: -11px;">
 			    <input type="text" data-clear-btn="true" id='tbxShortMsg' name='message' style="margin-top: 8px;">
 			</div>
-			<div class="ui-block-b" style="width:30%">
+			<div class="ui-block-b" style="width:30%; margin-top: -11px;">
 				<a href="#" data-role="button" id="btnReply" onclick="fnReply();">댓글</a>
 			</div>
 		</c:if>	
