@@ -162,11 +162,11 @@ public class RequestController {
 	    			contractVO.setStatus(requestVO.getStatus());
 	    			int rtnValue = contractService.updateContractStatus(contractVO);
 	    			
-	    			if(rtnValue > 0) {
+	    			//if(rtnValue > 0) {
 	    				List<String> arrUserId = new ArrayList<String>();	    			
 		    			arrUserId.add(requestVO.getSalesman_id());		    			
 		    			pushService.sendMessage(arrUserId, "제안하신 건이 고객님으로부터 거래확정 되었습니다");
-	    			}
+	    			//}
 	    		}
 	    	}
 		}

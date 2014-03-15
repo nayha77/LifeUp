@@ -75,12 +75,18 @@ public class PushServiceImpl implements PushService {
     	final String API_KEY = "AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI";    	
     	
     	if(arrUserId == null || arrUserId.size() == 0) {
-    		List<Device> devices = getAllDevices();    		
-        	for(Device device : devices) {
+    		List<Device> devices = getAllDevices();
+    		if(devices.size() <= 0)
+    			return false;
+    		
+        	for(Device device : devices) {        		
         		arrMobileRegId.add(device.getReg_Id());
         	}    		
     	} else if(arrUserId.size() == 1) {
     		Map<String, String> device = getOneDevice(arrUserId.get(0));
+    		if(device.size() <= 0)
+    			return false;
+    		
     		arrMobileRegId.add(device.get("reg_id"));    		
     	} else {
     		return false;
