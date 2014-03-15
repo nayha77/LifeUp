@@ -76,7 +76,7 @@ public class PushServiceImpl implements PushService {
     	
     	if(arrUserId == null || arrUserId.size() == 0) {
     		List<Device> devices = getAllDevices();
-    		if(devices.size() <= 0)
+    		if(devices == null || devices.size() <= 0)
     			return false;
     		
         	for(Device device : devices) {        		
@@ -84,7 +84,7 @@ public class PushServiceImpl implements PushService {
         	}    		
     	} else if(arrUserId.size() == 1) {
     		Map<String, String> device = getOneDevice(arrUserId.get(0));
-    		if(device.size() <= 0)
+    		if(device == null || device.size() <= 0)
     			return false;
     		
     		arrMobileRegId.add(device.get("reg_id"));    		
