@@ -185,12 +185,12 @@
 				<a href="javascript:_Commn.fnPageMove('/account/logout');" data-icon="forward" data-iconpos="notext">로그아웃</a>
 			</c:if>
 		</div>	
-		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	
+		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:200px;">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
 				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a id="menuMyPage" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a id="menuMyInfo" href='#' onclick="fnMyInfo();" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
 				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" style="height:30px; padding-top: 18px;">공지사항</a></li>
 				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" style="height:30px; padding-top: 18px;">FAQ</a></li>
