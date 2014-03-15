@@ -5,18 +5,6 @@
         version: '1.0.0.0'
         ,
         ComnService: function () {
-            this.fnBeforRun = function () {
-                //$('#waiting').show();
-            };
-
-            this.fnAfterRun = function () {
-                //$('#waiting').hide();
-            };
-
-            this.open = function (URL, width, height) {
-                window.open(URL, '', 'width=' + width + ',height=' + height + ',status=yes,toolbar=no,menubar=no,location=no,scrollbars=no');
-            };
-
             this.fnPageMove = function (URL) {
             	location.href=URL;
             };
@@ -27,50 +15,6 @@
             
             this.fnMarkingLeftMenu = function(obj) {
             	$(obj).css("background-color", "#38c");
-            }
-            /// <summary>
-            /// 테이블 ROW 데이터를 배열에 담는다
-            /// <summary>
-            /// <param name="tdodyObj">테이블의 TBODY Object</param>
-            /// <param name="cbxYn">Row내 체크박스 선택여부(true/false)</param>
-            this.GetTbRowData = function (tdodyObj, cbxYn) {
-                var arrRow = new Array();
-                var arrList = new Array();
-
-                $(tdodyObj).find("tr").each(function () {
-                    if ($("input:checkbox", this).is(":checked") == cbxYn) {
-                        arrRow = new Array();
-                        $(this).find("td").each(function (iCell) {
-                            arrRow[iCell] = $(this).text();
-                        });
-                        arrList.push(arrRow);
-                    }
-                });
-                return arrList;
-            };
-
-            /// <summary>
-            /// 테이블 Row 내 존재하는 Object 값을 추출한다
-            /// <summary>
-            /// <param name="rowObj">테이블 Row 내 존재하는 Object</param>
-            this.GetTbRowObjectData = function (rowObj) {
-
-                var iCell = 0;
-                var arrRow = new Array();
-
-                $(rowObj).find('td').each(function () {
-                    $(this).find('input:text').each(function () {
-                        arrRow[iCell] = $(this).val();
-                        iCell++;
-                    });
-
-                    $(this).find('select[name=select]').each(function () {
-                        arrRow[iCell] = $(this).val();
-                        iCell++;
-                    });
-                });
-
-                return arrRow;
             };
 
             this.SetDatePickter = function () {
@@ -100,52 +44,11 @@
                 return today;
             };
             
-            /*클라이언트 브라우져 버젼 알아오기*/
-            this.GetUserBrowserVersion = function () {
-                var clientAgent = navigator.userAgent;
-                //var clientName = navigator.appName;
-                var ver = 6;
-
-                if (clientAgent.indexOf("MSIE 7.0") != -1) ver = 7;
-
-                return ver;
-            };
-
-            /* 문자열 Byte 길이 추출 */
-            this.GetByteLength = function (str) {
-                var len = 0;
-                if (str == null) return 0;
-
-                for (var i = 0; i < str.length; i++) {
-                    var c = escape(str.charAt(i));
-                    if (c.length == 1) len++;
-                    else if (c.indexOf("%u") != -1) len += 2;
-                    else if (c.indexOf("%") != -1) len += c.length / 3;
-                }
-                return len;
-            };
-
             // 숫자여부 판별
             this.IsNumeric = function (input) {
                 var RE = /^-{0,1}\d*\.{0,1}\d+$/;
                 return (RE.test(input));
-            };
-            
-            this.IsPassword = function (input) {
-            	var pattern = /[^(a-zA-Z0-9)]/;
-            	if(!pattern.test( input )) 
-            		return true;
-            	else 
-            		return false;
-            };
-
-            this.SetInitFCKeditor = function(objID, height) {
-                var editor = new FCKeditor(objID);
-                editor.BasePath = "/Scripts/fckeditor/";
-                editor.ToolbarSet = "CustomToolbar";
-                editor.Height = height;
-                editor.ReplaceTextarea();
-            };
+            };            
         }
         ,
         AsyncService: function (before, after) {
