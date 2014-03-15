@@ -6,8 +6,9 @@
 
 <mvc:main>
 <script type="text/javascript">
-	function fnLoad() {		
-	}
+	$(document).ready(function() {
+		$('#tbxSalesBenefit').focus();
+	});		
 	
 	function fnSave() {
 		

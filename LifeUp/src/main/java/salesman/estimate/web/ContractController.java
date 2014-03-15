@@ -18,6 +18,7 @@ import salesman.common.service.StorageService;
 import salesman.common.support.CustomException;
 import salesman.estimate.service.ContractService;
 import salesman.estimate.service.RequestService;
+import salesman.push.service.PushService;
 import salesman.vo.account.SessionVO;
 import salesman.vo.estimate.ContractReplyVO;
 import salesman.vo.estimate.ContractVO;
@@ -33,7 +34,10 @@ public class ContractController {
 	private ContractService contractService;
 	
     @Autowired
-    private StorageService storageService;	
+    private StorageService storageService;
+    
+	@Autowired
+	private PushService pushService;    
 	
 	@RequestMapping("/writeform")
     public String writeform(@RequestParam(value="request_id", required=false) String request_id, ModelMap model) {
@@ -75,11 +79,20 @@ public class ContractController {
 				if(contractService.registerContract(contractVO) <= 0) {							
 					message = "failed";
 					result.put("detail", "견적등록 중 오류가 발생했습니다");
+				} else {
+					int requestId = Integer.parseInt(contractVO.getRequest_id());
+
+					List<String> arrUserId = new ArrayList<String>();
+					HashMap<String,Object> requestInfo = requestService.getRequestDetail(requestId);			
+					arrUserId.add(requestInfo.get("CUSTOMER_ID").toString());
+					
+					pushService.sendMessage(arrUserId, "최신 견적 제안건이 등록되었습니다");										
 				}
 			}
 		}
-		
+				
 		result.put("message", message);	
+		
 		return result;
 	}
 	

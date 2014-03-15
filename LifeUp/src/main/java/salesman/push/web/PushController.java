@@ -1,21 +1,9 @@
 package salesman.push.web;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,12 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import salesman.push.service.PushService;
-import salesman.vo.push.Device;
-import salesman.vo.push.GCMData;
-import salesman.vo.push.GCMMessage;
-
-import com.google.gson.Gson;
-
 
 @Controller
 @RequestMapping("/push/*")
@@ -64,71 +46,20 @@ public class PushController {
     }
     
     @RequestMapping("/send")
-    public String Send(@RequestParam String message,@RequestParam String AllMessage,@RequestParam String user_id,ModelMap model){
-
-    	final String API_KEY = "AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI";
-		
-		// JSON 포맷으로 메시지 변환 준비
-		GCMMessage gcmMessage = new GCMMessage();
-		gcmMessage.setData(new GCMData(message));
-		
-		// 데이터베이스에서 registration_id를 전부 읽어 온다.
-		System.out.println("AllMessage 확인" + AllMessage );
-			//전체 메세지 보내기
-			if(AllMessage.equals("ALL")){
-				List<Device> devices = pushService.getAllDevices();
-				for(Device device : devices) {
-					gcmMessage.addRegistrationId(device.getReg_Id());
-				}
-			}else{
-				Map<String, String> device = pushService.getOneDevice(user_id);
-				System.out.println("REG_ID 확인" + device.get("reg_id") );
-				gcmMessage.addRegistrationId(device.get("reg_id"));
-			}
-	
-
-		// 특정 아이디 보내기
-		
-		// JSON으로 변환
-		Gson gson = new Gson();
-		String json = gson.toJson(gcmMessage);
-
-		// 디버그 용
-		System.out.println(json);
-		
-		// 메시지 전송 
-		StringBuilder builder = new StringBuilder();
-		try {
-			CloseableHttpClient httpClient = HttpClients.createDefault();
-			HttpPost httpPost = new HttpPost("https://android.googleapis.com/gcm/send");
-			httpPost.addHeader("Content-Type", "application/json");
-			httpPost.addHeader("Authorization", "key=" + API_KEY);
-			StringEntity stringEntity = new StringEntity(json, "utf-8");
-			httpPost.setEntity(stringEntity);
-			
-			CloseableHttpResponse response = httpClient.execute(httpPost);
-			
-			HttpEntity entity = response.getEntity();
-			InputStream is = entity.getContent();
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			String line = null;
-			while((line = br.readLine()) != null) {
-				builder.append(line);
-			}
-			EntityUtils.consume(entity);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		model.put("result",builder.toString());		
+    public String Send(@RequestParam String AllMessage, @RequestParam String user_id, 
+    		@RequestParam String message, ModelMap model){
+    	    	
+    	List<String> arrUserId = new ArrayList<String>();    	
+    	if(!AllMessage.equals("ALL") )
+    		arrUserId.add(user_id);    	
+    	
+    	boolean rtnValue = pushService.sendMessage(arrUserId, message);
+    	
+    	if(rtnValue)
+    		model.put("result", "문자 메시지가 전송 되었습니다");
+    	else
+    		model.put("result", "문자 메시지 전송을 실패했습니다");
+    	
     	return "push/result";    	
     }
- 
 }

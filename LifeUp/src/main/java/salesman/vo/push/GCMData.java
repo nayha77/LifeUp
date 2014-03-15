@@ -7,7 +7,6 @@ public class GCMData {
 	public GCMData() {}
 
 	public GCMData(String text) {
-		super();
 		this.text = text;
 	}
 

@@ -11,7 +11,6 @@ public class GCMMessage {
 	public GCMMessage() {}
 
 	public GCMMessage(List<String> registration_ids, GCMData data) {
-		super();
 		this.registration_ids = registration_ids;
 		this.data = data;
 	}

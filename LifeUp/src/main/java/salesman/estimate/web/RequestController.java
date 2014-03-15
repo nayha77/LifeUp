@@ -1,5 +1,6 @@
 package salesman.estimate.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import salesman.common.service.CodesService;
 import salesman.common.service.StorageService;
 import salesman.estimate.service.ContractService;
 import salesman.estimate.service.RequestService;
+import salesman.push.service.PushService;
 import salesman.vo.account.SessionVO;
 import salesman.vo.estimate.ContractVO;
 import salesman.vo.estimate.RequestVO;
@@ -36,7 +38,10 @@ public class RequestController {
 	    
     @Autowired
     private StorageService storageService;	
-    
+
+	@Autowired
+	private PushService pushService;    
+
     private int pageRecordCnt = 7;
     
     @RequestMapping("/list")
@@ -114,6 +119,8 @@ public class RequestController {
 	    	
 	    	if(requestService.registerRequest(requestVO) <= 0)
 	    		message = "등록 중 오류가 발생했습니다";
+	    	else
+	    		pushService.sendMessage(null, "견적요청 글이 등록되었습니다");
 		}
 		
     	result.put("message", message);
@@ -153,7 +160,13 @@ public class RequestController {
 	    			contractVO.setRequest_id(requestVO.getRequest_id());
 	    			contractVO.setSalesman_id(requestVO.getSalesman_id());
 	    			contractVO.setStatus(requestVO.getStatus());
-	    			contractService.updateContractStatus(contractVO);
+	    			int rtnValue = contractService.updateContractStatus(contractVO);
+	    			
+	    			if(rtnValue > 0) {
+	    				List<String> arrUserId = new ArrayList<String>();	    			
+		    			arrUserId.add(requestVO.getSalesman_id());		    			
+		    			pushService.sendMessage(arrUserId, "제안하신 건이 고객님으로부터 거래확정 되었습니다");
+	    			}
 	    		}
 	    	}
 		}

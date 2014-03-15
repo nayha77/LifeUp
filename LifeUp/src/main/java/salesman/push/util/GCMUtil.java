@@ -27,8 +27,7 @@ import salesman.vo.push.GCMMessage;
 
 @Component
 public class GCMUtil {
-	
-	
+		
 	private static PushService pushService;	
 	
 	@Autowired(required=true)

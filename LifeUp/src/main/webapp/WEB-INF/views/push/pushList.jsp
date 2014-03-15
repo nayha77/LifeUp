@@ -51,7 +51,7 @@ function check(fm) {
 <p class="warning">주의 : 메시지는 위에 등록된 모든 디바이스에 전송됩니다.</p>
 <hr />
 <form action="/push/send" method="post" onsubmit="return check(this)">
-	<input type="hidden" name="AllMessage" value="oneMessage" />
+	<input type="hidden" id="AllMessage" name="AllMessage" value="" />
 	<label for="message">전송 할 아이디 : </label><input type="text" id="user_id" name="user_id" size="30" /><br /> 
 	<label for="message">전송 할 메시지 : </label><input type="text" id="message" name="message" size="100" />
 	<input type="submit" value="전송" /> 

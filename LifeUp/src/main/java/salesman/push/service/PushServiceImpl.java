@@ -1,10 +1,29 @@
 package salesman.push.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
 import salesman.push.dao.PushDao;
 import salesman.vo.push.Device;
+import salesman.vo.push.GCMData;
+import salesman.vo.push.GCMMessage;
+
+import com.google.gson.Gson;
 
 public class PushServiceImpl implements PushService {
 	
@@ -45,10 +64,66 @@ public class PushServiceImpl implements PushService {
 
 	@Override
 	public Map<String, String> getOneDevice(String user_id) {
-	
 		return pushDao1.getOneDevice(user_id);
 	}
 
-
-	
+	@Override
+	public boolean sendMessage(List<String> arrUserId, String message) {				
+		GCMMessage gcmMessage;
+		List<String> arrMobileRegId = new ArrayList<String>();
+				
+    	final String API_KEY = "AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI";    	
+    	
+    	if(arrUserId == null || arrUserId.size() == 0) {
+    		List<Device> devices = getAllDevices();    		
+        	for(Device device : devices) {
+        		arrMobileRegId.add(device.getReg_Id());
+        	}    		
+    	} else if(arrUserId.size() == 1) {
+    		Map<String, String> device = getOneDevice(arrUserId.get(0));
+    		arrMobileRegId.add(device.get("reg_id"));    		
+    	} else {
+    		return false;
+    	}
+    	
+    	if(arrMobileRegId.size() <= 0)
+    		return false;
+    	
+    	gcmMessage = new GCMMessage(arrMobileRegId, new GCMData(message));
+    	    	
+		// JSON으로 변환
+		Gson gson = new Gson();
+		String json = gson.toJson(gcmMessage);
+		
+		// 메시지 전송 
+		StringBuilder builder = new StringBuilder();
+		try {
+			CloseableHttpClient httpClient = HttpClients.createDefault();
+			HttpPost httpPost = new HttpPost("https://android.googleapis.com/gcm/send");
+			httpPost.addHeader("Content-Type", "application/json");
+			httpPost.addHeader("Authorization", "key=" + API_KEY);
+			StringEntity stringEntity = new StringEntity(json, "utf-8");
+			httpPost.setEntity(stringEntity);
+			
+			CloseableHttpResponse response = httpClient.execute(httpPost);
+			
+			HttpEntity entity = response.getEntity();
+			InputStream is = entity.getContent();
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			String line = null;
+			while((line = br.readLine()) != null) {
+				builder.append(line);
+			}
+			
+			EntityUtils.consume(entity);					
+		} catch (UnsupportedEncodingException e) {
+			return false;
+		} catch (ClientProtocolException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
+		}    	
+		
+		return true;
+	}	
 }
