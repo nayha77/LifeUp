@@ -16,6 +16,24 @@
 		if($('#ddlSido').val != "")
 			fnSidoChange('${param.gugunCd}', '${param.pageMove}');	
 	});		
+	
+	function fnSetCtrlVal() {		
+		$('#ddlVendor').val($('#hdnReqVendor').val());		
+		$('#ddlSido').val($('#hdnReqSido').val());
+		
+	 	$('#ddlStatus').val($('#hdnReqStatus').val());
+	 	$("#ddlStatus").selectmenu("refresh");		
+		
+		if($('#ddlSido').val != "")
+			fnSidoChange('${param.gugunCd}', '${param.pageMove}');			
+	}
+ 
+ 	function fnGetCtrlVal() {
+ 		$('#hdnReqStatus').val($('#ddlStatus').val());
+		$('#hdnReqVendor').val($('#ddlVendor').val());		
+		$('#hdnReqSido').val($('#ddlSido').val());
+		$('#hdnReqGugun').val($('#ddlGugun').val());
+ 	}
 		
 	function fnWrite(userCheck) {
 		if(typeof(userCheck) == "undefined" || userCheck == '2') {
@@ -149,7 +167,12 @@
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 <form id='frm' name='frm' method='post'>
 	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
-	<input type='hidden' id='hdnRequestId' name='request_id'/>		
+	<input type='hidden' id='hdnRequestId' name='request_id'/>
+	<input type="hidden" id="hdnReqVendor" name="vendorCd" value='${param.vendorCd}' />
+	<input type="hidden" id="hdnReqSido" name="sidoCd" value='${param.sidoCd}' />
+	<input type="hidden" id="hdnReqGugun" name="gugunCd" value='${param.gugunCd}' />
+	<input type="hidden" id="hdnReqStatus" name="statusCd" value='${param.statusCd}' />
+			
 	<div class="ui-grid-a" style="border-top: 0px; margin-top: 0px; padding-top: 0px;">
 		<div class="ui-block-a" style="width:70%;">
 
@@ -193,7 +216,7 @@
  --%>
 
  		    <div class="ui-block-c">
-		    	<a href="#popupDialog" data-rel='popup' data-role="button" data-icon="search" data-inline="true" data-mini="true">검색</a>
+		    	<a href="#popupDialog" data-rel='popup' data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">검색</a>
 		        <div data-role='popup' id='popupDialog' data-overlay-theme='a' data-theme='a' data-dismissible='false' style='max-width:400px;'>
 		            <div data-role='header' data-theme='a'>
 		                <h1>조건 검색</h1>
@@ -229,7 +252,7 @@
 						    	<option value="0002">종료</option>
 						    </select>			       
 						</fieldset>																		
-		                <a href='#' data-role="button" data-icon="forward" data-mini="true" data-rel='back'>닫기</a>
+		                <a href='#' data-role="button" data-icon="forward" data-mini="true" data-rel='back' onclick="fnGetCtrlVal();">닫기</a>
 		            </div>
 		        </div>
 		    </div>
