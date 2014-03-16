@@ -49,7 +49,7 @@ public class RequestController {
     		@RequestParam (value="sidoCd", required=false) String sidoCd, 
     		@RequestParam (value="gugunCd", required=false) String gugunCd, 
     		@RequestParam (value="vendorCd", required=false) String vendorCd, 
-    		@RequestParam (value="status_cd", required=false) String status_cd, ModelMap model) {
+    		@RequestParam (value="statusCd", required=false) String statusCd, ModelMap model) {
     	
     	if(currentSeq == null || currentSeq == "") {
     		currentSeq = String.valueOf(this.pageRecordCnt);
@@ -61,7 +61,7 @@ public class RequestController {
     	args.put("sido_cd", sidoCd != null ? (sidoCd.equals("") ? null : sidoCd) : null);
     	args.put("region_cd", gugunCd != null ? (gugunCd.equals("") ? null : gugunCd) : null);
     	args.put("vendor_id", vendorCd != null ? (vendorCd.equals("") ? null : vendorCd) : null);
-    	args.put("status_cd", status_cd != null ? (status_cd.equals("") ? null : status_cd) : null);
+    	args.put("status_cd", statusCd != null ? (statusCd.equals("") ? null : statusCd) : null);
     	
     	List<HashMap<String, Object>> requestList = requestService.getRequestList(args);
     	

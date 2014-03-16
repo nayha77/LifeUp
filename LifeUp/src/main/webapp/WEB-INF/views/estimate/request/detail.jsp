@@ -35,6 +35,7 @@
 	<input type='hidden' id='hdnSidoCd' name='sidoCd' value='${param.ddlSido}' />
 	<input type='hidden' id='hdnGugunCd' name='gugunCd' value='${param.region_cd}' />
 	<input type='hidden' id='hdnVendorCd' name='vendorCd' value='${param.ddlVendor}' />
+	<input type="hidden" id="hdnStatusCd" name="statusCd" value="${param.status_cd}" />
 	<input type='hidden' id='hdnPageMove' name='pageMove' value='Y' /><!-- List로 이동시 더보기 실행방지 -->
 	<input type='hidden' id='hdnSalesmanId' name='salesman_id' />	
 </form>
