@@ -99,16 +99,17 @@ public class AccountController {
      * 스마트폰 ID UPDATE
      */
     @RequestMapping(value="/account/app" ,method=RequestMethod.POST)
-    public void appPost(@RequestParam String userId, @RequestParam String appId, @RequestParam String userType, ModelMap model) {    	    
+    public void appPost(@RequestParam String userId, @RequestParam String appId, @RequestParam String uuId, 
+    		@RequestParam String phone, ModelMap model) {
+    	
     	SessionVO userInfo = storageService.getAuthenticatedUser();    	
     	if(userInfo != null) {    
-    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {
-    			Map<String, String> params = new HashMap<String, String>();
-    			
+    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {    			
+    			Map<String, String> params = new HashMap<String, String>();    			
     			params.put("webId", userId);
     			params.put("reg_id", appId);
-    			params.put("uuid", "");
-    			params.put("phone", "");
+    			params.put("uuid", uuId);
+    			params.put("phone", phone);
     			
     			if(pushService.updatePushInfo(params) == 0) {
     				pushService.insertPushInfo(params);
