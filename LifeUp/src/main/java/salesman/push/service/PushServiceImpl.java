@@ -39,8 +39,7 @@ public class PushServiceImpl implements PushService {
 	}
 
 	@Override
-	public List<Device> getAllDevices() {
-		
+	public List<Device> getAllDevices() {		
 		List<Device> devices = pushDao1.getAllDevices();
 		for(Device device :devices){
 			String phone = device.getPhone();
@@ -52,8 +51,7 @@ public class PushServiceImpl implements PushService {
 	}
 
 	@Override
-	public int getTotalCount(Map<String, String> params) {
-		
+	public int getTotalCount(Map<String, String> params) {		
 		return pushDao1.getTotalCount(params);
 	}
 

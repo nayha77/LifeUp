@@ -90,7 +90,9 @@
 	<c:choose>
 		<c:when test="${sessionScope._USER_INFO_.userType == '2'}">
 			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
-				<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});">견적남기기</a>
+				<c:if test="${request.STATUS == '0001'}">
+					<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});">견적남기기</a>
+				</c:if>
 				<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();">목록</a>
 			</div>
 		</c:when>	

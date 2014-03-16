@@ -45,7 +45,6 @@ public class RequestController {
     private int pageRecordCnt = 7;
     
     @RequestMapping("/list")
-    //public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, ModelMap model)
     public String list(@RequestParam (value="currentSeq", required=false) String currentSeq, 
     		@RequestParam (value="sidoCd", required=false) String sidoCd, 
     		@RequestParam (value="gugunCd", required=false) String gugunCd, 
