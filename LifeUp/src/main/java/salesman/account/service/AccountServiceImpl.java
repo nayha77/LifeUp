@@ -108,9 +108,4 @@ public class AccountServiceImpl implements AccountService {
 				
 		return rtnValue;
 	}
-	
-	@Override
-	public boolean modifyAppId(String userType, String userId, String appId) {
-		return accountDao.modifyAppId(userType, userId, appId);
-	}
 }

@@ -26,6 +26,7 @@ import salesman.common.service.MailingMessage;
 import salesman.common.service.MailingService;
 import salesman.common.service.StorageService;
 import salesman.common.support.CustomException;
+import salesman.push.service.PushService;
 import salesman.vo.account.LoginVO;
 import salesman.vo.account.SessionVO;
 
@@ -45,6 +46,9 @@ public class AccountController {
 	
 	@Autowired
 	private CodesService codesService;	
+	
+	@Autowired
+	private PushService pushService;
 	   	       
     @RequestMapping(value="/account/logout")
     public String logout() 
@@ -95,11 +99,20 @@ public class AccountController {
      * 스마트폰 ID UPDATE
      */
     @RequestMapping(value="/account/app" ,method=RequestMethod.POST)
-    public void appPost(@RequestParam String userId, @RequestParam String userType, @RequestParam String appId, ModelMap model) {    	    
+    public void appPost(@RequestParam String userId, @RequestParam String appId, @RequestParam String userType, ModelMap model) {    	    
     	SessionVO userInfo = storageService.getAuthenticatedUser();    	
     	if(userInfo != null) {    
-    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {    			
-    			accountService.modifyAppId(userType, userId, appId);
+    		if(!appId.equals("") && userInfo.getUserId().equals(userId)) {
+    			Map<String, String> params = new HashMap<String, String>();
+    			
+    			params.put("webId", userId);
+    			params.put("reg_id", appId);
+    			params.put("uuid", "");
+    			params.put("phone", "");
+    			
+    			if(pushService.updatePushInfo(params) == 0) {
+    				pushService.insertPushInfo(params);
+    			}
     		}
 		} 
     }    
@@ -243,8 +256,7 @@ public class AccountController {
      */
     @RequestMapping("/account/register")
 //    public String register(@ModelAttribute LoginVO userInfo, @RequestParam("imgFile") MultipartFile imgFile) {
-    public String register(@ModelAttribute LoginVO userInfo){
-    	
+    public String register(@ModelAttribute LoginVO userInfo){    	
     	if(accountService.registerAccount(userInfo))    	
     		return "redirect:/main.do";
     	else

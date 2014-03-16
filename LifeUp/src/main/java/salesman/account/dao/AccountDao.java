@@ -12,7 +12,5 @@ public interface AccountDao {
 	
 	SessionVO getUserById(LoginVO login);
 	
-	boolean registerAccount(LoginVO user);
-	
-	boolean modifyAppId(String userType, String userId, String appId);
+	boolean registerAccount(LoginVO user);	
 }

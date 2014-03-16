@@ -21,18 +21,18 @@
 	
 	<insert id="insertPushInfo">
 		insert into device (
-			uuid, phone, reg_id, user_id
+			user_id, reg_id, uuid, phone 
 		) values (
-			#{uuid}, #{phone}, #{reg_id}, #{webId}
+			#{webId}, #{reg_id}, #{uuid}, #{phone}
 		)
 	</insert>
 	
 	<update id="updatePushInfo">
 		update device 
-		   set phone=#{phone}
-		     , reg_id=#{reg_id}
-		     , user_id=#{webId} 
-		 where uuid=#{uuid}
+		   set reg_id  = #{reg_id}
+		     , uuid    = #{uuid} 
+		     , phone   = #{phone}
+		 where user_id = #{webId}
 	</update>
 	
 </mapper>

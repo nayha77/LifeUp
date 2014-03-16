@@ -73,20 +73,4 @@ public class AccountDaoImpl extends SqlSessionDaoSupport implements AccountDao {
 			
 		return rtnValue > 0 ? true : false;
 	}
-	
-	@Override
-	public boolean modifyAppId(String userType, String userId, String appId) {
-		int rtnValue = 0;
-		
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("userId", userId);
-		param.put("appId", appId);
-		
-		if(userType.equals("1"))
-			rtnValue = getSqlSession().update("account.modifyCustomerAppId", param);		
-		else
-			rtnValue = getSqlSession().update("account.modifySalesmanAppId", param);
-			
-		return rtnValue > 0 ? true : false;
-	}
 }

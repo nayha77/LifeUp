@@ -12,7 +12,5 @@ public interface AccountService {
 	
 	SessionVO getUserById(LoginVO login);
 	
-	boolean registerAccount(LoginVO userInfo);
-	
-	boolean modifyAppId(String userType, String userId, String appId);
+	boolean registerAccount(LoginVO userInfo);	
 }
