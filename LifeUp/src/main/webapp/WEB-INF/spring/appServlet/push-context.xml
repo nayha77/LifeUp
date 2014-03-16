@@ -12,6 +12,7 @@
 	
 	<bean id="pushService" class="salesman.push.service.PushServiceImpl">
 		<property name="pushDao1" ref="pushDao2"/>
+		<property name="API_KEY" value="AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI"/>		
 	</bean>
     
 	<bean id="pushDao2" class="salesman.push.dao.PushDaoImpl">

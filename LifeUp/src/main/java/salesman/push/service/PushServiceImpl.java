@@ -27,10 +27,15 @@ import com.google.gson.Gson;
 
 public class PushServiceImpl implements PushService {
 	
-	private PushDao pushDao1;
-    
+	private String API_KEY;
+	private PushDao pushDao1;	
+
 	public void setPushDao1(PushDao pushDao) {
 		this.pushDao1 = pushDao;
+	}
+	
+	public void setAPI_KEY(String api_key) {
+		this.API_KEY = api_key;
 	}
 
 	@Override
@@ -71,9 +76,7 @@ public class PushServiceImpl implements PushService {
 	public boolean sendMessage(List<String> arrUserId, String message) {				
 		GCMMessage gcmMessage;
 		List<String> arrMobileRegId = new ArrayList<String>();
-				
-    	final String API_KEY = "AIzaSyBdrOLfBi04LKBEjjroVWZga4Ip0G4_JqI";    	
-    	
+			    	
     	if(arrUserId == null || arrUserId.size() == 0) {
     		List<Device> devices = getAllDevices();
     		if(devices == null || devices.size() <= 0)
@@ -107,7 +110,7 @@ public class PushServiceImpl implements PushService {
 			CloseableHttpClient httpClient = HttpClients.createDefault();
 			HttpPost httpPost = new HttpPost("https://android.googleapis.com/gcm/send");
 			httpPost.addHeader("Content-Type", "application/json");
-			httpPost.addHeader("Authorization", "key=" + API_KEY);
+			httpPost.addHeader("Authorization", "key=" + this.API_KEY);
 			StringEntity stringEntity = new StringEntity(json, "utf-8");
 			httpPost.setEntity(stringEntity);
 			

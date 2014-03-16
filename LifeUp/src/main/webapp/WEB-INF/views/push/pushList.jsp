@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,7 +27,6 @@ function check(fm) {
 <hr />
 <table border="1">
 	<tr>
-		<th width="60">일련번호</th>
 		<th width="200">회원 ID</th>
 		<th width="200">디바이스 ID</th>
 		<th width="200">전화번호</th>
@@ -37,12 +35,11 @@ function check(fm) {
 	</tr>
 	<c:forEach items="${devices}" var="device">
 	<tr>
-		<td>${device.id}</td>
 		<td>${device.user_id}</td>
 		<td>${device.uuid}</td>
 		<td>${device.phone}</td>
 		<td>${device.reg_Id}</td>
-		<td><a href="removeDevice.do?id=${device.id}">삭제</a>
+		<td><a href="removeDevice.do?id=${device.user_id}">삭제</a>
 	</tr>
 	</c:forEach>
 </table>
@@ -51,8 +48,10 @@ function check(fm) {
 <p class="warning">주의 : 메시지는 위에 등록된 모든 디바이스에 전송됩니다.</p>
 <hr />
 <form action="/push/send" method="post" onsubmit="return check(this)">
-	<input type="hidden" id="AllMessage" name="AllMessage" value="" />
-	<label for="message">전송 할 아이디 : </label><input type="text" id="user_id" name="user_id" size="30" /><br /> 
+	<input type="radio" name="AllMessage" value="ALL" />전체
+	<input type="radio" name="AllMessage" value="No" checked="checked" />지정
+	<br />
+	<label for="message">전송 할 아이디 : </label><input type="text" id="user_id" name="user_id" size="30" /><br />
 	<label for="message">전송 할 메시지 : </label><input type="text" id="message" name="message" size="100" />
 	<input type="submit" value="전송" /> 
 </form>
