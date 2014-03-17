@@ -84,7 +84,7 @@ public class RequestController {
     		param.put("sido_cd",   param.get("sido_cd") != null ? (param.get("sido_cd").toString().equals("") ? null : param.get("sido_cd").toString()) : null);
         	param.put("region_cd", param.get("region_cd") != null ? (param.get("region_cd").toString().equals("") ? null : param.get("region_cd").toString()) : null);
         	param.put("vendor_id", param.get("vendor_id") != null ? (param.get("vendor_id").toString().equals("") ? null : param.get("vendor_id").toString()) : null);    		
-        	param.put("status_cd", param.get("status_cd") != null ? (param.get("status_cd").toString().equals("") ? null : param.get("status_cd").toString()) : null);
+        	param.put("status_cd", param.get("statusCd") != null ? (param.get("statusCd").toString().equals("") ? null : param.get("statusCd").toString()) : null);
 	    	
 	    	List<HashMap<String, Object>> list = requestService.getRequestList(param);	    	
 	    	param.clear();

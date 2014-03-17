@@ -142,7 +142,7 @@
 		
 		_Async.post (
     		"/request/listJson",
-    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val(), status_cd: $('#ddlStatus').val() }),
+    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val(), statusCd: $('#ddlStatus').val() }),
     		function (data) {
     			
 				if (data.list != null && data.list != "") {
@@ -166,7 +166,7 @@
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 <form id='frm' name='frm' method='post'>
-	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
+	<input type="text" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
 	<input type='hidden' id='hdnRequestId' name='request_id'/>
 	<input type="hidden" id="hdnReqVendor" name="vendorCd" value='${param.vendorCd}' />
 	<input type="hidden" id="hdnReqSido" name="sidoCd" value='${param.sidoCd}' />
