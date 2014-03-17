@@ -17,7 +17,7 @@
             	$(obj).css("background-color", "#38c");
             };
 
-            this.SetDatePickter = function () {
+            this.SetDatePickter = function (id) {
                 $(".datePicker").datepicker({
                     dateFormat: 'yy-mm-dd',
                     monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
@@ -27,6 +27,18 @@
                     changeYear: true, //년변경가능
                     yearRange: '1988:+10', // 연도 셀렉트 박스 범위(현재와 같으면 1988~현재년)
                     showMonthAfterYear: true, //년 뒤에 월 표시
+                    onSelect: function(dateValue, inst) {
+                    	var date = new Date();
+                    	
+                    	var arrDate = dateValue.split('-');
+                    	var selDate = new Date(arrDate[0],arrDate[1],arrDate[2]).valueOf();
+                    	var today = new Date(date.getFullYear(), date.getMonth()+1, date.getDate()).valueOf();
+                    	
+                    	if(selDate < today) {
+                    		alert('오늘 이후의 날짜를 선택하세요');
+                    		$(".datePicker").val('');
+                    	}
+                    }
 //                    buttonImageOnly: true, //이미지표시  
 //                    buttonText: '',
 //                    autoSize: false, //오토리사이즈(body등 상위태그의 설정에 따른다)
