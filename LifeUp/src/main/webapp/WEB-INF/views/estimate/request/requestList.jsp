@@ -162,11 +162,13 @@
 					
 					$('#hdnCurrentSeq').val(data.currentSeq);
 					
-					$("#rowData").listview("refresh");
+					$("#rowData").listview("refresh");									
 				} else {
 					$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
 					$("#moreView").button("refresh");
 				}			
+				
+				$('#moreView').focus();			
 			}
     	); 
 	}		
@@ -174,7 +176,7 @@
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 <form id='frm' name='frm' method='post'>
-	<input type="text" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null || param.currentSeq == "" ? 7 : param.currentSeq}'>
+	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null || param.currentSeq == "" ? 7 : param.currentSeq}'>
 	<input type='hidden' id='hdnRequestId' name='request_id'/>
 	<input type="hidden" id="hdnReqVendor" name="vendorCd" value='${param.vendorCd}' />
 	<input type="hidden" id="hdnReqSido" name="sidoCd" value='${param.sidoCd}' />
