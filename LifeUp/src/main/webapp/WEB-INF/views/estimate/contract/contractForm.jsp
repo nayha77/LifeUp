@@ -7,8 +7,10 @@
 <mvc:main>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// 선택 메뉴 마킹
+		_Commn.fnMarkingLeftMenu($("#menuRequest"));
 		$('#tbxSalesBenefit').focus();
-	});		
+	});
 	
 	function fnSave() {
 		

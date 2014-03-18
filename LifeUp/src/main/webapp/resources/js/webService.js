@@ -10,7 +10,9 @@
             };
             
             this.fnMarkingLeftMenu = function(obj) {
+            	$(".leftMenu").css("background-color", "");
             	$(obj).css("background-color", "#38c");
+            	$("#listview").listview('refresh');
             };
 
             this.SetDatePickter = function (id) {

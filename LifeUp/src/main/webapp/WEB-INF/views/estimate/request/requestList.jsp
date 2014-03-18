@@ -22,10 +22,10 @@
 		$('#ddlSido').val($('#hdnReqSido').val());
 		
 	 	$('#ddlStatus').val($('#hdnReqStatus').val());
-	 	$("#ddlStatus").selectmenu("refresh");		
-		
-		if($('#ddlSido').val != "")
-			fnSidoChange('${param.gugunCd}', '${param.pageMove}');			
+	 	$("#ddlStatus").selectmenu("refresh");	 
+	 	
+		if($('#hdnReqSido').val != "")
+			fnSidoChange($('#hdnReqGugun').val(), '${param.pageMove}');			
 	}
  
  	function fnGetCtrlVal() {
@@ -110,7 +110,11 @@
 	{			
 		_Async.post (
     		"/request/listJson",
-    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val(), status_cd: $('#ddlStatus').val() }),
+    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), 
+    						 sido_cd: $('#ddlSido').val(), 
+    						 region_cd: $('#ddlGugun').val(), 
+    						 vendor_id: $('#ddlVendor').val(), 
+    						 status_cd: $('#ddlStatus').val() }),
     		function (data) {
     			$("#rowData").empty();
     			
@@ -142,7 +146,11 @@
 		
 		_Async.post (
     		"/request/listJson",
-    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), sido_cd: $('#ddlSido').val(), region_cd: $('#ddlGugun').val(), vendor_id: $('#ddlVendor').val(), statusCd: $('#ddlStatus').val() }),
+    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), 
+    						 sido_cd: $('#ddlSido').val(), 
+    						 region_cd: $('#ddlGugun').val(), 
+    						 vendor_id: $('#ddlVendor').val(), 
+    						 status_cd: $('#ddlStatus').val() }),
     		function (data) {
     			
 				if (data.list != null && data.list != "") {
@@ -171,7 +179,7 @@
 	<input type="hidden" id="hdnReqVendor" name="vendorCd" value='${param.vendorCd}' />
 	<input type="hidden" id="hdnReqSido" name="sidoCd" value='${param.sidoCd}' />
 	<input type="hidden" id="hdnReqGugun" name="gugunCd" value='${param.gugunCd}' />
-	<input type="hidden" id="hdnReqStatus" name="statusCd" value='${param.statusCd}' />
+	<input type="hidden" id="hdnReqStatus" name="statusCd" value='${param.statusCd}' />			
 			
 	<div class="ui-grid-a" style="border-top: 0px; margin-top: 0px; padding-top: 0px;">
 		<div class="ui-block-a" style="width:70%;">
