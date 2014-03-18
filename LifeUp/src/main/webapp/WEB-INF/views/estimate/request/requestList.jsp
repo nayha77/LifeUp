@@ -224,9 +224,9 @@
  --%>
 
  		    <div class="ui-block-c">
-		    	<a href="#popupDialog" data-rel='popup' data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">검색</a>
+		    	<a href="#popupDialog" data-rel='popup' data-position-to="window" data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">검색</a>
 		        <div data-role='popup' id='popupDialog' data-overlay-theme='a' data-theme='a' data-dismissible='false' style='max-width:400px;'>
-		            <div data-role='header' data-theme='a'>
+		            <div data-role='header' data-theme='b'>
 		                <h1>조건 검색</h1>
 		            </div>
 		            <div role='main' class='ui-content'>
