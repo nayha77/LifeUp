@@ -260,7 +260,7 @@
 		    								
 		</div>		
 		<div class="ui-block-b" style="width:30%; text-align: right;">
-			<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+			<a href="#" rel="external" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
 		</div>
 	</div>	
 	<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">
@@ -270,13 +270,13 @@
 		    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
 		    </li>
 		    <li>
-		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:55px;">
+		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:55px;" rel="external">
 			    	<p>${estimateReg.CUSTOMER_REQ}</p>
 		        </a>
 		    </li>
 		</c:forEach>
 	</ul>
-	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick="fnMoreView();">
+	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick="fnMoreView();" rel="external">
 </form>	
 </div>
 </mvc:main>

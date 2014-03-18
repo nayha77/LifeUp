@@ -156,8 +156,8 @@
         <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req" onchange="fnChangeTextValue(this);"></textarea>
     </div>
 	<div style="margin-right: -10px; text-align: right;">
-		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
-		<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="location.href='/request/list';">목록</a>
+		<a href="#" rel="external" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
+		<a href="#" rel="external" data-role="button" data-icon="grid" data-inline="true" onclick="location.href='/request/list';">목록</a>
 	</div>    
 </div>
 </mvc:main>

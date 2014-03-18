@@ -182,20 +182,20 @@
 				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="javascript:_Commn.fnPageMove('/account/logout');" ref="external" data-icon="forward" data-iconpos="notext">로그아웃</a>
+				<a href="javascript:_Commn.fnPageMove('/account/logout');" rel="external" data-icon="forward" data-iconpos="notext">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
-				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" ref="external" style="height:30px; padding-top: 18px;">HOME</a></li>
+				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" rel="external" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a id="menuMyInfo" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" ref="external" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a id="menuMyInfo" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" rel="external" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" ref="external" style="height:30px; padding-top: 18px;">공지사항</a></li>
-				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" ref="external" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a id="menuRequest" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" ref="external" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
-				<li><a id="menuRanking" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" ref="external" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
+				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" rel="external" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" rel="external" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a id="menuRequest" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" rel="external" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a id="menuRanking" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" rel="external" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
@@ -217,7 +217,7 @@
 					<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 				</label>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
+					<div class="ui-block-a"><a href="#" rel="external" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
 				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>							
 				<div class="ui-grid-a">

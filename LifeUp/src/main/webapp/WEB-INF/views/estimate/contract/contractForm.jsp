@@ -67,7 +67,7 @@
 			</div>
 			<div style="margin-right: -10px; text-align: right;">
 				<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnSave();">등록</a>
-				<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
+				<a href="#" rel="external" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
 			</div>
 
 	</c:if>		
