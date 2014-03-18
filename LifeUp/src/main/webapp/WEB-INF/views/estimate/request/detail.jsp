@@ -68,7 +68,7 @@
 			<c:choose>
 				<c:when test="${salesDoc.SALESMAN_ID == sessionScope._USER_INFO_.userId || request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">				
 			    	<li>
-			    		<a href="#" data-icon="" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');">
+			    		<a href="#" data-icon="" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');" ref="external">
 			    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
 							<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
 								[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}
@@ -92,14 +92,14 @@
 		<c:when test="${sessionScope._USER_INFO_.userType == '2'}">
 			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
 				<c:if test="${request.STATUS == '0001'}">
-					<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});">견적남기기</a>
+					<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});" ref="external">견적남기기</a>
 				</c:if>
-				<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();">목록</a>
+				<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();" ref="external">목록</a>
 			</div>
 		</c:when>	
 		<c:otherwise>
 			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
-				<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();">목록</a>
+				<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();" ref="external">목록</a>
 			</div>
 		</c:otherwise>
 	</c:choose>	

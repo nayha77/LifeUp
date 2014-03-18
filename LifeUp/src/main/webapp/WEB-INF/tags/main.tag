@@ -182,20 +182,20 @@
 				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="javascript:_Commn.fnPageMove('/account/logout');" data-icon="forward" data-iconpos="notext">로그아웃</a>
+				<a href="javascript:_Commn.fnPageMove('/account/logout');" ref="external" data-icon="forward" data-iconpos="notext">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
-				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" style="height:30px; padding-top: 18px;">HOME</a></li>
+				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" ref="external" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a id="menuMyInfo" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a id="menuMyInfo" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" ref="external" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" style="height:30px; padding-top: 18px;">공지사항</a></li>
-				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a id="menuRequest" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
-				<li><a id="menuRanking" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
+				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" ref="external" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" ref="external" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a id="menuRequest" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" ref="external" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a id="menuRanking" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" ref="external" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
@@ -217,14 +217,14 @@
 					<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 				</label>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();" ref="external">로그인</a></div>
 				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>							
 				<div class="ui-grid-a">
 					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');" style="text-decoration: none;">ID를 분실했나요?</a></label>
 					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');" style="text-decoration: none;">비빌번호를 분실했나요?</a></label>
 					<label for="name">						
-						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" style="text-decoration: none;">계정이 없으신가요?</a>				
+						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" ref="external" style="text-decoration: none;">계정이 없으신가요?</a>				
 					</label>
 				</div>	
 			</form>	
@@ -239,7 +239,7 @@
 				<label for="name">ID (Email)</label>
 				<input type="text" name="txtFUserId" id="txtFUserId" data-mini="true">
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnFindUser();">찾기</a></div>
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnFindUser();" ref="external">찾기</a></div>
 				    <div class="ui-block-b"><a href="#frmUserLogin" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>								    			
 			</form>				
