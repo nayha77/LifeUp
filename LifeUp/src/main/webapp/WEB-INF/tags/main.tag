@@ -182,20 +182,20 @@
 				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="<spring:url value="/account/logout" />" rel="external" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>
+				<a rel="external" href="<spring:url value="/account/logout" />" rel="external" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
-				<li><a id="menuMain" class="leftMenu" href="<spring:url value="/main"/>" rel="external" style="height:30px; padding-top: 18px;">HOME</a></li>
+				<li><a rel="external" id="menuMain" class="leftMenu" href="<spring:url value="/main"/>" rel="external" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a id="menuMyInfo" class="leftMenu" href="<spring:url value="/mypage/list" />" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a rel="external" id="menuMyInfo" class="leftMenu" href="<spring:url value="/mypage/list" />" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a id="menuNotice" class="leftMenu" href="<spring:url value="/board/Notice" />" style="height:30px; padding-top: 18px;">공지사항</a></li>
-				<li><a id="menuFAQ" class="leftMenu" href="<spring:url value="/board/FAQ" />" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a id="menuRequest" class="leftMenu" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
-				<li><a id="menuRanking" class="leftMenu" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
+				<li><a rel="external" id="menuNotice" class="leftMenu" href="<spring:url value="/board/Notice" />" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a rel="external" id="menuFAQ" class="leftMenu" href="<spring:url value="/board/FAQ" />" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a rel="external" id="menuRequest" class="leftMenu" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a rel="external" id="menuRanking" class="leftMenu" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">

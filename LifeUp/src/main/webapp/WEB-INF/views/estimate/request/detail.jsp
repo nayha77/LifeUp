@@ -70,7 +70,7 @@
 			<c:choose>
 				<c:when test="${salesDoc.SALESMAN_ID == sessionScope._USER_INFO_.userId || request.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">				
 			    	<li>
-			    		<a href="#" rel="external" data-icon="" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');">
+			    		<a href="#" data-icon="" onclick="fnContractDetail('${salesDoc.SALESMAN_ID}');">
 			    			<img id='imgSalesmanIco' src='/resources/img/ico/member.png' class="ui-li-icon ui-corner-none">			    			
 							<c:if test="${salesDoc.STATUS == '0003'}"><s></c:if>
 								[${salesDoc.CREATE_DATE}] ${salesDoc.SALESMAN_NM}님 견적 ${salesDoc.STATUS_NM}

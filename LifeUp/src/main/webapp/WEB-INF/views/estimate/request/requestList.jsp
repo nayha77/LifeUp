@@ -174,7 +174,7 @@
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 <form id='frm' name='frm' method='post'>
-	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
+	<input type="text" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null || param.currentSeq == "" ? 7 : param.currentSeq}'>
 	<input type='hidden' id='hdnRequestId' name='request_id'/>
 	<input type="hidden" id="hdnReqVendor" name="vendorCd" value='${param.vendorCd}' />
 	<input type="hidden" id="hdnReqSido" name="sidoCd" value='${param.sidoCd}' />
@@ -268,7 +268,7 @@
 		    								
 		</div>		
 		<div class="ui-block-b" style="width:30%; text-align: right;">
-			<a href="#" rel="external" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+			<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
 		</div>
 	</div>	
 	<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">
@@ -278,13 +278,13 @@
 		    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
 		    </li>
 		    <li>
-		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:55px;" rel="external">
+		    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:55px;">
 			    	<p>${estimateReg.CUSTOMER_REQ}</p>
 		        </a>
 		    </li>
 		</c:forEach>
 	</ul>
-	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick="fnMoreView();" rel="external">
+	<input type="button" data-icon="plus" value="더보기" id="moreView" onclick="fnMoreView();">
 </form>	
 </div>
 </mvc:main>
