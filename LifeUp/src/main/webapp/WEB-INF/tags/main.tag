@@ -198,8 +198,8 @@
 				<li><a id="menuRanking" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
-		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b" style="width:240px;">
-			<form id="frmUserLogin" class="userform">
+		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b" style="width:225px;">
+			<form id="frmUserLogin" class="userform" style="padding-left: 5px; padding-right: 5px;">
 				<h2>로그인</h2>
 				<div class="switch">
 				    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
