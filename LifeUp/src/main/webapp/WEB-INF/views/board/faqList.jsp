@@ -6,10 +6,10 @@
   
 <mvc:main>
 <script type="text/javascript">	
-	$(document).ready(function() {
-		// 선택 메뉴 마킹		
-		_Commn.fnMarkingLeftMenu($("#menuFAQ"));		
-	});
+	$(document).ready(function() {	
+		// 선택 메뉴 마킹
+		_Commn.fnMarkingLeftMenu($("#menuFAQ"));
+	});		
 </script>
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">

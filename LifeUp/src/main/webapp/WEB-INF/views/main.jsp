@@ -6,8 +6,8 @@
 <script type="text/javascript">	
 	$(document).ready(function() {
 		// 선택 메뉴 마킹
-		_Commn.fnMarkingLeftMenu($("#menuMain"));		
-	});
+		_Commn.fnMarkingLeftMenu($("#menuMain"));
+	});			
 </script>
 <div class="ui-content jqm-content jqm-fullwidth">
     <h1>불편한 CSS 걷어내기 </h1>

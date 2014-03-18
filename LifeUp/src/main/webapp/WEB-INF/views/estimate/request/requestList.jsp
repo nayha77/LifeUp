@@ -5,9 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
   
 <mvc:main>
-<script type="text/javascript">	
+<script type="text/javascript">
+
 	$(window).load(function() {
-		// 선택 메뉴 마킹
 		_Commn.fnMarkingLeftMenu($("#menuRequest"));
 		
 		$('#ddlVendor').val('${param.vendorCd}');		
@@ -16,7 +16,7 @@
 		if($('#ddlSido').val != "")
 			fnSidoChange('${param.gugunCd}', '${param.pageMove}');	
 	});		
-	
+		
 	function fnSetCtrlVal() {		
 		$('#ddlVendor').val($('#hdnReqVendor').val());		
 		$('#ddlSido').val($('#hdnReqSido').val());
