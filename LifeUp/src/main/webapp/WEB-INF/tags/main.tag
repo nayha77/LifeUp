@@ -7,7 +7,7 @@
 <head>
 <meta charset='utf-8'>
 	<title>저기요</title>
-   <meta name="viewport" content="user-scalable=no,   width=device-width,  target-densitydpi=device-mdpi">	
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
 <!-- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" /> -->
