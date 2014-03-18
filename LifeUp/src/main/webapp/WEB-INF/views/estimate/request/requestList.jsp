@@ -166,7 +166,7 @@
 
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 <form id='frm' name='frm' method='post'>
-	<input type="text" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
+	<input type="hidden" id="hdnCurrentSeq" name='currentSeq' value='${param.currentSeq == null ? listCnt : param.currentSeq}'>
 	<input type='hidden' id='hdnRequestId' name='request_id'/>
 	<input type="hidden" id="hdnReqVendor" name="vendorCd" value='${param.vendorCd}' />
 	<input type="hidden" id="hdnReqSido" name="sidoCd" value='${param.sidoCd}' />
