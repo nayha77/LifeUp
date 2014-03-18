@@ -6,7 +6,10 @@
   
 <mvc:main>
 <script type="text/javascript">
-	$(window).load(function() {	
+
+	$(window).load(function() {
+		_Commn.fnMarkingLeftMenu($("#menuRequest"));
+		
 		$('#ddlVendor').val('${param.vendorCd}');		
 		$('#ddlSido').val('${param.sidoCd}');
 		
