@@ -7,10 +7,10 @@
 <head>
 <meta charset='utf-8'>
 	<title>저기요</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
-<!-- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" /> -->
+ 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
 	
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
