@@ -4,9 +4,10 @@
 <mapper namespace="mypage">
     
 	<select id="getMyList" resultType="salesman.vo.mypage.MypageVO">
-		select REQUEST_ID,CUSTOMER_REQ,STATUS,CREATE_DATE 
+		select REQUEST_ID as req_id,CUSTOMER_REQ,STATUS,CREATE_DATE 
 		  from estimate_request
 		 where CUSTOMER_ID = #{user_id}
+		 order by REQUEST_ID desc
 	</select>
 	<select id="getOneDevice" resultType="hashmap">
 		select uuid, phone, reg_id, user_id 
