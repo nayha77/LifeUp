@@ -3,13 +3,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <mvc:main>
-<script type="text/javascript">	
+<script type="text/javascript">
 	$(document).ready(function() {
 		// 선택 메뉴 마킹
 		_Commn.fnMarkingLeftMenu($("#menuRequest"));
 		
 		_Commn.SetDatePickter();					
-	});	
+	});
 	
 	function fnList() {
 		_Commn.fnPageMove("/request/list");
