@@ -10,7 +10,11 @@
 		
 		_Commn.SetDatePickter();					
 	});	
-
+	
+	function fnList() {
+		_Commn.fnPageMove("/request/list");
+	}
+	
 	function fnSidoChange(obj){
 		if(obj.value == '0')			
 			return;
@@ -105,7 +109,7 @@
    							 customer_req: $('#customer_req').val()}),
    			function (data) {    
 				if(data.message == "success") {
-					location.href="/request/list";
+					_Commn.fnPageMove("/request/list");
 				} else {
 					alert(data.message);
 				}			
@@ -159,8 +163,8 @@
         <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req" onchange="fnChangeTextValue(this);"></textarea>
     </div>
 	<div style="margin-right: -10px; text-align: right;">
-		<a href="#" rel="external" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
-		<a href="#" rel="external" data-role="button" data-icon="grid" data-inline="true" onclick="location.href='/request/list';">목록</a>
+		<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnSave();">등록</a>
+		<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();">목록</a>
 	</div>    
 </div>
 </mvc:main>

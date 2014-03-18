@@ -42,13 +42,12 @@
 			return;
 		}
 		
-		location.href="/request/writeform";
+		_Commn.fnPageMove("/request/writeform");
 	}
 	
 	function fnDetail(requestId) {
 		$('#hdnRequestId').val(requestId);		
-		document.frm.action = "/request/detail";
-		document.frm.submit();
+		_Commn.fnPageMove("/request/detail", $('#frm'));
 	}		
 		
 	// 지역(시/도) 조회 및 지역(구/군) 셋팅

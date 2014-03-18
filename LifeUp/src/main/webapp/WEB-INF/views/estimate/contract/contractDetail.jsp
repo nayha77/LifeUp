@@ -22,8 +22,7 @@
    			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
    			function (data) {    
 				if(data.message == 'success') {
-					document.frm.action = "/contract/detail";
-					document.frm.submit();
+					_Commn.fnPageMove("/contract/detail", $('#frm'));
 				} else {
 					alert(data.detail);
 				}
@@ -82,9 +81,8 @@
    		);		
 	}
 	
-	function fnMoveBack() {		
-		document.frm.action = "/request/detail";
-		document.frm.submit();
+	function fnMoveBack() {			
+		_Commn.fnPageMove("/request/detail", $('#frm'));
 	}
 </script>
 
@@ -141,7 +139,7 @@
 					<c:if test="${requestDetail.STATUS == '0001'}">
 						<a href="#" data-role="button" id="btnConfirm" data-icon="check" data-inline="true" onclick="fnConfirm();">거래확정</a>					
 					</c:if>
-					<a href="#" rel="external" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
+					<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
 				</div>
 			</c:when>	
 			<c:otherwise>
@@ -150,7 +148,7 @@
 						<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnSave();">수정</a>
 						<a href="#" id="btnCancel" data-role="button" data-icon="delete" data-inline="true" onclick="fnCancel();">등록취소</a>
 					</c:if>
-					<a href="#" rel="external" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
+					<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
 				</div>
 			</c:otherwise>
 		</c:choose>	    	       

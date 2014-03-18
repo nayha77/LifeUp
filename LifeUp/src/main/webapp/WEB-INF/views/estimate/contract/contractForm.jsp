@@ -25,9 +25,8 @@
    			"/contract/registContract.do",
    			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
    			function (data) {    
-				if(data.message == 'success') {
-					frm.action = "/contract/writeform";
-					frm.submit();
+				if(data.message == 'success') {				
+					_Commn.fnPageMove("/contract/writeform", $('#frm'));
 				} else {
 					alert(data.detail);
 				}
@@ -36,8 +35,7 @@
 	}
 	
 	function fnMoveBack() {
-		frm.action = "/request/detail";
-		frm.submit();
+		_Commn.fnPageMove("/request/detail", $('#frm'));		
 	}
 </script>	
 <div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
@@ -69,7 +67,7 @@
 			</div>
 			<div style="margin-right: -10px; text-align: right;">
 				<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnSave();">등록</a>
-				<a href="#" rel="external" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
+				<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
 			</div>
 
 	</c:if>		

@@ -235,7 +235,7 @@
         
     <div style="margin-right: -10px; text-align: right;">
 		<input type="button" value="회원가입" data-inline="true" data-icon="plus" onclick="fnValidation();" />
-		<a href="<spring:url value="/main" />" rel="external" data-role="button" data-icon="grid" data-inline="true">취소</a>
+		<a href="<spring:url value="/main" />" data-role="button" data-icon="grid" data-inline="true">취소</a>
 	</div>	  
 
 	<input type="checkbox" name="chkAgreeOne" id="chkAgreeOne" data-mini="true" onClick="fnShowDoc(1);">

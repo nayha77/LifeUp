@@ -12,8 +12,7 @@
 	});
 	
 	function fnList() {
-		frm.action = '/request/list';
-		frm.submit();
+		_Commn.fnPageMove("/request/list", $('#frm'));
 	}
 	
 	function fnContractWrite(userType) {
@@ -21,17 +20,16 @@
 			alert('일반 사용자는 사용할 수 없습니다');
 			return;
 		}
-		frm.action = '/contract/writeform';
-		frm.submit();
+		
+		_Commn.fnPageMove("/contract/writeform", $('#frm'));
 	}
 	
 	function fnContractDetail(salesman) {
-		$('#hdnSalesmanId').val(salesman);
-		frm.action = '/contract/detail';
-		frm.submit();
+		$('#hdnSalesmanId').val(salesman);		
+		_Commn.fnPageMove("/contract/detail", $('#frm'));		
 	}
 </script>
-<form id='frm' method="post">
+<form id='frm' name="frm" method="post">
 	<input type='hidden' id='hdnRequestId' name='request_id' value='${request.REQUEST_ID}' />
 	<input type='hidden' id='hdnCurrentSeq' name='currentSeq' value='${param.currentSeq}' />
 	<input type='hidden' id='hdnSidoCd' name='sidoCd' value='${param.sidoCd}' />
@@ -94,14 +92,14 @@
 		<c:when test="${sessionScope._USER_INFO_.userType == '2'}">
 			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
 				<c:if test="${request.STATUS == '0001'}">
-					<a href="#" rel="external" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});">견적남기기</a>
+					<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite(${sessionScope._USER_INFO_.userType});">견적남기기</a>					
 				</c:if>
-				<a href="#" rel="external" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();">목록</a>
+				<a href="#" data-role="button" data-icon="grid" data-inline="true" onClick="fnList();">목록</a>
 			</div>
 		</c:when>	
 		<c:otherwise>
 			<div style="margin-bottom: -15px; margin-right: -10px; text-align: right;">
-				<a href="#" rel="external" data-role="button" data-icon="grid" data-inline="true" onclick="fnList();">목록</a>
+				<a href="#" data-role="button" data-icon="grid" data-inline="true" onClick="fnList();">목록</a>
 			</div>
 		</c:otherwise>
 	</c:choose>	
