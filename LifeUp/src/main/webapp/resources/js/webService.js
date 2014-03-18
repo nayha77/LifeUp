@@ -4,11 +4,7 @@
     Web: {
         version: '1.0.0.0'
         ,
-        ComnService: function () {
-            this.fnPageMove = function (URL) {
-            	location.href=URL;
-            };
-            
+        ComnService: function () {           
             this.fnOpenLoginPanel = function() {
             	$("#lnklogin").trigger("click");
             };

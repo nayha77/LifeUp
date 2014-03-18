@@ -30,13 +30,13 @@
 				<a href="#right-panel" id="lnklogin">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="javascript:_Commn.fnPageMove('/account/logout');" >로그아웃</a>
+				<a href="<spring:url value="/account/logout" />">로그아웃</a>
 			</c:if>
 		</div>
 		<div data-role="panel" data-display="push" data-theme="b" id="nav-panel">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
-				<li><a href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" style="height:30px; padding-top: 18px;">HOME</a></li>
+				<li><a href="<spring:url value="/main" />" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
 					<li><a href='#' onclick="fnMyInfo();" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				

@@ -173,7 +173,7 @@
     </script>    
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage">
+	<div data-role="mainPage" class="jqm-demos ui-responsive-panel" id="mainPage">
 		<div data-role="header">
 			<h1>견적의신</h1>			
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
@@ -182,20 +182,20 @@
 				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="javascript:_Commn.fnPageMove('/account/logout');" rel="external" data-icon="forward" data-iconpos="notext">로그아웃</a>
+				<a href="<spring:url value="/account/logout" />" rel="external" data-icon="forward" data-iconpos="notext">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
 			<ul data-role="listview">
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
-				<li><a id="menuMain" href="javascript:_Commn.fnPageMove('<spring:url value="/main"/>');" rel="external" style="height:30px; padding-top: 18px;">HOME</a></li>
+				<li><a id="menuMain" href="<spring:url value="/main"/>" rel="external" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a id="menuMyInfo" href="javascript:_Commn.fnPageMove('<spring:url value="/mypage/list"/>');" rel="external" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a id="menuMyInfo" href="<spring:url value="/mypage/list" />" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a id="menuNotice" href="javascript:_Commn.fnPageMove('<spring:url value="/board/Notice"/>');" rel="external" style="height:30px; padding-top: 18px;">공지사항</a></li>
-				<li><a id="menuFAQ" href="javascript:_Commn.fnPageMove('<spring:url value="/board/FAQ"/>');" rel="external" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a id="menuRequest" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" rel="external" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
-				<li><a id="menuRanking" href="javascript:_Commn.fnPageMove('<spring:url value="/request/list"/>');" rel="external" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
+				<li><a id="menuNotice" href="<spring:url value="/board/Notice" />" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a id="menuFAQ" href="<spring:url value="/board/FAQ" />" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a id="menuRequest" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a id="menuRanking" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
