@@ -173,16 +173,16 @@
     </script>    
 </head>
 <body>
-	<div data-role="mainPage" class="jqm-demos ui-responsive-panel" id="mainPage">
-		<div data-role="header">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="mainPage">
+		<div data-role="header" style="padding-top:3px; padding-bottom :3px;">
 			<h1>견적의신</h1>			
-			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
+			<a href="#nav-panel" data-icon="bars" data-iconpos="notext" style="margin-top: 5px;">Menu</a>
 			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext">로그인</a>				
+				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="<spring:url value="/account/logout" />" rel="external" data-icon="forward" data-iconpos="notext">로그아웃</a>
+				<a href="<spring:url value="/account/logout" />" rel="external" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
@@ -198,7 +198,7 @@
 				<li><a id="menuRanking" href="<spring:url value="/request/list" />" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
-		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
+		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b" style="width:240px;">
 			<form id="frmUserLogin" class="userform">
 				<h2>로그인</h2>
 				<div class="switch">
@@ -221,10 +221,10 @@
 				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>							
 				<div class="ui-grid-a">
-					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');" style="text-decoration: none;">ID를 분실했나요?</a></label>
-					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');" style="text-decoration: none;">비빌번호를 분실했나요?</a></label>
+					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');" style="text-decoration: none; font-size: 14px;">ID를 분실했나요?</a></label>
+					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');" style="text-decoration: none; font-size: 14px;">비빌번호를 분실했나요?</a></label>
 					<label for="name">						
-						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" style="text-decoration: none;">계정이 없으신가요?</a>				
+						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" style="text-decoration: none; font-size: 14px;">계정이 없으신가요?</a>				
 					</label>
 				</div>	
 			</form>	
