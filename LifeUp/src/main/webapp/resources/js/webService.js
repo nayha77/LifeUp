@@ -4,7 +4,15 @@
     Web: {
         version: '1.0.0.0'
         ,
-        ComnService: function () {           
+        ComnService: function () {        	
+        	this.fnPageMove = function(url, formObj) {
+        		$.mobile.changePage(url, {
+        			type: "post",
+        			data: $(formObj).serialize(),
+        			changeHash: false
+        		});        		
+        	};
+        	
             this.fnOpenLoginPanel = function() {
             	$("#lnklogin").trigger("click");
             };
