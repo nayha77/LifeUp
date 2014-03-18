@@ -6,14 +6,20 @@
         ,
         ComnService: function () {
         	this.fnPageMove = function(url) {
-        		$.mobile.changePage(url);        		
+        		$.mobile.changePage(url, {
+        			reloadPage : true
+        		});        		       		
         	};
         	
         	this.fnPageMove = function(url, formObj) {
         		$.mobile.changePage(url, {
         			type: "post",
         			data: $(formObj).serialize(),
-        			changeHash: false
+        			changeHash: false,
+        			transition : "fade",
+        			reloadPage : true,
+        			reverse : false,
+        			allowSamePageTransition : false        			
         		});        		
         	};
         	        	
