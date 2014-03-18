@@ -7,16 +7,11 @@
 <head>
 <meta charset='utf-8'>
 	<title>저기요</title>
-<!--<meta name="viewport" content="user-scalable=no,width=device-width,  target-densitydpi=device-mdpi">-->
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1">	
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
- 	
-	<META http-equiv="Expires" content="-1"> 
-	<META http-equiv="Pragma" content="no-cache"> 
-	<META http-equiv="Cache-Control" content="No-Cache">
-
+<!-- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" /> -->
+	
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
@@ -30,7 +25,7 @@
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
-						      
+        
 		// 로그인/찾기 패널 토글  및 쿠키정보값 설정
 		$(function(){
  		    $('a[href=#frmUserLogin]').click(function(){
@@ -46,7 +41,7 @@
 		    $('a[href=#right-panel]').click(function(){
 				var userId = '${cookie.userId.value}';
 	        	var userType = '${cookie.userType.value}';	   	        	        	
-        		        	
+        		
 	         	if(userId != "" && userType != "") {
 	        		$('#txtUser').val(userId); 
 	        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
@@ -184,7 +179,7 @@
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext" style="margin-top: 5px;">Menu</a>
 			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#right-panel" id="lnklogin" data-icon="user" data-dismissible="true" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
+				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a rel="external" href="<spring:url value="/account/logout" />" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>
