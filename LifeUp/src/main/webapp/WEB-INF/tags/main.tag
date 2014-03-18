@@ -217,14 +217,14 @@
 					<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 				</label>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();" ref="external">로그인</a></div>
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
 				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>							
 				<div class="ui-grid-a">
 					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');" style="text-decoration: none;">ID를 분실했나요?</a></label>
 					<label for="text"><a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');" style="text-decoration: none;">비빌번호를 분실했나요?</a></label>
 					<label for="name">						
-						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" ref="external" style="text-decoration: none;">계정이 없으신가요?</a>				
+						<a href="#" data-icon="plus" data-iconpos="notext" onclick="document.location.href='<spring:url value="/account/membership"/>';" style="text-decoration: none;">계정이 없으신가요?</a>				
 					</label>
 				</div>	
 			</form>	
@@ -239,7 +239,7 @@
 				<label for="name">ID (Email)</label>
 				<input type="text" name="txtFUserId" id="txtFUserId" data-mini="true">
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnFindUser();" ref="external">찾기</a></div>
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnFindUser();">찾기</a></div>
 				    <div class="ui-block-b"><a href="#frmUserLogin" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>								    			
 			</form>				
