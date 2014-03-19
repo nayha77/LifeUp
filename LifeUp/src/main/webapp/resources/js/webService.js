@@ -7,7 +7,10 @@
         ComnService: function () {
         	this.fnPageMove = function(url) {
         		$.mobile.changePage(url, {
-        			reloadPage : true
+        			reloadPage : false,
+        			changeHash: false,
+        			allowSamePageTransition : false,
+        			transition : "slide"
         		});        		       		
         	};
         	
@@ -16,8 +19,8 @@
         			type: "post",
         			data: $(formObj).serialize(),
         			changeHash: false,
-        			transition : "fade",
-        			reloadPage : true,
+        			transition : "slide",
+        			reloadPage : false,
         			reverse : false,
         			allowSamePageTransition : false        			
         		});        		
