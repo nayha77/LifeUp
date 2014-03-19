@@ -10,8 +10,19 @@
   	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 	<meta name='description' content=''>
 	<meta name='author' content=''>
+	<meta http-equiv="Cache-Control" content="no-cache"/> 
+	<meta http-equiv="Expires" content="0"/> 
+	<meta http-equiv="Pragma" content="no-cache"/>	
  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
+ 	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  	
+ 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
 	<script type="text/javascript">	
+	var _Commn = new webService.Web.ComnService();	
 		$(window).load(function() {
 			_Commn.fnMarkingLeftMenu($("#menuRequest"));
 			
@@ -53,7 +64,7 @@
 		function fnDetail(requestId) {
 			$('#hdnRequestId').val(requestId);
 			_Commn.fnPageMove("/request/detail", $('#frm'));
-		}		
+		}		 
 			
 		// 지역(시/도) 조회 및 지역(구/군) 셋팅
 		function fnSidoChange(gugunCd, pageMoveYn) {			
@@ -176,12 +187,13 @@
 				}
 	    	); 
 		}
-	</script> 	
+	</script>
+
 </head>
 <body>
 	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqPage">
 
-		<%@ include file="../../include/header.jsp" %>
+	<%-- <%@ include file="../../include/header.jsp" %> --%>
 		
 		<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 			<form id='frm' name='frm' method='post'>
@@ -299,4 +311,5 @@
 			</form>
 		</div>	
 	</div><!-- /page -->
+
 </html>

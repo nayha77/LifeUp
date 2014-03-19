@@ -20,7 +20,7 @@
         			data: $(formObj).serialize(),
         			changeHash: false,
         			transition : "slide",
-        			reloadPage : false,
+        			reloadPage : true,
         			reverse : false,
         			allowSamePageTransition : false        			
         		});        		

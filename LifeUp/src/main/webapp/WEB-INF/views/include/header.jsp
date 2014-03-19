@@ -20,7 +20,7 @@
 				</c:if>	 				
 				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/board/Notice" />')" id="menuNotice" class="leftMenu" style="height:30px; padding-top: 18px;">공지사항</a></li>
 				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/board/FAQ" />')" id="menuFAQ" class="leftMenu" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/request/list" />')" id="menuRequest" class="leftMenu" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a href="/request/list" id="menuRequest" class="leftMenu" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
 				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/request/list" />')" id="menuRanking" class="leftMenu" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
