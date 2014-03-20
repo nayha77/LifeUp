@@ -20,8 +20,10 @@
 	<script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		function fnDetail(requestId) {
-			$('#hdnRequestId').val(requestId);		
-			_Commn.fnPageMove("/request/detail", $('#frm'));
+			$('#hdnRequestId').val(requestId);
+			frm.action = "/request/detail";
+			frm.submit();
+			//_Commn.fnPageMove("/request/detail", $('#frm'));
 		}		
 	</script>
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
@@ -58,7 +60,13 @@
                     // This example will work because it was bind with event delegation process            
                  $('a[href="#two"]').click();
                     // This example will work because element exist in a DOM during the pagebeforeshow event
-                });             
+         		test =function  (file){
+					alert('다운로드 시작');
+					
+				}
+                    
+                });
+       
         </script>
 		
 </head>
@@ -139,11 +147,14 @@
 		</div> <!-- end content -->
 	</div> <!-- end Page -->
 	      <script>
-/* 	      $(document).ready(function(){
-	    	  $('a[href="#two"]').click(function(){
-	    		      alert('Sign new href executed.'); 
-	    		   }); 
-          });    */       
+ 	      $(document).ready(function(){
+	    	  //$('a[href="#two"]').click(function(){
+	    		  test();
+	    	
+	    		
+	    		  // }); 
+          });           
+         
         </script>
 </body>
 </html>

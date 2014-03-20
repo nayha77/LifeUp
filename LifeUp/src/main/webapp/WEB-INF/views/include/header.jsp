@@ -8,7 +8,7 @@
 				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
-				<a href="#" onclick="_Commn.fnPageMove('<spring:url value="/account/logout" />')" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>
+				<a href="/account/logout" rel="external" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>
 			</c:if>
 		</div>	
 		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
@@ -16,12 +16,12 @@
 				<li data-icon="delete"><a href="#" data-rel="close" style="height:30px; padding-top: 18px;">닫기</a></li>
 				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/main" />')" id="menuMain" class="leftMenu" style="height:30px; padding-top: 18px;">HOME</a></li>
 				<c:if test="${not empty sessionScope._USER_INFO_}">
-					<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/mypage/list" />')" id="menuMyInfo" class="leftMenu" style="height:30px; padding-top: 18px;">내정보</a></li>							
+					<li><a href="/mypage/list" rel="external" id="menuMyInfo" class="leftMenu" style="height:30px; padding-top: 18px;">내정보</a></li>							
 				</c:if>	 				
-				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/board/Notice" />')" id="menuNotice" class="leftMenu" style="height:30px; padding-top: 18px;">공지사항</a></li>
-				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/board/FAQ" />')" id="menuFAQ" class="leftMenu" style="height:30px; padding-top: 18px;">FAQ</a></li>
-				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/request/list" />')" id="menuRequest" class="leftMenu" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
-				<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/request/list" />')" id="menuRanking" class="leftMenu" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
+				<li><a href="/board/Notice" rel="external" id="menuNotice" class="leftMenu" style="height:30px; padding-top: 18px;">공지사항</a></li>
+				<li><a href="/board/FAQ" rel="external" id="menuFAQ" class="leftMenu" style="height:30px; padding-top: 18px;">FAQ</a></li>
+				<li><a href="/request/list" rel="external" id="menuRequest" class="leftMenu" style="height:30px; padding-top: 18px;">의뢰목록</a></li>
+				<li><a href="/request/list" rel="external" id="menuRanking" class="leftMenu" style="height:30px; padding-top: 18px;">영업랭킹</a></li>																					
 			</ul>	    
 		</div>	
 		<div data-role="panel" data-position="right" data-position-fixed="false" data-display="overlay" id="right-panel" data-theme="b">
