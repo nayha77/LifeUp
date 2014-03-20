@@ -20,12 +20,20 @@
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
   	<script src='<spring:url value="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"/>'></script>			
+	
 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
-
+	<script src='<spring:url value="/resources/js/requestList.js"/>'></script>
+	<script src='<spring:url value="/resources/js/requestDetail.js"/>'></script>
+	<script src='<spring:url value="/resources/js/requestWriteFrm.js"/>'></script>	
+	<script src='<spring:url value="/resources/js/contractDetail.js"/>'></script>
+	<script src='<spring:url value="/resources/js/contractFrm.js"/>'></script>
+	<script src='<spring:url value="/resources/js/noticeList.js"/>'></script>
+	<script src='<spring:url value="/resources/js/faqList.js"/>'></script>
+	
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
-
+	
 		// 로그인/찾기 패널 토글  및 쿠키정보값 설정
 		$(function(){
  		    $('a[href=#frmUserLogin]').click(function(){

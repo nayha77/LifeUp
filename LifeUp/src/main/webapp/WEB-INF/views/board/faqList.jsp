@@ -6,20 +6,9 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>저기요</title>
-  	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<meta name='description' content=''>
-	<meta name='author' content=''>
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
-	<script type="text/javascript">	
-		$(document).on("pagebeforeshow", function() {	
-			// 선택 메뉴 마킹
-			_Commn.fnMarkingLeftMenu($("#menuFAQ"));
-		});				
-	</script> 	
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="requestListPage">
 
 		<%@ include file="../include/header.jsp" %>
 		

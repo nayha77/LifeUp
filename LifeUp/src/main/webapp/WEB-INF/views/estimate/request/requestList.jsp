@@ -6,194 +6,11 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>저기요</title>
-  	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<meta name='description' content=''>
-	<meta name='author' content=''>
-	<meta http-equiv="Cache-Control" content="no-cache"/> 
-	<meta http-equiv="Expires" content="0"/> 
-	<meta http-equiv="Pragma" content="no-cache"/>	
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
- 	
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-  	
- 	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
-	<script type="text/javascript">	
-	var _Commn = new webService.Web.ComnService();	
-		$(window).load(function() {
-			_Commn.fnMarkingLeftMenu($("#menuRequest"));
-			
-			$('#ddlVendor').val('${param.vendorCd}');		
-			$('#ddlSido').val('${param.sidoCd}');
-			
-			if($('#ddlSido').val != "")
-				fnSidoChange('${param.gugunCd}', '${param.pageMove}');	
-		});		
-			
-		function fnSetCtrlVal() {		
-			$('#ddlVendor').val($('#hdnReqVendor').val());		
-			$('#ddlSido').val($('#hdnReqSido').val());
-			
-		 	$('#ddlStatus').val($('#hdnReqStatus').val());
-		 	$("#ddlStatus").selectmenu("refresh");	 
-		 	
-			if($('#hdnReqSido').val != "")
-				fnSidoChange($('#hdnReqGugun').val(), '${param.pageMove}');			
-		}
-	 
-	 	function fnGetCtrlVal() {
-	 		$('#hdnReqStatus').val($('#ddlStatus').val());
-			$('#hdnReqVendor').val($('#ddlVendor').val());		
-			$('#hdnReqSido').val($('#ddlSido').val());
-			$('#hdnReqGugun').val($('#ddlGugun').val());
-	 	}
-			
-		function fnWrite(userCheck) {
-			if(typeof(userCheck) == "undefined" || userCheck == '2') {
-				alert('로그인 후 등록할 수 있습니다');
-				_Commn.fnOpenLoginPanel();
-				return;
-			}
-			
-			_Commn.fnPageMove("/request/writeform");
-		}
-		
-		function fnDetail(requestId) {
-			$('#hdnRequestId').val(requestId);
-			_Commn.fnPageMove("/request/detail", $('#frm'));
-		}		 
-			
-		// 지역(시/도) 조회 및 지역(구/군) 셋팅
-		function fnSidoChange(gugunCd, pageMoveYn) {			
-			var sido = $('#ddlSido').val();
-			
-			if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N')
-				$("#hdnCurrentSeq").val('0');
-						
-			if(sido == '') {			
-				$("#ddlGugun").empty().data('options');
-				$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
-				
-				if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N') {
-					$("#ddlGugun").selectmenu("refresh");
-					$("#ddlVendor").selectmenu("refresh");
-					
-					fnSearch();
-				}
-			} else {
-		 		_Async.post (
-		   			"/selectRegionJson",
-		   			sido_cd = sido,
-		   			function (data) {   				
-		   				$("#ddlGugun").empty().data('options');
-		   				$("#ddlGugun").find("option").end().append("<option value=\"\">구(군)</option>");
-		   				
-						var resultData = data.Sido2; 
-						$.each(resultData, function(index, row){	    		      		
-							$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
-						});
-										
-						if(gugunCd != "") { // 페이지 로딩시 조회 			
-							$('#ddlGugun').val(gugunCd);
-						}
-						
-						$("#ddlGugun").selectmenu("refresh");
-											
-						if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N') {
-							fnSearch();
-							$("#hdnCurrentSeq").val(7);
-						} else {
-							$("#ddlSido").selectmenu("refresh");
-							$("#ddlVendor").selectmenu("refresh");						
-						}
-		   			}    			
-		   		); 	 		
-			}			
-		}
-		
-		// 드롭다운박스 검색조건 
-		function fnDDLChanage() {
-			$("#hdnCurrentSeq").val('0');
-			fnSearch();
-		}
-		
-		// 검색조회 
-		function fnSearch()
-		{			
-			_Async.post (
-	    		"/request/listJson",
-	    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), 
-	    						 sido_cd: $('#ddlSido').val(), 
-	    						 region_cd: $('#ddlGugun').val(), 
-	    						 vendor_id: $('#ddlVendor').val(), 
-	    						 status_cd: $('#ddlStatus').val() }),
-	    		function (data) {
-	    			$("#rowData").empty();
-	    			
-					if (data.list != null && data.list != "") {
-						$.each(data.list, function(idx, row) {						
-	  						$("#rowData").append("<li data-role='list-divider'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
-	 						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
-	 						$("#rowData").append("</a></li>"); 				
-						});					
-																
-						$("#rowData").listview("refresh");					
-						$("#hdnCurrentSeq").val(data.currentSeq);
-						
-						$('#moreView').val("더보기");	
-					} else {
-						$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
-					}		
-					
-					$("#moreView").button("refresh");
-				}    		    	
-	    	); 
-		}
-		
-		// 더보기 
-		function fnMoreView()
-		{			
-			$('#moreView').val("더보기");	
-			$("#moreView").button("refresh");
-			
-			_Async.post (
-	    		"/request/listJson",
-	    		JSON.stringify({ currentSeq: $("#hdnCurrentSeq").val(), 
-	    						 sido_cd: $('#ddlSido').val(), 
-	    						 region_cd: $('#ddlGugun').val(), 
-	    						 vendor_id: $('#ddlVendor').val(), 
-	    						 status_cd: $('#ddlStatus').val() }),
-	    		function (data) {
-	    			
-					if (data.list != null && data.list != "") {
-						$.each(data.list, function(idx, row) {						
-	  						$("#rowData").append("<li data-role='list-divider' style='height:20px; padding-top: 10px;'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
-	 						$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"  style='height:55px;'><p>" + row.CUSTOMER_REQ + "</p>");
-	 						$("#rowData").append("</a></li>"); 				
-						});					
-						
-						$('#hdnCurrentSeq').val(data.currentSeq);
-						
-						$("#rowData").listview("refresh");									
-					} else {
-						$('#moreView').val("더이상 등록된 견적 요청정보가 없습니다");	
-						$("#moreView").button("refresh");
-					}			
-					
-					$('#moreView').focus();			
-				}
-	    	); 
-		}
-	</script>
-
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="requestListPage">
 
-	<%-- <%@ include file="../../include/header.jsp" %> --%>
+		<%@ include file="../../include/header.jsp" %>
 		
 		<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
 			<form id='frm' name='frm' method='post'>
@@ -291,7 +108,7 @@
 					    								
 					</div>		
 					<div class="ui-block-b" style="width:30%; text-align: right;">
-						<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+						<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnReqWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
 					</div>
 				</div>	
 				<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">
@@ -301,7 +118,7 @@
 					    	<span class="ui-li-count">${estimateReg.HIT_CNT}</span>
 					    </li>
 					    <li>
-					    	<a href="#" onclick="fnDetail('${estimateReg.REQUEST_ID}');" style="height:55px;">
+					    	<a href="#" onclick="fnReqDetail('${estimateReg.REQUEST_ID}');" style="height:55px;">
 						    	<p>${estimateReg.CUSTOMER_REQ}</p>
 					        </a>
 					    </li>

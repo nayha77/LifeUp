@@ -6,94 +6,9 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>저기요</title>
-  	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<meta name='description' content=''>
-	<meta name='author' content=''>
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
-	<script type="text/javascript">	
-		$(document).ready(function() {
-			// 선택 메뉴 마킹
-			_Commn.fnMarkingLeftMenu($("#menuRequest"));
-		});	
-		
-		function fnSave() {
-			if($('#tbxSalesBenefit').val().trim() == "") {
-				alert('견적을 입력하세요');
-				return;
-			}
-	
-			_Async.post (
-	   			"/contract/registContract",
-	   			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
-	   			function (data) {    
-					if(data.message == 'success') {
-						_Commn.fnPageMove("/contract/detail", $('#frm'));
-					} else {
-						alert(data.detail);
-					}
-	   			} 
-	   		);
-		}
-		
-		function fnConfirm() {
-			_Async.post (
-	   			"/request/updateContractStatus",
-	   			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_id : $('#hdnSalesman_id').val(), status : '0002' } ),
-	   			function (data) {    
-					if(data.message == 'success') {
-						$('#btnConfirm').hide();						
-					} else {
-						alert(data.message);
-					}
-	   			} 
-	   		);	
-		}
-		
-		function fnCancel() {
-			_Async.post (
-	   			"/contract/contractCancel",
-	   			JSON.stringify( { request_id: $('#hdnRequestId').val(), status : '0003' } ),
-	   			function (data) {    
-					if(data.message == 'success') {
-						$('#btnCancel').hide();
-					} else {
-						alert(data.message);
-					}
-	   			} 
-	   		);	
-		}
-		
-		function fnReply() {
-			if($('#tbxShortMsg').val().trim() == "") {
-				alert('댓글 메세지를 입력하세요');
-				return;
-			}		
-			
-			_Async.post (
-	   			"/contract/registReply",
-	   			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_id: $('#hdnSalesman_id').val(), message: $('#tbxShortMsg').val() } ),
-	   			function (data) {    
-					if(data.message == 'success') {				
-						$('#replyContainer').append("<li data-icon='false'><a href='#' style='cursor: default;'>${sessionScope._USER_INFO_.userNm} " + $('#tbxShortMsg').val().trim() + "<span class='ui-li-count'>오늘</span></a></li>");
-						$('#replyContainer').listview("refresh");
-						
-						$('#replyContainer').show();
-						$('#tbxShortMsg').val("");
-					} else {
-						alert(data.detail);
-					}
-	   			} 
-	   		);		
-		}
-		
-		function fnMoveBack() {			
-			_Commn.fnPageMove("/request/detail", $('#frm'));
-		}
-	</script> 	
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="contractDetailPage">
 
 		<%@ include file="../../include/header.jsp" %>
 		
@@ -148,18 +63,18 @@
 						<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
 							<div style="margin-top: -11px; margin-right: -10px; text-align: right;">
 								<c:if test="${requestDetail.STATUS == '0001'}">
-									<a href="#" data-role="button" id="btnConfirm" data-icon="check" data-inline="true" onclick="fnConfirm();">거래확정</a>					
+									<a href="#" data-role="button" id="btnConfirm" data-icon="check" data-inline="true" onclick="fnContractConfirm();">거래확정</a>					
 								</c:if>
-								<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
+								<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnContractMoveBack();">이전</a>
 							</div>
 						</c:when>	
 						<c:otherwise>
 							<div style="margin-top: -11px; margin-right: -10px; text-align: right;">
 								<c:if test="${detail.STATUS == '0001'}">
-									<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnSave();">수정</a>
-									<a href="#" id="btnCancel" data-role="button" data-icon="delete" data-inline="true" onclick="fnCancel();">등록취소</a>
+									<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractSave();">수정</a>
+									<a href="#" id="btnCancel" data-role="button" data-icon="delete" data-inline="true" onclick="fnContractCancel();">등록취소</a>
 								</c:if>
-								<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnMoveBack();">이전</a>
+								<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnContractMoveBack();">이전</a>
 							</div>
 						</c:otherwise>
 					</c:choose>	    	       
@@ -175,7 +90,7 @@
 						    <input type="text" data-clear-btn="true" id='tbxShortMsg' name='message' style="margin-top: 8px;">
 						</div>
 						<div class="ui-block-b" style="width:30%; margin-top: -11px;">
-							<a href="#" data-role="button" id="btnReply" onclick="fnReply();">댓글</a>
+							<a href="#" data-role="button" id="btnReply" onclick="fnContractReply();">댓글</a>
 						</div>
 					</c:if>	
 				</c:forEach>		
@@ -186,5 +101,5 @@
 		<script type="text/javascript">
 			$('#replyContainer').show();
 		</script>	
-	</c:if>	
+	</c:if>
 </html>

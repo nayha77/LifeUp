@@ -6,48 +6,9 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>저기요</title>
-  	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<meta name='description' content=''>
-	<meta name='author' content=''>
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
-	<script type="text/javascript">	
-		$(document).ready(function() {
-			// 선택 메뉴 마킹
-			_Commn.fnMarkingLeftMenu($("#menuRequest"));
-			
-			$('#tbxSalesBenefit').focus();
-		});	
-		
-		function fnSave() {
-			
-			$('.error').hide();
-			
-			if($('#tbxSalesBenefit').val().trim() == "") {
-				$('#tbxSalesBenefit').after('<div class="error" style="padding-top: 13px;">견적을 입력하세요</div>');
-				return;
-			}
-	
-			_Async.post (
-	   			"/contract/registContract.do",
-	   			JSON.stringify( { request_id: $('#hdnRequestId').val(), salesman_benefit: $('#tbxSalesBenefit').val() } ),
-	   			function (data) {    
-					if(data.message == 'success') {				
-						_Commn.fnPageMove("/contract/writeform", $('#frm'));
-					} else {
-						alert(data.detail);
-					}
-	   			} 
-	   		);
-		}
-		
-		function fnMoveBack() {
-			_Commn.fnPageMove("/request/detail", $('#frm'));		
-		}
-	</script> 	
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="contractFrmPage">
 
 		<%@ include file="../../include/header.jsp" %>
 		
@@ -78,11 +39,12 @@
 						<textarea data-mini="false" cols="40" rows="8" id='tbxSalesBenefit' name='salesman_benefit'><c:forEach items="${contractDetail}" var="detail" varStatus="status">${detail.SALESMAN_BENEFIT}</c:forEach></textarea>				
 					</div>
 					<div style="margin-right: -10px; text-align: right;">
-						<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnSave();">등록</a>
-						<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnMoveBack();">이전</a>
+						<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnContractSave();">등록</a>
+						<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnConctractFrmMoveBack();">이전</a>
 					</div>		
 				</c:if>		
 			</form>
 		</div>	
 	</div><!-- /page -->
+
 </html>
