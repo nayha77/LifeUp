@@ -11,6 +11,17 @@
 	<meta name='description' content=''>
 	<meta name='author' content=''>
  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
+	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
+    	
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+  	<script src='<spring:url value="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"/>'></script>				
+	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
+	
 	<script type="text/javascript">	
 		$(document).ready(function() {
 			$('input:radio[name=userType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");

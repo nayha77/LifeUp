@@ -23,69 +23,29 @@
 						
 				<div class="ui-grid-a" style="border-top: 0px; margin-top: 0px; padding-top: 0px;">
 					<div class="ui-block-a" style="width:70%;">
-			
-			
-			<%--
-			  			<div class="ui-block-a">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-							    <label for="ddlSido">시(도)</label>
-							    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange('', 'N');">
-							    	<option value="">시(도)</option>
-									<c:forEach items="${sidos}" var="sido">
-										<option value="${sido.sido_cd}">${sido.sido_nm}</option>
-									</c:forEach>
-							    </select>	
-							    <label for="region_cd">구(군)</label>
-							    <select name="region_cd" id="ddlGugun" onchange="fnDDLChanage();">
-							    	<option value="">구(군)</option>				   		
-							    </select>				    		       
-							</fieldset>
-							
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-							    <label for="ddlStatus">거래상태</label>
-							    <select name="status_cd" id="ddlStatus" onchange="fnDDLChanage();">
-							    	<option value="">거래상태</option>
-							    	<option value="0001">진행중</option>
-							    	<option value="0002">종료</option>
-							    </select>			       
-							</fieldset>					
-						</div>
-						<div class="ui-block-b" style="padding-left: 3px;">
-							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-							    <label for="ddlVendor">제조업체</label>
-							    <select name="ddlVendor" id="ddlVendor"  onchange="fnDDLChanage();">
-							    	<option value="">제조업체</option>
-							   		<c:forEach items="${venders}" var="vender">
-							   			<option value="${vender.code}">${vender.value}</option>
-							   		</c:forEach>
-							    </select>			       
-							</fieldset>
-						</div> 
-			 --%>
-			
 			 		    <div class="ui-block-c">
-					    	<a href="#popupDialog" data-rel='popup' data-position-to="window" data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">검색</a>
-					        <div data-role='popup' id='popupDialog' data-overlay-theme='a' data-theme='a' data-dismissible='false' style='max-width:400px;'>
+					    	<a href="#reqPopup" data-rel='popup' data-position-to="window" data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">검색</a>
+					        <div data-role='popup' id='reqPopup' data-overlay-theme='a' data-theme='a' data-dismissible='false' data-history="false" style='max-width:400px;'>
 					            <div data-role='header' data-theme='b'>
 					                <h1>조건 검색</h1>
 					            </div>
 					            <div role='main' class='ui-content'>
 									<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 									    <label for="ddlSido">시(도)</label>
-									    <select name="ddlSido" id="ddlSido" onchange="fnSidoChange('', 'N');">
+									    <select name="ddlSido" id="ddlSido" onchange="fnReqSidoChange('', 'N');">
 									    	<option value="">시(도)</option>
 											<c:forEach items="${sidos}" var="sido">
 												<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 											</c:forEach>
 									    </select>	
 									    <label for="region_cd">구(군)</label>
-									    <select name="region_cd" id="ddlGugun" onchange="fnDDLChanage();">
+									    <select name="region_cd" id="ddlGugun" onchange="fnReqDDLChange();">
 									    	<option value="">구(군)</option>				   		
 									    </select>				    		       
 									</fieldset>
 									<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 									    <label for="ddlVendor">제조업체</label>
-									    <select name="ddlVendor" id="ddlVendor" onchange="fnDDLChanage();">
+									    <select name="ddlVendor" id="ddlVendor" onchange="fnReqDDLChange();">
 									    	<option value="">제조업체</option>
 									   		<c:forEach items="${venders}" var="vender">
 									   			<option value="${vender.code}">${vender.value}</option>
@@ -94,20 +54,18 @@
 									</fieldset>	
 									<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
 									    <label for="ddlStatus">거래상태</label>
-									    <select name="status_cd" id="ddlStatus" onchange="fnDDLChanage();">
+									    <select name="status_cd" id="ddlStatus" onchange="fnReqDDLChange();">
 									    	<option value="">거래상태</option>
 									    	<option value="0001">진행중</option>
 									    	<option value="0002">종료</option>
 									    </select>			       
 									</fieldset>																		
-					                <a href='#' data-role="button" data-icon="forward" data-mini="true" data-rel='back' onclick="fnGetCtrlVal();">닫기</a>
+					                <a href='#' data-role="button" data-icon="forward" data-mini="true" onclick="fnGetCtrlVal();">닫기</a>
 					            </div>
 					        </div>
 					    </div>
-					    
-					    								
 					</div>		
-					<div class="ui-block-b" style="width:30%; text-align: right;">
+					<div class='ui-block-b' style='width:30%; text-align: right'>
 						<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnReqWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
 					</div>
 				</div>	
@@ -128,5 +86,4 @@
 			</form>
 		</div>	
 	</div><!-- /page -->
-
 </html>
