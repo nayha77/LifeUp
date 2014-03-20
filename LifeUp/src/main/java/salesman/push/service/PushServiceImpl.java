@@ -109,6 +109,7 @@ public class PushServiceImpl implements PushService {
 			HttpPost httpPost = new HttpPost("https://android.googleapis.com/gcm/send");
 			httpPost.addHeader("Content-Type", "application/json");
 			httpPost.addHeader("Authorization", "key=" + this.API_KEY);
+					
 			StringEntity stringEntity = new StringEntity(json, "utf-8");
 			httpPost.setEntity(stringEntity);
 			
