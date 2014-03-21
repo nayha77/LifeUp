@@ -1,6 +1,9 @@
-﻿var _Commn = new webService.Web.ComnService();
-
-$(document).on('pageinit', '#requestListPage' ,function(){
+﻿$(document).on('pageinit', '#requestListPage' ,function(){	
+	
+	$("#requestListPage").on('click', '#btnBack', function() {		
+		_Commn.fnPageMove("/main");
+	});
+	
 	_Commn.fnMarkingLeftMenu($("#menuRequest"));
 	
 	$('#ddlVendor').val('${param.vendorCd}');		
@@ -8,8 +11,8 @@ $(document).on('pageinit', '#requestListPage' ,function(){
 
 	if($('#ddlSido').val != "")
 		fnSidoChange('${param.gugunCd}', '${param.pageMove}');
-});		
-	
+});	
+
 function fnSetCtrlVal() {
 	$('#ddlVendor').val($('#hdnReqVendor').val());		
 	$('#ddlSido').val($('#hdnReqSido').val());

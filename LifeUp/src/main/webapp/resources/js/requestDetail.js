@@ -1,11 +1,11 @@
 ﻿$(document).on('pageinit', '#requestDetailPage' ,function(){
-	// 선택 메뉴 마킹
-	_Commn.fnMarkingLeftMenu($("#menuRequest"));		
-});
 
-function fnReqList() {
-	_Commn.fnPageMove("/request/list", $('#frm'));
-}
+	$("#requestDetailPage").on('click', '#btnBack', function() {
+		_Commn.fnPageMove("/request/list", $('#frm'));
+	});	
+	
+	_Commn.fnMarkingLeftMenu($("#menuRequest"));
+});
 
 function fnContractWrite(userType) {
 	if(userType != 2) {

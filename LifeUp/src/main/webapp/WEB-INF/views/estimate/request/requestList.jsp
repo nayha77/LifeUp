@@ -21,10 +21,10 @@
 				<input type="hidden" id="hdnReqGugun" name="gugunCd" value='${param.gugunCd}' />
 				<input type="hidden" id="hdnReqStatus" name="statusCd" value='${param.statusCd}' />			
 						
-				<div class="ui-grid-a" style="border-top: 0px; margin-top: 0px; padding-top: 0px;">
-					<div class="ui-block-a" style="width:70%;">
+				<div class="ui-grid-a" style="border-top: 0px; margin-top: 7px; padding-top: 0px;">
+					<div class="ui-block-a" style="width:70%; margin-top: 0px;">
 			 		    <div class="ui-block-c">
-					    	<a href="#reqPopup" data-rel='popup' data-position-to="window" data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">검색</a>
+					    	<a href="#reqPopup" data-rel='popup' data-position-to="window" data-role="button" data-icon="search" data-inline="true" data-mini="true" onclick="fnSetCtrlVal();">상세조회</a>
 					        <div data-role='popup' id='reqPopup' data-overlay-theme='a' data-theme='a' data-dismissible='false' data-history="false" style='max-width:400px;'>
 					            <div data-role='header' data-theme='b'>
 					                <h1>조건 검색</h1>
@@ -69,7 +69,7 @@
 						<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnReqWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
 					</div>
 				</div>	
-				<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 0px;">
+				<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 3px;">
 					<c:forEach items="${estimateRegList}" var="estimateReg" varStatus="status">
 					    <li data-role="list-divider" style="height:20px; padding-top: 10px;">
 					    	${estimateReg.REGION_NM} > ${estimateReg.VENDOR_NM} > ${estimateReg.CAR_NM}

@@ -24,7 +24,7 @@
 				<input type='hidden' id='hdnSalesmanId' name='salesman_id' />	
 			</form>
 			
-			<div class="ui-grid-a" style="padding-top: 0px;">
+			<div style="padding-top: 0px;">
 				<ul data-role="listview" data-inset="true">
 				    <li data-role="list-divider">지역/차종<span class="ui-li-count">${request.STATUS_NM}</span></li>
 				    <li>
@@ -43,6 +43,7 @@
 					    <h1>${request.PURCHASE_PERIOD_CD}</h1>
 				    </li>	    		    		    	    		    	    
 				</ul>	
+				
 				<div class="ui-field-contain" style="padding-top :0px; padding-bottom: 0px;">
 					<ul data-role="listview" data-inset="true">		
 						<li data-role="list-divider">견적제안</li>
@@ -73,12 +74,11 @@
 					    </c:forEach>
 					</ul>								
 				</div>
-							
+						
 				<div style="text-align: right; margin-right: -7px; margin-top: 5px;">
 					<c:if test="${sessionScope._USER_INFO_.userType == '2' && request.STATUS == '0001'}">
 						<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractWrite('${sessionScope._USER_INFO_.userType}');">견적남기기</a>											
 					</c:if>
-					<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnReqList();">목록</a>
 				</div>				
 			</div>	
 		</div>	

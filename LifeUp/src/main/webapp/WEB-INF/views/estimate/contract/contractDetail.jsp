@@ -37,7 +37,7 @@
 				   	<input type='hidden' id='hdnRequestId' name='request_id' value='${requestDetail.REQUEST_ID}' />    	   		   						   		   			
 					<input type='hidden' id='hdnSalesman_id' name='salesman_id' value='${detail.SALESMAN_ID}' />
 					
-					<div class="ui-field-contain" style="padding-top :0px; padding-bottom: 0px;">	
+					<div style="padding-top :0px; padding-bottom: 0px;">	
 						<c:choose>
 							<c:when test="${detail.SALESMAN_ID == sessionScope._USER_INFO_.userId}">
 								<ul data-role="listview" data-inset="true">
@@ -62,39 +62,37 @@
 						</c:choose>	
 					</div>
 					
-					<div class="ui-field-contain" style="padding-top :0px; padding-bottom: 5px;">
+					<div style="padding-top :0px; padding-bottom: 5px;">
 						<c:choose>
 							<c:when test="${requestDetail.CUSTOMER_ID == sessionScope._USER_INFO_.userId}">
-								<div style="margin-top: 5px; margin-right: -10px; text-align: right;">
+								<div style="margin-top: -7px; margin-right: -10px; text-align: right;">
 									<c:if test="${requestDetail.STATUS == '0001'}">
 										<a href="#" data-role="button" id="btnConfirm" data-icon="check" data-inline="true" onclick="fnContractConfirm();">거래확정</a>					
 									</c:if>
-									<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnContractMoveBack();">이전</a>
 								</div>
 							</c:when>	
 							<c:otherwise>
-								<div style="margin-top: 5px; margin-right: -10px; text-align: right;">
+								<div style="margin-top: -7px; margin-right: -10px; text-align: right;">
 									<c:if test="${detail.STATUS == '0001'}">
 										<a href="#" data-role="button" data-icon="edit" data-inline="true" onclick="fnContractSave();">수정</a>
 										<a href="#" id="btnCancel" data-role="button" data-icon="delete" data-inline="true" onclick="fnContractCancel();">등록취소</a>
 									</c:if>
-									<a href="#" data-role="button" data-icon="back" data-inline="true" onclick="fnContractMoveBack();">이전</a>
 								</div>
 							</c:otherwise>
 						</c:choose>	    	       
 					</div>
 					
-					<ul id="replyContainer" data-role="listview" data-inset="true" style="display: none;">
+					<ul id="replyContainer" data-role="listview" data-inset="true" style="margin-top: 0px;">
 						<c:forEach items="${contractReply}" var="reply" varStatus="loop">
 						    <li data-icon="false"><a href="#" style='cursor: default;'>${reply.CREATE_USER_NM} ${reply.MESSAGE} <span class="ui-li-count">${reply.CREATE_DATE}</span></a></li>
 					    </c:forEach>
 					</ul>			
-					<div style="padding-top: 5px;"></div>	
+					
 					<c:if test="${requestDetail.STATUS != '0003'}">
-						<div class="ui-block-a" style="width:78%; margin-top: -3px;">
+						<div class="ui-block-a" style="width:76%; margin-top: -3px;">
 						    <input type="text" data-clear-btn="true" id='tbxShortMsg' name='message' style="margin-top: 8px;">
 						</div>
-						<div class="ui-block-b" style="width:22%; margin-top: -3px;">
+						<div class="ui-block-b" style="width:24%; margin-top: -3px;">
 							<a href="#" data-role="button" id="btnReply" data-icon="plus" data-inline="true" onclick="fnContractReply();">댓글</a>
 						</div>
 					</c:if>	
@@ -102,9 +100,4 @@
 			</form>
 		</div>	
 	</div><!-- /page -->
-	<c:if test="${not empty contractReply}">
-		<script type="text/javascript">
-			$('#replyContainer').show();
-		</script>	
-	</c:if>
 </html>

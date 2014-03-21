@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
 		<div data-role="header" style="padding-top:3px; padding-bottom :3px;">
-			<h1>견적의신</h1>			
-			<a href="#nav-panel" data-icon="bars" data-iconpos="notext" style="margin-top: 5px;">Menu</a>
+			<h1>견적의신</h1>						
+			<a href="#" id="btnBack" data-icon="arrow-l" data-iconpos="notext" style="margin-top: 3px;">이전</a>
+			<a href="#nav-panel" data-position="right" data-reveal="reveal" data-dismissible="true" data-icon="bars" data-iconpos="notext" style="margin-top: 3px;">Menu</a>
 		</div>	
-		<div data-role="panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
+		<div data-role="panel" data-position-fixed="false" data-dismissible="true" class="ui-responsive-panel" data-display="overlay" data-theme="b" id="nav-panel" style="width:160px;">	
 			<ul data-role="listview">
 				<li>
 					<c:if test="${empty sessionScope._USER_INFO_}">
 						<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext" style="height:30px; padding-top: 18px; border-right-width: 0px;">로그인</a>				
 					</c:if>
 					<c:if test="${not empty sessionScope._USER_INFO_}">
-						<a href="/account/logout" rel="external" data-icon="forward" data-iconpos="notext" style="height:30px; padding-top: 18px; border-right-width: 0px;">로그아웃</a>
+						<a href="#" onclick="_Commn.fnPageMove('<spring:url value="/account/logout" />')" data-icon="forward" data-iconpos="notext" style="height:30px; padding-top: 18px; border-right-width: 0px;">로그아웃</a>
 					</c:if>				
 					
 					<a href="#" data-rel="close" data-icon="delete" style="height:58px; border-left-width: 0px;"></a>
@@ -45,7 +46,7 @@
 					<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 				</label>
 				<div class="ui-grid-a">
-					<div class="ui-block-a"><a href="#" rel="external" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
+					<div class="ui-block-a"><a href="#" data-rel="close" data-role="button" data-theme="c" data-mini="true" onClick="fnLogin();">로그인</a></div>
 				    <div class="ui-block-b"><a href="#" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a></div>				    
 				</div>							
 				<div class="ui-grid-a">

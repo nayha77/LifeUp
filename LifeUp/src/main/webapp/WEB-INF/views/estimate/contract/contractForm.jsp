@@ -42,7 +42,6 @@
 										
 					<div style="margin-right: -10px; margin-top: 5px; text-align: right;">
 						<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnContractSave();">등록</a>
-						<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnConctractFrmMoveBack();">이전</a>
 					</div>		
 				</c:if>		
 			</form>

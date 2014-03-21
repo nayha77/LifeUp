@@ -1,15 +1,14 @@
-﻿var _Commn = new webService.Web.ComnService();
+﻿$(document).on('pageinit', '#requestWriteFrmPage' ,function(){
 
-$(document).on('pageinit', '#requestWriteFrmPage' ,function(){
+	$("#requestWriteFrmPage").on('click', '#btnBack', function() {
+		_Commn.fnPageMove("/request/list");
+	});		
+	
 	// 선택 메뉴 마킹
 	_Commn.fnMarkingLeftMenu($("#menuRequest"));
 	
 	_Commn.SetDatePickter();					
 });
-
-function fnWriteFrmList() {
-	_Commn.fnPageMove("/request/list");
-}
 
 function fnSidoChange(obj){
 	if(obj.value == '0')			
@@ -21,14 +20,13 @@ function fnSidoChange(obj){
 			"/selectRegionJson",
 			sido_cd = obj.value,
 			function (data) {    
-			var resultData = data.Sido2; 
-			
-			$.each(resultData, function(index, row){	    		      		
-				$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
-			});
-			
-			$("#ddlGugun").show();
-			$("#ddlGugun").selectmenu("refresh");
+				var resultData = data.Sido2; 			
+				$.each(resultData, function(index, row){	    		      		
+					$("#ddlGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");	
+				});
+				
+				$("#ddlGugun").show();
+				$("#ddlGugun").selectmenu("refresh");
 			}    			
 		);   	         
 }	
@@ -45,12 +43,12 @@ function fnVenderChange(obj){
 			venderId = obj.value,
 			function (data) {    
 				var resultData = data.carCodeList;  
-			$.each(resultData, function(index, row){
-				$("#ddlCar").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
-			});
-			
-			$("#ddlCar").show();
-			$("#ddlCar").selectmenu("refresh");							
+				$.each(resultData, function(index, row){
+					$("#ddlCar").append("<option value='"+ row.car_id +"'>" + row.car_nm  + "</option>");    		        	  
+				});
+				
+				$("#ddlCar").show();
+				$("#ddlCar").selectmenu("refresh");							
 			} 
 		);   	       
 }	
@@ -95,20 +93,20 @@ function fnWriteFrmSave() {
 	if(check == false)
 		return;
 	
-	    _Async.post (
-			"/request/writing",
-			JSON.stringify({ region_cd: $('#ddlGugun').val(), 
-							 car_id: $('#ddlCar').val(), 
-							 car_trim: $('#carTrim').val(), 
-							 car_option: $('#carOption').val(),
-							 purchase_period_cd: $('#purchase_period_cd').val(),
-							 customer_req: $('#customer_req').val()}),
-			function (data) {    
-				if(data.message == "success") {
-					_Commn.fnPageMove("/request/list");
-				} else {
-					alert(data.message);
-				}			
-			} 
-		);   
+    _Async.post (
+		"/request/writing",
+		JSON.stringify({ region_cd: $('#ddlGugun').val(), 
+						 car_id: $('#ddlCar').val(), 
+						 car_trim: $('#carTrim').val(), 
+						 car_option: $('#carOption').val(),
+						 purchase_period_cd: $('#purchase_period_cd').val(),
+						 customer_req: $('#customer_req').val()}),
+		function (data) {    
+			if(data.message == "success") {
+				_Commn.fnPageMove("/request/list");
+			} else {
+				alert(data.message);
+			}			
+		} 
+	);   
 }

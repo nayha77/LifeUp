@@ -1,4 +1,9 @@
 ﻿$(document).on('pageinit', '#contractFrmPage' ,function(){
+	
+	$("#contractFrmPage").on('click', '#btnBack', function() {
+		_Commn.fnPageMove("/request/detail", $('#frm'));
+	});
+	
 	// 선택 메뉴 마킹
 	_Commn.fnMarkingLeftMenu($("#menuRequest"));
 	
@@ -25,8 +30,4 @@ function fnContractSave() {
 			}
 		} 
 	);
-}
-
-function fnConctractFrmMoveBack() {
-	_Commn.fnPageMove("/request/detail", $('#frm'));		
 }

@@ -8,7 +8,7 @@
 <meta charset='utf-8'>
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="requestListPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="requestWriteFrmPage">
 
 		<%@ include file="../../include/header.jsp" %>
 		
@@ -16,13 +16,13 @@
 			<div class="ui-field-contain">
 				<label for="ddlSido">지역</label>
 				<fieldset data-role="controlgroup" data-type="horizontal">
-				    <select name="ddlSido" id="ddlSido" data-native-menu="false" onchange="fnSidoChange(this);">
+				    <select name="ddlSido" id="ddlSido" data-native-menu="true" onchange="fnSidoChange(this);">
 						<option value=''>선택</option>
 						<c:forEach items="${sidos}" var="sido">
 							<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 						</c:forEach>
 				    </select>
-				    <select name="region_cd" id="ddlGugun" data-native-menu="false" onchange="fnChangeDDL(this);">
+				    <select name="region_cd" id="ddlGugun" data-native-menu="true" onchange="fnChangeDDL(this);">
 				    	<option value=''>선택</option>
 				    </select>		    		        	 
 				</fieldset>					
@@ -30,13 +30,13 @@
 		    <div class="ui-field-contain">
 		        <label for="ddlVendor">차량</label>
 				<fieldset data-role="controlgroup" data-type="horizontal">
-				    <select name="ddlVendor" id="ddlVendor" data-native-menu="false" onchange="fnVenderChange(this);">
+				    <select name="ddlVendor" id="ddlVendor" data-native-menu="true" onchange="fnVenderChange(this);">
 						<option value=''>선택</option>
 				   		<c:forEach items="${venders}" var="vender">
 				   			<option value="${vender.code}">${vender.value}</option>
 				   		</c:forEach>
 				    </select>
-				    <select name="car_id" id="ddlCar" data-native-menu="false" onchange="fnChangeDDL(this);">
+				    <select name="car_id" id="ddlCar" data-native-menu="true" onchange="fnChangeDDL(this);">
 						<option value=''>선택</option>
 				    </select>		    
 				</fieldset>
@@ -57,9 +57,8 @@
 		        <label for="customer_req">요구사항</label>
 		        <textarea data-mini="true" cols="40" rows="8" id="customer_req" name="customer_req" onchange="fnChangeTextValue(this);"></textarea>
 		    </div>
-			<div style="margin-right: -10px; text-align: right;">
+			<div style="margin-top: 7px; margin-right: -10px; text-align: right;">
 				<a href="#" data-role="button" data-icon="plus" data-inline="true" onclick="fnWriteFrmSave();">등록</a>
-				<a href="#" data-role="button" data-icon="grid" data-inline="true" onclick="fnWriteFrmList();">목록</a>
 			</div>
 		</div>	
 	</div><!-- /page -->
