@@ -55,7 +55,13 @@ public class AccountController {
     	storageService.SessionOut();
     	return "/main";
     }
-    
+
+    @RequestMapping(value="/account/login")
+    public String login() 
+    {
+    	return "/account/login";
+    }
+
     /*
      * 로그인처리
      */

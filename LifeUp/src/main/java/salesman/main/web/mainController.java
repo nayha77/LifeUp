@@ -37,16 +37,17 @@ public class mainController {
     	Cookie cookie = null;
     	SessionVO session = storageService.getAuthenticatedUser();
     	
-    	// 로그인을 한 경우 쿠키로직 수행
+		Cookie []cookies = request.getCookies();
+
+		// 로그인을 한 경우 쿠키로직 수행
     	if(session != null && saveYn != null) {
-	    	if(saveYn.equals("N")) { // 저장하지 않도록 설정한 경우 (로그인해서 호출한 경우만 'N' 값이 넘어올 수 있다)
-	    		Cookie []cookies = request.getCookies();
+	    	if(!saveYn.equals("Y")) { // 저장하지 않도록 설정한 경우 (로그인해서 호출한 경우만 'N' 값이 넘어올 수 있다)
 	    		if(cookies != null) {
-		    		for(int i=0; i<cookies.length; i++) {
-		    			cookies[i].setMaxAge(0);
-		    			response.addCookie(cookies[i]);
-		    		}
-	    		}    	
+	        		for(int i=0; i<cookies.length; i++) {
+	        			cookies[i].setMaxAge(0);
+	        			response.addCookie(cookies[i]);
+	        		}
+	    		}    		    		
 	    	} else if (saveYn.equals("Y")) { // 로그인 완료 후     		
 	    		cookie = new Cookie("userId", session.getUserId());		    		
 		    	cookie.setMaxAge(60*60*24*30);
@@ -56,6 +57,12 @@ public class mainController {
 		    	cookie.setMaxAge(60*60*24*30);
 		    	response.addCookie(cookie);		    	
 	    	}
+    	} else {
+    		if(cookies != null) {
+        		for(int i=0; i<cookies.length; i++) {
+        			response.addCookie(cookies[i]);
+        		}
+    		}    		
     	}
     	
     	return "main";
