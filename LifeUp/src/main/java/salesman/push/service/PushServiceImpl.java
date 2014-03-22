@@ -96,11 +96,13 @@ public class PushServiceImpl implements PushService {
     	if(arrMobileRegId.size() <= 0)
     		return false;
     	
-    	gcmMessage = new GCMMessage(arrMobileRegId, new GCMData(message));
+    	gcmMessage = new GCMMessage(arrMobileRegId, new GCMData(message ,"39"));
     	    	
 		// JSON으로 변환
 		Gson gson = new Gson();
 		String json = gson.toJson(gcmMessage);
+		
+		System.out.println("========= "+json.toString());
 		
 		// 메시지 전송 
 		StringBuilder builder = new StringBuilder();
