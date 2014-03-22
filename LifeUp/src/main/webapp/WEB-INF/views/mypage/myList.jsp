@@ -32,6 +32,7 @@
 				
 			$('#frmNormal').validate({
 	            rules: {
+	            	mobile: { required: true },
 	            	password: { required: true, "remote": {
 			            		url: '/mypage/chkExistUserPassword',
 			            		type: "post",
@@ -45,19 +46,24 @@
 			                    }
 			          		} },   
 			          		new_password: { required: true },
-			          		password2: { equalTo: "#new_password" }			          		
+			          		password_2: { equalTo: "#new_password" }			          		
 	
 	            },
 	            messages: {
+	            	mobile: { required: "전화번호를 입력해주세요" },
 	            	password: {
+	            				required: "현재 비밀번호를 입력하세요.",
 	                            remote : jQuery.format("현재 비밀번호와 다릅니다")
 	                        },
                    	new_password: { required: "비밀번호를 입력하세요." },
-                   	password2: { equalTo: "비밀번호를 다시 확인하세요." }   	                        
+                   	password_2: { equalTo: "비밀번호를 다시 확인하세요." } 	                        
 
 	            }
 	        });		
 			
+ 		}
+ 		function fnValidation() {
+ 			$('#frmNormal').submit();
  		}
 		</script>	
 
@@ -135,12 +141,12 @@
 				<form id='frmNormal' name='frmNormal' method='post' >
 				<input type='hidden' id='userID' name='userID' value="${sessionScope._USER_INFO_.userId}"/>
 				    <div class="ui-field-contain">
-				         <label for="text-12">아이디:</label>
-				        <label for="text-12">${sessionScope._USER_INFO_.userId} ( 2014년 03월 21일 가입 )</label>
+			        <label for="text-12">아이디:</label>
+			        <label for="text-12">${sessionScope._USER_INFO_.userId} ( 2014년 03월 21일 가입 )</label>
 				    </div>				
 				    <div class="ui-field-contain">
-				         <label for="text-12">전화번호:</label>
-				         <input type="text" name="text-12" id="text-12" value="">
+			         <label for="mobile">전화번호</label>
+			         <input type="text" data-clear-btn="true" id='txtmobile' name='mobile' />			         
 				    </div>
 				    <div class="ui-field-contain">
 					 <label for="password">현재 비밀번호</label>
@@ -153,7 +159,8 @@
 				    <div class="ui-field-contain">
 					 <label for="new_password_2">새 비밀번호 확인</label>
 					 <input type="password" data-clear-btn="true" name="password_2" id="password_2" value="" autocomplete="off">
-				    </div>					    					    			    
+				    </div>		
+<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnValidation();">정보수정</a>				    			    					    			    
 			    </form>					
 			  </div>
 		  
