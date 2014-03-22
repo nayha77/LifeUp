@@ -34,13 +34,14 @@
 				    </li>	    		    		    	    		    	    
 				</ul>
 				<c:if test="${requestDetail.STATUS != '0003'}">		
-					<div class="ui-field-contain">
+					<div class="ui-field-contain" style="padding-top : 0px; padding-bottom: 7px;">
 						<label for="salesman_benefit">견적제안</label>
-						<textarea data-mini="false" cols="40" rows="8" id='tbxSalesBenefit' name='salesman_benefit'><c:forEach items="${contractDetail}" var="detail" varStatus="status">${detail.SALESMAN_BENEFIT}</c:forEach></textarea>				
-					</div>
-					<div style="margin-right: -10px; text-align: right;">
+						<textarea data-mini="false" cols="40" rows="8" id='tbxSalesBenefit' name='salesman_benefit'><c:forEach items="${contractDetail}" var="detail" varStatus="status">${detail.SALESMAN_BENEFIT}</c:forEach></textarea>
+						<div style="height:5px;"></div>				
+					</div>					
+										
+					<div style="margin-right: -10px; margin-top: 5px; text-align: right;">
 						<a href="#" data-role="button" data-icon="plus" data-inline="true"  id="btnReply" onclick="fnContractSave();">등록</a>
-						<a href="#" data-role="button" data-icon="back" data-inline="true"  id="btnReply" onclick="fnConctractFrmMoveBack();">이전</a>
 					</div>		
 				</c:if>		
 			</form>

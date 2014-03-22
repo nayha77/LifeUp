@@ -11,17 +11,21 @@
 	<meta name='description' content=''>
 	<meta name='author' content=''>
  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
+ 	<meta http-equiv="Cache-Control" content="no-cache"/> 
+	<meta http-equiv="Expires" content="0"/> 
+	<meta http-equiv="Pragma" content="no-cache"/>
 	
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
+	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	  	
     	
 	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
   	<script src='<spring:url value="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"/>'></script>			
 	
-	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
+	<script src='<spring:url value="/resources/js/webService.js"/>'></script>	
+	<script src='<spring:url value="/resources/js/myPageList.js"/>'></script>
 	<script src='<spring:url value="/resources/js/requestList.js"/>'></script>
 	<script src='<spring:url value="/resources/js/requestDetail.js"/>'></script>
 	<script src='<spring:url value="/resources/js/requestWriteFrm.js"/>'></script>	
@@ -33,9 +37,13 @@
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);
-	
+				
+		$(document).on('pageinit', '#mainPage' ,function(){
+			
+		});	
+		
 		// 로그인/찾기 패널 토글  및 쿠키정보값 설정
-		$(function(){
+		$(function(){			
  		    $('a[href=#frmUserLogin]').click(function(){
 		        var panel = $(this).attr('href');
 		        $(panel).toggle();
@@ -49,8 +57,8 @@
 		    $('a[href=#right-panel]').click(function(){
 				var userId = '${cookie.userId.value}';
 	        	var userType = '${cookie.userType.value}';	   	        	        	
-        		
-	         	if(userId != "" && userType != "") {
+
+	        	if(userId != "" && userType != "") {
 	        		$('#txtUser').val(userId); 
 	        		$('input:radio[name=userType]:input[value='+userType+']').attr("checked", true).checkboxradio("refresh");        
 	        		$('#txtUserPwd').focus();

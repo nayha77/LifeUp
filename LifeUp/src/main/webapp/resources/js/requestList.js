@@ -1,16 +1,19 @@
-﻿var _Commn = new webService.Web.ComnService();
-
-$(document).on('pageinit', '#requestListPage' ,function(){
+﻿$(document).on('pageinit', '#requestListPage' ,function(){	
+	
+	$("#requestListPage").on('click', '#btnBack', function() {		
+		_Commn.fnPageMove("/main");
+	});
+	
 	_Commn.fnMarkingLeftMenu($("#menuRequest"));
 	
 	$('#ddlVendor').val('${param.vendorCd}');		
 	$('#ddlSido').val('${param.sidoCd}');
-	
+
 	if($('#ddlSido').val != "")
 		fnSidoChange('${param.gugunCd}', '${param.pageMove}');
-});		
-	
-function fnSetCtrlVal() {		
+});	
+
+function fnSetCtrlVal() {
 	$('#ddlVendor').val($('#hdnReqVendor').val());		
 	$('#ddlSido').val($('#hdnReqSido').val());
 	
@@ -21,11 +24,13 @@ function fnSetCtrlVal() {
 		fnSidoChange($('#hdnReqGugun').val(), '${param.pageMove}');			
 	}
  
- 	function fnGetCtrlVal() {
- 		$('#hdnReqStatus').val($('#ddlStatus').val());
+function fnGetCtrlVal() {
+	$('#hdnReqStatus').val($('#ddlStatus').val());
 	$('#hdnReqVendor').val($('#ddlVendor').val());		
 	$('#hdnReqSido').val($('#ddlSido').val());
 	$('#hdnReqGugun').val($('#ddlGugun').val());
+	
+	$('#reqPopup').popup('close');
 }
 	
 function fnReqWrite(userCheck) {
@@ -44,9 +49,9 @@ function fnReqDetail(requestId) {
 }		 
 	
 // 지역(시/도) 조회 및 지역(구/군) 셋팅
-function fnSidoChange(gugunCd, pageMoveYn) {			
+function fnReqSidoChange(gugunCd, pageMoveYn) {			
 	var sido = $('#ddlSido').val();
-	
+
 	if(typeof pageMoveYn == "undefined" || pageMoveYn == 'N')
 		$("#hdnCurrentSeq").val('0');
 				
@@ -60,7 +65,7 @@ function fnSidoChange(gugunCd, pageMoveYn) {
 			
 			fnReqSearch();
 		}
-	} else {
+	} else {		
  		_Async.post (
    			"/selectRegionJson",
    			sido_cd = sido,
@@ -92,7 +97,7 @@ function fnSidoChange(gugunCd, pageMoveYn) {
 }
 
 // 드롭다운박스 검색조건 
-function fnDDLChanage() {
+function fnReqDDLChange() {
 	$("#hdnCurrentSeq").val('0');
 	fnReqSearch();
 }
@@ -113,7 +118,7 @@ function fnReqSearch()
 			if (data.list != null && data.list != "") {
 				$.each(data.list, function(idx, row) {						
 					$("#rowData").append("<li data-role='list-divider'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
-					$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
+					$("#rowData").append("<li><a href='#' onclick=\"fnReqDetail('" + row.REQUEST_ID + "');\"><p>" + row.CUSTOMER_REQ + "</p>");
 					$("#rowData").append("</a></li>"); 				
 				});					
 														
@@ -148,7 +153,7 @@ function fnMoreView()
 			if (data.list != null && data.list != "") {
 				$.each(data.list, function(idx, row) {						
 					$("#rowData").append("<li data-role='list-divider' style='height:20px; padding-top: 10px;'>" + row.REGION_NM + " > " + row.VENDOR_NM + " > " + row.CAR_NM + "<span class='ui-li-count'>" + row.HIT_CNT + "</span></li>");
-					$("#rowData").append("<li><a href='#' onclick=\"fnDetail('" + row.REQUEST_ID + "');\"  style='height:55px;'><p>" + row.CUSTOMER_REQ + "</p>");
+					$("#rowData").append("<li><a href='#' onclick=\"fnReqDetail('" + row.REQUEST_ID + "');\"  style='height:55px;'><p>" + row.CUSTOMER_REQ + "</p>");
 					$("#rowData").append("</a></li>"); 				
 				});					
 				
