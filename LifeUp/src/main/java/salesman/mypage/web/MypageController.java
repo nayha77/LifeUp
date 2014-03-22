@@ -72,7 +72,7 @@ public class MypageController {
 		
 		System.out.println("passMap ===== "  +passMap.toString() );
 		
-		String message= "";
+		String message= "1";
 		if(userInfo == null) {
 			message = "failed";
 		} else {
