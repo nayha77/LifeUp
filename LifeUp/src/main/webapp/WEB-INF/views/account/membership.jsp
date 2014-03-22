@@ -6,167 +6,21 @@
 <html lang='ko'>
 <head>
 <meta charset='utf-8'>
-	<title>저기요</title>
-  	<meta name='viewport' content='width=device-width, initial-scale=1.0'>
-	<meta name='description' content=''>
-	<meta name='author' content=''>
- 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=IE8" />
-	
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-	<link href='<spring:url value="/resources/css/loginPanel.css"/>' rel='stylesheet'>	
-    	
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
-  	<script src='<spring:url value="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"/>'></script>				
-	<script src='<spring:url value="/resources/js/webService.js"/>'></script>
-	
-	<script type="text/javascript">	
-		$(document).ready(function() {
-			$('input:radio[name=userType]:input[value="1"]').attr("checked", true).checkboxradio("refresh");
-			
-			fnValidator();
-		});			
-		
-		function fnShowDoc(docType) {
-			if(docType == 1) {
-				$("#divDocOne").toggle();
-			} else {
-				$("#divDocTwo").toggle();
-			}			
-		}
-		
-		function fnChoiceUser(userType) {
-			if(userType == 1) {
-				$("#divSalesForm").hide();
-				$("#divNormalForm").show();
-			} else {
-				$("#divNormalForm").hide();
-				$("#divSalesForm").show();
-			}	
-		}
-		
-		function fnValidation() {
-	    	if( !$('#chkAgreeOne').is(":checked") || !$('#chkAgreeTwo').is(":checked")) {
-				alert('이용약관과 개인정보 수집 및 이용에 대한 안내를 모두 동의해주세요');
-				return false;
-			} 
-	
-			if($('input[name=userType]:radio:checked').val() == 1)
-	    		$('#frmNormal').submit();
-	    	else
-	    		$('#frmSales').submit();    	
-		}
-		
-		function fnValidator() {
-				
-			$('#frmNormal').validate({
-	            rules: {
-	            	userId: { required: true, email: true, "remote": {
-			            		url: '/account/chkExistUserId.do?userType=1',
-			            		type: "post",
-			                    data: {
-			                    	tbxUserId: function() {
-			                            return $('#tbxUserId').val();
-			                        }
-			                    }
-			          		} },   
-	          		userNm : { required: true }, 
-	            	password: { required: true },
-	            	passwordConfirm: { equalTo: "#tbxNPwd" },
-	                mobile: { required: true },
-	                region_cd: { required: true }
-	            },
-	            messages: {
-	                userId: {
-	                			required: "아이디(이메일주소)를 입력하세요.",
-	                            email: "올바른 이메일주소를 입력하세요.",
-	                            remote : jQuery.format("중복 아이디 입니다")
-	                        },
-					userNm: { required: "성명을 입력하세요." },  
-					password: { required: "비밀번호를 입력하세요." },
-					passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },                       
-	                mobile: { required: "전화번호를 입력해주세요" },
-	                region_cd: { required: "거주지역을 선택해주세요" }
-	            }
-	        });
-			
-			$('#frmSales').validate({
-	            rules: {
-	            	userId: { required: true, email: true, "remote": {
-			            		url: '/account/chkExistUserId.do?userType=2',
-			            		type: "post",
-			                    data: {
-			                    	tbxSalesmanId: function() {
-			                            return $('#tbxSalesmanId').val();
-			                        }
-			                    }
-			          		} },   
-	          		userNm : { required: true }, 
-	            	password: { required: true },
-	            	passwordConfirm: { equalTo: "#tbxSPwd" },
-	            	mobile: { required: true },
-	            	officeNo: { required: false },
-	            	vendorId: { required: true },
-	            	location: { required: false },
-	                introMsg: { required: true }                                
-	            },
-	            messages: {
-	                userId: {
-	                			required: "아이디(이메일주소)를 입력하세요.",
-	                            email: "올바른 이메일주소를 입력하세요.",
-	                            remote : jQuery.format("중복 아이디 입니다")
-	                        },
-					userNm: { required: "성명을 입력하세요." },  
-					password: { required: "비밀번호를 입력하세요." },
-					passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },
-					mobile: { required: "전화번호를 입력해주세요" },
-	//				officeNo: { numeric: "숫자만 입력하세요." },                
-	              	vendorId: { required: "소속회사를 선택하세요." },
-	//              	location: { required: "근무지점을 입력하세요." },
-	              	introMsg: { required: "인사말을 입력하세요." }             
-	            }
-	        });		
-		}
-		
-		function fnSidoChange(obj){
-			if(obj.value == '0')			
-				return;
-	 		
-			$("#ddlNGugun").find("option").remove().end().append("<option value=\"\">선택</option>");
-			
-	 		_Async.post (
-	   			"/selectRegionJson",
-	   			sido_cd = obj.value,
-	   			function (data) {    
-					var resultData = data.Sido2; 
-					
-					$.each(resultData, function(index, row){	    		      		
-						$("#ddlNGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");
-					});
-					
-	 				$("#ddlNGugun").show();
-	 				$("#ddlNGugun").selectmenu("refresh");
-	   			}    			
-	   		);   	         
-		}					
-	</script> 	
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="loginPage">
 
 		<%@ include file="../include/header.jsp" %>
 		
 		<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
-
-		    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
-		        <input type="radio" name="userType" id="radio-choice-t-4a" value="1" onclick="fnChoiceUser(1);">
-		        <label for="radio-choice-t-4a">일반</label>
-		        <input type="radio" name="userType" id="radio-choice-t-4c" value="2" onclick="fnChoiceUser(2);">
-		        <label for="radio-choice-t-4c">영업사원</label>
-		    </fieldset>
-		    
+			<form id="membershipFrm" name="membershipFrm">
+			    <fieldset data-role="controlgroup" data-theme="b" data-type="horizontal">
+			        <input type="radio" name="userType" id="radio-choice-t-4a" value="1" onclick="fnChoiceUser(1);" checked="checked">
+			        <label for="radio-choice-t-4a">일반</label>
+			        <input type="radio" name="userType" id="radio-choice-t-4c" value="2" onclick="fnChoiceUser(2);">
+			        <label for="radio-choice-t-4c">영업사원</label>			        			
+			    </fieldset>
+		    </form>
 		    <div id="divNormalForm">
 				<form id='frmNormal' name='frmNormal' method='post' action='/account/register'>
 					<input type='hidden' id='hdnUserType' name='userType' value='1' />		
@@ -189,13 +43,13 @@
 					<div class="ui-field-contain">							
 						<label for="ddlSido">지역</label>
 						<fieldset data-role="controlgroup" data-type="horizontal">
-						    <select name="ddlSido" id="ddlNSido" data-native-menu="false" onchange="fnSidoChange(this);">
+						    <select name="ddlSido" id="ddlNSido" data-native-menu="true" onchange="fnSidoChange(this);">
 								<option value=''>선택</option>
 								<c:forEach items="${regions}" var="sido">
 									<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 								</c:forEach>
 						    </select>		    
-						    <select name="region_cd" id="ddlNGugun" data-native-menu="false" onchange="fnChangeDDL(this);">
+						    <select name="region_cd" id="ddlNGugun" data-native-menu="true" onchange="fnChangeDDL(this);">
 						    	<option value=''>선택</option>
 						    </select>		    
 						</fieldset>							
@@ -430,26 +284,7 @@
 				<div class="ui-body ui-body-a">		
 					<p>이용자의 개인정보는 원칙적으로 개인정보의 수집 및 이용목적이 달성되면 지체 없이 파기합니다. 단, 다음의 정보에 대해서는 아래의 이유로 명시한 기간 동안 보존합니다.</p>
 			    </div>
-			</div>	    	    	
+			</div>
 		</div>	
 	</div><!-- /page -->
 </html>
-
-
-
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-
-<%@ taglib prefix="mvc" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<mvc:main>
-<script type="text/javascript">	
-		
-</script>
-
-<div class="ui-content jqm-content jqm-fullwidth" style="padding-top: 0px;">
-</div>		
-
-</mvc:main>

@@ -1,5 +1,4 @@
-﻿$(document).on('pageinit', '#requestListPage' ,function(){	
-	
+﻿$(document).on('pageinit', '#requestListPage' ,function() {		
 	$("#requestListPage").on('click', '#btnBack', function() {		
 		_Commn.fnPageMove("/main");
 	});

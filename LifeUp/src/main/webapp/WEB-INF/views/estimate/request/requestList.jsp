@@ -66,7 +66,9 @@
 					    </div>
 					</div>		
 					<div class='ui-block-b' style='width:30%; text-align: right'>
-						<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnReqWrite(${sessionScope._USER_INFO_.userType});">견적의뢰</a>
+						<c:if test="${sessionScope._USER_INFO_.userType != 2}">
+							<a href="#" data-role="button" data-icon="plus" data-inline="true" data-mini="true" onclick="fnReqWrite('${sessionScope._USER_INFO_.userType}');">견적의뢰</a>
+						</c:if>
 					</div>
 				</div>	
 				<ul data-role="listview" data-inset="true" id="rowData" style="margin-top: 3px;">
