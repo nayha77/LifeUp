@@ -10,16 +10,17 @@ public class MypageVO implements Serializable {
 	private String customer_req; 
 	private String status;
 	private String create_date;
-	private String user_id;   // login id
+    private String salesman_benefit;
 	
+	
+
 	
 	@Override
 	public String toString() {
 		return "MypageVO [req_id=" + req_id + ", customer_req=" + customer_req
 				+ ", status=" + status + ", create_date=" + create_date
-				+ ", user_id=" + user_id + "]";
+				+ ", salesman_benefit=" + salesman_benefit + "]";
 	}
-	
 	public int getReq_id() {
 		return req_id;
 	}
@@ -44,11 +45,13 @@ public class MypageVO implements Serializable {
 	public void setCreate_date(String create_date) {
 		this.create_date = create_date;
 	}
-	public String getUser_id() {
-		return user_id;
+
+	public String getSalesman_benefit() {
+		return salesman_benefit;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+
+	public void setSalesman_benefit(String salesman_benefit) {
+		this.salesman_benefit = salesman_benefit;
 	}
 
 

@@ -16,6 +16,8 @@ public interface MypageService {
 	
 	public int updatePushInfo(Map<String,String> params);
 
-	public List<MypageVO> getMypagelist(String user_id);
+	public List<MypageVO> getMypagelist(String user_id,int user_type);
+	
+	public int getPasschk(Map<String, Object> passMap, int userType);
 
 }

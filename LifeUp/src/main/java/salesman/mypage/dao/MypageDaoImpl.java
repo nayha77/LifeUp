@@ -36,6 +36,23 @@ public class MypageDaoImpl extends SqlSessionDaoSupport implements MypageDao{
 		return getSqlSession().selectList("mypage.getMyList",user_id);
 	}
 
+	@Override
+	public List<MypageVO> getMypageSellerList(String user_id) {
+		return getSqlSession().selectList("mypage.getMySellerList",user_id);
+	}
+
+	@Override
+	public int passchk(Map<String, Object> params) {
+		return getSqlSession().selectOne("mypage.chkPass",params);
+	}
+
+	@Override
+	public int passchk_customer(Map<String, Object> passMap) {
+		return getSqlSession().selectOne("mypage.chkPass_customer",passMap);
+	}
+
+
+
 
 	
 

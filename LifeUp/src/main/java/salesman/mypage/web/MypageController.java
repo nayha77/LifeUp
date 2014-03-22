@@ -1,7 +1,10 @@
 package salesman.mypage.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import salesman.common.service.StorageService;
+import salesman.common.util.FileScrty;
 import salesman.estimate.service.RequestService;
 import salesman.mypage.service.MypageService;
 import salesman.vo.account.SessionVO;
+
 
 
 @Controller
@@ -36,7 +41,7 @@ public class MypageController {
 			//message = "failed";
 			model.put("mypageList","로그인 후 견적등록을 할 수 있습니다.");
 		} else {
-			model.put("mypageList",mypageService.getMypagelist(userInfo.getUserId()));
+			model.put("mypageList",mypageService.getMypagelist(userInfo.getUserId(),userInfo.getUserType() ));
 		}
         
     	return "mypage/myList";
@@ -57,10 +62,34 @@ public class MypageController {
      * 현재_비밀번호 검사
      */
     @RequestMapping(value="/chkExistUserPassword")
-    public String passchk(@RequestParam String password, ModelMap model)
+    public void passchk(@RequestParam String password, @RequestParam String user_id, HttpServletResponse response)throws Exception
     {
-    	return "mypage/List";
-    }
+		SessionVO userInfo = storageService.getAuthenticatedUser();	
+		Map<String, Object> passMap = new HashMap<String, Object>();
+		password = FileScrty.encryptPassword(password);
+		passMap.put("password", password);
+		passMap.put("user_id", user_id);
+		
+		System.out.println("passMap ===== "  +passMap.toString() );
+		
+		String message= "";
+		if(userInfo == null) {
+			message = "failed";
+		} else {
+			try {  			
+				int result =  mypageService.getPasschk(passMap,userInfo.getUserType());
+				if( result <= 0){
+					response.getWriter().print("false"); 
+				}else{
+					response.getWriter().print("true"); 
+				}
+		 	} catch(Exception ex) {
+	    		response.getWriter().print("false");
+	    	} 			
+			
+		}  
+		
+ 	 }
    
  
 }

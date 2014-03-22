@@ -18,5 +18,12 @@ public interface MypageDao {
 	public int insertPushInfo(Map<String, String> params);
 
 	public List<MypageVO> getMypagelist(String user_id);
+	
+	public List<MypageVO> getMypageSellerList(String user_id);
+	
+	public int passchk_customer(Map<String, Object> passMap);
+
+	public int passchk(Map<String, Object> passMap);
+
 
 }

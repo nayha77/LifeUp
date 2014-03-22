@@ -9,6 +9,27 @@
 		 where CUSTOMER_ID = #{user_id}
 		 order by REQUEST_ID desc
 	</select>
+	<select id="getMySellerList" resultType="salesman.vo.mypage.MypageVO">
+		select REQUEST_ID as req_id,SALESMAN_BENEFIT,STATUS,CREATE_DATE 
+		  from estimate_contract
+		 where SALESMAN_ID = #{user_id}
+		 order by REQUEST_ID desc
+	</select>	
+
+	<select id="chkPass" resultType="integer" >
+		select count(SALESMAN_ID) 
+		  from  salesman
+		 where SALESMAN_ID = #{user_id}
+		 AND  PWD =#{password}
+	</select>	
+	
+	<select id="chkPass_customer" resultType="integer" >
+		select count(CUSTOMER_ID) 
+		  from  customer
+		 where CUSTOMER_ID = #{user_id}
+		 AND  PWD =#{password}
+	</select>		
+	
 	<select id="getOneDevice" resultType="hashmap">
 		select uuid, phone, reg_id, user_id 
 		  from device 

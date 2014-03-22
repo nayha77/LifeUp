@@ -3,6 +3,8 @@ package salesman.mypage.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.impl.Log4JLogger;
+
 import salesman.mypage.dao.MypageDao;
 import salesman.vo.mypage.MypageVO;
 
@@ -15,11 +17,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<MypageVO> getMypagelist(String user_id) {
-		
-		List<MypageVO> Mypages = mypageDao.getMypagelist(user_id);
+	public List<MypageVO> getMypagelist(String user_id,int user_type) {
 
-		return Mypages;
+		List<MypageVO> Mypages = null;
+		
+		if(user_type == 1){
+			 Mypages = mypageDao.getMypagelist(user_id);
+		}
+		
+		if(user_type == 2){
+			 Mypages = mypageDao.getMypageSellerList(user_id);	
+		}
+		
+		
+		return Mypages;		
+	
 	}
 
 	@Override
@@ -43,6 +55,24 @@ public class MypageServiceImpl implements MypageService {
 	
 		return mypageDao.getOneDevice(user_id);
 	}
+
+	@Override
+	public int getPasschk(Map<String, Object> passMap, int userType) {
+		
+			int chkNo = 0;
+			if(userType == 1){
+				chkNo = mypageDao.passchk_customer(passMap);
+			}
+			
+			if(userType == 2){
+				chkNo = mypageDao.passchk(passMap);	
+			}		
+			System.out.println("====== chkNo    "+ chkNo);
+			return chkNo;
+
+	}
+
+
 
 
 	
