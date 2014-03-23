@@ -31,7 +31,7 @@
 					<input type="password" name="password" id="txtUserPwd" data-clear-btn="true" autocomplete="off" data-mini="true" onKeypress="fnEnterKey('P');">				
 					<div class="ui-grid-a" data-position="fixed">
 						<div class="ui-block-a" style="width:30%">
-							<label for="name" style="width:80px; padding-top: 10px;">아이디 저장
+							<label for="name" style="width:65px; padding-top: 10px;">아이디 저장
 								<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 							</label>																 
 						</div>

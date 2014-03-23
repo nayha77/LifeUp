@@ -43,13 +43,13 @@
 					<div class="ui-field-contain">							
 						<label for="ddlSido">지역</label>
 						<fieldset data-role="controlgroup" data-type="horizontal">
-						    <select name="ddlSido" id="ddlNSido" data-mini="true" data-native-menu="true" onchange="fnAccountSidoChange(this);">
+						    <select name="ddlSido" id="ddlNSido" data-mini="false" data-native-menu="true" onchange="fnAccountSidoChange(this);">
 								<option value=''>선택</option>
 								<c:forEach items="${regions}" var="sido">
 									<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 								</c:forEach>
 						    </select>		    
-						    <select name="region" id="ddlNGugun" data-mini="true" data-native-menu="true">
+						    <select name="region" id="ddlNGugun" data-mini="false" data-native-menu="true">
 						    	<option value=''>선택</option>
 						    </select>		    
 						</fieldset>							
@@ -90,7 +90,7 @@
 					<div class="ui-field-contain">
 						<label for="vendorId">소속회사</label>
 						<fieldset data-role="controlgroup" data-type="horizontal">
-						    <select name="vendorId" id="ddlSVendor" data-mini="true" data-native-menu="true">
+						    <select name="vendorId" id="ddlSVendor" data-mini="false" data-native-menu="true">
 								<option value=''>선택</option>
 								<c:forEach items="${vendorCodes}" var="vendor">
 									<option value="${vendor.code}">${vendor.value}</option>
@@ -109,7 +109,7 @@
 			    </form>    
 		    </div>
 		        
-		    <div style="margin-right: -10px; text-align: right;">
+		    <div style="margin-right: -5px; text-align: right;">
 				<input type="button" value="회원가입" data-inline="true" data-mini="true" data-icon="plus" onclick="fnAccountValidation();" />
 			</div>	  
 		
