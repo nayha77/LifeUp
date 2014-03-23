@@ -3,6 +3,7 @@
 	$("#faqListPage").on('click', '#btnBack', function() {
 		_Commn.fnPageMove("/main");
 	});	
-	
-	_Commn.fnMarkingLeftMenu($("#menuFAQ"));
+		
+	$("#faqListPage").find("h1[id='pageTitle']").text("FAQ");	
+	_Commn.fnMarkingLeftMenu($("#faqListPage").find("a[id='menuFAQ']"));	
 });	

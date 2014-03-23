@@ -25,7 +25,7 @@
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>
 			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#right-panel" id="lnklogin">로그인</a>				
+				<a href="#right-panel" id="menuLogin">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a href="<spring:url value="/account/logout" />">로그아웃</a>

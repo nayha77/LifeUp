@@ -31,6 +31,10 @@
 		var _Commn = new webService.Web.ComnService();
 		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);					
         
+		$(document).on('pageinit', '#mainPage', function() {    			
+    		_Commn.fnMarkingLeftMenu($("#mainPage").find("a[id='menuMain']"));			
+    	}); 
+		
     	function sendUserInfoToApp(id, pwd, userType){
     		if(typeof window.HybridApp != 'undefined')
     			window.HybridApp.setMessage(id, pwd, userType);
@@ -46,7 +50,7 @@
     		if('${cookie.userId.value}' != '') {    		
 				$.cookie("userId", userId, { path: '/', expires: 365 });
 				$.cookie("userType", userType, { path: '/', expires: 365 });
-    		} 	
+    		}    		
     	});    	
     </script>    
     

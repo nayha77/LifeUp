@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 
 <div data-role="header" style="padding-top:3px; padding-bottom :3px;">
-	<h1>견적의신</h1>						
+	<h1 id="pageTitle">견적의신</h1>						
 	<a href="#" id="btnBack" data-icon="arrow-l" data-iconpos="notext" style="margin-top: 3px;">이전</a>
 	<a href="#nav-panel" data-position="right" data-reveal="reveal" data-dismissible="true" data-icon="bars" data-iconpos="notext" style="margin-top: 3px;">Menu</a>
 </div>	
@@ -9,13 +9,13 @@
 	<ul data-role="listview">
 		<li>
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#" onclick="_Commn.fnPageMove('<spring:url value="/account/login" />')" id="lnklogin" data-icon="user" data-iconpos="notext" style="height:30px; padding-top: 18px; border-right-width: 0px;">로그인</a>				
+				<a href="#" onclick="_Commn.fnPageMove('<spring:url value="/account/login" />')" id="menuLogin" data-icon="user" data-iconpos="notext" style="height:30px; padding-top: 18px; border-right-width: 0px;">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a href="#" onclick="_Commn.fnPageMove('<spring:url value="/account/logout" />')" data-icon="forward" data-iconpos="notext" style="height:30px; padding-top: 18px; border-right-width: 0px;">로그아웃</a>
 			</c:if>				
 			
-			<a href="#" data-rel="close" data-icon="delete" style="height:58px; border-left-width: 0px;"></a>
+			<a href="#" data-rel="close" data-icon="delete" style="height:60px; border-left-width: 0px;"></a>
 		</li>
 		<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/main" />')" id="menuMain" class="leftMenu" style="height:30px; padding-top: 18px;">HOME</a></li>
 		<c:if test="${not empty sessionScope._USER_INFO_}">

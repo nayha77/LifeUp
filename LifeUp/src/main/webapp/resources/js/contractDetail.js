@@ -3,9 +3,9 @@
 	$("#contractDetailPage").on('click', '#btnBack', function() {
 		_Commn.fnPageMove("/request/detail", $('#frm'));
 	});
-	
-	// 선택 메뉴 마킹
-	_Commn.fnMarkingLeftMenu($("#menuRequest"));
+		
+	$("#contractDetailPage").find("h1[id='pageTitle']").text("견적상세");	
+	_Commn.fnMarkingLeftMenu($("#contractDetailPage").find("a[id='menuRequest']"));	
 });	
 
 function fnContractSave() {

@@ -4,7 +4,8 @@
 		_Commn.fnPageMove("/request/list", $('#frm'));
 	});	
 	
-	_Commn.fnMarkingLeftMenu($("#menuRequest"));
+	$("#requestDetailPage").find("h1[id='pageTitle']").text("의뢰상세");	
+	_Commn.fnMarkingLeftMenu($("#requestDetailPage").find("a[id='menuRequest']"));	
 });
 
 function fnContractWrite(userType) {

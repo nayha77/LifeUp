@@ -3,6 +3,10 @@
 		_Commn.fnPageMove("/main");
 	});	
 	
+	$("#membershipPage").find("h1[id='pageTitle']").text("회원가입");	
+	_Commn.fnMarkingLeftMenu($("#membershipPage").find("a[id='menuLogin']"));
+	$("#membershipPage").find("a[id='menuLogin']").next().css("background-color", "#38c");
+	
 	fnValidator();
 });	
 

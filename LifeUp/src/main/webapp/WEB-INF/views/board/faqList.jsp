@@ -8,7 +8,7 @@
 <meta charset='utf-8'>
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="requestListPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="faqListPage">
 
 		<%@ include file="../include/header.jsp" %>
 		

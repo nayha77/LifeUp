@@ -179,7 +179,7 @@
 			<a href="#nav-panel" data-icon="bars" data-iconpos="notext" style="margin-top: 5px;">Menu</a>
 			
 			<c:if test="${empty sessionScope._USER_INFO_}">
-				<a href="#right-panel" id="lnklogin" data-icon="user" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
+				<a href="#right-panel" id="menuLogin" data-icon="user" data-iconpos="notext" style="margin-top: 5px;">로그인</a>				
 			</c:if>
 			<c:if test="${not empty sessionScope._USER_INFO_}">
 				<a href="#" onclick="_Commn.fnPageMove('<spring:url value="/account/logout" />')" data-icon="forward" data-iconpos="notext" style="margin-top: 5px;">로그아웃</a>

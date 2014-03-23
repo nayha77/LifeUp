@@ -4,8 +4,8 @@
 		_Commn.fnPageMove("/request/detail", $('#frm'));
 	});
 	
-	// 선택 메뉴 마킹
-	_Commn.fnMarkingLeftMenu($("#menuRequest"));
+	$("#contractFrmPage").find("h1[id='pageTitle']").text("견적의뢰");	
+	_Commn.fnMarkingLeftMenu($("#contractFrmPage").find("a[id='menuRequest']"));	
 	
 	$('#tbxSalesBenefit').focus();
 });	

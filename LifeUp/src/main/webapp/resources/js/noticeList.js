@@ -1,8 +1,9 @@
-﻿$(document).on('pageinit', '#NoticeListPage' ,function(){
+﻿$(document).on('pageinit', '#noticeListPage' ,function(){
 	
-	$("#NoticeListPage").on('click', '#btnBack', function() {
+	$("#noticeListPage").on('click', '#btnBack', function() {
 		_Commn.fnPageMove("/main");
 	});		
 	
-	_Commn.fnMarkingLeftMenu($("#menuFAQ"));
+	$("#noticeListPage").find("h1[id='pageTitle']").text("공지사항");	
+	_Commn.fnMarkingLeftMenu($("#noticeListPage").find("a[id='menuNotice']"));	
 });	

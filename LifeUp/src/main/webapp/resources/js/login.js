@@ -4,6 +4,10 @@
 		_Commn.fnPageMove("/main");
 	});	
 	
+	$("#loginPage").find("h1[id='pageTitle']").text("로그인");	
+	_Commn.fnMarkingLeftMenu($("#loginPage").find("a[id='menuLogin']"));
+	$("#loginPage").find("a[id='menuLogin']").next().css("background-color", "#38c");
+	
 	// 로그인/사용자찾기 패널 취소
 	$('a[href=#frmUserLogin]').click(function() {
     	$('#frmUserLogin').show();
@@ -29,16 +33,27 @@
 });	
 
 // 사용자/비밀번호 찾기 Div Open
-function fnOpenFindUser(title) {
-	if(title == 'U') {
+function fnActiveFormOpen(flag) {
+	var title = "로그인";
+	
+	if(flag == 'U') {
 		title = '사용자찾기';
-	} else {
+	} else if(flag == 'P') {
 		title = '비밀번호찾기';
-	}
+	} 
 	
 	$('#frmUserLogin').hide();		
-	$('#frmFindUserInfo').show();
-	$("#frmFindUserInfo").find("input[name='txtFUserId']").focus();
+	$('#frmFindUserInfo').hide();		
+
+	if(flag == "L") {
+		$('#frmUserLogin').show();				
+		$("#frmUserLogin").find("input[name='userId']").focus();
+	} else {		
+		$('#frmFindUserInfo').show();		
+		$("#frmFindUserInfo").find("input[name='txtFUserId']").focus();				
+	}
+	
+	$("#loginPage").find("h1[id='pageTitle']").text(title);
 }
 
 // 로그인 엔터입력

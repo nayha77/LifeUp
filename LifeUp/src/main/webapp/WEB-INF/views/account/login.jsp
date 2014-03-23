@@ -31,7 +31,7 @@
 					<input type="password" name="password" id="txtUserPwd" data-clear-btn="true" autocomplete="off" data-mini="true" onKeypress="fnEnterKey('P');">				
 					<div class="ui-grid-a" data-position="fixed">
 						<div class="ui-block-a" style="width:30%">
-							<label for="name" style="width:65px; padding-top: 10px;">아이디 저장
+							<label for="name" style="width:75px; padding-top: 10px;">아이디 저장
 								<input type="checkbox" name="autoLogin" id="chkAutoLogin" data-mini="true" checked="checked">
 							</label>																 
 						</div>
@@ -42,8 +42,8 @@
 					</div>							
 					<div class="ui-field-contain" style="margin-top : 0px;">
 						<div class="ui-block-a" style="width: 100%; text-align: right;">
-							<a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('P');" style="text-decoration: none; font-size: 14px;">비밀번호 찾기</a> |
-							<a href="#" data-icon="plus" data-iconpos="notext" onclick="fnOpenFindUser('U');" style="text-decoration: none; font-size: 14px;">사용자 찾기</a> | 
+							<a href="#" data-icon="plus" data-iconpos="notext" onclick="fnActiveFormOpen('P');" style="text-decoration: none; font-size: 14px;">비밀번호 찾기</a> |
+							<a href="#" data-icon="plus" data-iconpos="notext" onclick="fnActiveFormOpen('U');" style="text-decoration: none; font-size: 14px;">사용자 찾기</a> | 
 							<a href="#" data-icon="plus" data-iconpos="notext" onclick="_Commn.fnPageMove('<spring:url value="/account/membership" />');" style="text-decoration: none; font-size: 14px;">회원가입</a>
 						</div>
 					</div>	
@@ -61,7 +61,7 @@
 						<div class="ui-block-a" style="width:30%"></div>
 						<div class="ui-block-b" style="width:70%; text-align: right;">
 							<a href="#" data-rel="close" data-inline="true"data-role="button" data-theme="c" data-mini="true" onClick="fnFindUser();">사용자 찾기</a>
-							<a href="#frmUserLogin" data-inline="true" data-rel="close" data-role="button" data-theme="b" data-mini="true">취소</a>
+							<a href="#" data-inline="true" data-rel="close" data-role="button" data-theme="b" data-mini="true" onclick="fnActiveFormOpen('L');">취소</a>
 						</div>
 				    </div>		    								    			
 				</form>			

@@ -3,7 +3,8 @@
 		_Commn.fnPageMove("/main");
 	});
 	
-	_Commn.fnMarkingLeftMenu($("#menuMyInfo"));
+	$("#myPageList").find("h1[id='pageTitle']").text("내정보");	
+	_Commn.fnMarkingLeftMenu($("#myPageList").find("a[id='menuMyInfo']"));	
 });
 
 function fnMyPageReqDetail(requestId) {

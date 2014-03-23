@@ -4,9 +4,9 @@
 		_Commn.fnPageMove("/request/list");
 	});		
 	
-	// 선택 메뉴 마킹
-	_Commn.fnMarkingLeftMenu($("#menuRequest"));
-	
+	$("#requestWriteFrmPage").find("h1[id='pageTitle']").text("견적의뢰");	
+	_Commn.fnMarkingLeftMenu($("#requestWriteFrmPage").find("a[id='menuRequest']"));
+		
 	_Commn.SetDatePickter();					
 });
 

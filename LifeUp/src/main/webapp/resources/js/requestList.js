@@ -1,9 +1,10 @@
-﻿$(document).on('pageinit', '#requestListPage' ,function() {		
+﻿$(document).on('pageinit', '#requestListPage', function() {		
 	$("#requestListPage").on('click', '#btnBack', function() {		
 		_Commn.fnPageMove("/main");
-	});
-	
-	_Commn.fnMarkingLeftMenu($("#menuRequest"));
+	});	
+
+	$("#requestListPage").find("h1[id='pageTitle']").text("의뢰목록");	
+	_Commn.fnMarkingLeftMenu($("#requestListPage").find("a[id='menuRequest']"));
 	
 	$('#ddlVendor').val('${param.vendorCd}');		
 	$('#ddlSido').val('${param.sidoCd}');
