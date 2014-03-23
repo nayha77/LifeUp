@@ -17,7 +17,7 @@
 			
 			<a href="#" data-rel="close" data-icon="delete" style="height:60px; border-left-width: 0px;"></a>
 		</li>
-		<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/main" />')" id="menuMain" class="leftMenu" style="height:30px; padding-top: 18px;">HOME</a></li>
+		<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/main" />')" id="menuMain" class="leftMenu" style="background-color:#38c; height:30px; padding-top: 18px;">HOME</a></li>
 		<c:if test="${not empty sessionScope._USER_INFO_}">
 			<li><a href="#" onclick="_Commn.fnPageMove('<spring:url value="/mypage/list" />')" id="menuMyInfo" class="leftMenu" style="height:30px; padding-top: 18px;">내정보</a></li>							
 		</c:if>	 				

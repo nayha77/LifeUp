@@ -29,11 +29,7 @@
 	
     <script type="text/javascript">
 		var _Commn = new webService.Web.ComnService();
-		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);					
-        
-		$(document).on('pageinit', '#mainPage', function() {    			
-    		_Commn.fnMarkingLeftMenu($("#mainPage").find("a[id='menuMain']"));			
-    	}); 
+		var _Async = new webService.Web.AsyncService(_Commn.fnBeforRun, _Commn.fnAfterRun);					       
 		
     	function sendUserInfoToApp(id, pwd, userType){
     		if(typeof window.HybridApp != 'undefined')
@@ -51,7 +47,7 @@
 				$.cookie("userId", userId, { path: '/', expires: 365 });
 				$.cookie("userType", userType, { path: '/', expires: 365 });
     		}    		
-    	});    	
+    	});    	    	
     </script>    
     
 	<script src='<spring:url value="/resources/js/login.js"/>'></script>	
