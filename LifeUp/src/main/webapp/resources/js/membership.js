@@ -1,5 +1,5 @@
 ﻿$(document).on('pageinit', '#membershipPage' ,function() {
-	$("#loginPage").on('click', '#btnBack', function() {
+	$("#membershipPage").on('click', '#btnBack', function() {
 		_Commn.fnPageMove("/main");
 	});	
 	
