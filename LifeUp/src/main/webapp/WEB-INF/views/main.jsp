@@ -36,8 +36,7 @@
     			window.HybridApp.setMessage(id, pwd, userType);
     	}   
     	
-    	$(function() {
-    		
+    	$(function() {    		
     		var userId   = '${cookie.userId.value}'; 
     		var userType = '${cookie.userType.value}';
 
