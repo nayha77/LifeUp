@@ -8,7 +8,7 @@
 <meta charset='utf-8'>
 </head>
 <body>
-	<div data-role="page" class="jqm-demos ui-responsive-panel" id="loginPage">
+	<div data-role="page" class="jqm-demos ui-responsive-panel" id="membershipPage">
 
 		<%@ include file="../include/header.jsp" %>
 		
@@ -43,20 +43,20 @@
 					<div class="ui-field-contain">							
 						<label for="ddlSido">지역</label>
 						<fieldset data-role="controlgroup" data-type="horizontal">
-						    <select name="ddlSido" id="ddlNSido" data-native-menu="true" onchange="fnSidoChange(this);">
+						    <select name="ddlSido" id="ddlNSido" data-mini="true" data-native-menu="true" onchange="fnAccountSidoChange(this);">
 								<option value=''>선택</option>
 								<c:forEach items="${regions}" var="sido">
 									<option value="${sido.sido_cd}">${sido.sido_nm}</option>
 								</c:forEach>
 						    </select>		    
-						    <select name="region_cd" id="ddlNGugun" data-native-menu="true" onchange="fnChangeDDL(this);">
+						    <select name="region" id="ddlNGugun" data-mini="true" data-native-menu="true">
 						    	<option value=''>선택</option>
 						    </select>		    
 						</fieldset>							
 				    </div>	            
 				    <div class="ui-field-contain">    	 
 				         <label for="mobile">전화번호</label>
-				         <input type="text" id='tbxNMobile' name='mobile' />
+				         <input type="text" maxlength="11" id='tbxNMobile' name='mobile' onkeydown='return _Commn.fnNumberChkInputBox(event);' />
 				    </div>                 
 			    </form>
 		    </div>
@@ -81,16 +81,16 @@
 				    </div>     
 				    <div class="ui-field-contain">    	 
 				         <label for="mobile">핸드폰 번호</label>
-				         <input type="text" data-clear-btn="true" id='tbxSMobile' name='mobile' />
+				         <input type="text" maxlength="11" data-clear-btn="true" id='tbxSMobile' name='mobile' onkeydown='return _Commn.fnNumberChkInputBox(event);' />
 				    </div>  
 				    <div class="ui-field-contain">    	 
 				         <label for="officeNo">사무실 전화번호</label>
-				         <input type="text" data-clear-btn="true" id='tbxOffice' name='officeNo' />
+				         <input type="text" maxlength="11" data-clear-btn="true" id='tbxOffice' name='officeNo' onkeydown='return _Commn.fnNumberChkInputBox(event);' />
 				    </div> 
 					<div class="ui-field-contain">
 						<label for="vendorId">소속회사</label>
 						<fieldset data-role="controlgroup" data-type="horizontal">
-						    <select name="vendorId" id="ddlSVendor" data-native-menu="false">
+						    <select name="vendorId" id="ddlSVendor" data-mini="true" data-native-menu="true">
 								<option value=''>선택</option>
 								<c:forEach items="${vendorCodes}" var="vendor">
 									<option value="${vendor.code}">${vendor.value}</option>
@@ -110,8 +110,7 @@
 		    </div>
 		        
 		    <div style="margin-right: -10px; text-align: right;">
-				<input type="button" value="회원가입" data-inline="true" data-icon="plus" onclick="fnValidation();" />
-				<a href="<spring:url value="/main" />" data-role="button" data-icon="grid" data-inline="true">취소</a>
+				<input type="button" value="회원가입" data-inline="true" data-mini="true" data-icon="plus" onclick="fnAccountValidation();" />
 			</div>	  
 		
 			<input type="checkbox" name="chkAgreeOne" id="chkAgreeOne" data-mini="true" onClick="fnShowDoc(1);">

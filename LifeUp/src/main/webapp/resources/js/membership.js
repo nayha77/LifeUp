@@ -24,7 +24,7 @@ function fnChoiceUser(userType) {
 	}	
 }
 
-function fnValidation() {
+function fnAccountValidation() {
 	if( !$('#chkAgreeOne').is(":checked") || !$('#chkAgreeTwo').is(":checked")) {
 		alert('이용약관과 개인정보 수집 및 이용에 대한 안내를 모두 동의해주세요');
 		return false;
@@ -53,7 +53,7 @@ function fnValidator() {
         	password: { required: true },
         	passwordConfirm: { equalTo: "#tbxNPwd" },
             mobile: { required: true },
-            region_cd: { required: true }
+            region: { required: true }
         },
         messages: {
             userId: {
@@ -65,7 +65,7 @@ function fnValidator() {
 			password: { required: "비밀번호를 입력하세요." },
 			passwordConfirm: { equalTo: "비밀번호를 다시 확인하세요." },                       
             mobile: { required: "전화번호를 입력해주세요" },
-            region_cd: { required: "거주지역을 선택해주세요" }
+            region: { required: "거주지역을 선택해주세요" }
         }
     });
 	
@@ -107,7 +107,8 @@ function fnValidator() {
     });		
 }
 
-function fnSidoChange(obj){
+function fnAccountSidoChange(obj) {
+
 	if(obj.value == '0')			
 		return;
 		
@@ -123,8 +124,7 @@ function fnSidoChange(obj){
 				$("#ddlNGugun").append("<option value='"+ row.gugun_cd +"'>" + row.gugun_nm  + "</option>");
 			});
 			
-			$("#ddlNGugun").show();
-			$("#ddlNGugun").selectmenu("refresh");
+			$("#frmNormal").find("select[name='region']").selectmenu("refresh");
 		}    			
 	);   	         
 }		

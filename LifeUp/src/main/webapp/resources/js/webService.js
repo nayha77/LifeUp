@@ -25,11 +25,7 @@
         			allowSamePageTransition : false        			
         		});        		
         	};
-        	        	
-            this.fnOpenLoginPanel = function() {
-            	$("#lnklogin").trigger("click");
-            };
-            
+        	        	            
             this.fnMarkingLeftMenu = function(obj) {
             	$(".leftMenu").css("background-color", "");
             	$(obj).css("background-color", "#38c");
@@ -74,12 +70,22 @@
 
                 return today;
             };
-            
+                        
             // 숫자여부 판별
-            this.IsNumeric = function (input) {
+            this.IsNumeric = function (e) {
+            	var inputChar = String.fromCharCode(e.keyCode);
                 var RE = /^-{0,1}\d*\.{0,1}\d+$/;
-                return (RE.test(input));
-            };            
+                return (RE.test(inputChar));
+            };
+            
+            // only Number Inputbox를 위한 체크 ex) 전화번호 
+            this.fnNumberChkInputBox = function (e) {
+            	// 백스페이스, TAB, DEL, 좌, 우 Key는 ok
+            	if(e.keyCode == 8 || e.keyCode == 9 || e.keyCode == 46 || e.keyCode == 37 || e.keyCode == 39)
+            		return true;
+            	else
+            		return this.IsNumeric(e);
+            };
         }
         ,
         AsyncService: function (before, after) {
