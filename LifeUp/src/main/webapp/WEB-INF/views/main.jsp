@@ -36,14 +36,18 @@
     			window.HybridApp.setMessage(id, pwd, userType);
     	}   
     	
-    	$(function() {    		
-    		if('${cookie.userId.value}' != '') {
-				$.cookie("userId", '${cookie.userId.value}', { path: '/', expires: 365 });
-				$.cookie("userType", '${cookie.userType.value}');
-    		} else {
-				$.removeCookie("userId");
-				$.removeCookie("userType");
-    		}	
+    	$(function() {
+    		
+    		var userId   = '${cookie.userId.value}'; 
+    		var userType = '${cookie.userType.value}';
+
+    		$.removeCookie("userId");
+			$.removeCookie("userType");
+    		
+    		if('${cookie.userId.value}' != '') {    		
+				$.cookie("userId", userId, { path: '/', expires: 365 });
+				$.cookie("userType", userType, { path: '/', expires: 365 });
+    		} 	
     	});    	
     </script>    
     
